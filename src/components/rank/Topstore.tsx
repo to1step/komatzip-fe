@@ -14,7 +14,7 @@ interface StoreData {
   endTime: string;
 }
 
-const TopStore = () => {
+const Topstore = () => {
   const [topStore, setTopStore] = useState<StoreData | null>(null);
 
   useEffect(() => {
@@ -74,4 +74,4 @@ const TopStore = () => {
   );
 };
 
-export default TopStore;
+export default Topstore;
