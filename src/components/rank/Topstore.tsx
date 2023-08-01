@@ -58,9 +58,9 @@ const Topstore = () => {
             <div>
               <h3 className="text-lg font-bold">Tags</h3>
               <ul>
-                {topStore.tags.map((tag) => (
-                  <li key={tag} className="text-sm">
-                    {tag}
+                {topStore.tags.map((tags) => (
+                  <li key={tags} className="text-sm">
+                    {topStore.tags}
                   </li>
                 ))}
               </ul>
