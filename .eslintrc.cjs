@@ -23,5 +23,6 @@ module.exports = {
       { namedComponents: ['arrow-function', 'function-declaration'] },
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'no-console': 'off',
   },
 };

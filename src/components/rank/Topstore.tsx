@@ -25,16 +25,14 @@ const TopStore = () => {
         );
         setTopStore(response.data[0]); // 순위 1등 매장 정보 저장
       } catch (error) {
-        handleFetchError(error);
+        if (axios.isAxiosError(error)) {
+          console.log('API 호출 중 에러 발생:', error);
+        }
       }
     };
 
     fetchData();
   }, []);
-
-  const handleFetchError = (error: Error) => {
-    console.log('API 호출 중 에러 발생:', error);
-  };
 
   return (
     <div className="p-4">
