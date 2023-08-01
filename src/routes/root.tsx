@@ -1,4 +1,19 @@
-export default function Root() {
+import React, { ReactElement } from 'react';
+
+interface ContactItemProps {
+  id: number;
+  name: string;
+}
+
+function ContactItem({ id, name }: ContactItemProps): ReactElement {
+  return (
+    <li>
+      <a href={`/contacts/${id}`}>{name}</a>
+    </li>
+  );
+}
+
+export default function Root(): ReactElement {
   return (
     <>
       <div id="sidebar">
@@ -12,8 +27,8 @@ export default function Root() {
               type="search"
               name="q"
             />
-            <div id="search-spinner" aria-hidden hidden={true} />
-            <div className="sr-only" aria-live="polite"></div>
+            <div id="search-spinner" aria-hidden />
+            <div className="sr-only" aria-live="polite" />
           </form>
           <form method="post">
             <button type="submit">New</button>
@@ -21,16 +36,12 @@ export default function Root() {
         </div>
         <nav>
           <ul>
-            <li>
-              <a href={`/contacts/1`}>Your Name</a>
-            </li>
-            <li>
-              <a href={`/contacts/2`}>Your Friend</a>
-            </li>
+            <ContactItem id={1} name="Your Name" />
+            <ContactItem id={2} name="Your Friend" />
           </ul>
         </nav>
       </div>
-      <div id="detail"></div>
+      <div id="detail" />
     </>
   );
 }
