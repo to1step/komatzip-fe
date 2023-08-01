@@ -41,6 +41,28 @@ const TopStore = () => {
             <h2 className="text-lg font-bold">{topStore.name}</h2>
             <p className="text-sm">{topStore.description}</p>
             <p className="text-sm">{topStore.location}</p>
+
+            <p>UUID: {topStore.uuid}</p>
+            <p>Category: {topStore.category}</p>
+            <p>Coordinates: {topStore.coordinates.join(', ')}</p>
+            <img
+              src={topStore.representImage}
+              alt={topStore.name}
+              className="w-48 h-auto mt-4"
+            />
+            <p>Start Time: {topStore.startTime}</p>
+            <p>End Time: {topStore.endTime}</p>
+
+            <div>
+              <h3 className="text-lg font-bold">Tags</h3>
+              <ul>
+                {topStore.tags.map((tag) => (
+                  <li key={tag} className="text-sm">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       ) : (
