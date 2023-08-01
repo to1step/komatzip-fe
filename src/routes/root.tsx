@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import TopStore from '../components/rank/TopStore';
+import TopStore from '../components/rank/Topstore';
 
 export default function Root(): ReactElement {
   return (
