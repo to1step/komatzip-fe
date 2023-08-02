@@ -24,7 +24,7 @@ interface StoreReview {
   review: string;
 }
 
-const StoreInfo = () => {
+const StoreInfo = ({ StoreInfoProps: store }) => {
   return <div>특정 가게 정보를 가져와 모달로 구현한 컴포넌트입니다.</div>;
 };
 
