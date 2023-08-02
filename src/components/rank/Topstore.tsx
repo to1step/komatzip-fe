@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import StoreInfo from './StoreInfo';
 
 interface StoreData {
   uuid: string;
@@ -16,6 +18,7 @@ interface StoreData {
 
 const Topstore = () => {
   const [topStore, setTopStore] = useState<StoreData | null>(null);
+  const [isModelOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,37 +37,47 @@ const Topstore = () => {
     fetchData();
   }, []);
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="p-4">
       {topStore ? (
         <div>
           <h1 className="text-3xl font-bold mb-2">이번주 Top 매장</h1>
           <div>
-            <h2 className="text-lg font-bold">{topStore.name}</h2>
-            <p className="text-sm">{topStore.description}</p>
-            <p className="text-sm">{topStore.location}</p>
+            <button Onclick={handleOpenModal}>
+              <h2 className="text-lg font-bold">{topStore.name}</h2>
+              <p className="text-sm">{topStore.description}</p>
+              <p className="text-sm">{topStore.location}</p>
 
-            <p>UUID: {topStore.uuid}</p>
-            <p>Category: {topStore.category}</p>
-            <p>Coordinates: {topStore.coordinates.join(', ')}</p>
-            <img
-              src={topStore.representImage}
-              alt={topStore.name}
-              className="w-48 h-auto mt-4"
-            />
-            <p>Start Time: {topStore.startTime}</p>
-            <p>End Time: {topStore.endTime}</p>
+              <p>UUID: {topStore.uuid}</p>
+              <p>Category: {topStore.category}</p>
+              <p>Coordinates: {topStore.coordinates.join(', ')}</p>
+              <img
+                src={topStore.representImage}
+                alt={topStore.name}
+                className="w-48 h-auto mt-4"
+              />
+              <p>Start Time: {topStore.startTime}</p>
+              <p>End Time: {topStore.endTime}</p>
 
-            <div>
-              <h3 className="text-lg font-bold">Tags</h3>
-              <ul>
-                {topStore.tags.map((tags) => (
-                  <li key={tags} className="text-sm">
-                    {topStore.tags}
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <div>
+                <h3 className="text-lg font-bold">Tags</h3>
+                <ul>
+                  {topStore.tags.map((tags) => (
+                    <li key={tags} className="text-sm">
+                      {topStore.tags}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </button>
           </div>
         </div>
       ) : (
