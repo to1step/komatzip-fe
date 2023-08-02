@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import StoreInfo from './StoreInfo';
+// import { Link } from 'react-router-dom';
+// import StoreInfo from '../modal/StoreInfo';
 
 interface StoreData {
   uuid: string;
@@ -51,7 +51,7 @@ const Topstore = () => {
         <div>
           <h1 className="text-3xl font-bold mb-2">이번주 Top 매장</h1>
           <div>
-            <button Onclick={handleOpenModal}>
+            <button onClick={handleOpenModal}>
               <h2 className="text-lg font-bold">{topStore.name}</h2>
               <p className="text-sm">{topStore.description}</p>
               <p className="text-sm">{topStore.location}</p>
@@ -77,6 +77,7 @@ const Topstore = () => {
                   ))}
                 </ul>
               </div>
+              <button onClick={handleCloseModal}>닫기</button>
             </button>
           </div>
         </div>
