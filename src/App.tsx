@@ -1,22 +1,19 @@
 import './App.css';
-import {User} from '@to1step/propose-backend';
+import { User } from '@to1step/propose-backend';
+import { Route, Routes } from 'react-router-dom';
+import Post from './pages/post/Post';
+import Topstore from './components/rank/Topstore';
+import StartPage from './pages/startpage/StartPage';
+
 function App() {
-  const a: User = {
-    uuid: '1234',
-    email: '1234',
-    password: '1234',
-    nickname: '1234',
-    provider: '1234',
-    snsId: '1234',
-    profileImage: '1234',
-    commentAlarm: false,
-    updateAlarm: true,
-  };
-  console.log(a);
   return (
-    <div>
-      <h1>Vite + React</h1>
-    </div>
+    <>
+      <h1>코맛집</h1>
+      <Routes>
+        <Route path="/" element={<Topstore />} />
+        <Route path="/post" element={<Post />} />
+      </Routes>
+    </>
   );
 }
 

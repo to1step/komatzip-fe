@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 // import StoreInfo from '../modal/StoreInfo';
 
@@ -19,12 +20,13 @@ interface StoreData {
 const Topstore = () => {
   const [topStore, setTopStore] = useState<StoreData | null>(null);
   const [isModelOpen, setIsModalOpen] = useState(false);
+  const { region } = useParams<{ region: string }>();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get<StoreData[]>(
-          'https://api.to1step.shop/v1/rank',
+          `https://api.to1step.shop/v1/rank?type=store&region=${region}`,
         );
         setTopStore(response.data[0]); // 순위 1등 매장 정보 저장
       } catch (error) {
@@ -35,7 +37,7 @@ const Topstore = () => {
     };
 
     fetchData();
-  }, []);
+  }, [region]);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -83,6 +85,13 @@ const Topstore = () => {
         </div>
       ) : (
         <p>데이터를 불러오는 중입니다...</p>
+      )}
+
+      {isModelOpen && (
+        <div className="modal">
+          {/* 모달추가 */}
+          <button onClick={handleCloseModal}>닫기</button>
+        </div>
       )}
     </div>
   );
