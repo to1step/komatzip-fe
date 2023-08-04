@@ -25,9 +25,14 @@ const Topstore = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // const response = await axios.get<StoreData[]>(
+        //   `https://api.to1step.shop/v1/rank?type=store&region=${region}`,
+        // );
         const response = await axios.get<StoreData[]>(
-          `https://api.to1step.shop/v1/rank?type=store&region=${region}`,
+          `https://api.to1step.shop/v1/rank?type=store&region=서울시%20송파구`,
         );
+        const data: StoreData[] = response.data;
+        console.log(data);
         setTopStore(response.data[0]); // 순위 1등 매장 정보 저장
       } catch (error) {
         if (axios.isAxiosError(error)) {
