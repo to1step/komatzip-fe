@@ -1,4 +1,4 @@
-interface Komatzip {
+export interface Komatzip {
   email: string;
   password: string;
   nickname: string;
