@@ -10,13 +10,13 @@ module.exports = {
   // 들여쓰기 공백 수 [default]
   tabWidth: 2,
   // 가능하면 후행 쉼표 사용 [default]
-  trailingComma: "all",
+  trailingComma: 'all',
   // 줄 바꿈할 길이 [default]
   printWidth: 80,
   // 객체 괄호에 공백 삽입 [default]
   bracketSpacing: true,
   // 항상 화살표 함수의 매개 변수를 괄호로 감쌈 [default]
-  arrowParens: "always",
+  arrowParens: 'always',
   // OS에 따른 코드라인 끝 처리 방식 사용 (윈도우 맥 등 병행 작업 때문에 설정)
-  endOfLine: "auto",
+  endOfLine: 'auto',
 };
