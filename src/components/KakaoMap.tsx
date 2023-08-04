@@ -16,7 +16,35 @@ const KakaoMap: React.FC = () => {
           center: new window.kakao.maps.LatLng(37.5665, 126.978), // 서울시청 좌표
           level: 4,
         };
-        new window.kakao.maps.Map(container, options);
+
+        // 카카오맵 생성
+        const map = new window.kakao.maps.Map(container, options);
+
+        // 여러 개의 마커 정보를 배열로 준비
+        const markersData = [
+          {
+            title: '마커1',
+            latlng: new window.kakao.maps.LatLng(37.5665, 126.978),
+          },
+          {
+            title: '마커2',
+            latlng: new window.kakao.maps.LatLng(37.5642, 126.9751),
+          },
+          // 여러 개의 마커 정보를 추가할 수 있음
+        ];
+
+        // 각 마커 정보를 이용하여 마커 생성 및 이벤트 등록
+        markersData.forEach((markerInfo) => {
+          const marker = new window.kakao.maps.Marker({
+            map: map,
+            position: markerInfo.latlng,
+          });
+
+          // 마커 클릭 이벤트 등록
+          window.kakao.maps.event.addListener(marker, 'click', function () {
+            alert(markerInfo.title + ' 마커를 클릭했습니다.');
+          });
+        });
       });
     };
   }, []);
