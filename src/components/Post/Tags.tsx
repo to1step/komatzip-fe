@@ -37,9 +37,19 @@ const Tags = () => {
 
   return (
     <div>
-      {tags.map((tag, index) => (
-        <article key={index}>
-          <p>#{tag.tags.join(', ')}</p>
+      {tags.map((tagList, listIndex) => (
+        <article
+          key={listIndex}
+          className="flex justify-center items-center flex-shrink-0 "
+        >
+          {tagList.tags.map((singleTag, tagIndex) => (
+            <p
+              key={tagIndex}
+              className="flex justify-center flex-shrink-0 w-52 h-22 text-white text-center text-xs font-normal w-20 h-22 rounded-2xl bg-blue-500"
+            >
+              #{singleTag}
+            </p>
+          ))}
         </article>
       ))}
     </div>
