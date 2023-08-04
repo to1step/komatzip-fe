@@ -5,8 +5,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    // 'airbnb',
-    // 'airbnb/hooks',
     'prettier',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
@@ -16,23 +14,6 @@ module.exports = {
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
-    ],
-    'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
-    'react/function-component-definition': [
-      2,
-      { namedComponents: ['arrow-function', 'function-declaration'] },
-    ],
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-    'no-console': 'off',
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-      },
     ],
   },
   settings: {
