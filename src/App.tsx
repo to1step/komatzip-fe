@@ -4,7 +4,7 @@ import { Route, Routes, Link } from 'react-router-dom';
 import Post from './pages/post/Post';
 import Topstore from './components/rank/Topstore';
 import Search from './components/search/Search';
-
+import KakaoMap from './components/KakaoMap';
 function App() {
   return (
     <>
@@ -13,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Topstore />} />
         <Route path="/post" element={<Post />} />
+        <Route path="/mappage" element={<KakaoMap />} />
       </Routes>
     </>
   );
