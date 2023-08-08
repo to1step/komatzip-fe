@@ -39,12 +39,9 @@ const Description = () => {
   };
 
   return (
-    <div>
+    <div className="flex justify-center items-center flex-shrink-0 text-gray-700 text-base font-normal w-308">
       {tags.map((descriptionList, listIndex) => (
-        <article
-          key={listIndex}
-          className="flex justify-center items-center flex-shrink-0 "
-        >
+        <article key={listIndex}>
           <p>{descriptionList.description}</p>
         </article>
       ))}
