@@ -2,9 +2,9 @@ import './App.css';
 import { User } from '@to1step/propose-backend';
 import { Route, Routes, Link } from 'react-router-dom';
 import Post from './pages/post/Post';
-import Topstore from './components/Rank/Topstore';
 import Search from './components/Search/Search';
 import Tags from './components/Post/Tags';
+import Description from './components/Post/Description';
 
 function App() {
   return (
@@ -12,8 +12,8 @@ function App() {
       <Link to="/">진짜 한국</Link>
       <Search />
       <Tags />
+      <Description />
       <Routes>
-        <Route path="/" element={<Topstore />} />
         <Route path="/post" element={<Post />} />
       </Routes>
     </>
