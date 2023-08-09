@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Komatzip } from '../../type';
+import { Rank } from '../../type';
 
 interface LocationProps {
   location: string;
@@ -15,15 +15,15 @@ const Location = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<Komatzip[]>(
+      const response = await axios.get<Rank[]>(
         `https://api.to1step.shop/v1/rank?type=store&region=서울시%20송파구`,
       );
       const responseData = response.data;
 
       if (Array.isArray(responseData.data)) {
         const processData: LocationProps[] = responseData.data.map(
-          (komatzip: Komatzip) => ({
-            location: komatzip.location,
+          (rank: Rank) => ({
+            location: rank.location,
           }),
         );
         setLocations((prevLocation) => [...prevLocation, ...processData]);
@@ -39,9 +39,9 @@ const Location = () => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-shrink-0 text-gray-700 text-base font-normal w-308">
+    <div>
       {locations.map((locationList, listIndex) => (
-        <article key={listIndex}>
+        <article key={listIndex} className="h-14px text-xs">
           <p>{locationList.location}</p>
         </article>
       ))}

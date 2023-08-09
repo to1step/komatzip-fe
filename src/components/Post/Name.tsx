@@ -39,10 +39,10 @@ const Name = () => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-shrink-0 text-gray-700 text-base font-normal w-308 border-black">
+    <div className="w-303px">
       {names.map((NameList, listIndex) => (
         <article key={listIndex}>
-          <p>{NameList.name}</p>
+          <p className="text-xl">{NameList.name}</p>
         </article>
       ))}
     </div>

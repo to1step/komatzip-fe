@@ -46,7 +46,7 @@ const Tags = () => {
           {sortTagsAscending(tagList.tags).map((singleTag, tagIndex) => (
             <p
               key={tagIndex}
-              className="w-20 h-22 text-white text-center text-xs font-normal rounded-3xl bg-blue-500"
+              className="w-20 h-22 text-white text-center text-xs rounded-3xl bg-blue-500"
             >
               #{singleTag}
             </p>

@@ -38,8 +38,8 @@ const Category = () => {
   return (
     <div>
       {categories.map((categoryList, listIndex) => (
-        <article key={listIndex} className="items-center flex-shrink-0 ">
-          <p className="w-10 h-22 text-white text-center text-xs font-normal w-20 h-22 rounded-2xl bg-red-500">
+        <article key={listIndex}>
+          <p className="w-10 h-22 text-white text-center text-xs font-normal rounded-2xl bg-red-500">
             {categoryList.category}
           </p>
         </article>
