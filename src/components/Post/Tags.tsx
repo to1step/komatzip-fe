@@ -42,14 +42,11 @@ const Tags = () => {
   return (
     <div>
       {tags.map((tagList, listIndex) => (
-        <article
-          key={listIndex}
-          className="flex justify-center items-center flex-shrink-0 "
-        >
+        <article key={listIndex}>
           {sortTagsAscending(tagList.tags).map((singleTag, tagIndex) => (
             <p
               key={tagIndex}
-              className="flex justify-center flex-shrink-0 w-20 h-22 text-white text-center text-xs font-normal rounded-3xl bg-blue-500"
+              className="w-20 h-22 text-white text-center text-xs font-normal rounded-3xl bg-blue-500"
             >
               #{singleTag}
             </p>

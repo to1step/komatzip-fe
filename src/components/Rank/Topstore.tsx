@@ -10,7 +10,7 @@ import Category from '../Post/Category';
 
 const Topstore = () => {
   return (
-    <div>
+    <div className="fles justify-center items-center w-320 h-394">
       <Image />
       <Name />
       <Location />

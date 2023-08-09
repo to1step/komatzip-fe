@@ -42,10 +42,12 @@ const Description = () => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-shrink-0 text-gray-700 text-base font-normal w-308 border-black">
+    <div className="flex justify-center items-center flex-shrink-0 text-gray-700 text-base ">
       {descriptions.map((descriptionList, listIndex) => (
         <article key={listIndex}>
-          <p>{descriptionList.description}</p>
+          <p className="text-xs border-black w-308">
+            {descriptionList.description}
+          </p>
         </article>
       ))}
     </div>
