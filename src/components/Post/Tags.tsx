@@ -35,6 +35,10 @@ const Tags = () => {
     }
   };
 
+  const sortTagsAscending = (tagsArray: string[]) => {
+    return tagsArray.slice().sort();
+  };
+
   return (
     <div>
       {tags.map((tagList, listIndex) => (
@@ -42,10 +46,10 @@ const Tags = () => {
           key={listIndex}
           className="flex justify-center items-center flex-shrink-0 "
         >
-          {tagList.tags.map((singleTag, tagIndex) => (
+          {sortTagsAscending(tagList.tags).map((singleTag, tagIndex) => (
             <p
               key={tagIndex}
-              className="flex justify-center flex-shrink-0 w-20 h-22 text-white text-center text-xs font-normal w-20 h-22 rounded-2xl bg-blue-500"
+              className="flex justify-center flex-shrink-0 w-20 h-22 text-white text-center text-xs font-normal rounded-3xl bg-blue-500"
             >
               #{singleTag}
             </p>
