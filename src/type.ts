@@ -50,3 +50,16 @@ interface CourseReview {
   user: string;
   review: string;
 }
+
+interface Rank {
+  uuid: string;
+  name: string;
+  category: number;
+  description: string;
+  location: string;
+  coordinates: number[];
+  representImage: string;
+  tags: string[];
+  startTime: string;
+  endTime: string;
+}
