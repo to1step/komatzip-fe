@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Rank } from '../../type';
 
-interface LocationProps {
-  location: string;
+interface ImageProps {
+  representImage: string;
 }
 
-const Location = () => {
-  const [locations, setLocations] = useState<LocationProps[]>([]);
+const Image = () => {
+  const [images, setImages] = useState<ImageProps[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -21,12 +21,12 @@ const Location = () => {
       const responseData = response.data;
 
       if (Array.isArray(responseData.data)) {
-        const processData: LocationProps[] = responseData.data.map(
-          (komatzip: Komatzip) => ({
-            location: komatzip.location,
+        const processData: ImageProps[] = responseData.data.map(
+          (rank: Rank) => ({
+            representImage: rank.representImage,
           }),
         );
-        setLocations((prevLocation) => [...prevLocation, ...processData]);
+        setImages((prevImage) => [...prevImage, ...processData]);
       } else {
         console.error(
           '데이터를 가져오는 중에 에러가 발생했다! 그 이유는',
@@ -40,13 +40,13 @@ const Location = () => {
 
   return (
     <div className="flex justify-center items-center flex-shrink-0 text-gray-700 text-base font-normal w-308">
-      {locations.map((locationList, listIndex) => (
+      {images.map((imagesList, listIndex) => (
         <article key={listIndex}>
-          <p>{locationList.location}</p>
+          <p>{imagesList.representImage}</p>
         </article>
       ))}
     </div>
   );
 };
 
-export default Location;
+export default Image;
