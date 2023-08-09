@@ -42,7 +42,7 @@ const Image = () => {
     <div className="flex justify-center items-center flex-shrink-0 text-gray-700 text-base font-normal w-308">
       {images.map((imagesList, listIndex) => (
         <article key={listIndex}>
-          <p>{imagesList.representImage}</p>
+          <img src={imagesList.representImage} alt={`Image ${listIndex}`} />
         </article>
       ))}
     </div>
