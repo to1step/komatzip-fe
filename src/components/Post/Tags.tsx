@@ -45,7 +45,7 @@ const Tags = () => {
           {tagList.tags.map((singleTag, tagIndex) => (
             <p
               key={tagIndex}
-              className="flex justify-center flex-shrink-0 w-52 h-22 text-white text-center text-xs font-normal w-20 h-22 rounded-2xl bg-blue-500"
+              className="flex justify-center flex-shrink-0 w-20 h-22 text-white text-center text-xs font-normal w-20 h-22 rounded-2xl bg-blue-500"
             >
               #{singleTag}
             </p>
