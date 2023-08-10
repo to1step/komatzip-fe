@@ -4,10 +4,15 @@ import { Rank } from '../../type';
 
 interface ImageProps {
   representImage: string;
+  addressData: {
+    region_1depth_name: string;
+    region_2depth_name: string;
+  } | null;
 }
 
 const Image = () => {
   const [images, setImages] = useState<ImageProps[]>([]);
+  const [addressData, setAddressData] = useState<ImageProps[]>(null);
 
   useEffect(() => {
     fetchData();
@@ -15,23 +20,25 @@ const Image = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<Rank[]>(
-        `https://api.to1step.shop/v1/rank?type=store&region=서울시%20송파구`,
-      );
-      const responseData = response.data;
+      if (addressData) {
+        const response = await axios.get<Rank[]>(
+          `https://api.to1step.shop/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
+        );
+        const responseData = response.data;
 
-      if (Array.isArray(responseData.data)) {
-        const processData: ImageProps[] = responseData.data.map(
-          (rank: Rank) => ({
-            representImage: rank.representImage,
-          }),
-        );
-        setImages((prevImage) => [...prevImage, ...processData]);
-      } else {
-        console.error(
-          '데이터를 가져오는 중에 에러가 발생했다! 그 이유는',
-          responseData.data,
-        );
+        if (Array.isArray(responseData.data)) {
+          const processData: ImageProps[] = responseData.data.map(
+            (rank: Rank) => ({
+              representImage: rank.representImage,
+            }),
+          );
+          setImages((prevImage) => [...prevImage, ...processData]);
+        } else {
+          console.error(
+            '데이터를 가져오는 중에 에러가 발생했다! 그 이유는',
+            responseData.data,
+          );
+        }
       }
     } catch (error) {
       console.log('에러:', error);

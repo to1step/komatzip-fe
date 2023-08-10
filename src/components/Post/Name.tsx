@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Komatzip } from '../../type';
+import { Rank } from '../../type';
 
 interface NameProps {
   name: string;
@@ -15,15 +15,15 @@ const Name = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<Komatzip[]>(
+      const response = await axios.get<Rank[]>(
         `https://api.to1step.shop/v1/rank?type=store&region=서울시%20송파구`,
       );
       const responseData = response.data;
 
       if (Array.isArray(responseData.data)) {
         const processData: NameProps[] = responseData.data.map(
-          (komatzip: Komatzip) => ({
-            name: komatzip.name,
+          (rank: Rank) => ({
+            name: rank.name,
           }),
         );
         setNames((prevName) => [...prevName, ...processData]);

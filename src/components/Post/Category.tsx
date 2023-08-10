@@ -19,6 +19,7 @@ const Category = () => {
         `https://api.to1step.shop/v1/rank?type=store&region=서울시%20송파구`,
       );
       const responseData = response.data;
+      console.log(responseData);
 
       if (Array.isArray(responseData.data)) {
         const processData: CategoryProps[] = responseData.data.map(

@@ -10,9 +10,22 @@ import Category from '../Post/Category';
 // import { Link } from 'react-router-dom';
 // import StoreInfo from '../modal/StoreInfo';
 
+interface TopStoreProps {
+  uuid: string;
+  name: string;
+  category: number;
+  description: string;
+  location: string;
+  coordinates: number[];
+  representImage: string;
+  tags: string[];
+  startTime: string;
+  endTime: string;
+}
+
 const Topstore = () => {
-  const [address, setAddress] = useState<string | null>(null); // 주소 타입 변경
-  const [data, setData] = useState<Rank[]>([]); // Rank 타입 배열로 바꿈
+  const [address, setAddress] = useState<string | null>(null);
+  const [data, setData] = useState<TopStoreProps[]>([]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -34,7 +47,7 @@ const Topstore = () => {
             if (addressData.region_1depth_name === '서울특별시') {
               addressData.region_1depth_name = '서울시';
             }
-            const { data } = await axios.get<Rank[]>(
+            const { data } = await axios.get<TopStoreProps[]>(
               `https://api.to1step.shop/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
             );
 
@@ -45,7 +58,27 @@ const Topstore = () => {
                 ' ' +
                 addressData.region_3depth_name,
             );
-            setData(data);
+
+            if (Array.isArray(data)) {
+              const processData: TopStoreProps[] = data.map((rank: Rank) => ({
+                uuid: rank.uuid,
+                name: rank.name,
+                category: rank.category,
+                description: rank.description,
+                location: rank.location,
+                coordinates: rank.coordinates,
+                representImage: rank.representImage,
+                tags: rank.tags,
+                startTime: rank.startTime,
+                endTime: rank.endTime,
+              }));
+              setData(processData);
+            } else {
+              console.error(
+                '데이터를 가져오는 중에 에러가 발생했다! 그 이유는',
+                data,
+              );
+            }
           } catch (error) {
             console.log('Error fetching address', error);
           }
@@ -58,9 +91,9 @@ const Topstore = () => {
   return (
     <div className="flex justify-center items-center w-320 h-394">
       {address ? <p>{address}</p> : <p>Loading...</p>}
-      {data.map((item, index) => (
-        <div key={index}>
-          <Image imageUrl={item.image} />
+      {data.map((item) => (
+        <div key={item.uuid}>
+          <Image representImage={representImage} />
           <Name name={item.name} />
           <Location location={item.location} />
           <Description description={item.description} />
