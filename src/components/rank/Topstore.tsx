@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Rank } from '../../type';
 import Tags from '../Post/Tags';
 import Description from '../Post/Description';
 import Location from '../Post/Location';
@@ -10,8 +11,8 @@ import Category from '../Post/Category';
 // import StoreInfo from '../modal/StoreInfo';
 
 const Topstore = () => {
-  const [address, setAddress] = useState(null);
-  const [data, setData] = useState([]);
+  const [address, setAddress] = useState<string | null>(null); // 주소 타입 변경
+  const [data, setData] = useState<Rank[]>([]); // Rank 타입 배열로 바꿈
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -29,22 +30,22 @@ const Topstore = () => {
                 },
               },
             );
-            let addressData = response.data.documents[0];
+            const addressData = response.data.documents[0];
             if (addressData.region_1depth_name === '서울특별시') {
               addressData.region_1depth_name = '서울시';
             }
-            const { data } = await axios.get(
+            const { data } = await axios.get<Rank[]>(
               `https://api.to1step.shop/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
             );
 
             setAddress(
-              address.Data.region_1depth_name +
+              addressData.region_1depth_name +
                 ' ' +
                 addressData.region_2depth_name +
                 ' ' +
                 addressData.region_3depth_name,
             );
-            setData(data.data);
+            setData(data);
           } catch (error) {
             console.log('Error fetching address', error);
           }
