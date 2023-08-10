@@ -51,7 +51,7 @@ interface CourseReview {
   review: string;
 }
 
-interface Rank {
+export interface Rank {
   uuid: string;
   name: string;
   category: number;
