@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// post 클릭시 모달창
 const initialState = {
   isOpen: false,
 };
