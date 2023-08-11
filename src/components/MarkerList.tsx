@@ -16,7 +16,7 @@ const MarkerList: React.FC<MarkerListProps> = ({
   activeMarkerTitle,
 }) => {
   return (
-    <div className="absolute top-2 right-0 p-4 bg-white w-[230px] shadow-md z-10 rounded-lg overflow-auto">
+    <div className="absolute top-2 right-[280px] p-4 bg-white w-[230px] shadow-md z-10 rounded-lg overflow-auto">
       <style>
         {`
           ::-webkit-scrollbar {
