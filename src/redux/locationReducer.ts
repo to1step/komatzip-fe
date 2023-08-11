@@ -1,31 +1,17 @@
-import { Action } from 'redux';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// `UpdateLocationAction`에서 action이 전달될 때 store의 `location`상태 업데이트
-interface UpdateLocationAction extends Action {
-  type: 'UPDATE_LOCATION';
-  payload: string; // payload 타입 맞는지 확인, 업데이트할 위치 정보
-}
+// reduxjs/toolkit의 Slice, `updateLocation` 액션으로 `location` 상태를 업데이트
+const locationSlice = createSlice({
+  name: 'location',
+  initialState: {
+    location: '',
+  },
+  reducers: {
+    updateLocation: (state, action: PayloadAction<string>) => {
+      state.location = action.payload;
+    },
+  },
+});
 
-const initialState = {
-  location: '',
-};
-
-type LocationState = typeof initialState;
-
-const locationReducer = (
-  state: LocationState = initialState,
-  action: UpdateLocationAction,
-) => {
-  switch (action.type) {
-    case 'UPDATE_LOCATION':
-      return {
-        ...state,
-        location: action.payload,
-      };
-
-    default:
-      return state;
-  }
-};
-
-export default locationReducer;
+export const { updateLocation } = locationSlice.actions;
+export default locationSlice.reducer;
