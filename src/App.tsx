@@ -9,6 +9,7 @@ import axios from 'axios';
 import Post from './pages/post/Post';
 import Search from './components/Search/Search';
 import Topstore from './components/rank/Topstore';
+import axiosInstance from './'
 
 function App() {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function App() {
               addressData.region_1depth_name = '서울시';
             }
 
-            const { data } = await axios.get(
+            const { data } = await axiosInstance.get(
               `https://api.to1step.shop/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
             );
 
@@ -49,7 +50,7 @@ function App() {
                   addressData.region_3depth_name,
               ),
             );
-            setData(data.data);
+            setData(data);
           } catch (error) {
             console.error('Error fetching address:', error);
           }
