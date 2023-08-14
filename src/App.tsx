@@ -64,7 +64,7 @@ function App() {
       <Link to="/">진짜 한국</Link>
       <Search />
       <Routes>
-        <Route path="/" element={<Topstore data={data} />} />
+        <Route path="/" element={(<Topstore data />)} />
         <Route path="/post" element={<Post />} />
       </Routes>
     </>
