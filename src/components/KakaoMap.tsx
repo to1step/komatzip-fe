@@ -107,7 +107,7 @@ const KakaoMap: React.FC = () => {
                     window.kakao.maps.event.addListener(
                       marker,
                       'mouseover',
-                      function () {
+                      () => {
                         displayInfoWindow(
                           marker,
                           markerInfo.title,
@@ -121,7 +121,7 @@ const KakaoMap: React.FC = () => {
                     window.kakao.maps.event.addListener(
                       marker,
                       'mouseout',
-                      function () {
+                      () => {
                         closeInfoWindow();
                       },
                     );
@@ -141,7 +141,7 @@ const KakaoMap: React.FC = () => {
                   window.kakao.maps.event.addListener(
                     myPositionMarker,
                     'mouseover',
-                    function () {
+                    () => {
                       displayInfoWindow(
                         myPositionMarker,
                         '내 위치',
@@ -155,7 +155,7 @@ const KakaoMap: React.FC = () => {
                   window.kakao.maps.event.addListener(
                     myPositionMarker,
                     'mouseout',
-                    function () {
+                    () => {
                       closeInfoWindow();
                     },
                   );
@@ -182,13 +182,13 @@ const KakaoMap: React.FC = () => {
       });
   }, []);
 
-  function displayInfoWindow(
+  const displayInfoWindow = (
     marker: window.kakao.maps.Marker,
     title: string,
     map: window.kakao.maps.Map | null,
     lat: number,
     lng: number,
-  ) {
+  ) => {
     const infowindow = infowindowRef.current;
     if (infowindow && map) {
       infowindow.setContent(
@@ -197,17 +197,17 @@ const KakaoMap: React.FC = () => {
       infowindow.open(map, marker);
       setActiveMarkerTitle(title);
     }
-  }
+  };
 
-  function closeInfoWindow() {
+  const closeInfoWindow = () => {
     const infowindow = infowindowRef.current;
     if (infowindow !== null) {
       infowindow.close();
       setActiveMarkerTitle(null);
     }
-  }
+  };
 
-  function moveToMyPosition() {
+  const moveToMyPosition = () => {
     if (myPosition && map) {
       const center = new window.kakao.maps.LatLng(
         myPosition.lat,
@@ -215,7 +215,7 @@ const KakaoMap: React.FC = () => {
       );
       map.setCenter(center);
     }
-  }
+  };
 
   return (
     <div className="relative">
