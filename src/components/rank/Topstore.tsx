@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, createContext, useContext } from 'react';
+import axiosInstance from '../../api/apiInstance';
 import { Rank } from '../../type';
 import Tags from '../Post/Tags';
 import Description from '../Post/Description';
@@ -7,8 +7,7 @@ import Location from '../Post/Location';
 import Name from '../Post/Name';
 import Image from '../Post/Image';
 import Category from '../Post/Category';
-// import { Link } from 'react-router-dom';
-// import StoreInfo from '../modal/StoreInfo';
+
 
 interface TopStoreProps {
   uuid: string;
@@ -22,6 +21,13 @@ interface TopStoreProps {
   startTime: string;
   endTime: string;
 }
+
+const TopStoreContext = createContext();
+
+const useTopStoreContext = () => {
+  return useContext(TopStoreContext);
+}
+
 
 const Topstore = () => {
   const [address, setAddress] = useState<string | null>(null);
@@ -47,7 +53,7 @@ const Topstore = () => {
             if (addressData.region_1depth_name === '서울특별시') {
               addressData.region_1depth_name = '서울시';
             }
-            const { data } = await axios.get<TopStoreProps[]>(
+            const { data } = await axiosInstance.get<TopStoreProps[]>(
               `https://api.to1step.shop/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
             );
 

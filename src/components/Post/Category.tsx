@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../api/apiInstance';
 import { Rank } from '../../type';
 
 interface CategoryProps {
@@ -15,7 +15,7 @@ const Category = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<Rank[]>(
+      const response = await axiosInstance.get<Rank[]>(
         `https://api.to1step.shop/v1/rank?type=store&region=서울시%20송파구`,
       );
       const responseData = response.data;

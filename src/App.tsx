@@ -9,7 +9,7 @@ import axios from 'axios';
 import Post from './pages/post/Post';
 import Search from './components/Search/Search';
 import Topstore from './components/rank/Topstore';
-import axiosInstance from './'
+import axiosInstance from './api/apiInstance';
 
 function App() {
   const dispatch = useDispatch();
@@ -65,7 +65,7 @@ function App() {
       <Link to="/">진짜 한국</Link>
       <Search />
       <Routes>
-        <Route path="/" element={(<Topstore data />)} />
+        <Route path="/" element={<Topstore data />} />
         <Route path="/post" element={<Post />} />
       </Routes>
     </>

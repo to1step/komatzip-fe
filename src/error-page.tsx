@@ -1,13 +1,13 @@
-import { useRouteError, RouteError } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-interface ErrorObject extends RouteError {
+interface ErrorObject {
   statusText?: string;
-  error: string | null;
   message: string;
 }
 
 const ErrorPage = () => {
-  const error: ErrorObject = useRouteError();
+  const location = useLocation();
+  const error: ErrorObject = location.state?.error || { message: 'Unknown error' };
   console.error(error);
 
   return (
