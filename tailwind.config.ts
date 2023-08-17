@@ -2,7 +2,11 @@
 export default {
   content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        custom: ['Yeongdeok Snow Crab', 'sans'],
+      },
+    },
   },
   plugins: [],
 };

@@ -66,8 +66,11 @@ function App() {
 
   return (
     <>
-      <Link to="/" className="text-3xl font-bold">
-        진짜 한국
+      <Link
+        to="/"
+        className="h-[70px] p-[5px] text-[50px] font-custom text-black hover:text-black "
+      >
+        코맛집
       </Link>
       <Search />
       <Routes>
