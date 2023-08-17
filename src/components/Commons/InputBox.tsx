@@ -31,7 +31,7 @@ const InputBox = (props: Props) => {
   };
 
   return (
-    <div>
+    <div className="w-858 h-49">
       <input
         name={props.name}
         type={props.type || 'text'}
