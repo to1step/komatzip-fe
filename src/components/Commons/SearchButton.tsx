@@ -7,7 +7,10 @@ type Props = {
 
 const SearchButton = (props: Props) => {
   return (
-    <button onClick={props.onClick} className="bg-transparent border-none">
+    <button
+      onClick={props.onClick}
+      className="h-[40px] text-sm bg-gray border-none rounded"
+    >
       Search
     </button>
   );

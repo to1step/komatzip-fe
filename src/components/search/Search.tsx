@@ -5,17 +5,19 @@ import ConnectToMap from '../Commons/ConnectToMap';
 
 const Search = () => {
   return (
-    <>
-      <div className="w-1000 h-82 flex items-center">
+    <div className="h-[182px]">
+      <div className="flex justify-center items-center">
         <InputBox />
-        <SearchButton />
+        <div className="p-[15px]">
+          <SearchButton />
+        </div>
       </div>
       <div>
         <Link to="/mappage">
           <ConnectToMap />
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -31,8 +31,9 @@ const InputBox = (props: Props) => {
   };
 
   return (
-    <div className="w-858 h-49">
+    <div>
       <input
+        className="w-[675px] h-[40px] text-sm placeholder-left px-5 border"
         name={props.name}
         type={props.type || 'text'}
         onClick={props.onClick}
@@ -46,4 +47,3 @@ const InputBox = (props: Props) => {
 };
 
 export default InputBox;
-// 소분화즁
