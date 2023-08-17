@@ -62,7 +62,12 @@ function App() {
 
   return (
     <>
-      <Link to="/">진짜 한국</Link>
+      <Link
+        to="/"
+        className="h-[70px] p-[5px] text-[50px] font-custom text-black hover:text-black "
+      >
+        코맛집
+      </Link>
       <Search />
       <Routes>
         <Route path="/" element={<Topstore data />} />

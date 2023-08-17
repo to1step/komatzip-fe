@@ -9,7 +9,7 @@ const SearchButton = (props: Props) => {
   return (
     <button
       onClick={props.onClick}
-      className="h-[40px] text-sm bg-gray border-none rounded"
+      className="h-[40px] text-sm bg-gray border-none rounded focus:outline-none"
     >
       Search
     </button>
