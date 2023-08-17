@@ -26,6 +26,10 @@ const InputBox = (props: Props) => {
     setValidationError('');
   };
 
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
   return (
     <div>
       <input
@@ -42,3 +46,4 @@ const InputBox = (props: Props) => {
 };
 
 export default InputBox;
+// 소분화즁
