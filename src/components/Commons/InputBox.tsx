@@ -26,12 +26,12 @@ const InputBox = (props: Props) => {
     setValidationError('');
   };
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   return (
-    <div>
+    <div className="w-858 h-49">
       <input
         name={props.name}
         type={props.type || 'text'}

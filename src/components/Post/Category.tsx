@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from '../api/apiInstance';
+import axiosInstance from '../../api/apiInstance';
 import { Rank } from '../../type';
 
 interface CategoryProps {
