@@ -61,19 +61,23 @@ function App() {
   }, [dispatch, address]);
 
   return (
-    <>
-      <Link
-        to="/"
-        className="h-[70px] p-[5px] text-[50px] font-custom text-black hover:text-black "
-      >
-        코맛집
-      </Link>
-      <Search />
-      <Routes>
-        <Route path="/" element={<Topstore data />} />
-        <Route path="/post" element={<Post />} />
-      </Routes>
-    </>
+    <div className="container p-4">
+      <header className="py-4 px-10 w-screen">
+        <Link
+          to="/"
+          className="h-[70px] text-[50px] font-custom text-black hover:text-black "
+        >
+          코맛집
+        </Link>
+      </header>
+      <main>
+        <Search />
+        <Routes>
+          <Route path="/" element={<Topstore data />} />
+          <Route path="/post" element={<Post />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 

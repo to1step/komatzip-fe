@@ -5,14 +5,14 @@ import ConnectToMap from '../Commons/ConnectToMap';
 
 const Search = () => {
   return (
-    <div className="h-[182px]">
+    <div className="flex-row justify-center items-center w-screen ">
       <div className="flex justify-center items-center">
         <InputBox />
         <div className="p-[15px]">
           <SearchButton />
         </div>
       </div>
-      <div>
+      <div className="mx-[480px]">
         <Link to="/mappage">
           <ConnectToMap />
         </Link>

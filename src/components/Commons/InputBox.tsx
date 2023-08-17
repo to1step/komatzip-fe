@@ -33,14 +33,14 @@ const InputBox = (props: Props) => {
   return (
     <div>
       <input
-        className="w-[675px] h-[40px] text-sm placeholder-left px-5 border"
+        className=" w-[675px] h-[40px] text-sm placeholder-left px-5 border"
         name={props.name}
         type={props.type || 'text'}
         onClick={props.onClick}
         onChange={props.onChange}
         onBlur={props.onBlur}
         value={props.value}
-        placeholder="목적지나 지명을 입력하세요."
+        placeholder="찾고싶은 카테고리나 태그를 입력해주세요."
       />
     </div>
   );
