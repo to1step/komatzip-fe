@@ -1,4 +1,5 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import axiosInstance from '../../api/apiInstance';
 import { Rank } from '../../type';
 import Tags from '../Post/Tags';
@@ -22,12 +23,6 @@ interface TopStoreProps {
   endTime: string;
 }
 
-const TopStoreContext = createContext();
-
-const useTopStoreContext = () => {
-  return useContext(TopStoreContext);
-};
-
 const Topstore = () => {
   const [address, setAddress] = useState<string | null>(null);
   const [data, setData] = useState<TopStoreProps[]>([]);
@@ -44,7 +39,9 @@ const Topstore = () => {
               `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
               {
                 headers: {
-                  Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_REST_API_KEY}`,
+                  Authorization: `KakaoAK ${
+                    import.meta.env.REACT_APP_KAKAO_REST_API_KEY
+                  }`,
                 },
               },
             );
@@ -54,7 +51,7 @@ const Topstore = () => {
             }
             const { data } = await axiosInstance.get<TopStoreProps[]>(
               // `https://api.to1step.shop/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
-              `/v1/rank/서울시%20강남구`,
+              `/v1/rank?type=store&region=서울시%20강남구`,
             );
 
             setAddress(
