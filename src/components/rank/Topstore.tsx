@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import axiosInstance from '../../api/apiInstance';
+import { Rank } from '../../type';
+import Tags from '../Post/Tags';
+import Description from '../Post/Description';
+import Location from '../Post/Location';
+import Name from '../Post/Name';
+import Image from '../Post/Image';
+import Category from '../Post/Category';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
-// import StoreInfo from '../modal/StoreInfo';
 
-interface StoreData {
+interface TopStoreProps {
   uuid: string;
   name: string;
   category: number;
@@ -18,86 +24,86 @@ interface StoreData {
 }
 
 const Topstore = () => {
-  const [topStore, setTopStore] = useState<StoreData | null>(null);
-  const [isModelOpen, setIsModalOpen] = useState(false);
-  const { region } = useParams<{ region: string }>();
+  const [address, setAddress] = useState<string | null>(null);
+  const [data, setData] = useState<TopStoreProps[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // const response = await axios.get<StoreData[]>(
-        //   `https://api.to1step.shop/v1/rank?type=store&region=${region}`,
-        // );
-        const response = await axios.get<StoreData[]>(
-          `https://api.to1step.shop/v1/rank?type=store&region=서울시%20송파구`,
-        );
-        const data: StoreData[] = response.data;
-        console.log(data);
-        setTopStore(response.data[0]); // 순위 1등 매장 정보 저장
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.log('API 호출 중 에러 발생:', error);
-        }
-      }
-    };
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
 
-    fetchData();
-  }, [region]);
+          try {
+            const response = await axios.get(
+              `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
+              {
+                headers: {
+                  Authorization: `KakaoAK ${
+                    import.meta.env.REACT_APP_KAKAO_REST_API_KEY
+                  }`,
+                },
+              },
+            );
+            const addressData = response.data.documents[0];
+            if (addressData.region_1depth_name === '서울특별시') {
+              addressData.region_1depth_name = '서울시';
+            }
+            const { data } = await axiosInstance.get<TopStoreProps[]>(
+              // `https://api.to1step.shop/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
+              `/v1/rank?type=store&region=서울시%20강남구`,
+            );
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
+            setAddress(
+              addressData.region_1depth_name +
+                ' ' +
+                addressData.region_2depth_name +
+                ' ' +
+                addressData.region_3depth_name,
+            );
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+            if (Array.isArray(data)) {
+              const processData: TopStoreProps[] = data.map((rank: Rank) => ({
+                uuid: rank.uuid,
+                name: rank.name,
+                category: rank.category,
+                description: rank.description,
+                location: rank.location,
+                coordinates: rank.coordinates,
+                representImage: rank.representImage,
+                tags: rank.tags,
+                startTime: rank.startTime,
+                endTime: rank.endTime,
+              }));
+              setData(processData);
+            } else {
+              console.error(
+                '데이터를 가져오는 중에 에러가 발생했다! 그 이유는',
+                data,
+              );
+            }
+          } catch (error) {
+            console.log('Error fetching address', error);
+          }
+        },
+        (error) => console.log('Error getting location:', error),
+      );
+    }
+  }, []);
 
   return (
-    <div className="p-4">
-      {topStore ? (
-        <div>
-          <h1 className="text-3xl font-bold mb-2">이번주 Top 매장</h1>
-          <div>
-            <button onClick={handleOpenModal}>
-              <h2 className="text-lg font-bold">{topStore.name}</h2>
-              <p className="text-sm">{topStore.description}</p>
-              <p className="text-sm">{topStore.location}</p>
-
-              <p>UUID: {topStore.uuid}</p>
-              <p>Category: {topStore.category}</p>
-              <p>Coordinates: {topStore.coordinates.join(', ')}</p>
-              <img
-                src={topStore.representImage}
-                alt={topStore.name}
-                className="w-48 h-auto mt-4"
-              />
-              <p>Start Time: {topStore.startTime}</p>
-              <p>End Time: {topStore.endTime}</p>
-
-              <div>
-                <h3 className="text-lg font-bold">Tags</h3>
-                <ul>
-                  {topStore.tags.map((tags) => (
-                    <li key={tags} className="text-sm">
-                      {topStore.tags}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <button onClick={handleCloseModal}>닫기</button>
-            </button>
-          </div>
+    <div className="flex justify-center items-center w-[320px] h-[394px]">
+      {address ? <p>{address}</p> : <p>Loading...</p>}
+      {data.map((item) => (
+        <div key={item.uuid}>
+          <Image representImage={item.representImage} />
+          <Name name={item.name} />
+          <Location location={item.location} />
+          <Description description={item.description} />
+          <Category category={item.category} />
+          <Tags tags={item.tags} />
         </div>
-      ) : (
-        <p>데이터를 불러오는 중입니다...</p>
-      )}
-
-      {isModelOpen && (
-        <div className="modal">
-          {/* 모달추가 */}
-          <button onClick={handleCloseModal}>닫기</button>
-        </div>
-      )}
+      ))}
     </div>
   );
 };
