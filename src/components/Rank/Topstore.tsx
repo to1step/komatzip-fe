@@ -7,7 +7,7 @@ import Location from '../Post/Location';
 import Name from '../Post/Name';
 import Image from '../Post/Image';
 import Category from '../Post/Category';
-
+import axios from 'axios';
 
 interface TopStoreProps {
   uuid: string;
@@ -26,8 +26,7 @@ const TopStoreContext = createContext();
 
 const useTopStoreContext = () => {
   return useContext(TopStoreContext);
-}
-
+};
 
 const Topstore = () => {
   const [address, setAddress] = useState<string | null>(null);
@@ -54,7 +53,8 @@ const Topstore = () => {
               addressData.region_1depth_name = '서울시';
             }
             const { data } = await axiosInstance.get<TopStoreProps[]>(
-              `https://api.to1step.shop/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
+              // `https://api.to1step.shop/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
+              `/v1/rank/서울시%20강남구`,
             );
 
             setAddress(
@@ -95,11 +95,11 @@ const Topstore = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center w-320 h-394">
+    <div className="flex justify-center items-center w-[320px] h-[394px]">
       {address ? <p>{address}</p> : <p>Loading...</p>}
       {data.map((item) => (
         <div key={item.uuid}>
-          <Image representImage={representImage} />
+          <Image representImage={item.representImage} />
           <Name name={item.name} />
           <Location location={item.location} />
           <Description description={item.description} />

@@ -28,7 +28,9 @@ function App() {
               `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
               {
                 headers: {
-                  Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_REST_API_KEY}`,
+                  Authorization: `KakaoAK ${
+                    import.meta.env.REACT_APP_KAKAO_REST_API_KEY
+                  }`,
                 },
               },
             );
