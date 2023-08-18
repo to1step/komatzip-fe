@@ -6,7 +6,6 @@ import { Store } from '@to1step/propose-backend';
 // `locationReducer`합침
 export interface RootState {
   location: string; // location 상태 타입 확인
-  store: Store;
 }
 
 const rootReducer = combineReducers({
