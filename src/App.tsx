@@ -14,7 +14,7 @@ import MapPage from './pages/MapPage';
 function App() {
   const dispatch = useDispatch();
   const address = useSelector((state: RootState) => state.location);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<User[]>([]);
 
   console.log(data);
 
@@ -39,7 +39,7 @@ function App() {
               addressData.region_1depth_name = '서울시';
             }
 
-            const { data } = await axiosInstance.get(
+            const { data: locationResponseData } = await axiosInstance.get(
               `/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
               // `/v1/rank?type=store&region=서울시%20강남구`,
             );
@@ -53,7 +53,7 @@ function App() {
                   addressData.region_3depth_name,
               ),
             );
-            setData(data);
+            setData(locationResponseData);
           } catch (error) {
             console.error('Error fetching address:', error);
           }
