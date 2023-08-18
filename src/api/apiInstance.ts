@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    const data = response.data.data;
+    const data = response.data;
     return data;
   },
   (error) => {
