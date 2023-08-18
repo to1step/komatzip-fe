@@ -30,9 +30,7 @@ function App() {
               `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
               {
                 headers: {
-                  Authorization: `KakaoAK ${
-                    import.meta.env.KAKAO_REST_API_KEY
-                  }`,
+                  Authorization: `KakaoAK 53e5de546fe738bcca1d3a3b53c993bd`,
                 },
               },
             );
@@ -42,7 +40,8 @@ function App() {
             }
 
             const { data } = await axiosInstance.get(
-              `https://api.to1step.shop/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
+              `/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
+              // `/v1/rank?type=store&region=서울시%20강남구`,
             );
 
             dispatch(
