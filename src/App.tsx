@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateLocation } from './redux/locationReducer';
 import { RootState } from './redux/store';
 import axios from 'axios';
-import Post from './pages/post/Post';
 import Search from './components/Search/Search';
 import Topstore from './components/Rank/Topstore';
 import axiosInstance from './api/apiInstance';
+import SearchPage from './pages/search/Search';
 
 import MapPage from './pages/MapPage';
 function App() {
@@ -31,7 +31,7 @@ function App() {
               {
                 headers: {
                   Authorization: `KakaoAK ${
-                    import.meta.env.REACT_APP_KAKAO_REST_API_KEY
+                    import.meta.env.KAKAO_REST_API_KEY
                   }`,
                 },
               },
