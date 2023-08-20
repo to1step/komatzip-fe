@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateLocation } from './redux/locationReducer';
+import { updateLocation } from './redux/module/locationSlice';
 import { RootState } from './redux/store';
 import axios from 'axios';
 import Search from './components/Search/Search';
@@ -73,7 +73,7 @@ function App() {
       </Link>
       <Search />
       <Routes>
-        <Route path="/" element={<Topstore data />} />
+        <Route path="/" element={<Topstore />} />
         <Route path="/post" element={<Post />} />
         <Route path="/mappage" element={<MapPage />} />
       </Routes>
