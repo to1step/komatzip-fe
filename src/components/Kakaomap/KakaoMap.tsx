@@ -44,8 +44,8 @@ const KakaoMap: React.FC = () => {
 
         let markersData: MarkerInfo[] = [];
 
-        if (Array.isArray(data)) {
-          markersData = data.map((store: Store) => ({
+        if (Array.isArray(data.data)) {
+          markersData = data.data.map((store: Store) => ({
             title: store.name,
             lat: store.coordinates[1],
             lng: store.coordinates[0],
@@ -110,12 +110,6 @@ const KakaoMap: React.FC = () => {
                   );
 
                   markersData.forEach((markerInfo) => {
-                    console.log(
-                      'Marker Coordinates:',
-                      markerInfo.lat,
-                      markerInfo.lng,
-                    ); // 이 부분 추가
-
                     const markerPosition = new window.kakao.maps.LatLng(
                       markerInfo.lat,
                       markerInfo.lng,
@@ -262,7 +256,7 @@ const KakaoMap: React.FC = () => {
       <MarkerList
         markers={visibleMarkersRef.current}
         activeMarkerTitle={activeMarkerTitle}
-        onMarkerClick={handleMarkerClick} // onMarkerClick 프로퍼티 추가
+        onMarkerClick={handleMarkerClick}
       />
       <MapModal markerInfo={selectedMarker} onClose={handleCloseModal} />
     </div>

@@ -19,7 +19,7 @@ const MarkerList: React.FC<MarkerListProps> = ({
   onMarkerClick,
 }) => {
   return (
-    <div className="absolute top-2 right-[280px] p-4 bg-white w-[230px] shadow-md z-10 rounded-lg overflow-auto">
+    <div className="absolute top-2 right-[300px] p-4 bg-white w-[350px] shadow-md z-10 rounded-lg overflow-auto">
       <style>
         {`
           ::-webkit-scrollbar {
@@ -48,7 +48,7 @@ const MarkerList: React.FC<MarkerListProps> = ({
             }`}
             onClick={() => onMarkerClick(marker)}
           >
-            <p className="font-semibold">{`가게이름: ${marker.title}`}</p>
+            <p className="font-semibold">{`${marker.title}`}</p>
             <p>{`주소: ${marker.address}`}</p>
           </div>
         ))}
