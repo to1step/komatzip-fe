@@ -1,8 +1,8 @@
-import { User } from '@to1step/propose-backend';
-import React, { useEffect, useState } from 'react';
+// import { User } from '@to1step/propose-backend';
+import { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateLocation } from './redux/locationActions';
+import { updateLocation } from './redux/locationReducer';
 import { RootState } from './redux/store';
 import axios from 'axios';
 import Post from './pages/post/Post';
@@ -10,12 +10,13 @@ import Search from './components/Search/Search';
 import Topstore from './components/rank/Topstore';
 import axiosInstance from './api/apiInstance';
 
-import Search from './components/Search/Search';
 import MapPage from './pages/MapPage';
 function App() {
   const dispatch = useDispatch();
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = useState([]);
+
+  console.log(data);
 
   useEffect(() => {
     if (navigator.geolocation) {
