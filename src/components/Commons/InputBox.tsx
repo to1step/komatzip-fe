@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 
 type Props = {
   name: string;
@@ -26,7 +26,7 @@ const InputBox = (props: Props) => {
     setValidationError('');
   };
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 

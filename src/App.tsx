@@ -1,9 +1,8 @@
-import './App.css';
-import { User } from '@to1step/propose-backend';
-import React, { useEffect, useState } from 'react';
+// import { User } from '@to1step/propose-backend';
+import { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateLocation } from './redux/locationActions';
+import { updateLocation } from './redux/locationReducer';
 import { RootState } from './redux/store';
 import axios from 'axios';
 import Post from './pages/post/Post';
@@ -11,10 +10,13 @@ import Search from './components/Search/Search';
 import Topstore from './components/rank/Topstore';
 import axiosInstance from './api/apiInstance';
 
+import MapPage from './pages/MapPage';
 function App() {
   const dispatch = useDispatch();
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = useState([]);
+
+  console.log(data);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -64,11 +66,14 @@ function App() {
 
   return (
     <>
-      <Link to="/">진짜 한국</Link>
+      <Link to="/" className="text-3xl font-bold">
+        진짜 한국
+      </Link>
       <Search />
       <Routes>
         <Route path="/" element={<Topstore data />} />
         <Route path="/post" element={<Post />} />
+        <Route path="/mappage" element={<MapPage />} />
       </Routes>
     </>
   );
