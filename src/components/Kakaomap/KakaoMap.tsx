@@ -204,12 +204,30 @@ const KakaoMap: React.FC = () => {
     setSelectedMarker(markerInfo);
   };
 
+  const handleMarkerMouseOver = (markerInfo: MarkerInfo) => {
+    const markerPosition = new window.kakao.maps.LatLng(
+      markerInfo.lat,
+      markerInfo.lng,
+    );
+
+    if (map) {
+      map.panTo(markerPosition); // 해당 마커로 지도 중심 이동
+      displayInfoWindow(
+        null, // 인포윈도우를 열지 않으므로 null 전달
+        markerInfo.title,
+        map,
+        markerInfo.lat,
+        markerInfo.lng,
+      );
+    }
+  };
+
   const handleCloseModal = () => {
     setSelectedMarker(null);
   };
 
   const displayInfoWindow = (
-    marker: window.kakao.maps.Marker,
+    marker: window.kakao.maps.Marker | null,
     title: string,
     map: window.kakao.maps.Map | null,
     lat: number,
@@ -220,7 +238,11 @@ const KakaoMap: React.FC = () => {
       infowindow.setContent(
         `<div class="p-2 bg-white text-orange-500 rounded-md shadow-md">${title}</div>`,
       );
-      infowindow.open(map, marker);
+      if (marker) {
+        infowindow.open(map, marker);
+      } else {
+        infowindow.close();
+      }
       setActiveMarkerTitle(title);
     }
   };
@@ -257,6 +279,7 @@ const KakaoMap: React.FC = () => {
         markers={visibleMarkersRef.current}
         activeMarkerTitle={activeMarkerTitle}
         onMarkerClick={handleMarkerClick}
+        onMarkerMouseOver={handleMarkerMouseOver}
       />
       <MapModal markerInfo={selectedMarker} onClose={handleCloseModal} />
     </div>
