@@ -40,8 +40,8 @@ function App() {
             }
 
             const { data: locationResponseData } = await axiosInstance.get(
-              `/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
-              // `/v1/rank?type=store&region=서울시%20강남구`,
+              // `/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
+              `/v1/rank?type=store&region=서울시 강남구`,
             );
 
             dispatch(

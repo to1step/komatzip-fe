@@ -15,4 +15,7 @@ axiosInstance.interceptors.response.use(
   },
 );
 
+// TODO: get<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R>;
+// 타입 커스텀 해야함
+
 export default axiosInstance;
