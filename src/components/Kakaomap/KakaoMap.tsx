@@ -17,12 +17,13 @@ interface MarkerInfo {
   address: string;
 }
 
-const KakaoMap: React.FC = () => {
+interface KakaoMapProps {}
+
+const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   const [activeMarkerTitle, setActiveMarkerTitle] = useState<string | null>(
     null,
   );
-  //바로아래 코드 visibleMarkers에러 뜨면  typeScript 버전을 확인해봐야 할 것 같습니다
-  const [visibleMarkers, setVisibleMarkers] = useState<MarkerInfo[]>([]); //
+  const [visibleMarkers, setVisibleMarkers] = useState<MarkerInfo[]>([]);
   const visibleMarkersRef = useRef<MarkerInfo[]>([]);
   const infowindowRef = useRef<window.kakao.maps.InfoWindow | null>(null);
   const [map, setMap] = useState<window.kakao.maps.Map | null>(null);
@@ -31,8 +32,8 @@ const KakaoMap: React.FC = () => {
     lng: number;
   } | null>(null);
   const [selectedMarker, setSelectedMarker] = useState<MarkerInfo | null>(null);
+
   useEffect(() => {
-    // API 호출
     const fetchData = async () => {
       try {
         const region = '서울시 마포구';
@@ -49,13 +50,13 @@ const KakaoMap: React.FC = () => {
             title: store.name,
             lat: store.coordinates[1],
             lng: store.coordinates[0],
-            address: store.location, // 수정: 주소 정보를 가공하여 추가
+            address: store.location,
           }));
         }
 
         const script = document.createElement('script');
         script.async = true;
-        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=8494ed9ba10ea55ff5cf793934c04231&autoload=false`;
+        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_APP_KEY&autoload=false`; // 카카오 지도 앱 키 추가
         document.head.appendChild(script);
 
         script.onload = () => {
