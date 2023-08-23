@@ -9,6 +9,7 @@ import Search from './components/Search/Search';
 import Topstore from './components/Rank/Topstore';
 import axiosInstance from './api/apiInstance';
 import SearchPage from './pages/search/Search';
+import Topcourse from './components/rank/Topcourse';
 
 import MapPage from './pages/MapPage';
 function App() {
