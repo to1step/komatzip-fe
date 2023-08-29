@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
-import location from './locationSlice.ts';
+import location, { locationReducer } from './locationSlice.ts';
+import { searchReducer } from '../searchSlice.ts';
 
 // 루트 리듀서
-const rootReducer = combineReducers({ location });
+const rootReducer = combineReducers({
+  search: searchReducer,
+  location: locationReducer,
+});
 
 export default rootReducer;
 
