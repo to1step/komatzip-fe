@@ -3,8 +3,15 @@ import { useSelector } from 'react-redux';
 // import SearchResult from '../../components/Search/SearchResult';
 import SearchTopcourse from '../../components/Search/SearchTopcourse';
 import SearchTopstore from '../../components/Search/SearchTopstore';
-import { CourseEntireInfo, StoreEntireInfo } from '@to1step/propose-backend';
+import { Course, Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
+
+import Name from '../../components/Post/Store/Name';
+import Image from '../../components/Post/Store/Image';
+import Location from '../../components/Post/Store/Location';
+import Description from '../../components/Post/Store/Description';
+import Category from '../../components/Post/Store/Category';
+import Tags from '../../components/Post/Store/Tags';
 
 // 검색 결과 페이지
 // 예상 구현 방법
@@ -30,14 +37,39 @@ const SearchPage = () => {
       <section>
         {searchResults.map((item) => (
           <div key={item.uuid}>
-            <SearchTopstore item={item as StoreEntireInfo} />
+            <SearchTopstore item={item as Store} />
+            {item.representImage ? (
+              <Image representImage={item.representImage} />
+            ) : (
+              <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
+                이미지가 아직 준비되지 않았어요!
+              </p>
+            )}
+            <Name name={item.name} />
+            <Location location={item.location} />
+            <Description description={item.description} />
+            <Category category={item.category} />
+            <Tags tags={item.tags} />
           </div>
         ))}
       </section>
       <section>
+        <h1>TOP 코스</h1>
         {searchResults.map((item) => (
           <div key={item.uuid}>
-            <SearchTopcourse item={item as CourseEntireInfo} />
+            <SearchTopcourse item={item as Course} />
+            {item.representImage ? (
+              <Image representImage={item.representImage} />
+            ) : (
+              <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
+                이미지가 아직 준비되지 않았어요!
+              </p>
+            )}
+            <Name name={item.name} />
+            <Location location={item.location} />
+            <Description description={item.description} />
+            <Category category={item.category} />
+            <Tags tags={item.tags} />
           </div>
         ))}
       </section>

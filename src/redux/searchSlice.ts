@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { StoreEntireInfo, CourseEntireInfo } from '@to1step/propose-backend';
+import { Course, Store } from '@to1step/propose-backend';
 
 interface SearchState {
-  searchResults: (CourseEntireInfo | StoreEntireInfo)[]; // 검색 결과 데이터 저장
+  searchResults: (Course | Store)[]; // 검색 결과 데이터 저장
   searchQuery: string;
 }
 
@@ -15,11 +15,8 @@ const searchSlice = createSlice({
   name: 'search', // 액션 타입 생성에 사용될 슬라이스 이름 설정
   initialState,
   reducers: {
-    setSearchResults: (
-      state,
-      action: PayloadAction<(CourseEntireInfo | StoreEntireInfo)[]>,
-    ) => {
-      // 액션(PayloadAction<(CourseEntireInfo | StoreEntireInfo)[]>타입)을 처리해 상태 업데이트
+    setSearchResults: (state, action: PayloadAction<(Course | Store)[]>) => {
+      // 액션(PayloadAction<(Course | Store)[]>타입)을 처리해 상태 업데이트
       state.searchResults = action.payload; // 검색 결과 데이터 상태 업데이트
     },
     setSearchQuery: (state, action: PayloadAction<string>) => {
