@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateLocation } from './redux/module/locationSlice';
-import { RootState } from './redux/store';
+import { RootState } from './redux/module';
 import axios from 'axios';
 import Search from './components/Search/Search';
 import Topstore from './components/Rank/Topstore';

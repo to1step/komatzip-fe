@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import location, { locationReducer } from './locationSlice.ts';
+import { locationReducer } from './locationSlice.ts';
 import { searchReducer } from '../searchSlice.ts';
 
 // 루트 리듀서

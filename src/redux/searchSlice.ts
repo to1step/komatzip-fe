@@ -3,10 +3,12 @@ import { StoreEntireInfo, CourseEntireInfo } from '@to1step/propose-backend';
 
 interface SearchState {
   searchResults: (CourseEntireInfo | StoreEntireInfo)[]; // 검색 결과 데이터 저장
+  searchQuery: string;
 }
 
 const initialState: SearchState = {
   searchResults: [], // StoreEntireInfo 타입의 배열을 빈 배열로 초기화
+  searchQuery: '', // 검색어이기 때문에 빈 문자열로 초기화
 };
 
 const searchSlice = createSlice({
@@ -20,8 +22,11 @@ const searchSlice = createSlice({
       // 액션(PayloadAction<(CourseEntireInfo | StoreEntireInfo)[]>타입)을 처리해 상태 업데이트
       state.searchResults = action.payload; // 검색 결과 데이터 상태 업데이트
     },
+    setSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload; // 검색어 업데이트
+    },
   },
 });
 
-export const searchActions = searchSlice.actions;
+export const { setSearchResults, setSearchQuery } = searchSlice.actions;
 export const searchReducer = searchSlice.reducer;

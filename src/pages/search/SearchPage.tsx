@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import SearchResult from '../../components/Search/SearchResult';
+// import SearchResult from '../../components/Search/SearchResult';
 import SearchTopcourse from '../../components/Search/SearchTopcourse';
 import SearchTopstore from '../../components/Search/SearchTopstore';
 import { CourseEntireInfo, StoreEntireInfo } from '@to1step/propose-backend';
+import { RootState } from '../../redux/module';
 
 // 검색 결과 페이지
 // 예상 구현 방법
@@ -13,28 +14,30 @@ import { CourseEntireInfo, StoreEntireInfo } from '@to1step/propose-backend';
 // 4. SearchResult에 검색 결과 상태(검색 단어) 출력
 // 5. 결과의 각 컴포넌트에 상태 뿌려주기(매장,코스라 따로 뿌려줘야할듯 -> 어떻게?)
 
-interface SearchPageProps {
-  searchResults: (CourseEntireInfo | StoreEntireInfo)[];
-}
+const SearchPage = () => {
+  const searchResults = useSelector(
+    (state: RootState) => state.search.searchResults,
+  );
+  const searchQuery = useSelector(
+    (state: RootState) => state.search.searchQuery,
+  );
 
-const SearchPage = ({ searchResults }: SearchPageProps) => {
   return (
     <main>
       <section>
-        <p>검색 결과</p>
-        {/* <SearchResult results={searchResults} /> */}
+        <p>검색 결과 : {searchQuery}</p>
       </section>
       <section>
-        {data.map((item) => (
+        {searchResults.map((item) => (
           <div key={item.uuid}>
-            <SearchTopstore item={searchResults} />
+            <SearchTopstore item={item as StoreEntireInfo} />
           </div>
         ))}
       </section>
       <section>
-        {data.map((item) => (
+        {searchResults.map((item) => (
           <div key={item.uuid}>
-            <SearchTopcourse item={searchResults} />
+            <SearchTopcourse item={item as CourseEntireInfo} />
           </div>
         ))}
       </section>
