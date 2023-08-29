@@ -6,9 +6,9 @@ interface ImageProps {
 
 const Image = ({ representImage }: ImageProps) => {
   return (
-    <div className="flex justify-center items-center flex-shrink-0 w-308px">
+    <div className="w-[308px]">
       <article>
-        <p className="text-xs border-black text-gray-700">{representImage}</p>
+        <img src={representImage} alt="Image" />
       </article>
     </div>
   );

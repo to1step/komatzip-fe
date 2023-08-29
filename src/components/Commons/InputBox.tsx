@@ -47,3 +47,4 @@ const InputBox = (props: Props) => {
 };
 
 export default InputBox;
+// 소분화즁
