@@ -7,17 +7,13 @@ import SearchTopstore from '../../components/Search/SearchTopstore';
 // 검색 결과 페이지
 
 const SearchPage = () => {
+  const searchResults = useSelector((state) => state.search.searchResults);
+
   return (
     <>
-      <p>
-        <SearchResult />
-      </p>
-      <p>
-        <SearchTopstore />
-      </p>
-      <p>
-        <SearchTopcourse />
-      </p>
+      <SearchResult results={searchResults} />
+      <SearchTopstore results={searchResults} />
+      <SearchTopcourse results={searchResults} />
       <p>내 매장</p>
     </>
   );
