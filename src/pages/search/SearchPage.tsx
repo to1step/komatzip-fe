@@ -6,12 +6,12 @@ import SearchTopstore from '../../components/Search/SearchTopstore';
 import { Course, Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
 
-import Name from '../../components/Post/Store/Name';
+import Name from '../../components/Post/Name';
 import Image from '../../components/Post/Store/Image';
 import Location from '../../components/Post/Store/Location';
 import Description from '../../components/Post/Store/Description';
 import Category from '../../components/Post/Store/Category';
-import Tags from '../../components/Post/Store/Tags';
+import Tags from '../../components/Post/Tags';
 
 // 검색 결과 페이지
 // 예상 구현 방법
