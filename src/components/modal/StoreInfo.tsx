@@ -3,7 +3,7 @@
 // import { useDispatch, useSelector } from 'react-redux';
 // import { RootState } from '../../redux/store';
 // import { openModal, closeModal } from '../../redux/modalSlice';
-interface StoreInfoProps {
+export interface StoreInfoProps {
   uuid: string;
   name: string;
   category: number;

@@ -6,11 +6,11 @@ import { updateLocation } from './redux/module/locationSlice';
 import { RootState } from './redux/module';
 import axios from 'axios';
 import Search from './components/Search/Search';
-import Topstore from './components/Rank/Topstore';
 import axiosInstance from './api/apiInstance';
+import LandingPage from './pages/LandingPage';
 import SearchPage from './pages/search/SearchPage';
-import Topcourse from './components/rank/Topcourse';
 import MapPage from './pages/MapPage';
+import { User } from '@to1step/propose-backend';
 
 function App() {
   const dispatch = useDispatch();
@@ -65,20 +65,31 @@ function App() {
   }, [dispatch, address]);
 
   return (
-    <>
-      <Link
-        to="/"
-        className="h-[70px] p-[5px] text-[50px] font-custom text-black hover:text-black "
-      >
-        코맛집
-      </Link>
-      <Search />
-      <Routes>
-        <Route path="/" element={<Topstore />} />
-        <Route path="/post" element={<Post />} />
-        <Route path="/mappage" element={<MapPage />} />
-      </Routes>
-    </>
+    <div className="container mx-auto p-4 py-4 px-10 ">
+      <header className="w-screen flex justify-between items-center">
+        <Link
+          to="/"
+          className="h-[70px] text-[50px] font-custom text-black hover:text-black "
+        >
+          코맛집
+        </Link>
+        <Link
+          to="/login"
+          className="mr-[100px] text-sl font-semibold hover:text-gray-500"
+        >
+          로그인
+        </Link>
+      </header>
+      <main>
+        <Search />
+        <Routes>
+          {/* IF 문임  */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/map" element={<MapPage />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 

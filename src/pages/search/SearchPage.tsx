@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useSelector } from 'react-redux';
 import SearchTopcourse from '../../components/Search/SearchTopcourse';
 import SearchTopstore from '../../components/Search/SearchTopstore';

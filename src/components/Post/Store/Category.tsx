@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { StoreCategory } from '@to1step/propose-backend/src/database/types/enums';
 
 interface CategoryProps {

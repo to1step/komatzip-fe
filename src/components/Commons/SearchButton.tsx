@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 // 검색버튼
 type Props = {

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Image from '../../components/Post/Store/Image';
 import Name from '../../components/Post/Name';
 import Tags from '../../components/Post/Tags';

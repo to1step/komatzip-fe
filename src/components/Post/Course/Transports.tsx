@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Transportation } from '@to1step/propose-backend/src/database/types/enums';
 
 interface TransPortsProps {
