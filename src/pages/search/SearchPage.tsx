@@ -26,9 +26,6 @@ const SearchPage = () => {
     (state: RootState) => state.search.searchQuery,
   );
 
-  console.log('불러오기 전 코스 우째 나오나용?:', searchResultsCourse);
-  console.log('불러오기 전 매장 우째 나오나용?:', searchResultsStore);
-
   return (
     <main>
       <section>
