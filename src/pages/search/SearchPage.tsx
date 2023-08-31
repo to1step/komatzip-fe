@@ -6,6 +6,7 @@ import { Course, Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
 
 // 검색 결과 페이지
+
 // 예상 구현 방법
 // 1. Search 컴포넌트에서 검색
 // 2. searchResult로 검색 결과 상태 관리
@@ -25,13 +26,16 @@ const SearchPage = () => {
     (state: RootState) => state.search.searchQuery,
   );
 
+  console.log('불러오기 전 코스 우째 나오나용?:', searchResultsCourse);
+  console.log('불러오기 전 매장 우째 나오나용?:', searchResultsStore);
+
   return (
     <main>
       <section>
         <p>검색 결과 : {searchQuery}</p>
       </section>
-      <section>
-        <h1>TOP 매장</h1>
+      <section className="h-[491px] flex-row justify-center items-center">
+        <h1 className="text-2xl font-semibold">TOP 매장</h1>
         <article className="flex">
           {searchResultsStore.map((item) => (
             <div key={item.uuid}>
@@ -41,7 +45,7 @@ const SearchPage = () => {
         </article>
       </section>
       <section>
-        <h1>TOP 코스</h1>
+        <h1 className="text-2xl font-semibold">TOP 코스</h1>
         {searchResultsCourse.map((item) => (
           <div key={item.uuid}>
             <SearchTopcourse item={item as Course} />
