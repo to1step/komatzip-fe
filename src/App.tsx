@@ -7,7 +7,7 @@ import { RootState } from './redux/store';
 import axios from 'axios';
 import Post from './pages/post/Post';
 import Search from './components/Search/Search';
-import Topstore from './components/rank/Topstore';
+import Topstore from './components/Rank/Topstore';
 import axiosInstance from './api/apiInstance';
 
 import MapPage from './pages/MapPage';
