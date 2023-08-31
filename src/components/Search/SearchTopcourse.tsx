@@ -27,7 +27,7 @@ const SearchTopcourse = ({item}: {item: Course}) => {
         <LongComment key={`search-top-course-long-${item.uuid}`} longComment={item.longComment} />
         <ShortComment key={`search-top-course-short-${item.uuid}`} shortComment={item.shortComment} />
         <Stores key={`search-top-course-stores-${item.uuid}`} stores={item.stores} />
-        <TransPorts transports={item.transports} />  
+        <TransPorts key={`search-top-course-transports-${item.uuid}`} transports={item.transports} />  
         <User key={`search-top-course-user-${item.uuid}`} user={item.user} />
       </section>
     </main>
