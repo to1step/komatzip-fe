@@ -22,8 +22,11 @@ import Tags from '../../components/Post/Tags';
 // 5. 결과의 각 컴포넌트에 상태 뿌려주기(매장,코스라 따로 뿌려줘야할듯 -> 어떻게?)
 
 const SearchPage = () => {
-  const searchResults = useSelector(
-    (state: RootState) => state.search.searchResults,
+  const searchResultsCourse = useSelector(
+    (state: RootState) => state.search.searchResultsCourse,
+  );
+  const searchResultsStore = useSelector(
+    (state: RootState) => state.search.searchResultsStore,
   );
   const searchQuery = useSelector(
     (state: RootState) => state.search.searchQuery,
@@ -35,27 +38,18 @@ const SearchPage = () => {
         <p>검색 결과 : {searchQuery}</p>
       </section>
       <section>
-        {searchResults.map((item) => (
+        <h1>TOP 매장</h1>
+        {searchResultsStore.map((item) => (
           <div key={item.uuid}>
             <SearchTopstore item={item as Store} />
-            {item.representImage ? (
-              <Image representImage={item.representImage} />
-            ) : (
-              <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
-                이미지가 아직 준비되지 않았어요!
-              </p>
-            )}
-            <Name name={item.name} />
-            <Location location={item.location} />
-            <Description description={item.description} />
-            <Category category={item.category} />
-            <Tags tags={item.tags} />
           </div>
         ))}
       </section>
       <section>
         <h1>TOP 코스</h1>
-        {searchResults.map((item) => (
+        {/* <SearchTopcourse item={item as Courese} /> */}
+        {/* <h1>TOP 코스</h1>
+        {searchResultsCourse.map((item) => (
           <div key={item.uuid}>
             <SearchTopcourse item={item as Course} />
             {item.representImage ? (
@@ -71,7 +65,7 @@ const SearchPage = () => {
             <Category category={item.category} />
             <Tags tags={item.tags} />
           </div>
-        ))}
+        ))} */}
       </section>
       <p>내 매장</p>
     </main>
