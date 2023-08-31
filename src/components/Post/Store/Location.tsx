@@ -8,7 +8,7 @@ const Location = ({ location }: CategoryProps) => {
   return (
     <div>
       <article>
-        <p className="text-xs border-black text-gray-700">{location}</p>
+        <p className="text-xs text-gray-300 text-10">{location}</p>
       </article>
     </div>
   );

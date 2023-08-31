@@ -22,9 +22,9 @@ const Category = ({ category }: CategoryProps) => {
       categoryName = '알 수 없음';
   }
   return (
-    <div>
-      <article>
-        <p className="text-xs border-black text-gray-700">{categoryName}</p>
+    <div className="rounded-full p-1 bg-blue-200">
+      <article className="text-xs">
+        <p>{categoryName}</p>
       </article>
     </div>
   );

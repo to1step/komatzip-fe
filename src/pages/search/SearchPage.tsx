@@ -32,11 +32,13 @@ const SearchPage = () => {
       </section>
       <section>
         <h1>TOP 매장</h1>
-        {searchResultsStore.map((item) => (
-          <div key={item.uuid}>
-            <SearchTopstore item={item as Store} />
-          </div>
-        ))}
+        <article className="flex">
+          {searchResultsStore.map((item) => (
+            <div key={item.uuid}>
+              <SearchTopstore item={item as Store} />
+            </div>
+          ))}
+        </article>
       </section>
       <section>
         <h1>TOP 코스</h1>
