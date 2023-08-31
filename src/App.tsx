@@ -10,8 +10,8 @@ import Topstore from './components/Rank/Topstore';
 import axiosInstance from './api/apiInstance';
 import SearchPage from './pages/search/SearchPage';
 import Topcourse from './components/rank/Topcourse';
-
 import MapPage from './pages/MapPage';
+
 function App() {
   const dispatch = useDispatch();
   const address = useSelector((state: RootState) => state.location);
