@@ -1,5 +1,4 @@
 
-
 interface UserProps {
   user: string;
 }

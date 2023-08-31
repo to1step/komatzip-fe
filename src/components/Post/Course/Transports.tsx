@@ -1,33 +1,26 @@
-
+import { Transport } from '@to1step/propose-backend';
 import { Transportation } from '@to1step/propose-backend/src/database/types/enums';
 
-interface TransPortsProps {
-  transports: Transportation;
-}
+const TransPorts = ({transports}: {transports: Transport[]}) => {
 
-const TransPorts = ({ transports }: TransPortsProps) => {
-  let transportName = '';
-
-  switch (transports) {
-    case Transportation.BUS:
-      transportName = '버스';
-      break;
-    case Transportation.SUBWAY:
-      transportName = '지하철';
-      break;
-    case Transportation.WALK:
-      transportName = '도보';
-      break;
-    default:
-    case Transportation.ELSE:
-      transportName = '기타';
-      break;
+  const getTransports = (transports: Transportation | null) => {
+    switch (transports) {
+      case Transportation.BUS:
+        return '버스';
+      case Transportation.SUBWAY:
+        return '지하철';
+      case Transportation.WALK:
+        return '도보';
+      default:
+        return '기타';
+    }
   }
+
   return (
     <div>
       <article>
         <p className="text-xs border-black text-gray-700">
-          교통수단 : {transportName}
+          교통수단 : {transports.map(e => getTransports(e.transportation)).join(', ')}
         </p>
       </article>
     </div>

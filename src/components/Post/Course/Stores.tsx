@@ -1,11 +1,10 @@
 
-
 interface StoresProps {
-  stores: string;
+  stores: string[];
 }
 
 const Stores = ({ stores }: StoresProps) => {
-  return <div>{stores}</div>;
+  return <div>{stores.join(', ')}</div>;
 };
 
 export default Stores;

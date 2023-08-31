@@ -1,8 +1,6 @@
 
-
 interface TagsProps {
   tags: string[];
-  uuid: string;
 }
 
 // TODO

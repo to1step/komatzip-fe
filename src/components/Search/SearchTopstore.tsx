@@ -1,4 +1,3 @@
-
 import Image from '../../components/Post/Store/Image';
 import Name from '../../components/Post/Name';
 import Location from '../../components/Post/Store/Location';

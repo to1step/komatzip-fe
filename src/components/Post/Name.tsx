@@ -1,5 +1,3 @@
-
-
 interface NameProps {
   name: string;
 }

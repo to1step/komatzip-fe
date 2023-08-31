@@ -1,4 +1,3 @@
-
 import { StoreCategory } from '@to1step/propose-backend/src/database/types/enums';
 
 interface CategoryProps {

@@ -1,5 +1,4 @@
 
-
 interface ImageProps {
   representImage: string;
 }

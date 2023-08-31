@@ -1,5 +1,3 @@
-
-
 // 검색버튼
 type Props = {
   onClick?: () => void;

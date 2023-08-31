@@ -7,10 +7,10 @@ import ShortComment from '../Post/Course/ShortComment';
 import Stores from '../Post/Course/Stores';
 import User from '../Post/Course/User';
 import { Course } from '@to1step/propose-backend';
+import TransPorts from '../Post/Course/Transports';
 
 const SearchTopcourse = ({item}: {item: Course}) => {
-
-  return (
+    return (
     <main key={`search-top-course-${item.uuid}`}>
       <section>
         {item.representImage ? (
@@ -27,7 +27,7 @@ const SearchTopcourse = ({item}: {item: Course}) => {
         <LongComment key={`search-top-course-long-${item.uuid}`} longComment={item.longComment} />
         <ShortComment key={`search-top-course-short-${item.uuid}`} shortComment={item.shortComment} />
         <Stores key={`search-top-course-stores-${item.uuid}`} stores={item.stores} />
-        {/* <TransPorts transports={item.TransPorts} /> */}
+        <TransPorts transports={item.transports} />  
         <User key={`search-top-course-user-${item.uuid}`} user={item.user} />
       </section>
     </main>

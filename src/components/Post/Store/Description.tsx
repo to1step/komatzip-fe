@@ -1,5 +1,4 @@
 
-
 interface DescriptionProps {
   description: string;
 }

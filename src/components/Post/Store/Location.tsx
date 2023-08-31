@@ -1,5 +1,4 @@
 
-
 interface CategoryProps {
   location: string;
 }

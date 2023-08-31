@@ -1,6 +1,5 @@
 // Rank.js
 
-
 const Post = () => {
   return (
     <div>
