@@ -6,7 +6,7 @@ import Description from '../../components/Post/Store/Description';
 import Category from '../../components/Post/Store/Category';
 import Tags from '../../components/Post/Tags';
 
-const SearchTopcourse = ({ item }) => {
+const SearchTopstore = ({ item }) => {
   return (
     <main>
       <section>
@@ -27,4 +27,4 @@ const SearchTopcourse = ({ item }) => {
   );
 };
 
-export default SearchTopcourse;
+export default SearchTopstore;

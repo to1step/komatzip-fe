@@ -1,17 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-// import SearchResult from '../../components/Search/SearchResult';
 import SearchTopcourse from '../../components/Search/SearchTopcourse';
 import SearchTopstore from '../../components/Search/SearchTopstore';
 import { Course, Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
-
-import Name from '../../components/Post/Name';
-import Image from '../../components/Post/Store/Image';
-import Location from '../../components/Post/Store/Location';
-import Description from '../../components/Post/Store/Description';
-import Category from '../../components/Post/Store/Category';
-import Tags from '../../components/Post/Tags';
 
 // 검색 결과 페이지
 // 예상 구현 방법
@@ -20,6 +12,7 @@ import Tags from '../../components/Post/Tags';
 // 3. SearchPage에서 검색 결과 상태를 가져오기
 // 4. SearchResult에 검색 결과 상태(검색 단어) 출력
 // 5. 결과의 각 컴포넌트에 상태 뿌려주기(매장,코스라 따로 뿌려줘야할듯 -> 어떻게?)
+// 5-1. 어떻게? -> 코스 검색결과, 매장 검색결과를 각각 redux에 상태로 관리!
 
 const SearchPage = () => {
   const searchResultsCourse = useSelector(
@@ -47,25 +40,11 @@ const SearchPage = () => {
       </section>
       <section>
         <h1>TOP 코스</h1>
-        {/* <SearchTopcourse item={item as Courese} /> */}
-        {/* <h1>TOP 코스</h1>
         {searchResultsCourse.map((item) => (
           <div key={item.uuid}>
             <SearchTopcourse item={item as Course} />
-            {item.representImage ? (
-              <Image representImage={item.representImage} />
-            ) : (
-              <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
-                이미지가 아직 준비되지 않았어요!
-              </p>
-            )}
-            <Name name={item.name} />
-            <Location location={item.location} />
-            <Description description={item.description} />
-            <Category category={item.category} />
-            <Tags tags={item.tags} />
           </div>
-        ))} */}
+        ))}
       </section>
       <p>내 매장</p>
     </main>

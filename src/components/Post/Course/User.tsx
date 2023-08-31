@@ -1,9 +1,17 @@
+import React from 'react';
+
 interface UserProps {
   user: string;
 }
 
 const User = ({ user }: UserProps) => {
-  return <div>{user}</div>;
+  return (
+    <div>
+      <article>
+        <p className="text-xs border-black text-gray-700">{user}</p>
+      </article>
+    </div>
+  );
 };
 
 export default User;

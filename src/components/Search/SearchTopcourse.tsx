@@ -1,15 +1,17 @@
 import React from 'react';
 import Image from '../../components/Post/Store/Image';
 import Name from '../../components/Post/Name';
-import Location from '../../components/Post/Store/Location';
-import Description from '../../components/Post/Store/Description';
-import Category from '../../components/Post/Store/Category';
 import Tags from '../../components/Post/Tags';
+import IsPrivate from '../Post/Course/IsPrivate';
+import LongComment from '../Post/Course/LongComment';
+import ShortComment from '../Post/Course/ShortComment';
+import Stores from '../Post/Course/Stores';
+// import TransPorts from '../Post/Course/Transports';
+import User from '../Post/Course/User';
 
 const SearchTopcourse = ({ item }) => {
   return (
     <main>
-      <h1>TOP 코스</h1>
       <section>
         {item.representImage ? (
           <Image representImage={item.representImage} />
@@ -19,10 +21,14 @@ const SearchTopcourse = ({ item }) => {
           </p>
         )}
         <Name name={item.name} />
-        <Location location={item.location} />
-        <Description description={item.description} />
-        <Category category={item.category} />
         <Tags tags={item.tags} />
+        <p>코스에서만 나와야하는 데이터 목록</p>
+        <IsPrivate isPrivate={item.isPrivate} />
+        <LongComment longComment={item.LongComment} />
+        <ShortComment shortComment={item.ShortComment} />
+        <Stores stores={item.Stores} />
+        {/* <TransPorts transports={item.TransPorts} /> */}
+        <User user={item.User} />
       </section>
     </main>
   );
