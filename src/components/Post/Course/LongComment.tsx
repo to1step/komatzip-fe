@@ -1,5 +1,3 @@
-
-
 interface LongCommentProps {
   longComment: string | null;
 }
