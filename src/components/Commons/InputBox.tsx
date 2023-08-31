@@ -7,6 +7,7 @@ type Props = {
   onClick?: () => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void; // 입력창에 focus가 되지 않았을 때
+  onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 const InputBox = (props: Props) => {
@@ -40,6 +41,7 @@ const InputBox = (props: Props) => {
         onChange={props.onChange}
         onBlur={props.onBlur}
         value={props.value}
+        onKeyPress={props.onKeyPress}
         placeholder="찾고싶은 카테고리나 태그를 입력해주세요."
       />
     </div>
