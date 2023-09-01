@@ -3,6 +3,7 @@ import SearchTopcourse from '../../components/Search/SearchTopcourse';
 import SearchTopstore from '../../components/Search/SearchTopstore';
 import { Course, Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
+import LikedStores from '../../components/Search/LikedStores';
 
 // 검색 결과 페이지
 
@@ -60,6 +61,7 @@ const SearchPage = () => {
         <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
           ☕ 내 매장
         </h1>
+        <LikedStores />
       </section>
     </main>
   );

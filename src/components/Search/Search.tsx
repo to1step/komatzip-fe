@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import InputBox from '../Commons/InputBox';
 // import SearchButton from '../Commons/SearchButton';
-import ConnectToMap from '../Commons/ConnectToMap';
 import axiosInstance from '../../api/apiInstance';
 import {
   setSearchResultsCourse,
