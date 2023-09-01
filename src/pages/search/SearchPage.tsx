@@ -35,7 +35,7 @@ const SearchPage = () => {
       </section>
       <section>
         <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
-          🏆 TOP 매장
+          🏆 매장 검색 결과
         </h1>
         <article className="flex">
           {searchResultsStore.map((item) => (
@@ -47,7 +47,7 @@ const SearchPage = () => {
       </section>
       <section>
         <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
-          🏆 TOP 코스
+          🏆 코스 검색 결과
         </h1>
         <article className="flex m-1">
           {searchResultsCourse.map((item) => (
