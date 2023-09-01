@@ -57,12 +57,6 @@ const SearchPage = () => {
           ))}
         </article>
       </section>
-      <section>
-        <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
-          ☕ 내 매장
-        </h1>
-        <LikedStores />
-      </section>
     </main>
   );
 };
