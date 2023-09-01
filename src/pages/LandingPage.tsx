@@ -58,48 +58,52 @@ const LandingPage = () => {
 
   return (
     <main>
-      <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
-        {address ? (
-          <p>🦖 현재 내 위치 : {address}</p>
-        ) : (
-          <p>현재 내 위치 찾는중...</p>
-        )}
-      </p>
-      <h1 className="align-middle mb-5 h-[30px] text-2xl font-semibold">
-        🏆 이번 주 TOP 매장
-      </h1>
-      <article className="flex gap-4">
-        {data.map((item) => (
-          <div
-            key={item.uuid}
-            className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl"
-          >
-            <div className="m-2">
-              {item.representImage ? (
-                <Image representImage={item.representImage} />
-              ) : (
-                <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
-                  이미지가 아직 준비되지 않았어요!
-                </p>
-              )}
-              <div className="mt-2">
-                <Name name={item.name} />
-                <Location location={item.location} />
-                <Description description={item.description} />
-                <div className="flex mt-1">
-                  <Category category={item.category} />
-                  <Tags tags={item.tags} />
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </article>
-      <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
-        🏆 이번 주 TOP 코스
-      </h1>
       <section>
-        <article className="flex">
+        <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
+          {address ? (
+            <p>🦖 현재 내 위치 : {address}</p>
+          ) : (
+            <p>현재 내 위치 찾는중...</p>
+          )}
+        </p>
+      </section>
+      <section>
+        <h1 className="align-middle mb-5 h-[30px] text-2xl font-semibold">
+          🏆 이번 주 TOP 매장
+        </h1>
+        <article className="flex gap-4">
+          {data.map((item) => (
+            <div
+              key={item.uuid}
+              className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl"
+            >
+              <article className="m-2">
+                {item.representImage ? (
+                  <Image representImage={item.representImage} />
+                ) : (
+                  <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
+                    이미지가 아직 준비되지 않았어요!
+                  </p>
+                )}
+                <section className="mt-2">
+                  <Name name={item.name} />
+                  <Location location={item.location} />
+                  <Description description={item.description} />
+                  <div className="flex mt-1">
+                    <Category category={item.category} />
+                    <Tags tags={item.tags} />
+                  </div>
+                </section>
+              </article>
+            </div>
+          ))}
+        </article>
+      </section>
+      <section>
+        <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
+          🏆 이번 주 TOP 코스
+        </h1>
+        <article className="flex gap-4">
           {courseData.map((item) => (
             <div
               key={item.uuid}
@@ -119,7 +123,7 @@ const LandingPage = () => {
                     <User user={item.user} />
                     <Tags tags={item.tags} />
                   </section>
-                  <section className="my-1.5">
+                  <section className="my-3">
                     <Stores stores={item.stores} />
                     <ShortComment shortComment={item.shortComment} />
                     <LongComment longComment={item.longComment} />
