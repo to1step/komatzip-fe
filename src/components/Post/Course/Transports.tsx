@@ -19,8 +19,10 @@ const TransPorts = ({ transports }: { transports: Transport[] }) => {
     <div>
       <article>
         <p className="text-xs border-black text-gray-700">
-          추천 교통수단 :{' '}
-          {transports.map((e) => getTransports(e.transportation)).join(', ')}
+          <p className="font-bold">✈️추천 교통수단 ✈️</p>
+          <p>
+            {transports.map((e) => getTransports(e.transportation)).join(', ')}
+          </p>
         </p>
       </article>
     </div>

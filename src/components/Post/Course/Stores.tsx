@@ -3,7 +3,12 @@ interface StoresProps {
 }
 
 const Stores = ({ stores }: StoresProps) => {
-  return <div>매장명 : {stores.join(', ')}</div>;
+  return (
+    <div className="text-sm">
+      <p className="font-bold">✨ 추천 매장 목록 ✨</p>
+      <p>{stores.join('\n')}</p>
+    </div>
+  );
 };
 
 export default Stores;

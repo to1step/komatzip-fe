@@ -8,7 +8,10 @@ import { Store } from '@to1step/propose-backend';
 
 const SearchTopstore = ({ item }: { item: Store }) => {
   return (
-    <main key={`search-top-store-${item.uuid}`}>
+    <main
+      key={`search-top-store-${item.uuid}`}
+      className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl"
+    >
       <section className="flex-row justify-center items-center w-[296px] h-[374px]">
         <section>
           {item.representImage ? (

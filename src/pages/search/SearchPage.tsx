@@ -28,10 +28,14 @@ const SearchPage = () => {
   return (
     <main>
       <section>
-        <p>검색 결과 : {searchQuery}</p>
+        <p className="inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
+          👩🏻‍💻 '{searchQuery}'의 검색결과입니다.
+        </p>
       </section>
-      <section className="h-[491px] flex-row justify-center items-center">
-        <h1 className="text-2xl font-semibold">TOP 매장</h1>
+      <section>
+        <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
+          🏆 TOP 매장
+        </h1>
         <article className="flex">
           {searchResultsStore.map((item) => (
             <div key={item.uuid}>
@@ -41,14 +45,22 @@ const SearchPage = () => {
         </article>
       </section>
       <section>
-        <h1 className="text-2xl font-semibold">TOP 코스</h1>
-        {searchResultsCourse.map((item) => (
-          <div key={item.uuid}>
-            <SearchTopcourse item={item as Course} />
-          </div>
-        ))}
+        <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
+          🏆 TOP 코스
+        </h1>
+        <article className="flex m-1">
+          {searchResultsCourse.map((item) => (
+            <div key={item.uuid}>
+              <SearchTopcourse item={item as Course} />
+            </div>
+          ))}
+        </article>
       </section>
-      <p>내 매장</p>
+      <section>
+        <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
+          ☕ 내 매장
+        </h1>
+      </section>
     </main>
   );
 };

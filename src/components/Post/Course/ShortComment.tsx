@@ -3,7 +3,12 @@ interface ShortCommentProps {
 }
 
 const ShortComment = ({ shortComment }: ShortCommentProps) => {
-  return <div>한 줄 코멘트 : {shortComment}</div>;
+  return (
+    <div className="text-xs">
+      <p className="font-bold">🗨️ 한 줄 코멘트 🗨️</p>
+      <p>{shortComment}</p>
+    </div>
+  );
 };
 
 export default ShortComment;
