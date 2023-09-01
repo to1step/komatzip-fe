@@ -14,6 +14,7 @@ import ShortComment from '../components/Post/Course/ShortComment';
 import Stores from '../components/Post/Course/Stores';
 import User from '../components/Post/Course/User';
 import Image from '../components/Post/Store/Image';
+import TransPorts from '../components/Post/Course/Transports';
 
 const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
@@ -56,52 +57,85 @@ const LandingPage = () => {
   }, [address]);
 
   return (
-    <div className="flex-column justify-center items-center">
-      {address ? <p>내 위치 : {address}</p> : <p>Loading...</p>}
-      <h1 className="text-2xl font-semibold">이번 주 TOP 매장</h1>
-      <article className="flex">
+    <main>
+      <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
+        {address ? (
+          <p>🦖 현재 내 위치 : {address}</p>
+        ) : (
+          <p>현재 내 위치 찾는중...</p>
+        )}
+      </p>
+      <h1 className="align-middle mb-5 h-[30px] text-2xl font-semibold">
+        🏆 이번 주 TOP 매장
+      </h1>
+      <article className="flex gap-4">
         {data.map((item) => (
-          <div key={item.uuid}>
-            {item.representImage ? (
-              <Image representImage={item.representImage} />
-            ) : (
-              <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
-                이미지가 아직 준비되지 않았어요!
-              </p>
-            )}
-            <Name name={item.name} />
-            <Location location={item.location} />
-            <Description description={item.description} />
-            <Category category={item.category} />
-            <Tags tags={item.tags} />
+          <div
+            key={item.uuid}
+            className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl"
+          >
+            <div className="m-2">
+              {item.representImage ? (
+                <Image representImage={item.representImage} />
+              ) : (
+                <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
+                  이미지가 아직 준비되지 않았어요!
+                </p>
+              )}
+              <div className="mt-2">
+                <Name name={item.name} />
+                <Location location={item.location} />
+                <Description description={item.description} />
+                <div className="flex mt-1">
+                  <Category category={item.category} />
+                  <Tags tags={item.tags} />
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </article>
+      <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
+        🏆 이번 주 TOP 코스
+      </h1>
       <section>
-        <h1 className="text-2xl font-semibold">이번 주 TOP 코스1</h1>
         <article className="flex">
           {courseData.map((item) => (
-            <div key={item.uuid}>
-              {/* {item.representImage ? (
-              <Image representImage={item.representImage} />
-            ) : (
-              <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
-                이미지가 아직 준비되지 않았어요!
-              </p>
-            )} */}
-              {/* <Tags tags={item.tags} /> */}
-              <Name name={item.name} />
-              <IsPrivate name={item.isPrivate} />
-              <LongComment longComment={item.longComment} />
-              <ShortComment shortComment={item.shortComment} />
-              <Stores stores={item.stores} />
-              {/* <TransPorts transports={item.transports} /> */}
-              <User user={item.user} />
+            <div
+              key={item.uuid}
+              className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl"
+            >
+              <section className="m-2 flex-row justify-center items-center w-[296px]">
+                {item.representImage ? (
+                  <Image representImage={item.representImage} />
+                ) : (
+                  <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
+                    이미지가 아직 준비되지 않았어요!
+                  </p>
+                )}
+                <section className="flex-row justify-center items-center">
+                  <section className="my-1">
+                    <Name name={item.name} />
+                    <User user={item.user} />
+                    <Tags tags={item.tags} />
+                  </section>
+                  <section className="my-1.5">
+                    <Stores stores={item.stores} />
+                    <ShortComment shortComment={item.shortComment} />
+                    <LongComment longComment={item.longComment} />
+                    <TransPorts
+                      key={`rank-top-course-transports-${item.uuid}`}
+                      transports={item.transports}
+                    />
+                    <IsPrivate isPrivate={item.isPrivate} />
+                  </section>
+                </section>
+              </section>
             </div>
           ))}
         </article>
       </section>
-    </div>
+    </main>
   );
 };
 

@@ -21,11 +21,9 @@ const Category = ({ category }: CategoryProps) => {
       categoryName = '알 수 없음';
   }
   return (
-    <div className="rounded-full p-1 bg-blue-200">
-      <article className="text-xs">
-        <p>{categoryName}</p>
-      </article>
-    </div>
+    <span className="w-fit rounded-full mr-1 p-1 bg-blue-200 text-xs">
+      {categoryName}
+    </span>
   );
 };
 

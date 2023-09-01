@@ -65,18 +65,15 @@ function App() {
   }, [dispatch, address]);
 
   return (
-    <div className="container mx-auto p-4 py-4 px-10 ">
-      <header className="w-screen flex justify-between items-center">
+    <div className="p-10">
+      <header className="w-full flex justify-between items-center">
         <Link
           to="/"
           className="h-[70px] text-[50px] font-custom text-black hover:text-black "
         >
           코맛집
         </Link>
-        <Link
-          to="/login"
-          className="mr-[100px] text-sl font-semibold hover:text-gray-500"
-        >
+        <Link to="/login" className="text-sl font-semibold hover:text-gray-500">
           로그인
         </Link>
       </header>

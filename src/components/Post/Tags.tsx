@@ -1,4 +1,3 @@
-
 interface TagsProps {
   tags: string[];
 }
@@ -9,16 +8,16 @@ interface TagsProps {
 
 const Tags = ({ tags }: TagsProps) => {
   return (
-    <div className="flex h-[28px] w-[296px]">
+    <ul>
       {tags.map((tag, uuid) => (
-        <section
+        <span
           key={`${uuid}-${tag}`}
-          className="rounded-xl p-1 bg-[#DCDEE7] mr-1 text-xs"
+          className="rounded-full p-1 bg-[#DCDEE7] mr-1 text-xs"
         >
           {tag}
-        </section>
+        </span>
       ))}
-    </div>
+    </ul>
   );
 };
 

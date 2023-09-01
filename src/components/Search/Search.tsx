@@ -51,7 +51,7 @@ const Search = () => {
       // console.log('코스 검색 결과 데이터:', courseResponse.data);
 
       dispatch(setSearchQuery(tagQuery));
-      // console.log('검색한 태그:', tagQuery);
+      console.log('검색한 태그:', tagQuery);
 
       navigate('/search'); // 검색 결과를 redux 상태에 저장한 후 페이지 라우팅
     } catch (error) {
@@ -60,16 +60,24 @@ const Search = () => {
   };
 
   return (
-    <div className="flex-row justify-center items-center w-screen ">
+    <div className="flex-row justify-center items-center">
       <div className="flex justify-center items-center">
-        <InputBox
-          value={tagQuery}
-          onKeyPress={handleKeyPress}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setTagQuery(e.target.value)
-          }
-          name="tagQuery"
-        />
+        <div className="relative">
+          <InputBox
+            value={tagQuery}
+            onKeyPress={handleKeyPress}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setTagQuery(e.target.value)
+            }
+            name="tagQuery"
+          />
+          <Link
+            to="/map-page"
+            className="m-5 text-sm bg-transparent text-black hover:text-gray-500 hover:border-transparent focus:outline-none"
+          >
+            내 위치로 찾기
+          </Link>
+        </div>
         <div className="p-[15px]">
           <button
             onClick={SearchStore}
@@ -78,11 +86,6 @@ const Search = () => {
             Search
           </button>
         </div>
-      </div>
-      <div className="mx-[480px]">
-        <Link to="/map">
-          <ConnectToMap />
-        </Link>
       </div>
     </div>
   );
