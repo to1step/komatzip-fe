@@ -4,16 +4,20 @@ import Location from '../../components/Post/Store/Location';
 import Description from '../../components/Post/Store/Description';
 import Category from '../../components/Post/Store/Category';
 import Tags from '../../components/Post/Tags';
+import { Store } from '@to1step/propose-backend';
 
-const SearchTopstore = ({ item }) => {
+const SearchTopstore = ({ item }: { item: Store }) => {
   return (
-    <main>
+    <main key={`search-top-store-${item.uuid}`}>
       <section className="flex-row justify-center items-center w-[296px] h-[374px]">
         <section>
           {item.representImage ? (
-            <Image representImage={item.representImage} />
+            <Image
+              key={`search-top-store-image-${item.uuid}`}
+              representImage={item.representImage}
+            />
           ) : (
-            <p className="w-[292px] h-[210px] text-sm">
+            <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
               이미지가 아직 준비되지 않았어요!
             </p>
           )}

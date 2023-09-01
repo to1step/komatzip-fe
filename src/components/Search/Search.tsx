@@ -45,13 +45,13 @@ const Search = () => {
       ]);
 
       dispatch(setSearchResultsStore(storeResponse.data));
-      console.log('매장 검색 결과 데이터:', storeResponse.data);
+      // console.log('매장 검색 결과 데이터:', storeResponse.data);
 
       dispatch(setSearchResultsCourse(courseResponse.data));
-      console.log('코스 검색 결과 데이터:', courseResponse.data);
+      // console.log('코스 검색 결과 데이터:', courseResponse.data);
 
       dispatch(setSearchQuery(tagQuery));
-      console.log('검색한 태그:', tagQuery);
+      // console.log('검색한 태그:', tagQuery);
 
       navigate('/search'); // 검색 결과를 redux 상태에 저장한 후 페이지 라우팅
     } catch (error) {

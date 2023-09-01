@@ -3,7 +3,7 @@ interface LongCommentProps {
 }
 
 const LongComment = ({ longComment }: LongCommentProps) => {
-  return <div>{longComment}</div>;
+  return <div className="text-xs">{longComment}</div>;
 };
 
 export default LongComment;

@@ -1,8 +1,7 @@
 import { Transport } from '@to1step/propose-backend';
 import { Transportation } from '@to1step/propose-backend/src/database/types/enums';
 
-const TransPorts = ({transports}: {transports: Transport[]}) => {
-
+const TransPorts = ({ transports }: { transports: Transport[] }) => {
   const getTransports = (transports: Transportation | null) => {
     switch (transports) {
       case Transportation.BUS:
@@ -14,13 +13,14 @@ const TransPorts = ({transports}: {transports: Transport[]}) => {
       default:
         return '기타';
     }
-  }
+  };
 
   return (
     <div>
       <article>
         <p className="text-xs border-black text-gray-700">
-          교통수단 : {transports.map(e => getTransports(e.transportation)).join(', ')}
+          추천 교통수단 :{' '}
+          {transports.map((e) => getTransports(e.transportation)).join(', ')}
         </p>
       </article>
     </div>

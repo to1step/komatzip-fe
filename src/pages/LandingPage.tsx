@@ -15,7 +15,7 @@ import Stores from '../components/Post/Course/Stores';
 import User from '../components/Post/Course/User';
 import Image from '../components/Post/Store/Image';
 
-const Topstore = () => {
+const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = React.useState<Store[]>([]);
   const [courseData, setCourseData] = React.useState<Course[]>([]);
@@ -45,7 +45,8 @@ const Topstore = () => {
           `/v1/rank?type=course&region=서울특별시%20강남구`,
         )
         .then((response) => {
-          if (response && response.data.length > 0) setCourseData(response.data); // 순위 정보
+          if (response && response.data.length > 0)
+            setCourseData(response.data); // 순위 정보
           console.log(response.data);
         })
         .catch((error) => {
@@ -79,29 +80,29 @@ const Topstore = () => {
       <section>
         <h1 className="text-2xl font-semibold">이번 주 TOP 코스1</h1>
         <article className="flex">
-        {courseData.map((item) => (
-          <div key={item.uuid}>
-            {/* {item.representImage ? (
+          {courseData.map((item) => (
+            <div key={item.uuid}>
+              {/* {item.representImage ? (
               <Image representImage={item.representImage} />
             ) : (
               <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
                 이미지가 아직 준비되지 않았어요!
               </p>
             )} */}
-            {/* <Tags tags={item.tags} /> */}
-            <Name name={item.name} />
-            <IsPrivate name={item.isPrivate} />
-            <LongComment longComment={item.longComment} />
-            <ShortComment shortComment={item.shortComment} />
-            <Stores stores={item.stores} />
-            {/* <TransPorts transports={item.transports} /> */}
-            <User user={item.user} />
-          </div>
-        ))}
-      </article>
+              {/* <Tags tags={item.tags} /> */}
+              <Name name={item.name} />
+              <IsPrivate name={item.isPrivate} />
+              <LongComment longComment={item.longComment} />
+              <ShortComment shortComment={item.shortComment} />
+              <Stores stores={item.stores} />
+              {/* <TransPorts transports={item.transports} /> */}
+              <User user={item.user} />
+            </div>
+          ))}
+        </article>
       </section>
     </div>
   );
 };
 
-export default Topstore;
+export default LandingPage;
