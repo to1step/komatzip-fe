@@ -7,6 +7,7 @@ type Props = {
   onClick?: () => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void; // 입력창에 focus가 되지 않았을 때
+  onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 const InputBox = (props: Props) => {
@@ -30,16 +31,19 @@ const InputBox = (props: Props) => {
     setInputValue(e.target.value);
   };
 
+  // console.log(validationError, handleSubmit, handleChange)
   return (
     <div>
       <input
+        className=" w-[675px] h-[40px] text-sm placeholder-left px-5 border rounded-xl focus:outline-none"
         name={props.name}
         type={props.type || 'text'}
         onClick={props.onClick}
         onChange={props.onChange}
         onBlur={props.onBlur}
         value={props.value}
-        placeholder="목적지나 지명을 입력하세요."
+        onKeyPress={props.onKeyPress}
+        placeholder="찾고싶은 카테고리나 태그를 입력해주세요."
       />
     </div>
   );

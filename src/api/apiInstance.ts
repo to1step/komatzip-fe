@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    const data = response.data.data;
+    const data = response.data;
     return data;
   },
   (error) => {
@@ -14,5 +14,8 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+// TODO: get<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R>;
+// 타입 커스텀 해야함
 
 export default axiosInstance;

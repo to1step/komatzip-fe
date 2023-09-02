@@ -1,4 +1,3 @@
-import React from 'react';
 
 interface DescriptionProps {
   description: string;
@@ -6,7 +5,7 @@ interface DescriptionProps {
 
 const Description = ({ description }: DescriptionProps) => {
   return (
-    <div className="flex justify-center items-center flex-shrink-0 w-308px">
+    <div>
       <article>
         <p className="text-xs border-black text-gray-700">{description}</p>
       </article>

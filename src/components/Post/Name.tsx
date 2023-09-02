@@ -1,14 +1,14 @@
-import React from 'react';
-
 interface NameProps {
   name: string;
 }
 
 const Name = ({ name }: NameProps) => {
   return (
-    <div className="flex justify-center items-center flex-shrink-0 w-308px">
-      <article>
-        <p className="text-xs border-black text-gray-700">{name}</p>
+    <div>
+      <article className="h-[28px]">
+        <p className="text-[20px] border-black text-gray-700  font-semibold">
+          {name}
+        </p>
       </article>
     </div>
   );

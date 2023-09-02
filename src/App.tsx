@@ -2,19 +2,20 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateLocation } from './redux/locationReducer';
-import { RootState } from './redux/store';
+import { updateLocation } from './redux/module/locationSlice';
+import { RootState } from './redux/module';
 import axios from 'axios';
-import Post from './pages/post/Post';
 import Search from './components/Search/Search';
-import Topstore from './components/Rank/Topstore';
 import axiosInstance from './api/apiInstance';
-
+import LandingPage from './pages/LandingPage';
+import SearchPage from './pages/search/SearchPage';
 import MapPage from './pages/MapPage';
+import { User } from '@to1step/propose-backend';
+
 function App() {
   const dispatch = useDispatch();
   const address = useSelector((state: RootState) => state.location);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<User[]>([]);
 
   console.log(data);
 
@@ -30,9 +31,7 @@ function App() {
               `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
               {
                 headers: {
-                  Authorization: `KakaoAK ${
-                    import.meta.env.REACT_APP_KAKAO_REST_API_KEY
-                  }`,
+                  Authorization: `KakaoAK 53e5de546fe738bcca1d3a3b53c993bd`,
                 },
               },
             );
@@ -41,8 +40,9 @@ function App() {
               addressData.region_1depth_name = '서울시';
             }
 
-            const { data } = await axiosInstance.get(
-              `https://api.to1step.shop/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
+            const { data: locationResponseData } = await axiosInstance.get(
+              // `/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
+              `/v1/rank?type=store&region=서울특별시 강남구`,
             );
 
             dispatch(
@@ -54,7 +54,7 @@ function App() {
                   addressData.region_3depth_name,
               ),
             );
-            setData(data);
+            setData(locationResponseData);
           } catch (error) {
             console.error('Error fetching address:', error);
           }
@@ -65,17 +65,28 @@ function App() {
   }, [dispatch, address]);
 
   return (
-    <>
-      <Link to="/" className="text-3xl font-bold">
-        진짜 한국
-      </Link>
-      <Search />
-      <Routes>
-        <Route path="/" element={<Topstore data />} />
-        <Route path="/post" element={<Post />} />
-        <Route path="/mappage" element={<MapPage />} />
-      </Routes>
-    </>
+    <div className="p-10">
+      <header className="w-full flex justify-between items-center">
+        <Link
+          to="/"
+          className="h-[70px] text-[50px] font-custom text-black hover:text-black "
+        >
+          코맛집
+        </Link>
+        <Link to="/login" className="text-sl font-semibold hover:text-gray-500">
+          로그인
+        </Link>
+      </header>
+      <main>
+        <Search />
+        <Routes>
+          {/* IF 문임  */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/map" element={<MapPage />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 

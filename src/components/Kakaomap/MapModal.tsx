@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useEffect } from 'react';
 
 interface MarkerInfo {
@@ -26,7 +27,7 @@ const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   if (!markerInfo) {
     return null;
