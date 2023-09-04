@@ -1,53 +1,91 @@
-import React, { FormEvent, useState, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import InputBox from '../Commons/InputBox';
+// import SearchButton from '../Commons/SearchButton';
+import axiosInstance from '../../api/apiInstance';
+import {
+  setSearchResultsCourse,
+  setSearchResultsStore,
+  setSearchQuery,
+} from '../../redux/searchSlice';
+// import { searchActions } from '../../redux/searchSlice';
+import axios from 'axios';
+
+// 검색창 기능
 
 const Search = () => {
-  // asd
-  const [inputValue, setInputValue] = useState('');
-  const [validationError, setValidationError] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [tagQuery, setTagQuery] = useState('');
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!inputValue.trim()) {
-      setValidationError('목적지나 지명이 입력되지 않았어요!');
-      return;
+  const handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      await SearchStore();
     }
-
-    console.log('입력된 검색어:', inputValue);
-    setInputValue('');
-    setValidationError('');
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+  const SearchStore = async () => {
+    try {
+      const [storeResponse, courseResponse] = await axios.all([
+        axiosInstance.get(`/v1/search/tags`, {
+          params: {
+            type: 'store', // 현재 상태에 따라 'store'||'course'
+            tag: tagQuery,
+          },
+        }),
+        axiosInstance.get(`/v1/search/tags`, {
+          params: {
+            type: 'course',
+            tag: tagQuery,
+          },
+        }),
+      ]);
+
+      dispatch(setSearchResultsStore(storeResponse.data));
+      // console.log('매장 검색 결과 데이터:', storeResponse.data);
+
+      dispatch(setSearchResultsCourse(courseResponse.data));
+      // console.log('코스 검색 결과 데이터:', courseResponse.data);
+
+      dispatch(setSearchQuery(tagQuery));
+      console.log('검색한 태그:', tagQuery);
+
+      navigate('/search'); // 검색 결과를 redux 상태에 저장한 후 페이지 라우팅
+    } catch (error) {
+      console.error('매장 검색 결과 fetching 중 에러 발생: ', error);
+    }
   };
 
   return (
-    <div className="flex">
-      <form onSubmit={handleSubmit}>
-        <input
-          id="searchInput"
-          type="text"
-          placeholder="목적지 키워드나 지명을 검색해보세요"
-          className="flex-shrink-0 w-558 h-49 p-4"
-          value={inputValue}
-          onChange={handleChange}
-        />
-        <button type="submit" className="flex-shrink-0 w-94 h-49 p-4">
-          검색
-        </button>
-        {validationError && <p className="text-red-500">{validationError}</p>}
-        <p>
+    <div className="flex-row justify-center items-center">
+      <div className="flex justify-center items-center">
+        <div className="relative">
+          <InputBox
+            value={tagQuery}
+            onKeyPress={handleKeyPress}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setTagQuery(e.target.value)
+            }
+            name="tagQuery"
+          />
           <Link
-            to="/mappage"
-            type="button"
-            className="flex-shrink-0 w-94 h-49 p-4"
+            to="/map-page"
+            className="m-5 text-sm bg-transparent text-black hover:text-gray-500 hover:border-transparent focus:outline-none"
           >
             내 위치로 찾기
           </Link>
-        </p>
-      </form>
+        </div>
+        <div className="p-[15px]">
+          <button
+            onClick={SearchStore}
+            className="h-[40px] w-[80px] text-sm bg-gray-100 border-none rounded-xl focus:outline-none hover:bg-gray-200"
+          >
+            Search
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -74,7 +74,7 @@ const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   if (!markerInfo) {
     return null;
