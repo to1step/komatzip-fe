@@ -30,7 +30,6 @@ const LandingPage = () => {
         )
         .then((response) => {
           if (response && response.data.length > 0) setData(response.data); // 순위 정보
-          console.log('순위 정보:', response.data);
         })
         .catch((error) => {
           console.log('Topstore 데이터 fetching 중 에러 발생: ', error);
@@ -48,7 +47,6 @@ const LandingPage = () => {
         .then((response) => {
           if (response && response.data.length > 0)
             setCourseData(response.data); // 순위 정보
-          console.log(response.data);
         })
         .catch((error) => {
           console.log('Topcourse 데이터 fetching 중 에러 발생: ', error);
