@@ -31,7 +31,7 @@ function App() {
               `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
               {
                 headers: {
-                  Authorization: `KakaoAK 53e5de546fe738bcca1d3a3b53c993bd`,
+                  Authorization: `KakaoAK a055e717c1cb42e8ee196835ba48dfcf`,
                 },
               },
             );
