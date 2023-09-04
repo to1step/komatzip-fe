@@ -25,12 +25,12 @@ const LandingPage = () => {
     if (address) {
       axiosInstance
         .get<Store[]>(
-          // `/v1/rank?type=store&region=${encodeURIComponent(address)}`,
-          `/v1/rank?type=store&region=서울특별시%20강남구`,
+          `/v1/rank?type=store&region=${encodeURIComponent(address)}`,
+          // `/v1/rank?type=store&region=서울특별시%20강남구`,
         )
         .then((response) => {
           if (response && response.data.length > 0) setData(response.data); // 순위 정보
-          console.log(response.data);
+          console.log('순위 정보:', response.data);
         })
         .catch((error) => {
           console.log('Topstore 데이터 fetching 중 에러 발생: ', error);
@@ -42,8 +42,8 @@ const LandingPage = () => {
     if (address) {
       axiosInstance
         .get<Course[]>(
-          // `/v1/rank?type=store&region=${encodeURIComponent(address)}`,
-          `/v1/rank?type=course&region=서울특별시%20강남구`,
+          `/v1/rank?type=course&region=${encodeURIComponent(address)}`,
+          // `/v1/rank?type=course&region=서울특별시%20강남구`,
         )
         .then((response) => {
           if (response && response.data.length > 0)
@@ -51,7 +51,7 @@ const LandingPage = () => {
           console.log(response.data);
         })
         .catch((error) => {
-          console.log('Topstore 데이터 fetching 중 에러 발생: ', error);
+          console.log('Topcourse 데이터 fetching 중 에러 발생: ', error);
         });
     }
   }, [address]);

@@ -36,22 +36,20 @@ function App() {
               },
             );
             const addressData = response.data.documents[0];
-            if (addressData.region_1depth_name === '서울특별시') {
-              addressData.region_1depth_name = '서울시';
-            }
 
             const { data: locationResponseData } = await axiosInstance.get(
-              // `/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
-              `/v1/rank?type=store&region=서울특별시 강남구`,
+              `/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
+              // `/v1/rank?type=store&region=서울특별시 강남구`,
             );
 
             dispatch(
               updateLocation(
                 addressData.region_1depth_name +
                   ' ' +
-                  addressData.region_2depth_name +
-                  ' ' +
-                  addressData.region_3depth_name,
+                  addressData.region_2depth_name,
+                // +
+                // ' ' +
+                // addressData.region_3depth_name,
               ),
             );
             setData(locationResponseData);
