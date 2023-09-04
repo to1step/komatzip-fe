@@ -35,7 +35,7 @@ const InputBox = (props: Props) => {
   return (
     <div>
       <input
-        className=" w-[675px] h-[40px] text-sm placeholder-left px-5 border rounded-xl focus:outline-none"
+        className=" w-[675px] h-[40px] text-sm placeholder-left px-5 border rounded-r-full rounded-l-none focus:outline-none"
         name={props.name}
         type={props.type || 'text'}
         onClick={props.onClick}

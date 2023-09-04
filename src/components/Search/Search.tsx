@@ -18,7 +18,7 @@ const Search = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tagQuery, setTagQuery] = useState('');
-  const [searchType, setSearchType] = useState('tags'); // 초기값을 'tags'
+  const [searchType, setSearchType] = useState('검색 타입'); // 초기값을 'tags'
 
   const handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -49,7 +49,7 @@ const Search = () => {
             type: 'course',
             tag: tagQuery,
           },
-        }), // https://api.to1step.shop/v1//v1/search/tags/tags?type=course&tag=%ED%8C%A8%EC%85%98 404 (Not Found)
+        }), // https://api.to1step.shop/v1/search/keyword?type=store&tag=%ED%8C%A8%EC%85%98
       ]);
 
       dispatch(setSearchResultsStore(storeResponse.data));
@@ -59,8 +59,6 @@ const Search = () => {
       // console.log('코스 검색 결과 데이터:', courseResponse.data);
 
       dispatch(setSearchQuery(tagQuery));
-      console.log('검색한 태그:', tagQuery);
-      console.log('선택한 엔드포인트:', endpoint);
 
       navigate('/search'); // 검색 결과를 redux 상태에 저장한 후 페이지 라우팅
     } catch (error) {
@@ -72,12 +70,13 @@ const Search = () => {
     <div className="flex-row justify-center items-center">
       <div className="flex justify-center items-center">
         <div>
-          {/* <label htmlFor="searchType">검색 타입: </label> */}
           <select
             id="searchType"
             value={searchType}
             onChange={(e) => setSearchType(e.target.value)}
+            className="h-[40px] text-sm placeholder-left px-5 border rounded-l-full rounded-r-none focus:outline-none"
           >
+            <option>검색 타입</option>
             <option value="tags">태그 검색</option>
             <option value="keyword">키워드 검색</option>
           </select>
