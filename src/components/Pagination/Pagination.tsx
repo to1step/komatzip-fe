@@ -13,7 +13,17 @@ const Pagination = ({
   onPageChange,
 }: PaginationProps) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+  // 10 페이지씩만 보이게 설정
+  const pageGroupSize = 10;
+  const currentGroup = Math.ceil(currentPage / pageGroupSize);
+  const startPage = (currentGroup - 1) * pageGroupSize + 1;
+  const endPage = Math.min(currentGroup * pageGroupSize, totalPages);
+
+  const pageNumbers = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, index) => startPage + index,
+  );
 
   return (
     <div className="pagination">

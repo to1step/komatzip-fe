@@ -17,26 +17,37 @@ import Pagination from '../../components/Pagination/Pagination';
 // 5-1. 어떻게? -> 코스 검색결과, 매장 검색결과를 각각 redux에 상태로 관리!
 
 const SearchPage = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20;
+  const [currentPage, setCurrentPage] = useState(1); // 지금 페이지
+  const limit = 5; // 1페이지마다 몇 개의 포스트 보일지 결정
 
   const searchResultsStore = useSelector(
     (state: RootState) => state.search.searchResultsStore,
   );
-  const searchQuery = useSelector(
-    (state: RootState) => state.search.searchQuery,
-  );
   const searchResultsCourse = useSelector(
     (state: RootState) => state.search.searchResultsCourse,
   );
+  const searchQuery = useSelector(
+    (state: RootState) => state.search.searchQuery,
+  );
+  // 현재 페이지에 따라 표시할 아이템을 계산
+  const offset = (currentPage - 1) * limit;
 
-  console.log('코스검색결과:', searchResultsCourse);
-  const totalItems = searchResultsCourse.length;
+  // 각각의 검색 결과를 표시할 아이템 배열 생성
+  const displayedStoreItems = searchResultsStore.slice(offset, offset + limit);
+  const displayedCourseItems = searchResultsCourse.slice(
+    offset,
+    offset + limit,
+  );
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const displayedItems = searchResultsCourse.slice(startIndex, endIndex);
+  const totalStoreItems = searchResultsStore.length;
+  const totalCourseItems = searchResultsCourse.length;
 
+  const totalPagesStore = Math.ceil(totalStoreItems / limit);
+  const totalPagesCourse = Math.ceil(totalCourseItems / limit);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
   return (
     <main>
       <section>
@@ -49,19 +60,26 @@ const SearchPage = () => {
           🏆 매장 검색 결과
         </h1>
         <article className="flex">
-          {searchResultsStore.map((item) => (
+          {displayedStoreItems.map((item) => (
             <div key={item.uuid}>
               <SearchTopstore item={item as Store} />
             </div>
           ))}
         </article>
+        <Pagination
+          currentPage={currentPage}
+          totalItems={totalStoreItems}
+          itemsPerPage={limit}
+          totalPages={totalPagesStore}
+          onPageChange={handlePageChange}
+        />
       </section>
       <section>
         <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
           🏆 코스 검색 결과
         </h1>
         <article className="flex m-1">
-          {displayedItems.map((item) => (
+          {displayedCourseItems.map((item) => (
             <div key={item.uuid}>
               <SearchTopcourse item={item as Course} />
             </div>
@@ -69,10 +87,10 @@ const SearchPage = () => {
         </article>
         <Pagination
           currentPage={currentPage}
-          totalItems={totalItems}
-          itemsPerPage={itemsPerPage}
-          totalPages={Math.ceil(totalItems / itemsPerPage)}
-          onPageChange={(newPage) => setCurrentPage(newPage)}
+          totalItems={totalCourseItems}
+          itemsPerPage={limit}
+          totalPages={totalPagesCourse}
+          onPageChange={handlePageChange}
         />
       </section>
     </main>
