@@ -2,44 +2,27 @@ import React, { useRef, useEffect, useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BiCopy } from 'react-icons/bi';
 import axios from 'axios';
-
-import { StoreEntireInfo } from '@to1step/propose-backend';
+import { StoreEntireInfo, StoreReview } from '@to1step/propose-backend';
 
 interface MapModalProps {
-  markerInfo: StoreEntireInfo | null;
+  markerInfo: StoreEntireInfo;
   onClose: () => void;
 }
 
 const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
-  const [userLike, setUserLike] = useState<boolean>(false);
-  const [storeInfo, setStoreInfo] = useState<StoreEntireInfo>({
-    uuid: '1210c3f2-4f68-4e85-94a7-81dc3d764393',
-    name: '행보칸 카페',
-    category: 0,
-    description: '커피가 맛있는 감성있는 카페',
-    location: '경인남길 134-1',
-    coordinates: [37.566826, 126.9786567],
-    representImage:
-      'https://cdn.traveltimes.co.kr/news/photo/202109/113022_11185_1829.jpg',
-    tags: ['맛집', '인스타감성', '야경'],
-    startTime: '아침 9시',
-    endTime: '저녁 10시',
-    storeReviews: [
-      {
-        uuid: '321458b0-79ee-4fd0-b70d-2b3e71191bca',
-        user: '1210c3f2-4f68-4e85-94a7-81dc3d764393',
-        review: '정말 맛있어요',
-      },
-    ],
-    reviewCount: 12,
-    likeCount: 13,
-    iLike: true,
-  });
-  const [isClickLike, setIsClickLike] = useState<boolean>(storeInfo.iLike);
+  const [prevMarkerInfo, setPrevMarkerInfo] = useState<StoreEntireInfo | null>(
+    null,
+  );
+  const [isClickLike, setIsClickLike] = useState<boolean>(false);
   const [isCopyAddress, setIsCopyAddress] = useState<boolean>(false);
-  const [reviews, setReviews] = useState<string[]>([]); // 리뷰 목록
-  const [reviewText, setReviewText] = useState<string>('');
+  const [reviews, setReviews] = useState<StoreReview[]>([]); // 리뷰 목록
+  const [reviewText, setReviewText] = useState<string>(''); // 리뷰 텍스트 입력 상태 변수
+  const [markerLike, setMarkerLike] = useState<boolean>(
+    (markerInfo && markerInfo.iLike) || false,
+  );
+
+  const token = localStorage.getItem('JWtTokken');
 
   const handleClickOutside = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -50,10 +33,25 @@ const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
   useEffect(() => {
     const saveUserLike = async () => {
       try {
-        if (userLike) {
-          await axios.post(`/v1/stores/${storeUUID}/like`);
-        } else {
-          await axios.delete(`/v1/stores/${storeUUID}/like`);
+        if (markerLike && markerInfo) {
+          await axios.post(
+            `https://api.to1step.shop/v1/stores/${markerInfo.uuid}/like`,
+            null,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
+          );
+        } else if (!markerLike && markerInfo) {
+          await axios.delete(
+            `https://api.to1step.shop/v1/stores/${markerInfo.uuid}/like`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
+          );
         }
       } catch (e) {
         console.log(e);
@@ -62,11 +60,11 @@ const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
     };
 
     if (isClickLike) saveUserLike();
-  }, [userLike]);
+  }, [markerLike, isClickLike, markerInfo, token]);
 
   const handleClickLike = async () => {
     setIsClickLike(true);
-    setUserLike((prevState) => !prevState);
+    setMarkerLike((prevState) => !prevState);
   };
 
   useEffect(() => {
@@ -76,9 +74,31 @@ const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
     };
   }, [handleClickOutside]);
 
-  if (!markerInfo) {
-    return null;
-  }
+  useEffect(() => {
+    // markerInfo가 변경된 경우에만 요청을 실행
+    if (markerInfo && prevMarkerInfo !== markerInfo) {
+      console.log('markerInfo 데이터:', markerInfo);
+      const fetchStoreInfo = async () => {
+        try {
+          const response = await axios.get(
+            `https://api.to1step.shop/v1/stores/${markerInfo.uuid}`,
+          );
+          const storeInfo = response.data;
+          // 가게 정보에서 리뷰 데이터 추출
+          console.log('서버 응답:', response);
+          const storeReviews = storeInfo.storeReviews || [];
+          // 리뷰 목록을 상태 변수에 설정
+          setReviews(storeReviews);
+        } catch (error) {
+          console.error('Error fetching store info:', error);
+        }
+      };
+
+      // markerInfo가 변경된 경우, 이전 markerInfo 값을 업데이트하고 요청 실행
+      setPrevMarkerInfo(markerInfo);
+      fetchStoreInfo();
+    }
+  }, [markerInfo, prevMarkerInfo]);
 
   const handleCopyAddress = () => {
     try {
@@ -89,20 +109,28 @@ const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
     }
     setIsCopyAddress(false);
   };
+
   // 리뷰 작성 함수
   const handleReviewSubmit = async () => {
+    console.log('리뷰 작성 버튼 클릭됨');
     try {
       const response = await axios.post(
-        `/v1/stores/${markerInfo?.uuid}/review`,
+        `https://api.to1step.shop/v1/stores/${markerInfo.uuid}/review`,
         {
           text: reviewText,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
-      const newReview = response.data; // 새로 작성된 리뷰 정보
+      console.log('서버 응답:', response);
+      const newReview = response.data as StoreReview; // 새로 작성된 리뷰 정보
       setReviews([...reviews, newReview]);
       setReviewText(''); // 입력 폼 초기화
     } catch (error) {
-      console.error('Error submitting review:', error);
+      console.error('리뷰 작성 오류:', error);
     }
   };
 
@@ -110,13 +138,22 @@ const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
   const handleReviewDelete = async (reviewUUID: string) => {
     try {
       await axios.delete(
-        `/v1/stores/${markerInfo?.uuid}/reviews/${reviewUUID}`,
+        `https://api.to1step.shop/v1/stores/${markerInfo?.uuid}/reviews/${reviewUUID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
       setReviews(reviews.filter((review) => review.uuid !== reviewUUID));
     } catch (error) {
       console.error('Error deleting review:', error);
     }
   };
+
+  if (!markerInfo) {
+    return null;
+  }
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-75 z-20">
@@ -130,7 +167,7 @@ const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
               {markerInfo.name}
             </div>
             <span onClick={handleClickLike}>
-              {userLike ? <AiFillHeart color="red" /> : <AiOutlineHeart />}
+              {markerLike ? <AiFillHeart color="red" /> : <AiOutlineHeart />}
             </span>
           </div>
           <div className="mb-2">주소: {markerInfo.location}</div>
@@ -200,7 +237,7 @@ const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
             {/* 리뷰 목록 출력 */}
             {reviews.map((review) => (
               <div key={review.uuid}>
-                {review.text}
+                {review.review} {/* "review" 속성을 가져와 표시 */}
                 <button onClick={() => handleReviewDelete(review.uuid)}>
                   삭제
                 </button>
