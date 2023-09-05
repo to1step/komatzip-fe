@@ -22,7 +22,6 @@ const SignUp = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const [check, setCheck] = useState<boolean>(false);
-  const [nikeName, setNikeName] = useState<string>('');
   const [code, setCode] = useState<string>('');
   const [errors, setErrors] = useState({});
 
@@ -47,24 +46,50 @@ const SignUp = () => {
         return;
       }
 
-      await axiosInstance.post('/v1/auth/local/email-validation', {
-        email: formData.email,
-      });
+      const { data: emailValidation } = await axiosInstance.post(
+        '/v1/auth/local/email-validation',
+        {
+          email: formData.email,
+        },
+      );
+      const { data: nicknameValidation } = await axiosInstance.post(
+        '/v1/auth/local/nickname-validation',
+        {
+          nickname: formData.username,
+        },
+      );
+      if (emailValidation) {
+        validationErrors.emailValidation = '이메일 정보가 이미 존재합니다.';
+      }
+      if (nicknameValidation) {
+        validationErrors.nicknameValidation = '이미 존재하는 닉네임 입니다.';
+      }
+      // 에러가 있는 경우 에러 상태 업데이트
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return;
+      }
+
       await axiosInstance.post('/v1/auth/local/email-code', {
         email: formData.email,
         password: formData.password,
         nickname: formData.username,
       });
 
-      setMode('username-verification');
-      // 성공적으로 가입된 경우 초기화
-      setFormData({
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
+      setMode('email-verification');
       setErrors({});
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const resetEmail = async () => {
+    try {
+      await axiosInstance.post('/v1/auth/local/email-code', {
+        email: formData.email,
+        password: formData.password,
+        nickname: formData.username,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -72,23 +97,11 @@ const SignUp = () => {
 
   const onSignupStep2 = async () => {
     try {
-      await axiosInstance.post('/v1/auth/local/nickname-validation', {
-        nikeName: nikeName,
-      });
-      // data false일 경우 존재하지 않는 계정으로 회원가입 가능
-      setMode('email-verification');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const onSignupStep3 = async () => {
-    try {
       const { data } = await axiosInstance.post(
         '/v1/auth/local/email-verification',
         {
           email: formData.email,
-          nickname: nikeName,
+          nickname: formData.username,
           code: code,
         },
       );
@@ -166,29 +179,8 @@ const SignUp = () => {
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-orange-400 cursor-pointer'
               }`}
-              disabled={check}
+              disabled={!check}
               onClick={() => onSignupStep1()}
-            >
-              SIGN UP
-            </button>
-          </div>
-        </div>
-      )}
-      {mode === 'username-verification' && (
-        <div className="w-2/5">
-          <div className="flex flex-col justify-center items-center">
-            <h2 className="text-3xl">WELLCOM</h2>
-            <input
-              type="text"
-              className="items-center px-8 py-3 mt-4 text-base text-black outline-orange-300 bg-gray-100 border-0 rounded-3xl w-80 focus-visible:outline-none"
-              placeholder="nickname"
-              value={nikeName}
-              onChange={(e) => setNikeName(e.target.value)}
-            />
-            <button
-              type="button"
-              className="inline-flex text-white justify-center items-center px-8 py-3 mt-4 text-base bg-orange-400 border-0 rounded-3xl w-80"
-              onClick={() => onSignupStep3()}
             >
               SIGN UP
             </button>
@@ -209,6 +201,7 @@ const SignUp = () => {
             <button
               type="button"
               className="inline-flex text-white justify-center items-center px-8 py-3 mt-4 text-base bg-gray-400 border-0 rounded-3xl w-80"
+              onClick={() => resetEmail()}
             >
               인증번호 재발송
             </button>

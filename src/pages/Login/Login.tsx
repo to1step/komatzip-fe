@@ -15,7 +15,7 @@ const Login = () => {
 
   const onLogin = async (data: LoginForm) => {
     try {
-      await axiosInstance.post('/v1/auth/local/email-validation', {
+      await axiosInstance.post('/v1/auth/local/sign-in', {
         email: data.email,
         password: data.password,
       });
