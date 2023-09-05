@@ -30,26 +30,33 @@ const Search = () => {
   const SearchStore = async () => {
     try {
       let endpoint;
+      let paramKey: string = ''; // 객체 속성 이름을 동적으로 설정할 때는 해당 속성 이름의 타입을 설정해줘야 함, 초기값 빈 문자열로 설정
 
       if (searchType === 'tags') {
-        endpoint = `tags`;
+        endpoint = 'tags';
+        paramKey = 'tag';
       } else if (searchType === 'keyword') {
-        endpoint = `keyword`;
+        endpoint = 'keyword';
+        paramKey = 'keyword';
+        // 요청 되어야 하는 https://api.to1step.shop/v1/search/keyword?type=course&keyword=%EC%95%84%EC%B9%A8
+        // 요청 되어야 하는 https://api.to1step.shop/v1/search/keyword?type=course&tag=%EC%95%84%EC%B9%A8
+        // 내가 작성한 코드 https://api.to1step.shop/v1/search/keyword?type=course&tag=%EC%95%84%EC%B9%A8
+        // 내가 작성한 코드 https://api.to1step.shop/v1/search/keyword?type=course&keyword=%EC%95%84%EC%B9%A8
       }
 
       const [storeResponse, courseResponse] = await axios.all([
         axiosInstance.get(`/v1/search/${endpoint}`, {
           params: {
-            type: 'store', // 현재 상태에 따라 'store'||'course'
-            tag: tagQuery,
+            type: 'store',
+            [paramKey]: tagQuery,
           },
         }),
         axiosInstance.get(`/v1/search/${endpoint}`, {
           params: {
             type: 'course',
-            tag: tagQuery,
+            [paramKey]: tagQuery,
           },
-        }), // https://api.to1step.shop/v1/search/keyword?type=store&tag=%ED%8C%A8%EC%85%98
+        }),
       ]);
 
       dispatch(setSearchResultsStore(storeResponse.data));
