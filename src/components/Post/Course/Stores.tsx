@@ -40,7 +40,7 @@ const Stores = ({ stores }: StoresProps) => {
       <p className="font-bold">✨ 추천 매장 목록 ✨</p>
       <p>
         {storeNames.map((name, uuid) => (
-          <span key="${uuid}-${name}">
+          <span key={`post-stores-${uuid}`}>
             {name}
             {uuid !== storeNames.length - 1 && <br />}
           </span>

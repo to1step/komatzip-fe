@@ -3,7 +3,8 @@ import SearchTopcourse from '../../components/Search/SearchTopcourse';
 import SearchTopstore from '../../components/Search/SearchTopstore';
 import { Course, Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
-import LikedStores from '../../components/Search/LikedStores';
+import { useState } from 'react';
+import Pagination from '../../components/Pagination/Pagination';
 
 // 검색 결과 페이지
 
@@ -16,15 +17,25 @@ import LikedStores from '../../components/Search/LikedStores';
 // 5-1. 어떻게? -> 코스 검색결과, 매장 검색결과를 각각 redux에 상태로 관리!
 
 const SearchPage = () => {
-  const searchResultsCourse = useSelector(
-    (state: RootState) => state.search.searchResultsCourse,
-  );
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
+
   const searchResultsStore = useSelector(
     (state: RootState) => state.search.searchResultsStore,
   );
   const searchQuery = useSelector(
     (state: RootState) => state.search.searchQuery,
   );
+  const searchResultsCourse = useSelector(
+    (state: RootState) => state.search.searchResultsCourse,
+  );
+
+  console.log('코스검색결과:', searchResultsCourse);
+  const totalItems = searchResultsCourse.length;
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedItems = searchResultsCourse.slice(startIndex, endIndex);
 
   return (
     <main>
@@ -50,12 +61,19 @@ const SearchPage = () => {
           🏆 코스 검색 결과
         </h1>
         <article className="flex m-1">
-          {searchResultsCourse.map((item) => (
+          {displayedItems.map((item) => (
             <div key={item.uuid}>
               <SearchTopcourse item={item as Course} />
             </div>
           ))}
         </article>
+        <Pagination
+          currentPage={currentPage}
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+          totalPages={Math.ceil(totalItems / itemsPerPage)}
+          onPageChange={(newPage) => setCurrentPage(newPage)}
+        />
       </section>
     </main>
   );
