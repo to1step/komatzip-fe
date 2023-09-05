@@ -17,8 +17,6 @@ function App() {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = useState<User[]>([]);
 
-  console.log(data);
-
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(

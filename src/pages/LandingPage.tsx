@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Course, Store } from '@to1step/propose-backend';
 import axiosInstance from '../api/apiInstance';
@@ -20,6 +20,10 @@ const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = React.useState<Store[]>([]);
   const [courseData, setCourseData] = React.useState<Course[]>([]);
+  const [isMoalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     if (address) {
@@ -102,39 +106,34 @@ const LandingPage = () => {
           🏆 이번 주 TOP 코스
         </h1>
         <article className="flex gap-4">
-          {courseData.map((item) => (
-            <div
-              key={item.uuid}
-              className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl"
-            >
-              <section className="m-2 flex-row justify-center items-center w-[296px]">
-                {item.representImage ? (
-                  <Image representImage={item.representImage} />
-                ) : (
-                  <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
-                    이미지가 아직 준비되지 않았어요!
-                  </p>
-                )}
-                <section className="flex-row justify-center items-center">
-                  <section className="my-1">
-                    <Name name={item.name} />
-                    <User user={item.user} />
-                    <Tags tags={item.tags} />
-                  </section>
-                  <section className="my-3">
-                    <Stores stores={item.stores} />
-                    <ShortComment shortComment={item.shortComment} />
-                    <LongComment longComment={item.longComment} />
-                    <TransPorts
-                      key={`rank-top-course-transports-${item.uuid}`}
-                      transports={item.transports}
-                    />
-                    <IsPrivate isPrivate={item.isPrivate} />
+          <button onClick={openModal}>
+            {courseData.map((item) => (
+              <div
+                key={item.uuid}
+                className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl "
+              >
+                <section className="m-2 flex justify-center items-center">
+                  <section className="flex justify-center items-center">
+                    <section className="flex-row">
+                      <Name name={item.name} />
+                      <User user={item.user} />
+                    </section>
+                    <section className="my-3">
+                      {/* <Tags tags={item.tags} /> */}
+                      <ShortComment shortComment={item.shortComment} />
+                      <LongComment longComment={item.longComment} />
+                      <TransPorts
+                        key={`rank-top-course-transports-${item.uuid}`}
+                        transports={item.transports}
+                      />
+                      <IsPrivate isPrivate={item.isPrivate} />
+                      <Stores stores={item.stores} />
+                    </section>
                   </section>
                 </section>
-              </section>
-            </div>
-          ))}
+              </div>
+            ))}
+          </button>
         </article>
       </section>
     </main>

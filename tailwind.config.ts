@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         custom: ['Yeongdeok Snow Crab', 'sans'],
       },
+      colors: {
+        'bg-colors': '#FFF4E2',
+      },
     },
   },
   plugins: [],

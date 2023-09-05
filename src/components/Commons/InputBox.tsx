@@ -31,7 +31,7 @@ const InputBox = (props: Props) => {
     setInputValue(e.target.value);
   };
 
-  console.log(validationError, handleSubmit, handleChange);
+  // console.log(validationError, handleSubmit, handleChange);
   return (
     <div>
       <input
