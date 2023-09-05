@@ -31,7 +31,7 @@ const InputBox = (props: Props) => {
     setInputValue(e.target.value);
   };
 
-  // console.log(validationError, handleSubmit, handleChange);
+  console.log(validationError, handleSubmit, handleChange);
   return (
     <div>
       <input
@@ -43,7 +43,7 @@ const InputBox = (props: Props) => {
         onBlur={props.onBlur}
         value={props.value}
         onKeyPress={props.onKeyPress}
-        placeholder="찾고싶은 카테고리나 태그를 입력해주세요."
+        placeholder="검색 타입을 선택 후 찾고싶은 카테고리나 태그를 입력해주세요."
       />
     </div>
   );

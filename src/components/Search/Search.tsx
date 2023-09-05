@@ -75,7 +75,15 @@ const Search = () => {
 
   return (
     <div className="flex-row justify-center items-center">
-      <div className="flex justify-center items-center">
+      <div className="flex items-center w-[924px]">
+        <Link
+          to="/map-page"
+          className="text-sm bg-transparent text-black hover:text-gray-500 hover:border-transparent focus:outline-none"
+        >
+          내 위치로 찾기
+        </Link>
+      </div>
+      <div className="flex justify-center items-center relative">
         <div>
           <select
             id="searchType"
@@ -85,7 +93,8 @@ const Search = () => {
           >
             <option>검색 타입</option>
             <option value="tags">태그 검색</option>
-            <option value="keyword">키워드 검색</option>
+            <option value="keyword">매장 검색</option>
+            // TODO 영어일 때 대소문자 구분안되고 변환되게
           </select>
         </div>
         <div className="relative">
@@ -97,17 +106,11 @@ const Search = () => {
             }
             name="tagQuery"
           />
-          <Link
-            to="/map-page"
-            className="m-5 text-sm bg-transparent text-black hover:text-gray-500 hover:border-transparent focus:outline-none"
-          >
-            내 위치로 찾기
-          </Link>
         </div>
         <div className="p-[15px]">
           <button
             onClick={SearchStore}
-            className="h-[40px] w-[80px] text-sm bg-gray-100 border-none rounded-xl focus:outline-none hover:bg-gray-200"
+            className="h-[40px] w-[80px] text-sm bg-gray-100 border-none rounded-full focus:outline-none hover:bg-gray-200"
           >
             Search
           </button>

@@ -20,7 +20,7 @@ const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = React.useState<Store[]>([]);
   const [courseData, setCourseData] = React.useState<Course[]>([]);
-  const [isMoalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
