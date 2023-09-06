@@ -11,6 +11,8 @@ import LandingPage from './pages/LandingPage';
 import SearchPage from './pages/search/SearchPage';
 import MapPage from './pages/MapPage';
 import { User } from '@to1step/propose-backend';
+import Login from './pages/Login/Login';
+import SignUp from './pages/Signup/Signup';
 
 function App() {
   const dispatch = useDispatch();
@@ -61,8 +63,9 @@ function App() {
   }, [dispatch, address]);
 
   return (
-    <div className="p-10">
-      <header className="w-full flex justify-between items-center">
+    <div>
+      {/* TODO: 해당 부분 사용하는 컴포넌트 페이지에 넣기 */}
+      {/* <header className="w-full flex justify-between items-center">
         <Link
           to="/"
           className="h-[70px] text-[50px] font-custom text-black hover:text-black "
@@ -72,14 +75,16 @@ function App() {
         <Link to="/login" className="text-sl font-semibold hover:text-gray-500">
           로그인
         </Link>
-      </header>
+      </header> */}
       <main>
-        <Search />
+        {/* <Search /> */}
         <Routes>
           {/* IF 문임  */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/map" element={<MapPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </main>
     </div>
