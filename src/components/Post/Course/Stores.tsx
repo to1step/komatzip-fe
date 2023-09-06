@@ -36,11 +36,10 @@ const Stores = ({ stores }: StoresProps) => {
   }, [stores]);
 
   return (
-    <div className="text-sm my-1">
-      <p className="font-bold">✨ 추천 매장 목록 ✨</p>
+    <div>
       <p>
         {storeNames.map((name, uuid) => (
-          <span key={`post-stores-${uuid}`}>
+          <span key={`post-stores-${uuid}`} className="text-[20px]">
             {name}
             {uuid !== storeNames.length - 1 && <br />}
           </span>

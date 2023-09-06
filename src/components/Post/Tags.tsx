@@ -12,7 +12,7 @@ const Tags = ({ tags }: TagsProps) => {
       {tags.map((tag, uuid) => (
         <span
           key={`${uuid}-${tag}`}
-          className="rounded-full p-1 bg-[#EFEFEF] mr-1 text-xs"
+          className="rounded-full p-1 bg-[#EFEFEF] mr-1 text-xs text-black"
         >
           {tag}
         </span>

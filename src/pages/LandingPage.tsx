@@ -59,7 +59,7 @@ const LandingPage = () => {
   }, [address]);
 
   return (
-    <main>
+    <main className="font-custom-sea">
       <section>
         <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
           {address ? (
@@ -70,7 +70,7 @@ const LandingPage = () => {
         </p>
       </section>
       <section>
-        <h1 className="align-middle mb-5 h-[30px] text-2xl font-semibold">
+        <h1 className="align-middle mb-5 h-[30px] text-2xl font-semibold ">
           🏆 이번 주 TOP 매장
         </h1>
         <article className="flex gap-4">
@@ -105,32 +105,42 @@ const LandingPage = () => {
         <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
           🏆 이번 주 TOP 코스
         </h1>
-        <article className="flex gap-4">
-          <button onClick={openModal}>
+        <article className="flex">
+          <button onClick={openModal} className="flex gap-10">
             {courseData.map((item) => (
               <div
                 key={item.uuid}
-                className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl "
+                className="flex justify-center items-center w-[800px] h-[450px] cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg rounded-[30px] bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center"
               >
-                <section className="m-2 flex justify-center items-center">
-                  <section className="flex justify-center items-center">
-                    <section className="flex-row">
-                      <Name name={item.name} />
-                      <User user={item.user} />
+                <div className="w-[800px] h-[450px] rounded-[30px]  flex justify-center items-center bg-blue-100 bg-opacity-30">
+                  <section className="w-11/12 flex justify-center items-center">
+                    <section className="flex-row justify-center items-center mr-[30px] text-amber-100  text-left">
+                      <div className="mb-10">
+                        <Name name={item.name} />
+                      </div>
+                      <div className="mb-3">
+                        <User user={item.user} />
+                      </div>
+                      <Tags tags={item.tags} />
                     </section>
-                    <section className="my-3">
-                      {/* <Tags tags={item.tags} /> */}
-                      <ShortComment shortComment={item.shortComment} />
-                      <LongComment longComment={item.longComment} />
-                      <TransPorts
-                        key={`rank-top-course-transports-${item.uuid}`}
-                        transports={item.transports}
-                      />
-                      <IsPrivate isPrivate={item.isPrivate} />
-                      <Stores stores={item.stores} />
+                    <section className="w-[450px] h-[400px] bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
+                      <section className="bg-white text-sm mb-10 mt-3 text-left w-3/4">
+                        <Stores stores={item.stores} />
+                      </section>
+                      <section className="flex justify-center items-center">
+                        <section>
+                          <ShortComment shortComment={item.shortComment} />
+                          <LongComment longComment={item.longComment} />
+                        </section>
+                        <TransPorts
+                          key={`rank-top-course-transports-${item.uuid}`}
+                          transports={item.transports}
+                        />
+                        {/* <IsPrivate isPrivate={item.isPrivate} /> */}
+                      </section>
                     </section>
                   </section>
-                </section>
+                </div>
               </div>
             ))}
           </button>

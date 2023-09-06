@@ -3,11 +3,16 @@ export default {
   content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
   theme: {
     extend: {
-      fontFamily: {
-        custom: ['Yeongdeok Snow Crab', 'sans'],
+      backgroundImage: {
+        'topcourse-bg01': "url('/img/topcourse-bg01')",
+        'topcourse-bg02': "url('/img/topcourse-bg02.png')",
       },
-      backgroundColor: {
-        'bg-rgba': 'rgba(255, 244, 226, 1.0)',
+      fontFamily: {
+        'custom-sea': ['Yeongdeok Sea', 'sans'],
+        'custom-snow-crab': ['Yeongdeok Snow Crab', 'sans'],
+      },
+      colors: {
+        rgba: 'rgba(255, 244, 226, 1.0)',
       },
     },
   },
