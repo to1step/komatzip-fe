@@ -10,4 +10,7 @@ export default defineConfig({
       additionalData: `@import "normalize.css";`,
     },
   },
+  server: {
+    port: 3000,
+  },
 });
