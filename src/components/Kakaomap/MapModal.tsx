@@ -11,7 +11,6 @@ interface MapModalProps {
 
 const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
-
   const token = localStorage.getItem('JWtTokken');
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -45,7 +44,7 @@ const MapModal: React.FC<MapModalProps> = ({ markerInfo, onClose }) => {
             <LikeButton markerInfo={markerInfo} token={token} />
           </div>
           <div className="mb-2">주소: {markerInfo.location}</div>
-          <CopyAddressButton address={markerInfo.location} />
+          <CopyAddressButton location={markerInfo.location} />
           <div className="mt-8 text-2xl font-semibold">추천코스</div>
           <ul className="mt-2 text-lg">
             {/* 추천코스 아이템들 */}
