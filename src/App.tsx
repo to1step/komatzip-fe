@@ -13,7 +13,6 @@ import MapPage from './pages/MapPage';
 import { User } from '@to1step/propose-backend';
 import Login from './pages/Login/Login';
 import SignUp from './pages/Signup/Signup';
-import Header from './components/Commons/Hearder';
 
 function App() {
   const dispatch = useDispatch();

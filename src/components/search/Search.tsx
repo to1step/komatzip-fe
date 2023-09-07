@@ -74,55 +74,55 @@ const Search = () => {
   };
 
   return (
-    <header>
-      <nav>
-        <div className="flex-row justify-center items-center">
-          <div className="flex items-center w-[924px]">
+    <div className="flex-row justify-center items-center mb-10 w-screen">
+      <header>
+        <form onSubmit={SearchStore}>
+          <div className="flex justify-center items-center">
+            <div>
+              <select
+                id="searchType"
+                value={searchType}
+                onChange={(e) => setSearchType(e.target.value)}
+                className="h-[40px] border-orange-600 border-2 border-r-0 text-sm placeholder-left px-5 border rounded-l-full rounded-r-none focus:outline-none"
+              >
+                <option>검색 타입</option>
+                <option value="tags">태그 검색</option>
+                <option value="keyword">매장 검색</option>
+                {/* TODO 영어일 때 대소문자 구분안되고 변환되게 */}
+              </select>
+            </div>
+            <div className="relative">
+              <InputBox
+                value={tagQuery}
+                onKeyPress={handleKeyPress}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setTagQuery(e.target.value)
+                }
+                name="tagQuery"
+              />
+            </div>
+            <div className="p-[15px]">
+              <button
+                type="submit"
+                className="h-[40px] w-[80px] text-sm bg-orange-200 border-none rounded-full text-orange-800 focus:outline-none "
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+        <div>
+          <nav className="text-center">
             <Link
               to="/map-page"
               className="text-sm bg-transparent text-black hover:text-gray-500 hover:border-transparent focus:outline-none"
             >
               내 위치로 찾기
             </Link>
-          </div>
+          </nav>
         </div>
-      </nav>
-      <form onSubmit={SearchStore}>
-        <div className="flex justify-center items-center relative">
-          <div>
-            <select
-              id="searchType"
-              value={searchType}
-              onChange={(e) => setSearchType(e.target.value)}
-              className="h-[40px] text-sm placeholder-left px-5 border rounded-l-full rounded-r-none focus:outline-none"
-            >
-              <option>검색 타입</option>
-              <option value="tags">태그 검색</option>
-              <option value="keyword">매장 검색</option>
-              {/* TODO 영어일 때 대소문자 구분안되고 변환되게 */}
-            </select>
-          </div>
-          <div className="relative">
-            <InputBox
-              value={tagQuery}
-              onKeyPress={handleKeyPress}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setTagQuery(e.target.value)
-              }
-              name="tagQuery"
-            />
-          </div>
-          <div className="p-[15px]">
-            <button
-              type="submit"
-              className="h-[40px] w-[80px] text-sm bg-gray-100 border-none rounded-full focus:outline-none hover:bg-gray-200"
-            >
-              Search
-            </button>
-          </div>
-        </div>
-      </form>
-    </header>
+      </header>
+    </div>
   );
 };
 

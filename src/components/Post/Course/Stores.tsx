@@ -93,7 +93,7 @@ const Stores = ({ stores }: StoresProps) => {
         className="relative"
         style={{
           maxHeight: '150px',
-          overflow: 'hidden',
+          overflow: 'scroll',
         }}
       >
         <div
