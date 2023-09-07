@@ -118,7 +118,7 @@ const LandingPage = () => {
               >
                 <div className="w-[800px] h-[450px] rounded-[30px]  flex justify-center items-center bg-blue-100 bg-opacity-30">
                   <section className="w-11/12 flex justify-center items-center">
-                    <section className="flex-row justify-center items-center mr-[30px] text-amber-100  text-left">
+                    <section className="flex-row justify-center items-center mr-3 text-amber-100 text-left">
                       <div className="mb-10">
                         <Name name={item.name} />
                       </div>
