@@ -128,7 +128,7 @@ const LandingPage = () => {
                       <Tags tags={item.tags} />
                     </section>
                     <section className="w-[450px] h-[400px] bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
-                      <section className="bg-white text-sm mb-10 mt-3 text-left w-3/4">
+                      <section className="mb-10 text-left w-3/4">
                         <Stores stores={item.stores} />
                       </section>
                       <section className="flex justify-center items-center">
