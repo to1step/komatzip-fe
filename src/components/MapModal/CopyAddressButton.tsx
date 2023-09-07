@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BiCopy } from 'react-icons/bi';
+
 interface CopyAddressButtonProps {
-  address: string;
   location: string;
 }
 
-const CopyAddressButton: React.FC<CopyAddressButtonProps> = ({ location }) => {
+const CopyAddressButton = ({ location }: CopyAddressButtonProps) => {
   const [isCopyAddress, setIsCopyAddress] = useState<boolean>(false);
 
   const handleCopyAddress = () => {
@@ -18,7 +18,11 @@ const CopyAddressButton: React.FC<CopyAddressButtonProps> = ({ location }) => {
     setIsCopyAddress(false);
   };
 
-  return <BiCopy onClick={() => handleCopyAddress()} />;
+  return (
+    <div onClick={handleCopyAddress}>
+      <BiCopy />
+    </div>
+  );
 };
 
 export default CopyAddressButton;

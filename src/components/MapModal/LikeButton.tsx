@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { StoreEntireInfo } from '@to1step/propose-backend';
+
 interface LikeButtonProps {
-  markerLike: boolean;
   markerInfo: StoreEntireInfo;
   token: string | null;
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({ markerInfo, token }) => {
-  const [userLike, setUserLike] = useState<boolean>(false);
+const LikeButton = ({ markerInfo, token }: LikeButtonProps) => {
   const [isClickLike, setIsClickLike] = useState<boolean>(false);
   const [markerLike, setMarkerLike] = useState<boolean>(
     (markerInfo && markerInfo.iLike) || false,
@@ -54,7 +53,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ markerInfo, token }) => {
 
   return (
     <span onClick={handleClickLike}>
-      {userLike ? <AiFillHeart color="red" /> : <AiOutlineHeart />}
+      {markerLike ? <AiFillHeart color="red" /> : <AiOutlineHeart />}
     </span>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { StoreEntireInfo, StoreReview } from '@to1step/propose-backend';
 
@@ -7,12 +7,34 @@ interface ReviewListProps {
   token: string | null;
 }
 
-const ReviewList: React.FC<ReviewListProps> = ({ markerInfo, token }) => {
+const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
   const [prevMarkerInfo, setPrevMarkerInfo] = useState<StoreEntireInfo | null>(
     null,
   );
   const [reviews, setReviews] = useState<StoreReview[]>([]);
   const [reviewText, setReviewText] = useState<string>(''); // 리뷰 텍스트 입력 상태 변수
+
+  useEffect(() => {
+    if (markerInfo && prevMarkerInfo !== markerInfo) {
+      console.log('markerInfo 데이터:', markerInfo);
+      const fetchStoreInfo = async () => {
+        try {
+          const response = await axios.get(
+            `https://api.to1step.shop/v1/stores/${markerInfo.uuid}`,
+          );
+          const storeInfo = response.data;
+          console.log('서버 응답:', response);
+          const storeReviews = storeInfo.storeReviews || [];
+          setReviews(storeReviews);
+        } catch (error) {
+          console.error('Error fetching store info:', error);
+        }
+      };
+
+      setPrevMarkerInfo(markerInfo);
+      fetchStoreInfo();
+    }
+  }, [markerInfo, prevMarkerInfo]);
 
   const handleReviewSubmit = async () => {
     console.log('리뷰 작성 버튼 클릭됨');
@@ -53,30 +75,6 @@ const ReviewList: React.FC<ReviewListProps> = ({ markerInfo, token }) => {
       console.error('Error deleting review:', error);
     }
   };
-
-  useEffect(() => {
-    if (markerInfo && prevMarkerInfo !== markerInfo) {
-      const fetchStoreInfo = async () => {
-        try {
-          const response = await axios.get(
-            `https://api.to1step.shop/v1/stores/${markerInfo.uuid}`,
-          );
-          const storeInfo = response.data;
-          const storeReviews = storeInfo.storeReviews || [];
-          setReviews(storeReviews);
-        } catch (error) {
-          console.error('Error fetching store info:', error);
-        }
-      };
-
-      setPrevMarkerInfo(markerInfo);
-      fetchStoreInfo();
-    }
-  }, [markerInfo, prevMarkerInfo]);
-
-  if (!markerInfo) {
-    return null;
-  }
 
   return (
     <div>
