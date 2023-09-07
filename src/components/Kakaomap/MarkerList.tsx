@@ -15,7 +15,7 @@ const MarkerList: React.FC<MarkerListProps> = ({
   onMarkerMouseOver,
 }) => {
   return (
-    <div className="absolute top-2 right-[300px] p-4 bg-white w-[350px] shadow-md z-10 rounded-lg overflow-auto">
+    <div className="absolute top-2 right-[2vw] p-4 bg-white w-[350px] shadow-md z-10 rounded-lg overflow-auto">
       <style>
         {`
           ::-webkit-scrollbar {
