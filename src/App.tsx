@@ -1,11 +1,9 @@
-// import { User } from '@to1step/propose-backend';
 import { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateLocation } from './redux/module/locationSlice';
 import { RootState } from './redux/module';
 import axios from 'axios';
-import Search from './components/Search/Search';
 import axiosInstance from './api/apiInstance';
 import LandingPage from './pages/LandingPage';
 import SearchPage from './pages/search/SearchPage';
