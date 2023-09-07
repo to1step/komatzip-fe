@@ -59,7 +59,7 @@ const LandingPage = () => {
   }, [address]);
 
   return (
-    <main className="font-custom-sea">
+    <main className="font-['SUITE-Regular']">
       <section>
         <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
           {address ? (
@@ -77,16 +77,18 @@ const LandingPage = () => {
           {data.map((item) => (
             <div
               key={item.uuid}
-              className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl"
+              className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg bg-white"
             >
-              <article className="m-2">
-                {item.representImage ? (
-                  <Image representImage={item.representImage} />
-                ) : (
-                  <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
-                    이미지가 아직 준비되지 않았어요!
-                  </p>
-                )}
+              <article className="m-2 ">
+                <div className="flex justify-center items-center">
+                  {item.representImage ? (
+                    <Image representImage={item.representImage} />
+                  ) : (
+                    <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
+                      이미지가 아직 준비되지 않았어요!
+                    </p>
+                  )}
+                </div>
                 <section className="mt-2">
                   <Name name={item.name} />
                   <Location location={item.location} />
@@ -110,7 +112,7 @@ const LandingPage = () => {
             {courseData.map((item) => (
               <div
                 key={item.uuid}
-                className="flex justify-center items-center w-[800px] h-[450px] cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg rounded-[30px] bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center"
+                className="flex justify-center w-[800px] h-[450px] cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg rounded-[30px] bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center"
               >
                 <div className="w-[800px] h-[450px] rounded-[30px]  flex justify-center items-center bg-blue-100 bg-opacity-30">
                   <section className="w-11/12 flex justify-center items-center">
