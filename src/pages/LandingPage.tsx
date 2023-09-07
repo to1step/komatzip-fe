@@ -15,6 +15,7 @@ import Stores from '../components/Post/Course/Stores';
 import User from '../components/Post/Course/User';
 import Image from '../components/Post/Store/Image';
 import TransPorts from '../components/Post/Course/Transports';
+import Header from '../components/Commons/Hearder';
 
 const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
@@ -60,6 +61,7 @@ const LandingPage = () => {
 
   return (
     <main className="font-['SUITE-Regular']">
+      <Header />
       <section>
         <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
           {address ? (

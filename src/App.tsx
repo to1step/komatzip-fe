@@ -13,6 +13,7 @@ import MapPage from './pages/MapPage';
 import { User } from '@to1step/propose-backend';
 import Login from './pages/Login/Login';
 import SignUp from './pages/Signup/Signup';
+import Header from './components/Commons/Hearder';
 
 function App() {
   const dispatch = useDispatch();
@@ -64,20 +65,7 @@ function App() {
 
   return (
     <div>
-      {/* TODO: 해당 부분 사용하는 컴포넌트 페이지에 넣기 */}
-      <header className="w-full flex justify-between items-center">
-        <Link
-          to="/"
-          className="h-[70px] text-[50px] font-custom-snow-crab text-black hover:text-black "
-        >
-          코맛집
-        </Link>
-        <Link to="/login" className="text-sl font-semibold hover:text-gray-500">
-          로그인
-        </Link>
-      </header>
       <main>
-        {/* <Search /> */}
         <Routes>
           {/* IF 문임  */}
           <Route path="/" element={<LandingPage />} />
