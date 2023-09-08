@@ -9,7 +9,7 @@ const Header = () => {
           <div className="flex justify-end mb-3">
             <Link
               to="/login"
-              className="text-xl font-semibold hover:text-orange-900"
+              className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900"
             >
               Login
             </Link>
@@ -17,15 +17,13 @@ const Header = () => {
           <h1 className="text-center mb-10">
             <Link
               to="/"
-              className="text-7xl font-bold text-orange-300 font-custom-snow-crab"
+              className="text-7xl font-bold text-orange-200 font-custom-snow-crab"
             >
               여기가 수도권
             </Link>
           </h1>
         </div>
-        <form>
-          <Search />
-        </form>
+        <Search />
       </nav>
     </header>
   );

@@ -60,96 +60,107 @@ const LandingPage = () => {
   }, [address]);
 
   return (
-    <main className="font-['SUITE-Regular'] m-14">
-      <Header />
-      <section>
-        <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
+    <main className="font-['SUITE-Regular']">
+      <div className=" bg-amber-700 h-[60vh] bg-cover bg-center">
+        <div className="bg-blue-300 bg-opacity-20 h-[60vh]">
+          <header>
+            <Header />
+          </header>
+          {/* <section>
+        <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent">
           {address ? (
             <p>🦖 현재 내 위치 : {address}</p>
           ) : (
             <p>현재 내 위치 찾는중...</p>
           )}
         </p>
-      </section>
-      <section>
-        <h1 className="align-middle mb-5 h-[30px] text-2xl font-semibold ">
-          🏆 이번 주 TOP 매장
-        </h1>
-        <article className="flex gap-4">
-          {data.map((item) => (
-            <div
-              key={item.uuid}
-              className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg bg-white"
-            >
-              <article className="m-2 ">
-                <div className="flex justify-center items-center">
-                  {item.representImage ? (
-                    <Image representImage={item.representImage} />
-                  ) : (
-                    <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
-                      이미지가 아직 준비되지 않았어요!
-                    </p>
-                  )}
-                </div>
-                <section className="mt-2">
-                  <Name name={item.name} />
-                  <Location location={item.location} />
-                  <Description description={item.description} />
-                  <div className="flex mt-1">
-                    <Category category={item.category} />
-                    <Tags tags={item.tags} />
-                  </div>
-                </section>
-              </article>
+      </section> */}
+          <section className="">
+            <div className="text-center">
+              <h1 className="mb-12 mt-20 h-[30px] text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743]">
+                이번 주 TOP 매장
+              </h1>
             </div>
-          ))}
-        </article>
-      </section>
-      <section>
-        <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
-          🏆 이번 주 TOP 코스
-        </h1>
-        <article className="flex">
-          <button onClick={openModal} className="flex gap-10">
-            {courseData.map((item) => (
-              <div
-                key={item.uuid}
-                className="flex justify-center w-[800px] h-[450px] cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg rounded-[30px] bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center"
-              >
-                <div className="w-[800px] h-[450px] rounded-[30px]  flex justify-center items-center bg-blue-100 bg-opacity-30">
-                  <section className="w-11/12 flex justify-center items-center">
-                    <section className="flex-row justify-center items-center mr-3 text-amber-100 text-left">
-                      <div className="mb-10">
-                        <Name name={item.name} />
+            <article className="flex gap-4 justify-center">
+              {data.map((item) => (
+                <div
+                  key={item.uuid}
+                  className="cursor-pointer transition-all duration-300 ease-in-out transform shadow-lg hover:shadow-none bg-white"
+                >
+                  <article className="m-2 ">
+                    <div className="flex justify-center items-center">
+                      {item.representImage ? (
+                        <Image representImage={item.representImage} />
+                      ) : (
+                        <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
+                          이미지가 아직 준비되지 않았어요!
+                        </p>
+                      )}
+                    </div>
+
+                    <section className="mt-4">
+                      <Name name={item.name} />
+                      <Location location={item.location} />
+                      <Description description={item.description} />
+                      <div className="flex mt-1">
+                        <Category category={item.category} />
+                        <Tags tags={item.tags} />
                       </div>
-                      <div className="mb-3">
-                        <User user={item.user} />
-                      </div>
-                      <Tags tags={item.tags} />
                     </section>
-                    <section className="w-[450px] h-[400px] bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
-                      <section className="mb-10 text-left w-3/4">
-                        <Stores stores={item.stores} />
-                      </section>
-                      <section className="flex justify-center items-center">
-                        <section>
-                          <ShortComment shortComment={item.shortComment} />
-                          <LongComment longComment={item.longComment} />
-                        </section>
-                        <TransPorts
-                          key={`rank-top-course-transports-${item.uuid}`}
-                          transports={item.transports}
-                        />
-                        {/* <IsPrivate isPrivate={item.isPrivate} /> */}
-                      </section>
-                    </section>
-                  </section>
+                  </article>
                 </div>
-              </div>
-            ))}
-          </button>
-        </article>
-      </section>
+              ))}
+            </article>
+          </section>
+          <section>
+            <div className="text-center">
+              <h1 className="mt-40 mb-12 h-[30px] text-4xl font-bold  text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743]">
+                이번 주 TOP 코스
+              </h1>
+            </div>
+            <article className="flex w-full overflow-auto">
+              <button onClick={openModal} className="flex gap-10">
+                {courseData.map((item) => (
+                  <div
+                    key={item.uuid}
+                    className="flex justify-center w-[800px] h-[450px] cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg rounded-[30px] bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center"
+                  >
+                    <div className="w-[800px] h-[450px] rounded-[30px]  flex justify-center items-center bg-blue-100 bg-opacity-30">
+                      <section className="w-11/12 flex justify-center items-center">
+                        <section className="flex-row justify-center items-center mr-3 text-amber-100 text-left">
+                          <div className="mb-10">
+                            <Name name={item.name} />
+                          </div>
+                          <div className="mb-3">
+                            <User user={item.user} />
+                          </div>
+                          <Tags tags={item.tags} />
+                        </section>
+                        <section className="w-[450px] h-[400px] bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
+                          <section className="mb-10 text-left w-3/4">
+                            <Stores stores={item.stores} />
+                          </section>
+                          <section className="flex justify-center items-center">
+                            <section>
+                              <ShortComment shortComment={item.shortComment} />
+                              <LongComment longComment={item.longComment} />
+                            </section>
+                            <TransPorts
+                              key={`rank-top-course-transports-${item.uuid}`}
+                              transports={item.transports}
+                            />
+                            {/* <IsPrivate isPrivate={item.isPrivate} /> */}
+                          </section>
+                        </section>
+                      </section>
+                    </div>
+                  </div>
+                ))}
+              </button>
+            </article>
+          </section>
+        </div>
+      </div>
     </main>
   );
 };

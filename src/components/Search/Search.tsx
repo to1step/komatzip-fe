@@ -18,7 +18,7 @@ const Search = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tagQuery, setTagQuery] = useState('');
-  const [searchType, setSearchType] = useState('검색 타입'); // 초기값을 'tags'
+  const [searchType, setSearchType] = useState('검색 타입');
 
   const handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -38,34 +38,38 @@ const Search = () => {
       } else if (searchType === 'keyword') {
         endpoint = 'keyword';
         paramKey = 'keyword';
-        // 요청 되어야 하는 https://api.to1step.shop/v1/search/keyword?type=course&keyword=%EC%95%84%EC%B9%A8
-        // 요청 되어야 하는 https://api.to1step.shop/v1/search/keyword?type=course&tag=%EC%95%84%EC%B9%A8
-        // 내가 작성한 코드 https://api.to1step.shop/v1/search/keyword?type=course&tag=%EC%95%84%EC%B9%A8
-        // 내가 작성한 코드 https://api.to1step.shop/v1/search/keyword?type=course&keyword=%EC%95%84%EC%B9%A8
       }
+
+      const page = 1;
+      const pageSize = 10;
 
       const [storeResponse, courseResponse] = await axios.all([
         axiosInstance.get(`/v1/search/${endpoint}`, {
           params: {
             type: 'store',
             [paramKey]: tagQuery,
+            page,
+            pageSize,
           },
         }),
         axiosInstance.get(`/v1/search/${endpoint}`, {
           params: {
             type: 'course',
             [paramKey]: tagQuery,
+            page,
+            pageSize,
           },
         }),
       ]);
 
       dispatch(setSearchResultsStore(storeResponse.data));
-      // console.log('매장 검색 결과 데이터:', storeResponse.data);
+      console.log('매장 검색 결과 데이터:', storeResponse.data);
 
       dispatch(setSearchResultsCourse(courseResponse.data));
-      // console.log('코스 검색 결과 데이터:', courseResponse.data);
+      console.log('코스 검색 결과 데이터:', courseResponse.data);
 
       dispatch(setSearchQuery(tagQuery));
+      console.log('태그 쿼리:', tagQuery);
 
       navigate('/search'); // 검색 결과를 redux 상태에 저장한 후 페이지 라우팅
     } catch (error) {
@@ -74,7 +78,7 @@ const Search = () => {
   };
 
   return (
-    <div className="flex-row justify-center items-center mb-10 w-screen">
+    <div className="flex-row justify-center items-center mb-10">
       <header>
         <form onSubmit={SearchStore}>
           <div className="flex justify-center items-center">
@@ -85,7 +89,6 @@ const Search = () => {
                 onChange={(e) => setSearchType(e.target.value)}
                 className="h-[40px] border-orange-600 border-2 border-r-0 text-sm placeholder-left px-5 border rounded-l-full rounded-r-none focus:outline-none"
               >
-                <option>검색 타입</option>
                 <option value="tags">태그 검색</option>
                 <option value="keyword">매장 검색</option>
                 {/* TODO 영어일 때 대소문자 구분안되고 변환되게 */}
@@ -112,12 +115,9 @@ const Search = () => {
           </div>
         </form>
         <div>
-          <nav className="text-center">
-            <Link
-              to="/map-page"
-              className="text-sm bg-transparent text-black hover:text-gray-500 hover:border-transparent focus:outline-none"
-            >
-              내 위치로 찾기
+          <nav className="text-center font-semibold">
+            <Link to="/map-page" className="text-sl text-orange-200">
+              지금 내 주위 장소 보기
             </Link>
           </nav>
         </div>

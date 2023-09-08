@@ -5,6 +5,7 @@ import { Course, Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
 import { useState } from 'react';
 import Pagination from '../../components/Pagination/Pagination';
+import Header from '../../components/Commons/Header';
 
 // 검색 결과 페이지
 
@@ -50,6 +51,7 @@ const SearchPage = () => {
   };
   return (
     <main>
+      <Header />
       <section>
         <p className="inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
           👩🏻‍💻 '{searchQuery}'의 검색결과입니다.

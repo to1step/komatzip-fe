@@ -90,11 +90,7 @@ const Stores = ({ stores }: StoresProps) => {
       </div>
       <div
         id="carousel-container"
-        className="relative"
-        style={{
-          maxHeight: '150px',
-          overflow: 'scroll',
-        }}
+        className="relative overflow-x-hidden overflow-y-auto h-[150px]"
       >
         <div
           style={{
