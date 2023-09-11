@@ -78,14 +78,6 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
 
   return (
     <div>
-      {/* 리뷰 목록 출력 */}
-      {reviews.map((review) => (
-        <div key={review.uuid}>
-          {review.review}
-          <button onClick={() => handleReviewDelete(review.uuid)}>삭제</button>
-        </div>
-      ))}
-
       {/* 리뷰 작성 폼 */}
       <div className="mt-4">
         <textarea
@@ -96,6 +88,13 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
         />
         <button onClick={handleReviewSubmit}>작성</button>
       </div>
+      {/* 리뷰 목록 출력 */}
+      {reviews.map((review) => (
+        <div key={review.uuid}>
+          {review.review}
+          <button onClick={() => handleReviewDelete(review.uuid)}>삭제</button>
+        </div>
+      ))}
     </div>
   );
 };

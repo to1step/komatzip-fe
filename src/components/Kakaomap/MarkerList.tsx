@@ -2,7 +2,7 @@ import React from 'react';
 import { StoreEntireInfo } from '@to1step/propose-backend';
 
 interface MarkerListProps {
-  markers: StoreEntireInfo[]; // MarkerInfo를 Store 타입으로 변경
+  markers: StoreEntireInfo[];
   activeMarkerTitle: string | null;
   onMarkerClick: (markerInfo: StoreEntireInfo) => void;
   onMarkerMouseOver: (markerInfo: StoreEntireInfo) => void;
@@ -45,8 +45,9 @@ const MarkerList: React.FC<MarkerListProps> = ({
             onClick={() => onMarkerClick(marker)}
             onMouseOver={() => onMarkerMouseOver(marker)}
           >
-            <p className="font-semibold">{`${marker.name}`}</p>
+            <p className="font-bold text-lg text-blue-500">{`${marker.name}`}</p>
             <p>{`주소: ${marker.location}`}</p>
+            <p>{`태그: ${marker.tags}`}</p>
           </div>
         ))}
       </div>

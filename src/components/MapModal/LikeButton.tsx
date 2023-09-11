@@ -53,7 +53,11 @@ const LikeButton = ({ markerInfo, token }: LikeButtonProps) => {
 
   return (
     <span onClick={handleClickLike}>
-      {markerLike ? <AiFillHeart color="red" /> : <AiOutlineHeart />}
+      {markerLike ? (
+        <AiFillHeart size="24" color="red" />
+      ) : (
+        <AiOutlineHeart size="24" />
+      )}
     </span>
   );
 };
