@@ -1,9 +1,32 @@
-// TODO : 가게이름, 설명, 카테고리, 태그, 하트, 공유하기버튼, 이용자 후기,이용자 후기 추가버튼, 포토후기, 위치, 정적지도, 주소, 주소복사버튼
-const PostModal = () => {
+import { StoreEntireInfo } from '@to1step/propose-backend';
+import PostModalMap from './PostModalMap';
+
+interface PostModalProps {
+  store: StoreEntireInfo;
+  closeModal: () => void;
+}
+
+const PostModal = ({ store, closeModal }: PostModalProps) => {
   return (
-    <>
-      <p>매장상세모달입니다</p>
-    </>
+    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-500 bg-opacity-80">
+      <div className="bg-white w-[500px] relative p-4">
+        <button
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+          onClick={closeModal}
+        >
+          X
+        </button>
+        <h2 className="text-xl font-semibold mb-4">{store.name}</h2>
+        <p className="mb-2">{store.description}</p>
+        <p className="mb-2">카테고리: {store.category}</p>
+        <p className="mb-2">태그: {store.tags.join(', ')}</p>
+        <p className="mb-2">주소: {store.location}</p>
+        <p className="mb-2">좌표:{store.coordinates}</p>
+        <div>
+          <PostModalMap coordinates={store.coordinates} />
+        </div>
+      </div>
+    </div>
   );
 };
 

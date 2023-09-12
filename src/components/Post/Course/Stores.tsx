@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../../api/apiInstance';
 import { Store } from '@to1step/propose-backend';
+import PostModal from '../../PostModal/PostModal';
 
 const CAROUSEL_ITEM_HEIGHT = 200;
 const VISIBLE_ITEMS = 4;
@@ -52,6 +53,8 @@ interface StoresProps {
 const Stores = ({ stores }: StoresProps) => {
   const [storeInfo, setStoreInfo] = useState<Store[]>([]);
   const [carouselPosition, setCarouselPosition] = useState(0);
+  const [selectedStore, setSelectedStore] = useState<Store | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     // 가게 UUID를 이름으로 변환
@@ -74,7 +77,7 @@ const Stores = ({ stores }: StoresProps) => {
 
     setCarouselPosition(newPosition);
 
-    // 아래로 스크롤(Down) 버튼이 작동하도록 다음과 같이 수정합니다.
+    // 아래로 스크롤(Down) 버튼이 작동
     if (direction === 'down') {
       container.scrollTop =
         (newPosition + VISIBLE_ITEMS) * CAROUSEL_ITEM_HEIGHT;
@@ -82,6 +85,32 @@ const Stores = ({ stores }: StoresProps) => {
       container.scrollTop = newPosition * CAROUSEL_ITEM_HEIGHT;
     }
   };
+
+  const openModal = (store: Store) => {
+    setSelectedStore(store);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedStore(null);
+    setIsModalOpen(false);
+  };
+
+  const handleDocumentClick = (e: MouseEvent) => {
+    if (isModalOpen) {
+      const modal = document.querySelector('.modal');
+      if (modal && !modal.contains(e.target as Node)) {
+        closeModal();
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleDocumentClick);
+    return () => {
+      document.removeEventListener('mousedown', handleDocumentClick);
+    };
+  }, [isModalOpen]);
 
   return (
     <div className="relative">
@@ -102,7 +131,11 @@ const Stores = ({ stores }: StoresProps) => {
           }}
         >
           {storeInfo.map((info, index) => (
-            <div key={`store-${index}`} className="text-lg relative">
+            <div
+              key={`store-${index}`}
+              className="text-lg relative"
+              onClick={() => openModal(info)}
+            >
               <div className="absolute h-full border-l-8 border-black border-orange-300 m-2.5"></div>
               <div>
                 <div className="relative">
@@ -118,6 +151,10 @@ const Stores = ({ stores }: StoresProps) => {
       <div className="flex justify-center items-center mt-4 ml-2 z-10">
         <button onClick={() => scrollCarousel('down')}>&#8595;</button>
       </div>
+
+      {isModalOpen && selectedStore && (
+        <PostModal store={selectedStore} closeModal={closeModal} />
+      )}
     </div>
   );
 };

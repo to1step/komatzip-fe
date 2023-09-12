@@ -21,10 +21,6 @@ const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = React.useState<Store[]>([]);
   const [courseData, setCourseData] = React.useState<Course[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     if (address) {
@@ -67,14 +63,14 @@ const LandingPage = () => {
             <Header />
           </header>
           {/* <section>
-        <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent">
-          {address ? (
-            <p>🦖 현재 내 위치 : {address}</p>
-          ) : (
-            <p>현재 내 위치 찾는중...</p>
-          )}
-        </p>
-      </section> */}
+            <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent">
+              {address ? (
+                <p>🦖 현재 내 위치 : {address}</p>
+              ) : (
+                <p>현재 내 위치 찾는중...</p>
+              )}
+            </p>
+          </section> */}
           <section className="">
             <div className="text-center">
               <h1 className="mb-12 mt-20 h-[30px] text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743]">
@@ -118,45 +114,43 @@ const LandingPage = () => {
                 이번 주 TOP 코스
               </h1>
             </div>
-            <article className="flex w-full overflow-auto">
-              <button onClick={openModal} className="flex gap-10">
-                {courseData.map((item) => (
-                  <div
-                    key={item.uuid}
-                    className="flex justify-center w-[800px] h-[450px] cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg rounded-[30px] bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center"
-                  >
-                    <div className="w-[800px] h-[450px] rounded-[30px]  flex justify-center items-center bg-blue-100 bg-opacity-30">
-                      <section className="w-11/12 flex justify-center items-center">
-                        <section className="flex-row justify-center items-center mr-3 text-amber-100 text-left">
-                          <div className="mb-10">
-                            <Name name={item.name} />
-                          </div>
-                          <div className="mb-3">
-                            <User user={item.user} />
-                          </div>
-                          <Tags tags={item.tags} />
+            <article className="flex w-full overflow-auto gap-10">
+              {courseData.map((item) => (
+                <div
+                  key={item.uuid}
+                  className="flex justify-center w-[800px] h-[450px] cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg rounded-[30px] bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center"
+                >
+                  <div className="w-[800px] h-[450px] rounded-[30px]  flex justify-center items-center bg-blue-100 bg-opacity-30">
+                    <section className="w-11/12 flex justify-center items-center">
+                      <section className="flex-row justify-center items-center mr-3 text-amber-100 text-left">
+                        <div className="mb-10">
+                          <Name name={item.name} />
+                        </div>
+                        <div className="mb-3">
+                          <User user={item.user} />
+                        </div>
+                        <Tags tags={item.tags} />
+                      </section>
+                      <section className="w-[450px] h-[400px] bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
+                        <section className="mb-10 text-left w-3/4">
+                          <Stores stores={item.stores} />
                         </section>
-                        <section className="w-[450px] h-[400px] bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
-                          <section className="mb-10 text-left w-3/4">
-                            <Stores stores={item.stores} />
+                        <section className="flex justify-center items-center">
+                          <section>
+                            <ShortComment shortComment={item.shortComment} />
+                            <LongComment longComment={item.longComment} />
                           </section>
-                          <section className="flex justify-center items-center">
-                            <section>
-                              <ShortComment shortComment={item.shortComment} />
-                              <LongComment longComment={item.longComment} />
-                            </section>
-                            <TransPorts
-                              key={`rank-top-course-transports-${item.uuid}`}
-                              transports={item.transports}
-                            />
-                            {/* <IsPrivate isPrivate={item.isPrivate} /> */}
-                          </section>
+                          <TransPorts
+                            key={`rank-top-course-transports-${item.uuid}`}
+                            transports={item.transports}
+                          />
+                          {/* <IsPrivate isPrivate={item.isPrivate} /> */}
                         </section>
                       </section>
-                    </div>
+                    </section>
                   </div>
-                ))}
-              </button>
+                </div>
+              ))}
             </article>
           </section>
         </div>
