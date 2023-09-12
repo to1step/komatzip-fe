@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import MarkerList from './MarkerList';
@@ -197,7 +195,38 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   }, []);
 
   const handleMarkerClick = (markerInfo: StoreEntireInfo) => {
+    const recommendedCourses = calculateDistance(
+      markerInfo.coordinates[0], // 클릭한 마커의 경도
+      markerInfo.coordinates[1], // 클릭한 마커의 위도
+      visibleMarkersRef.current, // 모든 마커 정보
+    );
+
     setSelectedMarker(markerInfo);
+    setRecommendedCourses(recommendedCourses); // 상태 업데이트
+  };
+
+  const [recommendedCourses, setRecommendedCourses] = useState<
+    StoreEntireInfo[]
+  >([]);
+
+  // 클릭한 마커와 주변 마커 간의 거리를 계산하는 함수
+  const calculateDistance = (
+    clickedLng: number,
+    clickedLat: number,
+    markers: StoreEntireInfo[],
+  ) => {
+    const recommendedCourses = markers.filter((marker) => {
+      const markerLng = marker.coordinates[0];
+      const markerLat = marker.coordinates[1];
+      const distance = Math.sqrt(
+        Math.pow(clickedLng - markerLng, 2) +
+          Math.pow(clickedLat - markerLat, 2),
+      );
+
+      return distance < 2.1;
+    });
+
+    return recommendedCourses;
   };
 
   const handleMarkerMouseOver = (markerInfo: StoreEntireInfo) => {
@@ -277,7 +306,11 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
         onMarkerClick={handleMarkerClick}
         onMarkerMouseOver={handleMarkerMouseOver}
       />
-      <MapModal markerInfo={selectedMarker} onClose={handleCloseModal} />
+      <MapModal
+        markerInfo={selectedMarker}
+        recommendedCourses={recommendedCourses} // 추천 코스 정보 전달
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };
