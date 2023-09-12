@@ -31,11 +31,12 @@ const InputBox = (props: Props) => {
     setInputValue(e.target.value);
   };
 
-  // console.log(validationError, handleSubmit, handleChange)
+  // console.log(validationError, handleSubmit, handleChange);
+
   return (
     <div>
       <input
-        className=" w-[675px] h-[40px] text-sm placeholder-left px-5 border rounded-xl focus:outline-none"
+        className=" w-[675px] h-[40px] border-orange-600 text-sm placeholder-left px-5 border-2 rounded-r-full rounded-l-none focus:outline-none"
         name={props.name}
         type={props.type || 'text'}
         onClick={props.onClick}
@@ -43,7 +44,7 @@ const InputBox = (props: Props) => {
         onBlur={props.onBlur}
         value={props.value}
         onKeyPress={props.onKeyPress}
-        placeholder="찾고싶은 카테고리나 태그를 입력해주세요."
+        placeholder="검색 타입을 선택 후 찾고싶은 태그나 매장 이름을 입력해주세요."
       />
     </div>
   );

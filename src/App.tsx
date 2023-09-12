@@ -1,11 +1,9 @@
-// import { User } from '@to1step/propose-backend';
 import { useEffect, useState } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateLocation } from './redux/module/locationSlice';
 import { RootState } from './redux/module';
 import axios from 'axios';
-import Search from './components/Search/Search';
 import axiosInstance from './api/apiInstance';
 import LandingPage from './pages/LandingPage';
 import SearchPage from './pages/search/SearchPage';
@@ -19,8 +17,6 @@ function App() {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = useState<User[]>([]);
 
-  console.log(data);
-
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -33,27 +29,25 @@ function App() {
               `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
               {
                 headers: {
-                  Authorization: `KakaoAK 53e5de546fe738bcca1d3a3b53c993bd`,
+                  Authorization: `KakaoAK a055e717c1cb42e8ee196835ba48dfcf`,
                 },
               },
             );
             const addressData = response.data.documents[0];
-            if (addressData.region_1depth_name === '서울특별시') {
-              addressData.region_1depth_name = '서울시';
-            }
 
             const { data: locationResponseData } = await axiosInstance.get(
-              // `/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
-              `/v1/rank?type=store&region=서울특별시 강남구`,
+              `/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
+              // `/v1/rank?type=store&region=서울특별시 강남구`,
             );
 
             dispatch(
               updateLocation(
                 addressData.region_1depth_name +
                   ' ' +
-                  addressData.region_2depth_name +
-                  ' ' +
-                  addressData.region_3depth_name,
+                  addressData.region_2depth_name,
+                // +
+                // ' ' +
+                // addressData.region_3depth_name,
               ),
             );
             setData(locationResponseData);
@@ -68,20 +62,7 @@ function App() {
 
   return (
     <div>
-      {/* TODO: 해당 부분 사용하는 컴포넌트 페이지에 넣기 */}
-      {/* <header className="w-full flex justify-between items-center">
-        <Link
-          to="/"
-          className="h-[70px] text-[50px] font-custom text-black hover:text-black "
-        >
-          코맛집
-        </Link>
-        <Link to="/login" className="text-sl font-semibold hover:text-gray-500">
-          로그인
-        </Link>
-      </header> */}
       <main>
-        {/* <Search /> */}
         <Routes>
           {/* IF 문임  */}
           <Route path="/" element={<LandingPage />} />
