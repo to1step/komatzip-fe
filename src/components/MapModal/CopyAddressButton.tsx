@@ -12,15 +12,15 @@ const CopyAddressButton = ({ location }: CopyAddressButtonProps) => {
     try {
       navigator.clipboard.writeText(location);
       setIsCopyAddress(true);
+      alert('주소가 복사되었습니다.');
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
-    setIsCopyAddress(false);
   };
 
   return (
     <div onClick={handleCopyAddress}>
-      <BiCopy />
+      <BiCopy color="#FF3257" />
     </div>
   );
 };
