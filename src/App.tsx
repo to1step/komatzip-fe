@@ -1,6 +1,6 @@
 // import { User } from '@to1step/propose-backend';
 import { useEffect, useState } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateLocation } from './redux/module/locationSlice';
 import { RootState } from './redux/module';

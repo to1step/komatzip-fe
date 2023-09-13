@@ -18,7 +18,7 @@ const Search = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tagQuery, setTagQuery] = useState('');
-  const [searchType, setSearchType] = useState('검색 타입');
+  const [searchType, setSearchType] = useState('tags');
 
   const handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {

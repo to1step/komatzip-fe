@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Course, Store } from '@to1step/propose-backend';
 import axiosInstance from '../api/apiInstance';
@@ -8,7 +8,6 @@ import Name from '../components/Post/Name';
 import Description from '../components/Post/Store/Description';
 import Category from '../components/Post/Store/Category';
 import Tags from '../components/Post/Tags';
-import IsPrivate from '../components/Post/Course/IsPrivate';
 import LongComment from '../components/Post/Course/LongComment';
 import ShortComment from '../components/Post/Course/ShortComment';
 import Stores from '../components/Post/Course/Stores';
