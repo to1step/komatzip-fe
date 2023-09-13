@@ -1,3 +1,4 @@
+// import { User } from '@to1step/propose-backend';
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,11 +7,12 @@ import { RootState } from './redux/module';
 import axios from 'axios';
 import axiosInstance from './api/apiInstance';
 import LandingPage from './pages/LandingPage';
-import SearchPage from './pages/search/SearchPage';
+import SearchPage from './pages/Search/SearchPage';
 import MapPage from './pages/MapPage';
 import { User } from '@to1step/propose-backend';
 import Login from './pages/Login/Login';
 import SignUp from './pages/Signup/Signup';
+import MyPage from './pages/MyPage/MyPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -70,6 +72,7 @@ function App() {
           <Route path="/map" element={<MapPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/mypage" element={<MyPage />} />
         </Routes>
       </main>
     </div>
