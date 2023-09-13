@@ -12,11 +12,11 @@ const SearchTopcourse = ({ item }: { item: Course }) => {
   return (
     <main
       key={`search-top-course-${item.uuid}`}
-      className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl"
+      className="bg-white bg-opacity-50 m-3 shadow-lg"
     >
-      <section className="m-1.5 flex-row justify-center items-center w-[296px]">
-        <section className="flex-row justify-center items-center">
-          <section className="my-1">
+      <section className="m-2 flex-row justify-center items-center w-[380px]">
+        <section className="m-2 flex-row justify-center items-center">
+          <section>
             <Name
               key={`search-top-course-name-${item.uuid}`}
               name={item.name}
@@ -25,29 +25,36 @@ const SearchTopcourse = ({ item }: { item: Course }) => {
               key={`search-top-course-user-${item.uuid}`}
               user={item.user}
             />
-            <Tags key={`search-top-course-tag-${item.uuid}`} tags={item.tags} />
+            <div className="m-1">
+              <Tags
+                key={`search-top-course-tag-${item.uuid}`}
+                tags={item.tags}
+              />
+            </div>
           </section>
-          <section className="my-1.5">
-            <Stores
-              key={`search-top-course-stores-${item.uuid}`}
-              stores={item.stores}
-            />
-            <ShortComment
-              key={`search-top-course-short-${item.uuid}`}
-              shortComment={item.shortComment}
-            />
-            <LongComment
-              key={`search-top-course-long-${item.uuid}`}
-              longComment={item.longComment}
-            />
-            <TransPorts
-              key={`search-top-course-transports-${item.uuid}`}
-              transports={item.transports}
-            />
-            <IsPrivate
+          <section className="my-2">
+            <section className="mx-1 mt-3 mb-6 ">
+              <Stores
+                key={`search-top-course-stores-${item.uuid}`}
+                stores={item.stores}
+              />
+            </section>
+            <section className="mt-5 mb-5">
+              <ShortComment
+                key={`search-top-course-short-${item.uuid}`}
+                shortComment={item.shortComment}
+              />
+            </section>
+            <section className="mb-5">
+              <TransPorts
+                key={`search-top-course-transports-${item.uuid}`}
+                transports={item.transports}
+              />
+            </section>
+            {/* <IsPrivate
               key={`search-top-course-IsPrivate-${item.uuid}`}
               isPrivate={item.isPrivate}
-            />
+            /> */}
           </section>
         </section>
       </section>

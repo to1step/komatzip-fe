@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../../api/apiInstance';
-import { Store } from '@to1step/propose-backend';
+import { StoreEntireInfo } from '@to1step/propose-backend';
 import PostModal from '../../PostModal/PostModal';
-
-const CAROUSEL_ITEM_HEIGHT = 200;
-const VISIBLE_ITEMS = 4;
 
 // 각 가게 UUID를 가게 이름으로 변환하는 컴포넌트
 const mapStoresToNames = async (storeIds: string[]) => {
@@ -51,9 +48,10 @@ interface StoresProps {
 }
 
 const Stores = ({ stores }: StoresProps) => {
-  const [storeInfo, setStoreInfo] = useState<Store[]>([]);
-  const [carouselPosition, setCarouselPosition] = useState(0);
-  const [selectedStore, setSelectedStore] = useState<Store | null>(null);
+  const [storeInfo, setStoreInfo] = useState<StoreEntireInfo[]>([]);
+  const [selectedStore, setSelectedStore] = useState<StoreEntireInfo | null>(
+    null,
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -63,30 +61,7 @@ const Stores = ({ stores }: StoresProps) => {
       .catch((error) => console.log('가게 이름으로 변환 중 에러 발생:', error));
   }, [stores]);
 
-  const scrollCarousel = (direction: 'up' | 'down') => {
-    const container = document.getElementById('carousel-container');
-
-    if (!container) {
-      return;
-    }
-
-    const newPosition =
-      direction === 'up'
-        ? Math.max(0, carouselPosition - 1)
-        : Math.min(storeInfo.length - VISIBLE_ITEMS, carouselPosition + 1);
-
-    setCarouselPosition(newPosition);
-
-    // 아래로 스크롤(Down) 버튼이 작동
-    if (direction === 'down') {
-      container.scrollTop =
-        (newPosition + VISIBLE_ITEMS) * CAROUSEL_ITEM_HEIGHT;
-    } else {
-      container.scrollTop = newPosition * CAROUSEL_ITEM_HEIGHT;
-    }
-  };
-
-  const openModal = (store: Store) => {
+  const openModal = (store: StoreEntireInfo) => {
     setSelectedStore(store);
     setIsModalOpen(true);
   };
@@ -110,47 +85,26 @@ const Stores = ({ stores }: StoresProps) => {
     return () => {
       document.removeEventListener('mousedown', handleDocumentClick);
     };
-  }, [isModalOpen]);
+  }, []);
 
   return (
-    <div className="relative">
-      <div className="flex justify-center items-center mt-4 ml-2 z-10">
-        <button onClick={() => scrollCarousel('up')}>&#8593;</button>
-      </div>
-      <div
-        id="carousel-container"
-        className="relative overflow-x-hidden overflow-y-auto h-[150px]"
-      >
+    <div className="relative flex-row justify-center items-center mx-1">
+      {storeInfo.map((info, index) => (
         <div
-          style={{
-            height: 'auto',
-            transition: 'transform 0.3s ease',
-            transform: `translateY(-${
-              carouselPosition * CAROUSEL_ITEM_HEIGHT
-            }px)`,
-          }}
+          key={`store-${index}`}
+          className="text-l relative cursor-pointer transition-all duration-300 ease-in-out transform  hover:ring-4 hover:ring-amber-500 hover:rounded-xl"
+          onClick={() => openModal(info)}
         >
-          {storeInfo.map((info, index) => (
-            <div
-              key={`store-${index}`}
-              className="text-lg relative"
-              onClick={() => openModal(info)}
-            >
-              <div className="absolute h-full border-l-8 border-black border-orange-300 m-2.5"></div>
-              <div>
-                <div className="relative">
-                  <span className="absolute text-[20px]">{info.category}</span>
-                  <span className="ml-10">{info.name}</span>
-                </div>
-              </div>
-              {index !== storeInfo.length - 1 && <br />}
+          <div className="absolute h-full border-l-8 border-black  border-orange-300 m-2.5"></div>
+          <div>
+            <div className="relative">
+              <span className="absolute text-[20px]">{info.category}</span>
+              <span className="ml-10">{info.name}</span>
             </div>
-          ))}
+          </div>
+          {index !== storeInfo.length - 1 && <br />}
         </div>
-      </div>
-      <div className="flex justify-center items-center mt-4 ml-2 z-10">
-        <button onClick={() => scrollCarousel('down')}>&#8595;</button>
-      </div>
+      ))}
 
       {isModalOpen && selectedStore && (
         <PostModal store={selectedStore} closeModal={closeModal} />

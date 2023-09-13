@@ -6,16 +6,19 @@ import { RootState } from './redux/module';
 import axios from 'axios';
 import axiosInstance from './api/apiInstance';
 import LandingPage from './pages/LandingPage';
-import SearchPage from './pages/search/SearchPage';
+import SearchPage from './pages/Search/SearchPage';
 import MapPage from './pages/MapPage';
 import { User } from '@to1step/propose-backend';
 import Login from './pages/Login/Login';
 import SignUp from './pages/Signup/Signup';
+import MyPage from './pages/MyPage/MyPage';
 
 function App() {
   const dispatch = useDispatch();
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = useState<User[]>([]);
+
+  const apiKey = import.meta.env.KAKAO_REST_API_KEY;
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -29,7 +32,7 @@ function App() {
               `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
               {
                 headers: {
-                  Authorization: `KakaoAK a055e717c1cb42e8ee196835ba48dfcf`,
+                  Authorization: `KakaoAK ${apiKey}`,
                 },
               },
             );
@@ -70,6 +73,7 @@ function App() {
           <Route path="/map" element={<MapPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/mypage" element={<MyPage />} />
         </Routes>
       </main>
     </div>
