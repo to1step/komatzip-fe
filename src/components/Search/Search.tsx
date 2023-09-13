@@ -91,7 +91,6 @@ const Search = () => {
               >
                 <option value="tags">태그 검색</option>
                 <option value="keyword">매장 검색</option>
-                {/* TODO 영어일 때 대소문자 구분안되고 변환되게 */}
               </select>
             </div>
             <div className="relative">
