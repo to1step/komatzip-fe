@@ -88,14 +88,14 @@ const Stores = ({ stores }: StoresProps) => {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative flex-row justify-center items-center mx-1">
       {storeInfo.map((info, index) => (
         <div
           key={`store-${index}`}
-          className="text-lg relative"
+          className="text-l relative cursor-pointer transition-all duration-300 ease-in-out transform  hover:ring-4 hover:ring-amber-500 hover:rounded-xl"
           onClick={() => openModal(info)}
         >
-          <div className="absolute h-full border-l-8 border-black border-orange-300 m-2.5"></div>
+          <div className="absolute h-full border-l-8 border-black  border-orange-300 m-2.5"></div>
           <div>
             <div className="relative">
               <span className="absolute text-[20px]">{info.category}</span>
