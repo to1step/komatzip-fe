@@ -1,58 +1,53 @@
 import React from 'react';
-
-interface MarkerInfo {
-  title: string;
-  lat: number;
-  lng: number;
-  address: string;
-}
+import { StoreEntireInfo } from '@to1step/propose-backend';
 
 interface MarkerListProps {
-  markers: MarkerInfo[];
+  markers: StoreEntireInfo[];
   activeMarkerTitle: string | null;
-  onMarkerClick: (markerInfo: MarkerInfo) => void;
-  onMarkerMouseOver: (markerInfo: MarkerInfo) => void; // 마커에 마우스 오버 시 실행될 함수 추가
+  onMarkerClick: (markerInfo: StoreEntireInfo) => void;
+  onMarkerMouseOver: (markerInfo: StoreEntireInfo) => void;
 }
 
 const MarkerList: React.FC<MarkerListProps> = ({
   markers,
   activeMarkerTitle,
   onMarkerClick,
-  onMarkerMouseOver, // 추가한 함수를 프롭스에서 받음
+  onMarkerMouseOver,
 }) => {
   return (
-    <div className="absolute top-2 right-[300px] p-4 bg-white w-[350px] shadow-md z-10 rounded-lg overflow-auto">
+    <div className="absolute top-2 right-[2vw] p-4 bg-white w-[350px] shadow-md z-10 rounded-lg overflow-auto">
       <style>
         {`
           ::-webkit-scrollbar {
-            width: 0.8em; /* 스크롤바의 너비 조정 */
+            width: 0.8em;
           }
 
           ::-webkit-scrollbar-thumb {
-            background-color: transparent; /* 스크롤바 thumb의 배경 색상을 투명으로 설정 */
+            background-color: transparent;
           }
 
           ::-webkit-scrollbar-thumb:hover {
-            background-color: rgba(0, 0, 0, 0.2); /* 마우스 오버했을 때 배경 색상 변경 */
+            background-color: rgba(0, 0, 0, 0.2);
           }
 
           ::-webkit-scrollbar-track {
-            background-color: transparent; /* 스크롤바 트랙의 배경 색상을 투명으로 설정 */
+            background-color: transparent;
           }
         `}
       </style>
       <div className="max-h-[750px]">
         {markers.map((marker) => (
           <div
-            key={marker.title}
+            key={marker.uuid} // 사용할 고유 키를 uuid로 변경
             className={`p-2 border-t border-gray-300 mt-2 ${
-              marker.title === activeMarkerTitle ? 'bg-gray-200' : ''
+              marker.name === activeMarkerTitle ? 'bg-gray-200' : ''
             }`}
             onClick={() => onMarkerClick(marker)}
-            onMouseOver={() => onMarkerMouseOver(marker)} // 마커에 마우스 오버 시 함수 실행
+            onMouseOver={() => onMarkerMouseOver(marker)}
           >
-            <p className="font-semibold">{`${marker.title}`}</p>
-            <p>{`주소: ${marker.address}`}</p>
+            <p className="font-bold text-lg text-blue-500">{`${marker.name}`}</p>
+            <p>{`주소: ${marker.location}`}</p>
+            <p>{`태그: ${marker.tags}`}</p>
           </div>
         ))}
       </div>

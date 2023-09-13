@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import MarkerList from './MarkerList';
-import { Store } from '@to1step/propose-backend';
+import { StoreEntireInfo } from '@to1step/propose-backend';
 import MapModal from './MapModal';
 
 declare global {
@@ -12,53 +10,43 @@ declare global {
   }
 }
 
-interface MarkerInfo {
-  title: string;
-  lat: number;
-  lng: number;
-  address: string;
-}
-
 interface KakaoMapProps {}
 
 const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   const [activeMarkerTitle, setActiveMarkerTitle] = useState<string | null>(
     null,
   );
-  const [visibleMarkers, setVisibleMarkers] = useState<MarkerInfo[]>([]);
-  const visibleMarkersRef = useRef<MarkerInfo[]>([]);
+  const [visibleMarkers, setVisibleMarkers] = useState<StoreEntireInfo[]>([]);
+  const visibleMarkersRef = useRef<StoreEntireInfo[]>([]);
   const infowindowRef = useRef<window.kakao.maps.InfoWindow | null>(null);
   const [map, setMap] = useState<window.kakao.maps.Map | null>(null);
   const [myPosition, setMyPosition] = useState<{
     lat: number;
     lng: number;
   } | null>(null);
-  const [selectedMarker, setSelectedMarker] = useState<MarkerInfo | null>(null);
+  const [selectedMarker, setSelectedMarker] = useState<StoreEntireInfo | null>(
+    null,
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const region = '서울시 마포구';
+        const region = '서울특별시 은평구';
         const { data } = await axios.get(
           `https://api.to1step.shop/v1/stores/location?region=${encodeURIComponent(
             region,
           )}`,
         );
 
-        let markersData: MarkerInfo[] = [];
+        let markersData: StoreEntireInfo[] = [];
 
         if (Array.isArray(data.data)) {
-          markersData = data.data.map((store: Store) => ({
-            title: store.name,
-            lat: store.coordinates[1],
-            lng: store.coordinates[0],
-            address: store.location,
-          }));
+          markersData = data.data;
         }
 
         const script = document.createElement('script');
         script.async = true;
-        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_APP_KEY&autoload=false`; // 카카오 지도 앱 키 추가
+        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=8494ed9ba10ea55ff5cf793934c04231&autoload=false`;
         document.head.appendChild(script);
 
         script.onload = () => {
@@ -91,7 +79,10 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
                     if (bounds) {
                       const visibleMarkers = markersData.filter((marker) =>
                         bounds.contain(
-                          new window.kakao.maps.LatLng(marker.lat, marker.lng),
+                          new window.kakao.maps.LatLng(
+                            marker.coordinates[1],
+                            marker.coordinates[0],
+                          ),
                         ),
                       );
                       setVisibleMarkers(visibleMarkers);
@@ -114,8 +105,8 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
 
                   markersData.forEach((markerInfo) => {
                     const markerPosition = new window.kakao.maps.LatLng(
-                      markerInfo.lat,
-                      markerInfo.lng,
+                      markerInfo.coordinates[1],
+                      markerInfo.coordinates[0],
                     );
 
                     const marker = new window.kakao.maps.Marker({
@@ -129,10 +120,10 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
                       () => {
                         displayInfoWindow(
                           marker,
-                          markerInfo.title,
+                          markerInfo.name,
                           map,
-                          markerInfo.lat,
-                          markerInfo.lng,
+                          markerInfo.coordinates[1],
+                          markerInfo.coordinates[0],
                         );
                       },
                     );
@@ -203,24 +194,55 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
     fetchData();
   }, []);
 
-  const handleMarkerClick = (markerInfo: MarkerInfo) => {
+  const handleMarkerClick = (markerInfo: StoreEntireInfo) => {
+    const recommendedCourses = calculateDistance(
+      markerInfo.coordinates[0], // 클릭한 마커의 경도
+      markerInfo.coordinates[1], // 클릭한 마커의 위도
+      visibleMarkersRef.current, // 모든 마커 정보
+    );
+
     setSelectedMarker(markerInfo);
+    setRecommendedCourses(recommendedCourses); // 상태 업데이트
   };
 
-  const handleMarkerMouseOver = (markerInfo: MarkerInfo) => {
+  const [recommendedCourses, setRecommendedCourses] = useState<
+    StoreEntireInfo[]
+  >([]);
+
+  // 클릭한 마커와 주변 마커 간의 거리를 계산하는 함수
+  const calculateDistance = (
+    clickedLng: number,
+    clickedLat: number,
+    markers: StoreEntireInfo[],
+  ) => {
+    const recommendedCourses = markers.filter((marker) => {
+      const markerLng = marker.coordinates[0];
+      const markerLat = marker.coordinates[1];
+      const distance = Math.sqrt(
+        Math.pow(clickedLng - markerLng, 2) +
+          Math.pow(clickedLat - markerLat, 2),
+      );
+
+      return distance < 2.1;
+    });
+
+    return recommendedCourses;
+  };
+
+  const handleMarkerMouseOver = (markerInfo: StoreEntireInfo) => {
     const markerPosition = new window.kakao.maps.LatLng(
-      markerInfo.lat,
-      markerInfo.lng,
+      markerInfo.coordinates[1],
+      markerInfo.coordinates[0],
     );
 
     if (map) {
-      map.panTo(markerPosition); // 해당 마커로 지도 중심 이동
+      map.panTo(markerPosition);
       displayInfoWindow(
-        null, // 인포윈도우를 열지 않으므로 null 전달
-        markerInfo.title,
+        null,
+        markerInfo.name,
         map,
-        markerInfo.lat,
-        markerInfo.lng,
+        markerInfo.coordinates[1],
+        markerInfo.coordinates[0],
       );
     }
   };
@@ -270,12 +292,12 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
 
   return (
     <div className="relative">
-      <div id="kakao-map" style={{ width: '1650px', height: '900px' }}>
+      <div id="kakao-map" style={{ width: '100vw', height: '100vh' }}>
         <button
-          className="my-position-button bg-red-400 text-white font-bold py-2 px-4 rounded absolute bottom-4 left-4 z-10"
+          className="my-position-button bg-blue-400 text-white text-xl font-bold py-3 px-6 rounded absolute bottom-4 left-4 z-10"
           onClick={moveToMyPosition}
         >
-          내 위치
+          현재 위치
         </button>
       </div>
       <MarkerList
@@ -284,7 +306,11 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
         onMarkerClick={handleMarkerClick}
         onMarkerMouseOver={handleMarkerMouseOver}
       />
-      <MapModal markerInfo={selectedMarker} onClose={handleCloseModal} />
+      <MapModal
+        markerInfo={selectedMarker}
+        recommendedCourses={recommendedCourses} // 추천 코스 정보 전달
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };

@@ -2,6 +2,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+<<<<<<< HEAD
 
 /* 초기화 스타일 */
 html,
@@ -34,13 +35,7 @@ tfoot,
 thead,
 tr,
 th,
-td {
-  margin: 0;
-  padding: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
+td
 
 /* Tailwind CSS 스타일 적용 */
 @font-face {
@@ -51,3 +46,5 @@ td {
   font-style: normal;
 }
 /* ... */
+=======
+>>>>>>> 58b4dcdcb38900b660db84670c303a562b85dc50
