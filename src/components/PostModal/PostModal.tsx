@@ -22,9 +22,9 @@ const PostModal = ({ store, closeModal }: PostModalProps) => {
         <p className="mb-2">태그: {store.tags.join(', ')}</p>
         <p className="mb-2">주소: {store.location}</p>
         <p className="mb-2">좌표:{store.coordinates}</p>
-        <div>
+        {/* <div>
           <PostModalMap coordinates={store.coordinates} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
