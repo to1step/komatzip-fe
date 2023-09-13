@@ -4,7 +4,6 @@ import SearchTopstore from '../../components/Search/SearchTopstore';
 import { Course, Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
 import { useState } from 'react';
-import Pagination from '../../components/Pagination/Pagination';
 import Header from '../../components/Commons/Header';
 
 // 검색 결과 페이지
@@ -52,18 +51,18 @@ const SearchPage = () => {
   return (
     <main>
       <Header />
-      <section>
+      <section className="text-center">
         <p className="inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
           👩🏻‍💻 '{searchQuery}'의 검색결과입니다.
         </p>
       </section>
       <section>
-        <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
+        <h1 className="text-center mb-12  mt-10 h-[30px] text-4xl font-bold">
           매장 검색 결과
         </h1>
-        <article className="flex">
+        <article className="flex flex-wrap">
           {searchResultsStore.map((item) => (
-            <div key={item.uuid}>
+            <div key={item.uuid} className="w-1/5 flex justify-center">
               <SearchTopstore item={item as Store} />
             </div>
           ))}
@@ -77,12 +76,12 @@ const SearchPage = () => {
         /> */}
       </section>
       <section>
-        <h1 className="align-middle my-5 h-[30px] text-2xl font-semibold">
+        <h1 className="text-center mb-12 mt-20 h-[30px] text-4xl font-bold">
           코스 검색 결과
         </h1>
-        <article className="flex m-1">
+        <article className="flex">
           {searchResultsCourse.map((item) => (
-            <div key={item.uuid}>
+            <div key={item.uuid} className="m-5">
               <SearchTopcourse item={item as Course} />
             </div>
           ))}
