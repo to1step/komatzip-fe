@@ -1,4 +1,3 @@
-// import { User } from '@to1step/propose-backend';
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
