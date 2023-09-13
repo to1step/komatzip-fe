@@ -6,7 +6,7 @@ const Name = ({ name }: NameProps) => {
   return (
     <div>
       <article>
-        <p className="text-[30px] font-bold">{name}</p>
+        <p className="text-[25px] font-bold">{name}</p>
       </article>
     </div>
   );

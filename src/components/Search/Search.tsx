@@ -40,24 +40,24 @@ const Search = () => {
         paramKey = 'keyword';
       }
 
-      const page = 1;
-      const pageSize = 10;
+      // const page = 1;
+      // const pageSize = 10;
 
       const [storeResponse, courseResponse] = await axios.all([
         axiosInstance.get(`/v1/search/${endpoint}`, {
           params: {
             type: 'store',
             [paramKey]: tagQuery,
-            page,
-            pageSize,
+            page: 1,
+            pageSize: 10,
           },
         }),
         axiosInstance.get(`/v1/search/${endpoint}`, {
           params: {
             type: 'course',
             [paramKey]: tagQuery,
-            page,
-            pageSize,
+            page: 1,
+            pageSize: 12,
           },
         }),
       ]);

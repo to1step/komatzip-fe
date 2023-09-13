@@ -19,6 +19,8 @@ function App() {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = useState<User[]>([]);
 
+  const apiKey = import.meta.env.KAKAO_REST_API_KEY;
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -31,7 +33,7 @@ function App() {
               `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
               {
                 headers: {
-                  Authorization: `KakaoAK a055e717c1cb42e8ee196835ba48dfcf`,
+                  Authorization: `KakaoAK ${apiKey}`,
                 },
               },
             );

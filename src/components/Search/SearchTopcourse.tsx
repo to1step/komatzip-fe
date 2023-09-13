@@ -12,9 +12,9 @@ const SearchTopcourse = ({ item }: { item: Course }) => {
   return (
     <main
       key={`search-top-course-${item.uuid}`}
-      className="cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl"
+      className="bg-white m-3 cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg hover:rounded-xl"
     >
-      <section className="m-1.5 flex-row justify-center items-center w-[296px]">
+      <section className="m-1.5 flex-row justify-center items-center w-[380px]">
         <section className="flex-row justify-center items-center">
           <section className="my-1">
             <Name
