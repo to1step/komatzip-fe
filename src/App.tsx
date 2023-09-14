@@ -18,7 +18,7 @@ function App() {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = useState<User[]>([]);
 
-  const apiKey = import.meta.env.KAKAO_REST_API_KEY;
+  const apiKey = `a055e717c1cb42e8ee196835ba48dfcf`;
 
   useEffect(() => {
     if (navigator.geolocation) {
