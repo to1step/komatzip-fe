@@ -15,6 +15,7 @@ import User from '../components/Post/Course/User';
 import Image from '../components/Post/Store/Image';
 import TransPorts from '../components/Post/Course/Transports';
 import Header from '../components/Commons/Header';
+import MultiCarousel from '../components/MultiCarousel/MultiCarousel';
 
 const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
@@ -76,35 +77,39 @@ const LandingPage = () => {
                 이번 주 TOP 매장
               </h1>
             </div>
-            <article className="flex gap-4 justify-center">
-              {data.map((item) => (
-                <div
-                  key={item.uuid}
-                  className="cursor-pointer transition-all duration-300 ease-in-out transform shadow-lg hover:shadow-none bg-white"
-                >
-                  <article className="m-2 ">
-                    <div className="flex justify-center items-center">
-                      {item.representImage ? (
-                        <Image representImage={item.representImage} />
-                      ) : (
-                        <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
-                          이미지가 아직 준비되지 않았어요!
-                        </p>
-                      )}
-                    </div>
+            <article className="flex justify-center">
+              <div className="w-8/12">
+                <MultiCarousel>
+                  {data.map((item) => (
+                    <div
+                      key={item.uuid}
+                      className="cursor-pointer transition-all duration-300 ease-in-out transform shadow-lg hover:shadow-none bg-white"
+                    >
+                      <article className="m-2 ">
+                        <div className="flex justify-center items-center">
+                          {item.representImage ? (
+                            <Image representImage={item.representImage} />
+                          ) : (
+                            <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
+                              이미지가 아직 준비되지 않았어요!
+                            </p>
+                          )}
+                        </div>
 
-                    <section className="mt-4">
-                      <Name name={item.name} />
-                      <Location location={item.location} />
-                      <Description description={item.description} />
-                      <div className="flex mt-1">
-                        <Category category={item.category} />
-                        <Tags tags={item.tags} />
-                      </div>
-                    </section>
-                  </article>
-                </div>
-              ))}
+                        <section className="mt-4">
+                          <Name name={item.name} />
+                          {/* <Location location={item.location} /> */}
+                          {/* <Description description={item.description} /> */}
+                          <div className="flex mt-1">
+                            {/* <Category category={item.category} /> */}
+                            {/* <Tags tags={item.tags} /> */}
+                          </div>
+                        </section>
+                      </article>
+                    </div>
+                  ))}
+                </MultiCarousel>
+              </div>
             </article>
           </section>
           <section>
@@ -113,43 +118,49 @@ const LandingPage = () => {
                 이번 주 TOP 코스
               </h1>
             </div>
-            <article className="flex w-full overflow-auto gap-10">
-              {courseData.map((item) => (
-                <div
-                  key={item.uuid}
-                  className="flex justify-center w-[800px] h-[450px] cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg rounded-[30px] bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center"
-                >
-                  <div className="w-[800px] h-[450px] rounded-[30px]  flex justify-center items-center bg-blue-100 bg-opacity-30">
-                    <section className="w-11/12 flex justify-center items-center">
-                      <section className="flex-row justify-center items-center mr-3 text-amber-100 text-left">
-                        <div className="mb-10">
-                          <Name name={item.name} />
-                        </div>
-                        <div className="mb-3">
-                          <User user={item.user} />
-                        </div>
-                        <Tags tags={item.tags} />
-                      </section>
-                      <section className="w-[450px] h-[400px] bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
-                        <section className="mb-10 text-left w-3/4">
-                          <Stores stores={item.stores} />
-                        </section>
-                        <section className="flex justify-center items-center">
-                          <section>
-                            <ShortComment shortComment={item.shortComment} />
-                            <LongComment longComment={item.longComment} />
+            <article className="flex justify-center">
+              <div className="w-8/12">
+                <MultiCarousel autoPlay={true}>
+                  {courseData.map((item) => (
+                    <div
+                      key={item.uuid}
+                      className="flex justify-center w-[800px] h-[450px] cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg rounded-[30px] bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center"
+                    >
+                      <div className="w-[800px] h-[450px] rounded-[30px]  flex justify-center items-center bg-blue-100 bg-opacity-30">
+                        <section className="w-11/12 flex justify-center items-center">
+                          <section className="flex-row justify-center items-center mr-3 text-amber-100 text-left">
+                            <div className="mb-10">
+                              <Name name={item.name} />
+                            </div>
+                            <div className="mb-3">
+                              <User user={item.user} />
+                            </div>
+                            <Tags tags={item.tags} />
                           </section>
-                          <TransPorts
-                            key={`rank-top-course-transports-${item.uuid}`}
-                            transports={item.transports}
-                          />
-                          {/* <IsPrivate isPrivate={item.isPrivate} /> */}
+                          <section className="w-[450px] h-[400px] bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
+                            <section className="mb-10 text-left w-3/4">
+                              <Stores stores={item.stores} />
+                            </section>
+                            <section className="flex justify-center items-center">
+                              <section>
+                                <ShortComment
+                                  shortComment={item.shortComment}
+                                />
+                                <LongComment longComment={item.longComment} />
+                              </section>
+                              <TransPorts
+                                key={`rank-top-course-transports-${item.uuid}`}
+                                transports={item.transports}
+                              />
+                              {/* <IsPrivate isPrivate={item.isPrivate} /> */}
+                            </section>
+                          </section>
                         </section>
-                      </section>
-                    </section>
-                  </div>
-                </div>
-              ))}
+                      </div>
+                    </div>
+                  ))}
+                </MultiCarousel>
+              </div>
             </article>
           </section>
         </div>
