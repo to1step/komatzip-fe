@@ -11,27 +11,22 @@ import {
 } from '../../redux/searchSlice';
 // import { searchActions } from '../../redux/searchSlice';
 import axios from 'axios';
-
 // 검색창 기능
-
 const Search = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tagQuery, setTagQuery] = useState('');
   const [searchType, setSearchType] = useState('tags');
-
   const handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       await SearchStore();
     }
   };
-
   const SearchStore = async () => {
     try {
       let endpoint;
       let paramKey: string = ''; // 객체 속성 이름을 동적으로 설정할 때는 해당 속성 이름의 타입을 설정해줘야 함, 초기값 빈 문자열로 설정
-
       if (searchType === 'tags') {
         endpoint = 'tags';
         paramKey = 'tag';
@@ -58,22 +53,17 @@ const Search = () => {
           },
         }),
       ]);
-
       dispatch(setSearchResultsStore(storeResponse.data));
       console.log('매장 검색 결과 데이터:', storeResponse.data);
-
       dispatch(setSearchResultsCourse(courseResponse.data));
       console.log('코스 검색 결과 데이터:', courseResponse.data);
-
       dispatch(setSearchQuery(tagQuery));
       console.log('태그 쿼리:', tagQuery);
-
       navigate('/search'); // 검색 결과를 redux 상태에 저장한 후 페이지 라우팅
     } catch (error) {
       console.error('매장 검색 결과 fetching 중 에러 발생: ', error);
     }
   };
-
   return (
     <div className="flex-row justify-center items-center mb-10">
       <header>
@@ -122,5 +112,4 @@ const Search = () => {
     </div>
   );
 };
-
 export default Search;

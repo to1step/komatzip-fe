@@ -21,10 +21,16 @@ const responsive = {
 
 type Props = {
   children: React.ReactNode;
+  autoPlay?: boolean;
 };
-export default function MultiCarousel({ children }: Props) {
+export default function MultiCarousel({ children, autoPlay }: Props) {
   return (
-    <Carousel infinite responsive={responsive} itemClass="m-2">
+    <Carousel
+      infinite
+      autoPlay={autoPlay}
+      responsive={responsive}
+      itemClass="m-2"
+    >
       {children}
     </Carousel>
   );
