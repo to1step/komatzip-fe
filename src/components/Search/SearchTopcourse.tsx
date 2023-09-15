@@ -1,8 +1,8 @@
 import { Course } from '@to1step/propose-backend';
 import Name from '../../components/Post/Name';
 import Tags from '../../components/Post/Tags';
-import IsPrivate from '../Post/Course/IsPrivate';
-import LongComment from '../Post/Course/LongComment';
+// import IsPrivate from '../Post/Course/IsPrivate';
+// import LongComment from '../Post/Course/LongComment';
 import ShortComment from '../Post/Course/ShortComment';
 import Stores from '../Post/Course/Stores';
 import User from '../Post/Course/User';

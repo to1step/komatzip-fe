@@ -3,7 +3,6 @@ import SearchTopcourse from '../../components/Search/SearchTopcourse';
 import SearchTopstore from '../../components/Search/SearchTopstore';
 import { Course, Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
-import { useState } from 'react';
 import Header from '../../components/Commons/Header';
 
 // 검색 결과 페이지

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axiosInstance from '../../../api/apiInstance';
 import { StoreEntireInfo } from '@to1step/propose-backend';
 import PostModal from '../../PostModal/PostModal';
@@ -66,26 +66,29 @@ const Stores = ({ stores }: StoresProps) => {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setSelectedStore(null);
     setIsModalOpen(false);
-  };
+  }, []);
 
-  const handleDocumentClick = (e: MouseEvent) => {
-    if (isModalOpen) {
-      const modal = document.querySelector('.modal');
-      if (modal && !modal.contains(e.target as Node)) {
-        closeModal();
+  const handleDocumentClick = useCallback(
+    (e: MouseEvent) => {
+      if (isModalOpen) {
+        const modal = document.querySelector('.modal');
+        if (modal && !modal.contains(e.target as Node)) {
+          closeModal();
+        }
       }
-    }
-  };
+    },
+    [isModalOpen, closeModal],
+  );
 
   useEffect(() => {
     document.addEventListener('mousedown', handleDocumentClick);
     return () => {
       document.removeEventListener('mousedown', handleDocumentClick);
     };
-  }, []);
+  }, [handleDocumentClick]);
 
   return (
     <div className="relative flex-row justify-center items-center mx-1">
