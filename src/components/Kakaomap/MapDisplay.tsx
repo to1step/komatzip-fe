@@ -31,13 +31,7 @@ const MapDisplay: React.FC<MapDisplayProps> = ({
         });
 
         window.kakao.maps.event.addListener(marker, 'mouseover', () => {
-          displayInfoWindow(
-            marker,
-            markerInfo.name,
-            map,
-            markerInfo.coordinates[1],
-            markerInfo.coordinates[0],
-          );
+          displayInfoWindow(marker, markerInfo.name, map);
         });
 
         window.kakao.maps.event.addListener(marker, 'mouseout', () => {
@@ -65,13 +59,7 @@ const MapDisplay: React.FC<MapDisplayProps> = ({
           myPositionMarker,
           'mouseover',
           () => {
-            displayInfoWindow(
-              myPositionMarker,
-              '내 위치',
-              map,
-              myPosition.lat,
-              myPosition.lng,
-            );
+            displayInfoWindow(myPositionMarker, '내 위치', map);
           },
         );
 
@@ -92,8 +80,6 @@ const MapDisplay: React.FC<MapDisplayProps> = ({
     marker: window.kakao.maps.Marker,
     title: string,
     map: window.kakao.maps.Map | null,
-    lat: number,
-    lng: number,
   ) => {
     const infowindow = infowindowRef.current;
     if (infowindow && map) {
