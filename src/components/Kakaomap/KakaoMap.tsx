@@ -3,6 +3,7 @@ import axios from 'axios';
 import MarkerList from './MarkerList';
 import { StoreEntireInfo } from '@to1step/propose-backend';
 import MapModal from './MapModal';
+import MapDisplay from './MapDisplay';
 
 declare global {
   interface Window {
@@ -38,11 +39,9 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
           )}`,
         );
 
-        let markersData: StoreEntireInfo[] = [];
-
-        if (Array.isArray(data.data)) {
-          markersData = data.data;
-        }
+        let markersData: StoreEntireInfo[] = Array.isArray(data.data)
+          ? data.data
+          : [];
 
         const script = document.createElement('script');
         script.async = true;
@@ -54,10 +53,9 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
             const container = document.getElementById('kakao-map');
             const options = {
               center: new window.kakao.maps.LatLng(37.5665, 126.978),
-              level: 4,
+              level: 3,
             };
 
-            // 현재 위치 가져오기
             if ('geolocation' in navigator) {
               navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -68,7 +66,6 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
                     longitude,
                   );
 
-                  // 지도 생성 및 초기화
                   const map = new window.kakao.maps.Map(container, options);
                   setMap(map);
                   const infowindow = new window.kakao.maps.InfoWindow({});
@@ -86,9 +83,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
                         ),
                       );
                       setVisibleMarkers(visibleMarkers);
-                      if (visibleMarkersRef.current) {
-                        visibleMarkersRef.current = visibleMarkers;
-                      }
+                      visibleMarkersRef.current = visibleMarkers;
                     }
                   };
 
@@ -102,85 +97,14 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
                     'zoom_changed',
                     updateVisibleMarkers,
                   );
-
-                  markersData.forEach((markerInfo) => {
-                    const markerPosition = new window.kakao.maps.LatLng(
-                      markerInfo.coordinates[1],
-                      markerInfo.coordinates[0],
-                    );
-
-                    const marker = new window.kakao.maps.Marker({
-                      position: markerPosition,
-                    });
-
-                    // 마커 이벤트 리스너 추가 (마우스 오버 시 인포윈도우 표시)
-                    window.kakao.maps.event.addListener(
-                      marker,
-                      'mouseover',
-                      () => {
-                        displayInfoWindow(
-                          marker,
-                          markerInfo.name,
-                          map,
-                          markerInfo.coordinates[1],
-                          markerInfo.coordinates[0],
-                        );
-                      },
-                    );
-
-                    window.kakao.maps.event.addListener(
-                      marker,
-                      'mouseout',
-                      () => {
-                        closeInfoWindow();
-                      },
-                    );
-
-                    marker.setMap(map);
-                  });
-
-                  // "내 위치" 마커 및 인포윈도우 추가
-                  const myPositionMarker = new window.kakao.maps.Marker({
-                    position: options.center,
-                    image: new window.kakao.maps.MarkerImage(
-                      'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
-                      new window.kakao.maps.Size(24, 35),
-                    ),
-                  });
-
-                  window.kakao.maps.event.addListener(
-                    myPositionMarker,
-                    'mouseover',
-                    () => {
-                      displayInfoWindow(
-                        myPositionMarker,
-                        '내 위치',
-                        map,
-                        latitude,
-                        longitude,
-                      );
-                    },
-                  );
-
-                  window.kakao.maps.event.addListener(
-                    myPositionMarker,
-                    'mouseout',
-                    () => {
-                      closeInfoWindow();
-                    },
-                  );
-
-                  myPositionMarker.setMap(map);
                 },
                 (error) => {
                   console.error('Error getting current position:', error);
-                  // 현재 위치를 가져올 수 없는 경우 기본 지도만 생성
                   const map = new window.kakao.maps.Map(container, options);
                   setMap(map);
                 },
               );
             } else {
-              // 현재 위치를 지원하지 않는 경우 기본 지도만 생성
               const map = new window.kakao.maps.Map(container, options);
               setMap(map);
             }
@@ -198,24 +122,18 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
     const recommendedCourses = calculateDistance(
       markerInfo.coordinates[0], // 클릭한 마커의 경도
       markerInfo.coordinates[1], // 클릭한 마커의 위도
-      visibleMarkersRef.current, // 모든 마커 정보
     );
 
     setSelectedMarker(markerInfo);
-    setRecommendedCourses(recommendedCourses); // 상태 업데이트
+    setRecommendedCourses(recommendedCourses);
   };
 
   const [recommendedCourses, setRecommendedCourses] = useState<
     StoreEntireInfo[]
   >([]);
 
-  // 클릭한 마커와 주변 마커 간의 거리를 계산하는 함수
-  const calculateDistance = (
-    clickedLng: number,
-    clickedLat: number,
-    markers: StoreEntireInfo[],
-  ) => {
-    const recommendedCourses = markers.filter((marker) => {
+  const calculateDistance = (clickedLng: number, clickedLat: number) => {
+    const recommendedCourses = visibleMarkersRef.current.filter((marker) => {
       const markerLng = marker.coordinates[0];
       const markerLat = marker.coordinates[1];
       const distance = Math.sqrt(
@@ -240,7 +158,6 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
       displayInfoWindow(
         null,
         markerInfo.name,
-        map,
         markerInfo.coordinates[1],
         markerInfo.coordinates[0],
       );
@@ -254,14 +171,13 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   const displayInfoWindow = (
     marker: window.kakao.maps.Marker | null,
     title: string,
-    map: window.kakao.maps.Map | null,
     lat: number,
     lng: number,
   ) => {
     const infowindow = infowindowRef.current;
     if (infowindow && map) {
       infowindow.setContent(
-        `<div class="p-2 bg-white text-orange-500 rounded-md shadow-md">${title}</div>`,
+        `<div class="p-2 ml-8 text-blue-500 text-lg">${title}</div>`,
       );
       if (marker) {
         infowindow.open(map, marker);
@@ -269,14 +185,6 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
         infowindow.close();
       }
       setActiveMarkerTitle(title);
-    }
-  };
-
-  const closeInfoWindow = () => {
-    const infowindow = infowindowRef.current;
-    if (infowindow !== null) {
-      infowindow.close();
-      setActiveMarkerTitle(null);
     }
   };
 
@@ -300,6 +208,11 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
           현재 위치
         </button>
       </div>
+      <MapDisplay
+        map={map}
+        markersData={visibleMarkersRef.current}
+        myPosition={myPosition}
+      />
       <MarkerList
         markers={visibleMarkersRef.current}
         activeMarkerTitle={activeMarkerTitle}
@@ -308,7 +221,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
       />
       <MapModal
         markerInfo={selectedMarker}
-        recommendedCourses={recommendedCourses} // 추천 코스 정보 전달
+        recommendedCourses={recommendedCourses}
         onClose={handleCloseModal}
       />
     </div>

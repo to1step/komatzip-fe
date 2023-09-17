@@ -106,7 +106,7 @@ const Search = () => {
         </form>
         <div>
           <nav className="text-center font-semibold">
-            <Link to="/map-page" className="text-sl text-orange-200">
+            <Link to="/map" className="text-sl text-orange-200">
               지금 내 주위 장소 보기
             </Link>
           </nav>
