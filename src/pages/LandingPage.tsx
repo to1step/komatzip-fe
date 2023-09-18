@@ -16,6 +16,7 @@ import Image from '../components/Post/Store/Image';
 import TransPorts from '../components/Post/Course/Transports';
 import Header from '../components/Commons/Header';
 import MultiCarousel from '../components/MultiCarousel/MultiCarousel';
+import SearchTopstore from '../components/Search/SearchTopstore';
 
 const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
@@ -78,34 +79,11 @@ const LandingPage = () => {
               </h1>
             </div>
             <article className="flex justify-center">
-              <div className="w-8/12">
-                <MultiCarousel>
+              <div className="w-10/12">
+                <MultiCarousel type={'store'}>
                   {data.map((item) => (
-                    <div
-                      key={item.uuid}
-                      className="cursor-pointer transition-all duration-300 ease-in-out transform shadow-lg hover:shadow-none bg-white"
-                    >
-                      <article className="m-2 ">
-                        <div className="flex justify-center items-center">
-                          {item.representImage ? (
-                            <Image representImage={item.representImage} />
-                          ) : (
-                            <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
-                              이미지가 아직 준비되지 않았어요!
-                            </p>
-                          )}
-                        </div>
-
-                        <section className="mt-4">
-                          <Name name={item.name} />
-                          {/* <Location location={item.location} /> */}
-                          {/* <Description description={item.description} /> */}
-                          <div className="flex mt-1">
-                            {/* <Category category={item.category} /> */}
-                            {/* <Tags tags={item.tags} /> */}
-                          </div>
-                        </section>
-                      </article>
+                    <div key={item.uuid} className="w-1/5 flex justify-center">
+                      <SearchTopstore item={item as Store} />
                     </div>
                   ))}
                 </MultiCarousel>
@@ -119,8 +97,8 @@ const LandingPage = () => {
               </h1>
             </div>
             <article className="flex justify-center">
-              <div className="w-8/12">
-                <MultiCarousel autoPlay={true}>
+              <div className="w-10/12">
+                <MultiCarousel autoPlay={true} type={'course'}>
                   {courseData.map((item) => (
                     <div
                       key={item.uuid}
