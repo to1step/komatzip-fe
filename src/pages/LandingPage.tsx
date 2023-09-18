@@ -63,15 +63,6 @@ const LandingPage = () => {
           <header>
             <Header />
           </header>
-          {/* <section>
-            <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent">
-              {address ? (
-                <p>🦖 현재 내 위치 : {address}</p>
-              ) : (
-                <p>현재 내 위치 찾는중...</p>
-              )}
-            </p>
-          </section> */}
           <section className="">
             <div className="text-center">
               <h1 className="mb-12 mt-20 h-[30px] text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743]">
