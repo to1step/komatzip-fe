@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { KeyboardEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import InputBox from '../Commons/InputBox';
@@ -20,10 +20,13 @@ const Search = () => {
   const handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      await SearchStore();
+      await SearchStore(e);
     }
   };
-  const SearchStore = async () => {
+
+  const SearchStore = async (e: KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
     try {
       let endpoint;
       let paramKey: string = ''; // 객체 속성 이름을 동적으로 설정할 때는 해당 속성 이름의 타입을 설정해줘야 함, 초기값 빈 문자열로 설정
@@ -103,7 +106,7 @@ const Search = () => {
         </form>
         <div>
           <nav className="text-center font-semibold">
-            <Link to="/map-page" className="text-sl text-orange-200">
+            <Link to="/map" className="text-sl text-orange-200">
               지금 내 주위 장소 보기
             </Link>
           </nav>

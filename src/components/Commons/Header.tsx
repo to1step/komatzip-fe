@@ -1,13 +1,34 @@
 import { Link } from 'react-router-dom';
 import Search from '../Search/Search';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import SideBar from '../Sidebar/SideBar';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const [isBackdropVisible, setIsBackdropVisible] = useState(false);
 
   const handleLoginLogout = () => {
     setIsLoggedIn(!isLoggedIn);
   };
+
+  const toggleSideBar = () => {
+    setIsSideBarOpen(!isSideBarOpen);
+    setIsBackdropVisible(!isBackdropVisible);
+  };
+
+  const handleBackdropClick = () => {
+    setIsSideBarOpen(false); // 사이드바 닫기
+    setIsBackdropVisible(false); // 백드롭 숨기기
+  };
+
+  // 백드롭 상태 변경 시 사이드바 닫기
+  useEffect(() => {
+    if (!isBackdropVisible) {
+      setIsSideBarOpen(false);
+    }
+  }, [isBackdropVisible]);
 
   return (
     <header>
@@ -35,6 +56,12 @@ const Header = () => {
             >
               My Page
             </Link>
+            <div className="flex items-center">
+              <GiHamburgerMenu
+                className="text-4xl cursor-pointer mr-5 text-orange-200 hover:text-orange-900"
+                onClick={toggleSideBar}
+              />
+            </div>
           </div>
           <h1 className="text-center mb-10">
             <Link
@@ -47,6 +74,13 @@ const Header = () => {
         </div>
         <Search />
       </nav>
+      {isBackdropVisible && (
+        <div // 백드롭
+          className="fixed inset-0 bg-gray-900 bg-opacity-60 z-10"
+          onClick={handleBackdropClick} // 백드롭 클릭 시 닫기
+        />
+      )}
+      {isSideBarOpen && <SideBar onClose={toggleSideBar} />}
     </header>
   );
 };
