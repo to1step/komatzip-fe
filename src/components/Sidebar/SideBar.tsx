@@ -1,7 +1,6 @@
 import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-// Props의 타입을 명시적으로 지정
 type SideBarProps = {
   onClose: () => void;
 };
@@ -12,7 +11,7 @@ function SideBar({ onClose }: SideBarProps) {
   };
 
   return (
-    <div className="fixed z-20 top-0 right-0 h-full w-64 bg-black text-white shadow-md bg-opacity-60">
+    <div className="fixed z-30 top-0 right-0 h-full w-64 bg-black text-white shadow-md bg-opacity-60">
       <div className="p-4 flex justify-between items-center">
         <h2 className="text-2xl font-semibold mb-0">@@님</h2>
         <div>
