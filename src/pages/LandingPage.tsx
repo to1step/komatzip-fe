@@ -61,7 +61,7 @@ const LandingPage = () => {
       <div className=" bg-amber-700 h-[60vh] bg-cover bg-center">
         <div className="bg-blue-300 bg-opacity-20 h-[60vh]">
           <header>
-            <Header />
+            <Header showTitle={true} showIcon={false} />
           </header>
           {/* <section>
             <p className="mt-3 mb-2 inline-block bg-gradient-to-t from-[#FFF743] via-transparent">
