@@ -200,9 +200,9 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
 
   return (
     <div className="relative">
-      <div id="kakao-map" style={{ width: '100vw', height: '100vh' }}>
+      <div id="kakao-map" style={{ width: '100vw', height: '90vh' }}>
         <button
-          className="my-position-button bg-blue-400 text-white text-xl font-bold py-3 px-6 rounded absolute bottom-[140px] left-4 z-10"
+          className="my-position-button bg-blue-400 text-white text-xl font-bold py-3 px-6 rounded absolute bottom-[40px] left-12 z-10"
           onClick={moveToMyPosition}
         >
           현재 위치
