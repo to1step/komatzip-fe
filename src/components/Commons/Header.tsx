@@ -1,9 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Search from '../Search/Search';
 import { useState, useEffect } from 'react';
 import SideBar from '../Sidebar/SideBar';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoIosArrowBack } from 'react-icons/io';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/module';
+import { logoutAction } from '../../redux/module/user';
+import Post from '../../pages/Post/Post';
+import axiosInstance from '../../api/apiInstance';
 
 interface HeaderProps {
   showTitle: boolean;
@@ -11,12 +16,21 @@ interface HeaderProps {
 }
 
 const Header = ({ showTitle, showIcon }: HeaderProps) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const myInfo = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [isBackdropVisible, setIsBackdropVisible] = useState(false);
+  const history = useHistory();
 
-  const handleLoginLogout = () => {
-    setIsLoggedIn(!isLoggedIn);
+  const handleLogout = async () => {
+    try {
+      // 로그아웃 정상적으로 처리 되었다면 상태 변경 후 메인으로 페이지 이동
+      await axiosInstance.post('/v1/auth/sign-out');
+      dispatch(logoutAction());
+      history.push('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const toggleSideBar = () => {
@@ -49,13 +63,13 @@ const Header = ({ showTitle, showIcon }: HeaderProps) => {
               )}
             </div>
             <div className="flex ml-auto">
-              {isLoggedIn ? (
-                <Link
-                  to="/logout"
+              {myInfo.isLoggedIn ? (
+                <span
                   className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900"
+                  onClick={() => handleLogout()}
                 >
                   Logout
-                </Link>
+                </span>
               ) : (
                 <Link
                   to="/login"

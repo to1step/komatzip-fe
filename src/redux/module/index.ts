@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import { locationReducer } from './locationSlice.ts';
 import { searchReducer } from '../searchSlice.ts';
+import { userReducer } from './user.ts';
 
 // 루트 리듀서
 const rootReducer = combineReducers({
   search: searchReducer,
   location: locationReducer,
+  user: userReducer,
 });
 
 export default rootReducer;
