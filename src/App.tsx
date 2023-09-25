@@ -12,13 +12,24 @@ import { User } from '@to1step/propose-backend';
 import Login from './pages/Login/Login';
 import SignUp from './pages/Signup/Signup';
 import MyPage from './pages/MyPage/MyPage';
+import { UserMyInfo, loginAction } from './redux/module/user';
 
 function App() {
   const dispatch = useDispatch();
   const address = useSelector((state: RootState) => state.location);
+  const myInfo = useSelector((state: RootState) => state.user);
   const [data, setData] = useState<User[]>([]);
 
   const apiKey = `a055e717c1cb42e8ee196835ba48dfcf`;
+
+  const getMyInfo = async () => {
+    try {
+      const { data } = await axiosInstance.get<UserMyInfo>('/v1/users/me');
+      dispatch(loginAction(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -62,6 +73,10 @@ function App() {
       );
     }
   }, [dispatch, address]);
+
+  useEffect(() => {
+    getMyInfo();
+  }, [myInfo?.isLoggedIn]);
 
   return (
     <div>
