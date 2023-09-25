@@ -61,7 +61,7 @@ const LandingPage = () => {
       <div className=" bg-amber-700 h-[60vh] bg-cover bg-center">
         <div className="bg-blue-300 bg-opacity-20 h-[60vh]">
           <header>
-            <Header />
+            <Header showTitle={true} showIcon={false} />
           </header>
           <section className="">
             <div className="text-center">
