@@ -26,7 +26,6 @@ function App() {
     try {
       const { data } = await axiosInstance.get<UserMyInfo>('/v1/users/me');
       dispatch(loginAction(data));
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +76,7 @@ function App() {
 
   useEffect(() => {
     getMyInfo();
-  }, [myInfo]);
+  }, [myInfo?.isLoggedIn]);
 
   return (
     <div>

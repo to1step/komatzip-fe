@@ -3,6 +3,8 @@ import MenuBar from '../../components/background/MenuBar';
 import axiosInstance from '../../api/apiInstance';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { UserMyInfo, loginAction } from '../../redux/module/user';
+import { useDispatch } from 'react-redux';
 
 type LoginForm = {
   email: string;
@@ -11,6 +13,7 @@ type LoginForm = {
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<LoginForm>();
 
   const onLogin = async (data: LoginForm) => {
@@ -19,6 +22,12 @@ const Login = () => {
         email: data.email,
         password: data.password,
       });
+
+      const { data: myInfo } = await axiosInstance.get<UserMyInfo>(
+        '/v1/users/me',
+      );
+      dispatch(loginAction(myInfo));
+
       navigate('/'); // 로그인 성공시 메인으로 이동
     } catch (error) {
       console.log(error);
