@@ -19,8 +19,8 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   );
   const [visibleMarkers, setVisibleMarkers] = useState<StoreEntireInfo[]>([]);
   const visibleMarkersRef = useRef<StoreEntireInfo[]>([]);
-  const infowindowRef = useRef<window.kakao.maps.InfoWindow | null>(null);
-  const [map, setMap] = useState<window.kakao.maps.Map | null>(null);
+  const infowindowRef = useRef<kakao.maps.InfoWindow | null>(null);
+  const [map, setMap] = useState<kakao.maps.Map | null>(null);
   const [myPosition, setMyPosition] = useState<{
     lat: number;
     lng: number;
@@ -169,7 +169,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   };
 
   const displayInfoWindow = (
-    marker: window.kakao.maps.Marker | null,
+    marker: kakao.maps.Marker | null,
     title: string,
     lat: number,
     lng: number,

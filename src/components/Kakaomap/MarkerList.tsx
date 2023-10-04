@@ -39,8 +39,8 @@ const MarkerList: React.FC<MarkerListProps> = ({
         {markers.map((marker) => (
           <div
             key={marker.uuid} // 사용할 고유 키를 uuid로 변경
-            className={`p-2 border-t border-gray-300 mt-2 ${
-              marker.name === activeMarkerTitle ? 'bg-gray-200' : ''
+            className={`p-2 border-t border-blue-400 mt-2 ${
+              marker.name === activeMarkerTitle ? 'bg-blue-100' : ''
             }`}
             onClick={() => onMarkerClick(marker)}
             onMouseOver={() => onMarkerMouseOver(marker)}
