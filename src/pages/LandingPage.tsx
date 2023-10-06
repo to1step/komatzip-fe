@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Course, Store } from '@to1step/propose-backend';
 import axiosInstance from '../api/apiInstance';
 import { RootState } from '../redux/module';
-import Location from '../components/Post/Store/Location';
 import Name from '../components/Post/Name';
-import Description from '../components/Post/Store/Description';
-import Category from '../components/Post/Store/Category';
 import Tags from '../components/Post/Tags';
 import LongComment from '../components/Post/Course/LongComment';
 import ShortComment from '../components/Post/Course/ShortComment';
-import Stores from '../components/Post/Course/Stores';
+import StoresNames from '../components/Post/Course/StoresNames';
 import User from '../components/Post/Course/User';
-import Image from '../components/Post/Store/Image';
 import TransPorts from '../components/Post/Course/Transports';
 import Header from '../components/Commons/Header';
 import MultiCarousel from '../components/MultiCarousel/MultiCarousel';
@@ -108,7 +104,8 @@ const LandingPage = () => {
                           </section>
                           <section className="w-[450px] h-[400px] bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
                             <section className="mb-10 text-left w-3/4">
-                              <Stores stores={item.stores} />
+                              {/* <Stores stores={item.stores} /> */}
+                              <StoresNames storeNames={item.storeNames} />
                             </section>
                             <section className="flex justify-center items-center">
                               <section>

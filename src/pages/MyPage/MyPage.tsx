@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import axiosInstance from '../../api/apiInstance';
-import { User } from '@to1step/propose-backend';
 import ProfileImage from '../../components/MyPage/ProfileImage';
 import NickName from '../../components/MyPage/NickName';
 import Email from '../../components/MyPage/Email';
-import EmailNotification from '../../components/MyPage/EmailNotification';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserMyInfo, loginAction, logoutAction } from '../../redux/module/user';
+import { RootState } from '../../redux/module';
+// import EmailNotification from '../../components/MyPage/EmailNotification';
 
 // TODO
 // axiosInstance + /v1/users/me
@@ -18,28 +20,23 @@ import EmailNotification from '../../components/MyPage/EmailNotification';
 // redux말고 state로 관리
 
 const MyPage = () => {
-  const [userData, setUserData] = useState<User | null>({
-    uuid: '123',
-    email: 'test@test.com',
-    password: '123456789aA!',
-    nickname: 'nickname',
-    provider: 'kakao',
-    snsId: 'testSnsId',
-    profileImage: 'public/logo.svg',
-    commentAlarm: true,
-    updateAlarm: true,
-  });
+  const userData = useSelector((state: RootState) => state.user.userData);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axiosInstance
-      .get<User>('/v1/users/me')
+      .get<UserMyInfo>('/v1/users/me')
       .then((response) => {
-        setUserData(response.data);
+        if (response && response.data) dispatch(loginAction(response.data));
       })
       .catch((error) => {
-        console.log('마이페이지 데이터 페칭 중 에러: ', error);
+        console.log('마이페이지 데이터 fetching 중 에러: ', error);
       });
-  }, []);
+  }, [dispatch]);
+
+  const handleLogout = () => {
+    dispatch(logoutAction());
+  };
 
   return (
     <main className="bg-white w-3/4 flex-row items-center justify-center">
@@ -116,8 +113,8 @@ const MyPage = () => {
             <li>회원 인증 또는 시스템에서 이메일을 수신하는 주소입니다.</li>
           </ul>
           <ul>
-            <li>
-              {userData ? (
+            {/* <li> */}
+            {/* {userData ? (
                 <EmailNotification
                   commentAlarm={userData.commentAlarm}
                   updateAlarm={userData.updateAlarm}
@@ -125,7 +122,7 @@ const MyPage = () => {
               ) : (
                 <p>이메일 수신 설정 준비중</p>
               )}
-            </li>
+            </li> */}
           </ul>
           <ul className="flex">
             <li>회원 탈퇴</li>

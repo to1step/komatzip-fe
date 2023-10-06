@@ -1,12 +1,13 @@
-import { Course } from '@to1step/propose-backend';
 import Name from '../../components/Post/Name';
 import Tags from '../../components/Post/Tags';
 // import IsPrivate from '../Post/Course/IsPrivate';
 // import LongComment from '../Post/Course/LongComment';
 import ShortComment from '../Post/Course/ShortComment';
-import Stores from '../Post/Course/Stores';
+// import Stores from '../Post/Course/Stores';
 import User from '../Post/Course/User';
 import TransPorts from '../Post/Course/Transports';
+import StoreNames from '../Post/Course/StoresNames';
+import { Course } from '@to1step/propose-backend';
 
 const SearchTopcourse = ({ item }: { item: Course }) => {
   return (
@@ -34,9 +35,13 @@ const SearchTopcourse = ({ item }: { item: Course }) => {
           </section>
           <section className="my-2">
             <section className="mx-1 mt-3 mb-6 ">
-              <Stores
+              {/* <Stores
                 key={`search-top-course-stores-${item.uuid}`}
                 stores={item.stores}
+              /> */}
+              <StoreNames
+                key={`search-top-course-stores-${item.uuid}`}
+                storesNames={item.storeNames}
               />
             </section>
             <section className="mt-5 mb-5">

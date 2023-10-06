@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 interface EmailNotificationProps {
   commentAlarm: boolean;
   updateAlarm: boolean;
