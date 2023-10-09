@@ -3,7 +3,7 @@ import LoginBackground from '../../components/background/LoginBackground';
 import axiosInstance from '../../api/apiInstance';
 import MenuBar from '../../components/background/MenuBar';
 import { useNavigate } from 'react-router-dom';
-import { success } from '../../util/toastify';
+import { success, errors } from '../../util/toastify';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -23,26 +23,18 @@ const SignUp = () => {
   };
   const [check, setCheck] = useState<boolean>(false);
   const [code, setCode] = useState<string>('');
-  const [errors, setErrors] = useState({});
 
   const onSignupStep1 = async () => {
     try {
       // 유효성 검사
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const validationErrors: any = {};
-
       if (formData.password.length < 12) {
-        validationErrors.passwordLength =
-          '비밀번호는 최소한 12자리 이상이어야 합니다.';
+        errors('비밀번호는 최소한 12자리 이상이어야 합니다.');
+        return;
       }
 
       if (formData.password !== formData.confirmPassword) {
-        validationErrors.passwordMatch = '비밀번호가 일치하지 않습니다.';
-      }
-
-      // 에러가 있는 경우 에러 상태 업데이트
-      if (Object.keys(validationErrors).length > 0) {
-        setErrors(validationErrors);
+        errors('비밀번호가 일치하지 않습니다.');
         return;
       }
 
@@ -58,15 +50,13 @@ const SignUp = () => {
           nickname: formData.username,
         },
       );
+
       if (emailValidation) {
-        validationErrors.emailValidation = '이메일 정보가 이미 존재합니다.';
+        errors('이메일 정보가 이미 존재합니다.');
+        return;
       }
       if (nicknameValidation) {
-        validationErrors.nicknameValidation = '이미 존재하는 닉네임 입니다.';
-      }
-      // 에러가 있는 경우 에러 상태 업데이트
-      if (Object.keys(validationErrors).length > 0) {
-        setErrors(validationErrors);
+        errors('이미 존재하는 닉네임 입니다.');
         return;
       }
 
@@ -77,7 +67,6 @@ const SignUp = () => {
       });
 
       setMode('email-verification');
-      setErrors({});
     } catch (error) {
       console.log(error);
     }
@@ -111,6 +100,7 @@ const SignUp = () => {
         navigate('/login');
       }
     } catch (error) {
+      errors('비밀번호는 최소한 12자리 이상이어야 합니다.');
       console.log(error);
     }
   };
