@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 // 성공 알람 ( 초록색 창 )
 export const success = (v?: string) =>
   toast.success(`🦄 ${v ?? 'success!'}`, {
-    position: 'top-center',
+    position: 'top-right',
     autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -16,7 +16,7 @@ export const success = (v?: string) =>
 // 실패 알람 ( 빨간색 창 )
 export const errors = (v?: string) =>
   toast.error(`🦄 ${v ?? 'error!'}`, {
-    position: 'top-center',
+    position: 'top-right',
     autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -29,7 +29,7 @@ export const errors = (v?: string) =>
 // 경고 알람 ( 노란색 창 )
 export const warning = (v?: string) =>
   toast.warn(`🦄 ${v ?? 'warning!'}`, {
-    position: 'top-center',
+    position: 'top-right',
     autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -42,7 +42,7 @@ export const warning = (v?: string) =>
 // 정보 알람
 export const info = (v?: string) =>
   toast.info(`🦄 ${v ?? 'info!'}`, {
-    position: 'top-center',
+    position: 'top-right',
     autoClose: 6000,
     hideProgressBar: false,
     closeOnClick: true,
