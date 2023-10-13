@@ -13,6 +13,7 @@ import TransPorts from '../components/Post/Course/Transports';
 import Header from '../components/Commons/Header';
 import MultiCarousel from '../components/MultiCarousel/MultiCarousel';
 import SearchTopstore from '../components/Search/SearchTopstore';
+import Stores from '../components/Post/Course/Stores';
 
 const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
@@ -104,8 +105,8 @@ const LandingPage = () => {
                           </section>
                           <section className="w-[450px] h-[400px] bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
                             <section className="mb-10 text-left w-3/4">
-                              {/* <Stores stores={item.stores} /> */}
-                              <StoresNames storeNames={item.storeNames} />
+                              <Stores stores={item.stores} />
+                              {/* <StoresNames storeNames={item.storeNames} /> */}
                             </section>
                             <section className="flex justify-center items-center">
                               <section>
