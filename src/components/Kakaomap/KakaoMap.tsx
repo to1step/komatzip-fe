@@ -4,6 +4,8 @@ import MarkerList from './MarkerList';
 import { StoreEntireInfo } from '@to1step/propose-backend';
 import MapModal from './MapModal';
 import MapDisplay from './MapDisplay';
+import { RootState } from '../../redux/module';
+import { useSelector } from 'react-redux';
 
 declare global {
   interface Window {
@@ -28,14 +30,14 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   const [selectedMarker, setSelectedMarker] = useState<StoreEntireInfo | null>(
     null,
   );
+  const address = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const region = '서울특별시 은평구';
         const { data } = await axios.get(
           `https://api.to1step.shop/v1/stores/location?region=${encodeURIComponent(
-            region,
+            address,
           )}`,
         );
 
