@@ -28,13 +28,17 @@ const AccountDeletionModal = ({
         >
           X
         </button>
-        <h1 className="text-xl m-3">정말 탈퇴하시겠습니까?</h1>
-        <button className="font-black m-3" onClick={handleDeleteAccount}>
-          탈퇴하기
-        </button>
-        <button className="font-black m-3" onClick={closeModal}>
-          돌아가기
-        </button>
+        <h1 className="text-xl m-3 text-red-500 text-center font-black">
+          정말 탈퇴하시겠습니까?
+        </h1>
+        <section className="flex justify-center items-center">
+          <button className="font-semibold m-3" onClick={handleDeleteAccount}>
+            탈퇴하기
+          </button>
+          <button className="font-black m-3" onClick={closeModal}>
+            돌아가기
+          </button>
+        </section>
       </div>
     </div>
   );
