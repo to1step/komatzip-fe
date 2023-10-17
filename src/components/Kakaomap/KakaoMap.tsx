@@ -4,6 +4,8 @@ import MarkerList from './MarkerList';
 import { StoreEntireInfo } from '@to1step/propose-backend';
 import MapModal from './MapModal';
 import MapDisplay from './MapDisplay';
+import { RootState } from '../../redux/module';
+import { useSelector } from 'react-redux';
 
 declare global {
   interface Window {
@@ -19,8 +21,8 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   );
   const [visibleMarkers, setVisibleMarkers] = useState<StoreEntireInfo[]>([]);
   const visibleMarkersRef = useRef<StoreEntireInfo[]>([]);
-  const infowindowRef = useRef<window.kakao.maps.InfoWindow | null>(null);
-  const [map, setMap] = useState<window.kakao.maps.Map | null>(null);
+  const infowindowRef = useRef<kakao.maps.InfoWindow | null>(null);
+  const [map, setMap] = useState<kakao.maps.Map | null>(null);
   const [myPosition, setMyPosition] = useState<{
     lat: number;
     lng: number;
@@ -28,14 +30,14 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   const [selectedMarker, setSelectedMarker] = useState<StoreEntireInfo | null>(
     null,
   );
+  const address = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const region = '서울특별시 은평구';
         const { data } = await axios.get(
           `https://api.to1step.shop/v1/stores/location?region=${encodeURIComponent(
-            region,
+            address,
           )}`,
         );
 
@@ -169,7 +171,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   };
 
   const displayInfoWindow = (
-    marker: window.kakao.maps.Marker | null,
+    marker: kakao.maps.Marker | null,
     title: string,
     lat: number,
     lng: number,
@@ -200,9 +202,9 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
 
   return (
     <div className="relative">
-      <div id="kakao-map" style={{ width: '100vw', height: '100vh' }}>
+      <div id="kakao-map" style={{ width: '100vw', height: '90vh' }}>
         <button
-          className="my-position-button bg-blue-400 text-white text-xl font-bold py-3 px-6 rounded absolute bottom-[140px] left-4 z-10"
+          className="my-position-button bg-blue-400 text-white text-xl font-bold py-3 px-6 rounded absolute bottom-[40px] left-12 z-10"
           onClick={moveToMyPosition}
         >
           현재 위치

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BiCopy } from 'react-icons/bi';
+import { success } from '../../util/toastify';
 
 interface CopyAddressButtonProps {
   location: string;
@@ -12,7 +13,7 @@ const CopyAddressButton = ({ location }: CopyAddressButtonProps) => {
     try {
       navigator.clipboard.writeText(location);
       setIsCopyAddress(true);
-      alert('주소가 복사되었습니다.');
+      success('주소가 복사되었습니다.');
     } catch (e) {
       console.error(e);
     }

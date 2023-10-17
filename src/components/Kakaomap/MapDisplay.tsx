@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { StoreEntireInfo } from '@to1step/propose-backend';
 
 interface MapDisplayProps {
-  map: window.kakao.maps.Map | null;
+  map: kakao.maps.Map | null;
   markersData: StoreEntireInfo[];
   myPosition: { lat: number; lng: number } | null; // 내 위치 정보 추가
 }
@@ -12,7 +12,7 @@ const MapDisplay: React.FC<MapDisplayProps> = ({
   markersData,
   myPosition,
 }) => {
-  const infowindowRef = useRef<window.kakao.maps.InfoWindow | null>(null);
+  const infowindowRef = useRef<kakao.maps.InfoWindow | null>(null);
 
   useEffect(() => {
     if (map) {
@@ -77,9 +77,9 @@ const MapDisplay: React.FC<MapDisplayProps> = ({
   }, [map, markersData, myPosition]);
 
   const displayInfoWindow = (
-    marker: window.kakao.maps.Marker,
+    marker: kakao.maps.Marker,
     title: string,
-    map: window.kakao.maps.Map | null,
+    map: kakao.maps.Map | null,
   ) => {
     const infowindow = infowindowRef.current;
     if (infowindow && map) {
