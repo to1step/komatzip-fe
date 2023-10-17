@@ -94,13 +94,13 @@ const SignUp = () => {
           code: code,
         },
       );
-      // data false일 경우 존재하지 않는 계정으로 회원가입 가능
-      if (data === false) {
+
+      if (data) {
         success('성공적으로 가입되셨습니다.');
         navigate('/login');
       }
     } catch (error) {
-      errors('비밀번호는 최소한 12자리 이상이어야 합니다.');
+      errors('이메일 코드를 다시한번 확인해주세요.');
       console.log(error);
     }
   };
