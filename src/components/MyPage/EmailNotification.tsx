@@ -25,7 +25,7 @@ const EmailNotification = ({
 
   return (
     <section className="flex border-b">
-      <h1 className="font-black w-1/4 my-2 ">이메일 수신 설정</h1>
+      <h1 className="text-xl font-semibold mr-8">이메일 수신 설정</h1>
       <div className="flex-row">
         <div className="flex items-center my-2">
           <li className="mr-40">댓글 알림</li>

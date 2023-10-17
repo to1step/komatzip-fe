@@ -38,7 +38,7 @@ const NickName = ({ nickname }: { nickname: string }) => {
     <ul>
       <li className="list-none flex">
         {editing ? (
-          <>
+          <div className="text-xl font-semibold mr-8">
             닉네임
             <input
               type="text"
@@ -46,7 +46,7 @@ const NickName = ({ nickname }: { nickname: string }) => {
               onChange={handleNicknameChange}
               className="border-b-2 w-3/4"
             />
-          </>
+          </div>
         ) : (
           <>닉네임 : {nickname}</>
         )}

@@ -7,7 +7,6 @@ import Name from '../components/Post/Name';
 import Tags from '../components/Post/Tags';
 import LongComment from '../components/Post/Course/LongComment';
 import ShortComment from '../components/Post/Course/ShortComment';
-import StoresNames from '../components/Post/Course/StoresNames';
 import User from '../components/Post/Course/User';
 import TransPorts from '../components/Post/Course/Transports';
 import Header from '../components/Commons/Header';
