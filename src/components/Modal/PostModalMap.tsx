@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Store } from '@to1step/propose-backend';
 
+// 모달에서 정적지도를 보여주는 컴포넌트
 const PostModalMap = ({ coordinates }: Store) => {
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);

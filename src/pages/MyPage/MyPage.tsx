@@ -6,6 +6,7 @@ import Email from '../../components/MyPage/Email';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserMyInfo, loginAction, logoutAction } from '../../redux/module/user';
 import { RootState } from '../../redux/module';
+import EmailNotification from '../../components/MyPage/EmailNotification';
 // import EmailNotification from '../../components/MyPage/EmailNotification';
 
 // TODO
@@ -34,9 +35,9 @@ const MyPage = () => {
       });
   }, [dispatch]);
 
-  const handleLogout = () => {
-    dispatch(logoutAction());
-  };
+  // const handleLogout = () => {
+  //   dispatch(logoutAction());
+  // };
 
   return (
     <main className="bg-white w-3/4 flex-row items-center justify-center">
@@ -46,14 +47,16 @@ const MyPage = () => {
             {userData ? (
               <ProfileImage profileImage={userData.profileImage} />
             ) : (
-              <p>이미지 준비중</p>
+              <p>
+                <p>이미지 준비중</p>
+              </p>
             )}
           </section>
           <section className="font-black text-[30px] font-left ml-4">
             {userData ? (
               <NickName nickname={userData.nickname} />
             ) : (
-              <p>이미지 준비중</p>
+              <p>닉네임 준비중</p>
             )}
           </section>
         </div>
@@ -113,16 +116,18 @@ const MyPage = () => {
             <li>회원 인증 또는 시스템에서 이메일을 수신하는 주소입니다.</li>
           </ul>
           <ul>
-            {/* <li> */}
-            {/* {userData ? (
+            <li>
+              {userData ? (
                 <EmailNotification
                   commentAlarm={userData.commentAlarm}
                   updateAlarm={userData.updateAlarm}
+                  onCommentAlarmToggle={handleCommentAlarmToggle}
+                  onUpdateAlarmToggle={handleUpdateAlarmToggle}
                 />
               ) : (
                 <p>이메일 수신 설정 준비중</p>
               )}
-            </li> */}
+            </li>
           </ul>
           <ul className="flex">
             <li>회원 탈퇴</li>

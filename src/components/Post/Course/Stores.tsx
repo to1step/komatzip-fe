@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import axiosInstance from '../../../api/apiInstance';
 import { StoreEntireInfo } from '@to1step/propose-backend';
-import PostModal from '../../PostModal/PostModal';
+import PostModal from '../../Modal/PostModal';
 
 // 각 가게 UUID를 가게 이름으로 변환하는 컴포넌트
 const mapStoresToNames = async (storeIds: string[]) => {

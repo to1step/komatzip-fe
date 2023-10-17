@@ -1,6 +1,8 @@
 import { Store, StoreEntireInfo } from '@to1step/propose-backend';
 // import PostModalMap from './PostModalMap';
 
+// 코스의 매장목록을 클릭했을 때 출력되는 컴포넌트
+
 interface CourseModalProps {
   store: StoreEntireInfo | Store;
   closeModal: () => void;
