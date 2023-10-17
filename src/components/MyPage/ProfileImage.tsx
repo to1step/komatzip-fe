@@ -12,17 +12,12 @@ const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
 
   return (
     <section>
-      <div>
-        <button className="w-[100px] h-[100px]">
-          {profileImage ? (
-            <img src={profileImage} alt="프로필 이미지" />
-          ) : (
-            <img
-              src="/public/images/default_profile.jpg"
-              alt="Default Profile"
-            />
-          )}
-        </button>
+      <div className="mb-10 flex justify-center items-center rounded-full border-2 w-[150px] h-[150px]">
+        {profileImage ? (
+          <img src={profileImage} alt="프로필 이미지" />
+        ) : (
+          <p>No image</p>
+        )}
       </div>
       <div className="mb-1">
         <input
