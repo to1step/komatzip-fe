@@ -97,11 +97,11 @@ const MyPage = () => {
                 <IoEarthSharp size={26} />
               </li>
               <li className="text-xl font-semibold mr-8">소셜 정보</li>
-              {userData ? (
-                <SNSInfo provider={userData.provider} />
+              {/* {userData ? (
+                <SNSInfo email={userData.email} />
               ) : (
                 <p className="mr-8">SNS 준비중</p>
-              )}
+              )} */}
             </ul>
             <ul className="flex">
               <li className="flex items-center justify-center">
@@ -125,8 +125,6 @@ const MyPage = () => {
                   <EmailNotification
                     commentAlarm={userData.commentAlarm}
                     updateAlarm={userData.updateAlarm}
-                    onCommentAlarmToggle={handleCommentAlarmToggle}
-                    onUpdateAlarmToggle={handleUpdateAlarmToggle}
                   />
                 ) : (
                   <div className="flex">
