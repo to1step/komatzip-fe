@@ -1,14 +1,16 @@
-import { StoreEntireInfo } from '@to1step/propose-backend';
-import PostModalMap from './PostModalMap';
+import { Store, StoreEntireInfo } from '@to1step/propose-backend';
+// import PostModalMap from './PostModalMap';
+
+// 매장 랭킹, 검색 결과의 매장을 클릭했을 때 출력되는 컴포넌트
 
 interface PostModalProps {
-  store: StoreEntireInfo;
+  store: StoreEntireInfo | Store;
   closeModal: () => void;
 }
 
 const PostModal = ({ store, closeModal }: PostModalProps) => {
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-500 bg-opacity-80">
+    <div className="z-50 fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-500 bg-opacity-80">
       <div className="bg-white w-[500px] relative p-4">
         <button
           className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"

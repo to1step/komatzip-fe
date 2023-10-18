@@ -1,6 +1,6 @@
-import { KeyboardEvent, useState } from 'react';
+import React, { KeyboardEvent, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import InputBox from '../Commons/InputBox';
 // import SearchButton from '../Commons/SearchButton';
 import axiosInstance from '../../api/apiInstance';
@@ -11,8 +11,29 @@ import {
 } from '../../redux/searchSlice';
 // import { searchActions } from '../../redux/searchSlice';
 import axios from 'axios';
+import { RootState } from '../../redux/module';
+import { Store } from '@to1step/propose-backend';
 // 검색창 기능
 const Search = () => {
+  const address = useSelector((state: RootState) => state.location);
+  const [data, setData] = React.useState<Store[]>([]);
+
+  useEffect(() => {
+    if (address) {
+      axiosInstance
+        .get<Store[]>(
+          `/v1/rank?type=store&region=${encodeURIComponent(address)}`,
+          // `/v1/rank?type=store&region=서울특별시%20강남구`,
+        )
+        .then((response) => {
+          if (response && response.data.length > 0) setData(response.data); // 순위 정보
+        })
+        .catch((error) => {
+          console.log('Topstore 데이터 fetching 중 에러 발생: ', error);
+        });
+    }
+  }, [address]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tagQuery, setTagQuery] = useState('');
@@ -104,12 +125,24 @@ const Search = () => {
             </div>
           </div>
         </form>
-        <div>
-          <nav className="text-center font-semibold">
-            <Link to="/map" className="text-sl text-orange-200">
-              지금 내 주위 장소 보기
-            </Link>
-          </nav>
+        <div className="flex justify-center">
+          <div className="text-center text-orange-200 mx-5">
+            {address ? (
+              <p>현재 내 위치는 "{address}"</p>
+            ) : (
+              <p>현재 내 위치 찾는중...</p>
+            )}
+          </div>
+          <div>
+            <nav className="text-center font-semibold">
+              <Link
+                to="/map"
+                className="text-sl text-orange-200 hover:underline"
+              >
+                내 주위 추천 장소 보러 가기
+              </Link>
+            </nav>
+          </div>
         </div>
       </header>
     </div>

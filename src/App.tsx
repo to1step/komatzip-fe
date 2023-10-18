@@ -13,6 +13,7 @@ import Login from './pages/Login/Login';
 import SignUp from './pages/Signup/Signup';
 import MyPage from './pages/MyPage/MyPage';
 import { UserMyInfo, loginAction } from './redux/module/user';
+import Storage from './pages/Storage/Storage';
 
 function App() {
   const dispatch = useDispatch();
@@ -89,6 +90,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/storage" element={<Storage />} />
         </Routes>
       </main>
     </div>

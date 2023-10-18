@@ -11,11 +11,20 @@ import axiosInstance from '../../api/apiInstance';
 import { removeCookie } from '../../util/cookie.util';
 
 interface HeaderProps {
-  showTitle: boolean;
-  showIcon: boolean;
+  showTitle?: boolean;
+  showBackButtonIcon?: boolean;
+  showSearch?: boolean;
+  showMainHeaderButton?: boolean;
+  showHamburgerButton?: boolean;
 }
 
-const Header = ({ showTitle, showIcon }: HeaderProps) => {
+const Header = ({
+  showTitle = true, // 여기가 수도권 버튼
+  showBackButtonIcon = false, // 뒤로가기 버튼
+  showSearch = false, // 검색창 및 맵페이지 연결 버튼
+  showMainHeaderButton = true, // 로그인, 마이페이지 버튼
+  showHamburgerButton = false, // 햄버거버튼
+}: HeaderProps) => {
   const myInfo = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,59 +63,65 @@ const Header = ({ showTitle, showIcon }: HeaderProps) => {
 
   return (
     <header>
-      <nav className="flex-row justify-center items-center">
-        <div className="flex-row justify-between items-center">
-          <div className="flex mb-3">
-            <div className="flex items-center">
-              {showIcon && (
-                <Link to="/">
-                  <IoIosArrowBack className="text-[50px] text-orange-200 hover:text-orange-900 ml-20" />
-                </Link>
-              )}
-            </div>
-            <div className="flex ml-auto">
-              {myInfo?.isLoggedIn ? (
-                <span
-                  className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900 cursor-pointer"
-                  onClick={() => handleLogout()}
-                >
-                  Logout
-                </span>
-              ) : (
-                <Link
-                  to="/login"
-                  className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900"
-                >
-                  Login
-                </Link>
-              )}
+      <nav className="flex flex-row justify-end items-center mx-20">
+        {showBackButtonIcon && (
+          <Link to="/">
+            <IoIosArrowBack className="text-[50px] text-orange-200 hover:text-orange-900 ml-20" />
+          </Link>
+        )}
+        {showMainHeaderButton &&
+          (myInfo?.isLoggedIn ? (
+            <>
               <Link
                 to="/mypage"
                 className="text-xl my-[30px] mr-[50px] text-orange-200 font-semibold hover:text-orange-900"
               >
                 My Page
               </Link>
-              <div className="flex items-center">
-                <GiHamburgerMenu
-                  className="text-4xl cursor-pointer mr-5 text-orange-200 hover:text-orange-900"
-                  onClick={toggleSideBar}
-                />
-              </div>
-            </div>
-          </div>
-          {showTitle && (
-            <h1 className="text-center mb-10">
-              <Link
-                to="/"
-                className="text-7xl font-bold text-orange-200 font-custom-snow-crab"
+              <span
+                className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900 cursor-pointer"
+                onClick={() => handleLogout()}
               >
-                여기가 수도권
+                Logout
+              </span>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900"
+              >
+                Login
               </Link>
-            </h1>
-          )}
-        </div>
-        {showTitle && <Search />}
+              <Link
+                to="/mypage"
+                className="text-xl my-[30px] mr-[50px] text-orange-200 font-semibold hover:text-orange-900"
+              >
+                My Page
+              </Link>
+            </>
+          ))}
+
+        {showHamburgerButton && (
+          <div className="flex items-center">
+            <GiHamburgerMenu
+              className="text-4xl cursor-pointer mr-5 text-orange-200 hover:text-orange-900"
+              onClick={toggleSideBar}
+            />
+          </div>
+        )}
       </nav>
+      {showTitle && (
+        <h1 className="text-center mb-10">
+          <Link
+            to="/"
+            className="text-7xl font-bold text-orange-200 font-custom-snow-crab"
+          >
+            여기가 수도권
+          </Link>
+        </h1>
+      )}
+      {showSearch && <Search />}
       {isBackdropVisible && (
         <div // 백드롭
           className="fixed inset-0 bg-gray-900 bg-opacity-60 z-20"

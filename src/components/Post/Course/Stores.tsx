@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axiosInstance from '../../../api/apiInstance';
 import { StoreEntireInfo } from '@to1step/propose-backend';
-import PostModal from '../../PostModal/PostModal';
+import CourseModal from '../../Modal/CourseModal';
 
 // 각 가게 UUID를 가게 이름으로 변환하는 컴포넌트
 const mapStoresToNames = async (storeIds: string[]) => {
@@ -66,33 +66,36 @@ const Stores = ({ stores }: StoresProps) => {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setSelectedStore(null);
     setIsModalOpen(false);
-  };
+  }, []);
 
-  const handleDocumentClick = (e: MouseEvent) => {
-    if (isModalOpen) {
-      const modal = document.querySelector('.modal');
-      if (modal && !modal.contains(e.target as Node)) {
-        closeModal();
+  const handleDocumentClick = useCallback(
+    (e: MouseEvent) => {
+      if (isModalOpen) {
+        const modal = document.querySelector('.modal');
+        if (modal && !modal.contains(e.target as Node)) {
+          closeModal();
+        }
       }
-    }
-  };
+    },
+    [isModalOpen, closeModal],
+  );
 
   useEffect(() => {
     document.addEventListener('mousedown', handleDocumentClick);
     return () => {
       document.removeEventListener('mousedown', handleDocumentClick);
     };
-  }, []);
+  }, [handleDocumentClick]);
 
   return (
-    <div className="relative flex-row justify-center items-center mx-1">
+    <div className="relative flex-row justify-center items-center  cursor-pointer transition-all duration-300 ease-in-out transform  hover:ring-4 hover:ring-amber-500 hover:rounded-xl">
       {storeInfo.map((info, index) => (
         <div
           key={`store-${index}`}
-          className="text-l relative cursor-pointer transition-all duration-300 ease-in-out transform  hover:ring-4 hover:ring-amber-500 hover:rounded-xl"
+          className="text-l relative "
           onClick={() => openModal(info)}
         >
           <div className="absolute h-full border-l-8 border-black  border-orange-300 m-2.5"></div>
@@ -100,6 +103,7 @@ const Stores = ({ stores }: StoresProps) => {
             <div className="relative">
               <span className="absolute text-[20px]">{info.category}</span>
               <span className="ml-10">{info.name}</span>
+              {/* <span>{info.uuid}</span> */}
             </div>
           </div>
           {index !== storeInfo.length - 1 && <br />}
@@ -107,7 +111,7 @@ const Stores = ({ stores }: StoresProps) => {
       ))}
 
       {isModalOpen && selectedStore && (
-        <PostModal store={selectedStore} closeModal={closeModal} />
+        <CourseModal store={selectedStore} closeModal={closeModal} />
       )}
     </div>
   );

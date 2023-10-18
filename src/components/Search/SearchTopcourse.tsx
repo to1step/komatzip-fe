@@ -1,64 +1,46 @@
-import { Course } from '@to1step/propose-backend';
 import Name from '../../components/Post/Name';
 import Tags from '../../components/Post/Tags';
-import IsPrivate from '../Post/Course/IsPrivate';
-import LongComment from '../Post/Course/LongComment';
 import ShortComment from '../Post/Course/ShortComment';
-import Stores from '../Post/Course/Stores';
 import User from '../Post/Course/User';
 import TransPorts from '../Post/Course/Transports';
+import { Course } from '@to1step/propose-backend';
+import LongComment from '../Post/Course/LongComment';
+import Stores from '../Post/Course/Stores';
 
 const SearchTopcourse = ({ item }: { item: Course }) => {
   return (
-    <main
-      key={`search-top-course-${item.uuid}`}
-      className="bg-white bg-opacity-50 m-3 shadow-lg"
-    >
-      <section className="m-2 flex-row justify-center items-center w-[380px]">
-        <section className="m-2 flex-row justify-center items-center">
-          <section>
-            <Name
-              key={`search-top-course-name-${item.uuid}`}
-              name={item.name}
-            />
-            <User
-              key={`search-top-course-user-${item.uuid}`}
-              user={item.user}
-            />
-            <div className="m-1">
-              <Tags
-                key={`search-top-course-tag-${item.uuid}`}
-                tags={item.tags}
-              />
+    <article>
+      <div className="bg-blue-100 bg-opacity-30">
+        <section className="flex flex-col justify-center items-center">
+          <section className="m-5 text-amber-100 text-left">
+            <div>
+              <Name name={item.name} />
             </div>
+            <div className="">
+              <User user={item.user} />
+            </div>
+            <Tags tags={item.tags} />
           </section>
-          <section className="my-2">
-            <section className="mx-1 mt-3 mb-6 ">
-              <Stores
-                key={`search-top-course-stores-${item.uuid}`}
-                stores={item.stores}
-              />
+          <section className="w-3/5 h-[300px] m-8 bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
+            <section className="mb-10 text-left w-3/4">
+              <Stores stores={item.stores} />
+              {/* <StoresNames storeNames={item.storeNames} /> */}
             </section>
-            <section className="mt-5 mb-5">
-              <ShortComment
-                key={`search-top-course-short-${item.uuid}`}
-                shortComment={item.shortComment}
-              />
+            {/* <section className="flex justify-center items-center">
+            <section>
+              <ShortComment shortComment={item.shortComment} />
+              <LongComment longComment={item.longComment} />
             </section>
-            <section className="mb-5">
-              <TransPorts
-                key={`search-top-course-transports-${item.uuid}`}
-                transports={item.transports}
-              />
-            </section>
-            {/* <IsPrivate
-              key={`search-top-course-IsPrivate-${item.uuid}`}
-              isPrivate={item.isPrivate}
-            /> */}
+            <TransPorts
+              key={`rank-top-course-transports-${item.uuid}`}
+              transports={item.transports}
+            />
+            <IsPrivate isPrivate={item.isPrivate} />
+          </section> */}
           </section>
         </section>
-      </section>
-    </main>
+      </div>
+    </article>
   );
 };
 
