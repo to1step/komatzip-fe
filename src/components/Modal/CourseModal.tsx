@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Store, StoreEntireInfo } from '@to1step/propose-backend';
+import { Course, Store, StoreEntireInfo } from '@to1step/propose-backend';
 import PostModal from './PostModal';
 import { CourseEntireInfo } from '@to1step/propose-backend';
 import LongComment from '../Post/Course/LongComment';
@@ -17,16 +17,34 @@ import Comment from '../Post/Course/Comment';
 import ReviewCount from '../Post/Course/ReviewCount';
 import LikeCount from '../Post/Course/LikeCount';
 import ILike from '../Post/Course/ILike';
+import axiosInstance from '../../api/apiInstance';
 // import PostModalMap from './PostModalMap';
 
 // 코스의 매장목록을 클릭했을 때 출력되는 컴포넌트
+// TODO : Stores 대신 uuid를 클릭하게 만들기
+
 interface CourseModalProps {
   store: StoreEntireInfo | Store;
+  courseInfo: CourseEntireInfo | Course;
   closeModal: () => void;
 }
 
-const CourseModal = ({ closeModal, store }: CourseModalProps) => {
+const CourseModal = ({ closeModal, store, courseInfo }: CourseModalProps) => {
   const [isStoreModalOpen, setIsStoreModalOpen] = useState(false);
+
+  // useEffect(() => {
+  //   if (uuid) {
+  //     axiosInstance
+  //       .get<CourseEntireInfo[]>(`/v1/courses/${courseUUID}`)
+  //       .then((response) => {
+  //         if (response && response.data.length > 0)
+  //           setCourseData(response.data); // 순위 정보
+  //       })
+  //       .catch((error) => {
+  //         console.log('Topcourse 데이터 fetching 중 에러 발생: ', error);
+  //       });
+  //   }
+  // }, [uuid]);
 
   const openStoreModal = () => {
     setIsStoreModalOpen(true);
@@ -47,7 +65,7 @@ const CourseModal = ({ closeModal, store }: CourseModalProps) => {
         </button>
         <header className="flex">
           <h2 className="text-xl font-semibold mb-4">
-            코스 이름 :{/* <Name /> */}
+            코스 이름 :{/* <Name name={name} /> */}
           </h2>
           <p>내가 좋아요 했는지 유무 :{/* <ILike /> */}</p>
           <p>리뷰 수 :{/* <ReviewCount /> */}</p>
@@ -76,14 +94,14 @@ const CourseModal = ({ closeModal, store }: CourseModalProps) => {
           <section className="w-[500px] m-10">
             <section>
               <p>긴 코멘트 :{/* <LongComment /> */}</p>
-              <p>짧은 코멘트 : {/* <ShortComment /> */}</p>
+              <p>짧은 코멘트 :{/* <ShortComment /> */}</p>
             </section>
             <section>
               <ul>
                 <li>코스 첫 가게 :{/* <StartStore /> */}</li>
                 <li>코스 마지막 가게 :{/* <EndStore /> */}</li>
                 <li>추천 이용교통에 대한 코멘트 :{/* <Comment /> */}</li>
-                <li>추천 이용교통 : {/* <TransPorts /> */}</li>
+                <li>추천 이용교통 :{/* <TransPorts /> */}</li>
               </ul>
             </section>
             <section>
