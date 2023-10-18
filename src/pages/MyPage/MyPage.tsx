@@ -41,7 +41,7 @@ const MyPage = () => {
           console.log('마이페이지 데이터 fetching 중 에러: ', error);
         });
     }
-  }, [dispatch]);
+  }, [userData, dispatch]);
 
   // const handleLogout = () => {
   //   dispatch(logoutAction());

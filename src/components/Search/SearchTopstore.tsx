@@ -34,12 +34,12 @@ const SearchTopstore = ({ item }: { item: Store }) => {
     [isModalOpen, closeModal],
   );
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleDocumentClick);
-    return () => {
-      document.removeEventListener('mousedown', handleDocumentClick);
-    };
-  }, [handleDocumentClick]);
+  // useEffect(() => {
+  //   document.addEventListener('mousedown', handleDocumentClick);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleDocumentClick);
+  //   };
+  // }, [handleDocumentClick]);
 
   return (
     <div>
