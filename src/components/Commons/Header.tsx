@@ -54,6 +54,10 @@ const Header = ({
     setIsBackdropVisible(false); // 백드롭 숨기기
   };
 
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
   // 백드롭 상태 변경 시 사이드바 닫기
   useEffect(() => {
     if (!isBackdropVisible) {
@@ -63,53 +67,58 @@ const Header = ({
 
   return (
     <header>
-      <nav className="flex flex-row justify-end items-center mx-20">
-        {showBackButtonIcon && (
-          <Link to="/">
-            <IoIosArrowBack className="text-[50px] text-orange-200 hover:text-orange-900 ml-20" />
-          </Link>
+      <nav className="flex flex-row justify-between items-center mx-20">
+        {showBackButtonIcon ? (
+          <IoIosArrowBack
+            onClick={handleBackClick}
+            className="text-[50px] text-orange-200 hover:text-orange-900 ml-20 cursor-pointer"
+          />
+        ) : (
+          <div style={{ width: 'auto' }}></div>
         )}
-        {showMainHeaderButton &&
-          (myInfo?.isLoggedIn ? (
-            <>
-              <Link
-                to="/mypage"
-                className="text-xl my-[30px] mr-[50px] text-orange-200 font-semibold hover:text-orange-900"
-              >
-                My Page
-              </Link>
-              <span
-                className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900 cursor-pointer"
-                onClick={() => handleLogout()}
-              >
-                Logout
-              </span>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/login"
-                className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900"
-              >
-                Login
-              </Link>
-              <Link
-                to="/mypage"
-                className="text-xl my-[30px] mr-[50px] text-orange-200 font-semibold hover:text-orange-900"
-              >
-                My Page
-              </Link>
-            </>
-          ))}
+        <div className="flex">
+          {showMainHeaderButton &&
+            (myInfo?.isLoggedIn ? (
+              <>
+                <Link
+                  to="/mypage"
+                  className="text-xl my-[30px] mr-[50px] text-orange-200 font-semibold hover:text-orange-900"
+                >
+                  My Page
+                </Link>
+                <span
+                  className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900 cursor-pointer"
+                  onClick={() => handleLogout()}
+                >
+                  Logout
+                </span>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/mypage"
+                  className="text-xl my-[30px] mr-[50px] text-orange-200 font-semibold hover:text-orange-900"
+                >
+                  My Page
+                </Link>
+              </>
+            ))}
 
-        {showHamburgerButton && (
-          <div className="flex items-center">
-            <GiHamburgerMenu
-              className="text-4xl cursor-pointer mr-5 text-orange-200 hover:text-orange-900"
-              onClick={toggleSideBar}
-            />
-          </div>
-        )}
+          {showHamburgerButton && (
+            <div className="flex items-center">
+              <GiHamburgerMenu
+                className="text-4xl cursor-pointer mr-5 text-orange-200 hover:text-orange-900"
+                onClick={toggleSideBar}
+              />
+            </div>
+          )}
+        </div>
       </nav>
       {showTitle && (
         <h1 className="text-center mb-10">

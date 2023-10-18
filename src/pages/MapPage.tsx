@@ -6,7 +6,7 @@ const MapPage: React.FC = () => {
   return (
     <div>
       <header>
-        <Header showTitle={false} showIcon={true} />
+        <Header showTitle={false} showBackButtonIcon={true} />
       </header>
       <KakaoMap />
     </div>
