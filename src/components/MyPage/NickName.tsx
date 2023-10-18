@@ -35,32 +35,25 @@ const NickName = ({ nickname }: { nickname: string }) => {
   };
 
   return (
-    <ul>
-      <li className="list-none flex">
+    <ul className="flex-row">
+      <li className="list-none">
         {editing ? (
-          <div className="text-xl font-semibold mr-8">
+          <div className="text-xl font-semibold flex">
             닉네임
             <input
               type="text"
               value={editedNickname}
               onChange={handleNicknameChange}
-              className="border-b-2 w-3/4"
+              className="border-b-2"
             />
-          </div>
-        ) : (
-          <>닉네임 : {nickname}</>
-        )}
-      </li>
-      <li className="list-none">
-        {editing ? (
-          <>
             <button onClick={handleSave}>저장</button>
             <button onClick={handleCancel}>취소</button>
-          </>
+          </div>
         ) : (
-          <button className="underline" onClick={handleEdit}>
-            수정
-          </button>
+          <div className="text-xl font-semibold">
+            닉네임 : {nickname}
+            <button onClick={handleEdit}>수정</button>
+          </div>
         )}
       </li>
     </ul>

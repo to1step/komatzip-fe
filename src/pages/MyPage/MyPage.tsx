@@ -9,13 +9,9 @@ import { RootState } from '../../redux/module';
 import EmailNotification from '../../components/MyPage/EmailNotification';
 import AccountDeletion from '../../components/MyPage/AccountDeletion';
 import Header from '../../components/Commons/Header';
-import SNSInfo from '../../components/MyPage/SNSInfo';
+// import SNSInfo from '../../components/MyPage/SNSInfo';
 import { VscMail } from 'react-icons/vsc';
-import {
-  IoEarthSharp,
-  IoNotificationsCircleOutline,
-  IoNotificationsOutline,
-} from 'react-icons/io5';
+import { IoEarthSharp, IoNotificationsOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 // import EmailNotification from '../../components/MyPage/EmailNotification';
 
@@ -35,14 +31,16 @@ const MyPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axiosInstance
-      .get<UserMyInfo>('/v1/users/me')
-      .then((response) => {
-        if (response && response.data) dispatch(loginAction(response.data));
-      })
-      .catch((error) => {
-        console.log('마이페이지 데이터 fetching 중 에러: ', error);
-      });
+    if (!userData) {
+      axiosInstance
+        .get<UserMyInfo>('/v1/users/me')
+        .then((response) => {
+          if (response && response.data) dispatch(loginAction(response.data));
+        })
+        .catch((error) => {
+          console.log('마이페이지 데이터 fetching 중 에러: ', error);
+        });
+    }
   }, [dispatch]);
 
   // const handleLogout = () => {
@@ -56,8 +54,8 @@ const MyPage = () => {
           showTitle={true}
           showBackButtonIcon={false}
           showSearch={false}
-          showMainHeaderButton={false}
-          showHamburgerButton={false}
+          showMainHeaderButton={true}
+          showHamburgerButton={true}
         />
       </header>
       <main className="flex w-full items-center justify-center">
@@ -82,7 +80,7 @@ const MyPage = () => {
           </div>
         </section>
         <section className="bg-white w-1/2 h-full rounded-xl my-12">
-          <div className="w-3/4 border-4">
+          <div className="flex-row justify-center items-center">
             <ul>
               <li>
                 {userData ? (

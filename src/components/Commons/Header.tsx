@@ -11,19 +11,19 @@ import axiosInstance from '../../api/apiInstance';
 import { removeCookie } from '../../util/cookie.util';
 
 interface HeaderProps {
-  showTitle: boolean;
-  showBackButtonIcon: boolean;
-  showSearch: boolean;
-  showMainHeaderButton: boolean;
-  showHamburgerButton: boolean;
+  showTitle?: boolean;
+  showBackButtonIcon?: boolean;
+  showSearch?: boolean;
+  showMainHeaderButton?: boolean;
+  showHamburgerButton?: boolean;
 }
 
 const Header = ({
-  showTitle, // 여기가 수도권 버튼
-  showBackButtonIcon, // 뒤로가기 버튼
-  showSearch, // 검색창 및 맵페이지 연결 버튼
-  showMainHeaderButton, // 로그인, 마이페이지 버튼
-  showHamburgerButton, // 햄버거버튼
+  showTitle = true, // 여기가 수도권 버튼
+  showBackButtonIcon = false, // 뒤로가기 버튼
+  showSearch = false, // 검색창 및 맵페이지 연결 버튼
+  showMainHeaderButton = true, // 로그인, 마이페이지 버튼
+  showHamburgerButton = false, // 햄버거버튼
 }: HeaderProps) => {
   const myInfo = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();

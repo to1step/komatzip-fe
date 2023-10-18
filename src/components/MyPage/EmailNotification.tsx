@@ -27,7 +27,7 @@ const EmailNotification = ({
 
   return (
     <section className="flex border-b">
-      <IoNotificationsOutline />
+      <IoNotificationsOutline size={26} />
       <h1 className="text-xl font-semibold mr-8">이메일 수신 설정</h1>
       <div className="flex-row">
         <div className="flex items-center my-2">
