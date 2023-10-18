@@ -32,19 +32,19 @@ interface CourseModalProps {
 const CourseModal = ({ closeModal, store, courseInfo }: CourseModalProps) => {
   const [isStoreModalOpen, setIsStoreModalOpen] = useState(false);
 
-  useEffect(() => {
-    if (uuid) {
-      axiosInstance
-        .get<CourseEntireInfo[]>(`/v1/courses/${courseUUID}`)
-        .then((response) => {
-          if (response && response.data.length > 0)
-            setCourseData(response.data); // 순위 정보
-        })
-        .catch((error) => {
-          console.log('Topcourse 데이터 fetching 중 에러 발생: ', error);
-        });
-    }
-  }, [uuid]);
+  // useEffect(() => {
+  //   if (uuid) {
+  //     axiosInstance
+  //       .get<CourseEntireInfo[]>(`/v1/courses/${courseUUID}`)
+  //       .then((response) => {
+  //         if (response && response.data.length > 0)
+  //           setCourseData(response.data); // 순위 정보
+  //       })
+  //       .catch((error) => {
+  //         console.log('Topcourse 데이터 fetching 중 에러 발생: ', error);
+  //       });
+  //   }
+  // }, [uuid]);
 
   const openStoreModal = () => {
     setIsStoreModalOpen(true);
@@ -65,27 +65,19 @@ const CourseModal = ({ closeModal, store, courseInfo }: CourseModalProps) => {
         </button>
         <header className="flex">
           <h2 className="text-xl font-semibold mb-4">
-            코스 이름 :<Name name={name} />
+            코스 이름 :{/* <Name name={name} /> */}
           </h2>
-          <p>
-            내가 좋아요 했는지 유무 :<ILike />
-          </p>
-          <p>
-            리뷰 수 :<ReviewCount />
-          </p>
-          <p>
-            좋아요 수 :<LikeCount />
-          </p>
+          <p>내가 좋아요 했는지 유무 :{/* <ILike /> */}</p>
+          <p>리뷰 수 :{/* <ReviewCount /> */}</p>
+          <p>좋아요 수 :{/* <LikeCount /> */}</p>
           <p>
             공개 여부 : 기본값 비공개
-            <IsPrivate />
+            {/* <IsPrivate /> */}
           </p>
         </header>
         <main className="flex">
           <section>
-            <ul>
-              태그들 :<Tags />
-            </ul>
+            <ul>태그들 :{/* <Tags /> */}</ul>
             <section className="opacity-70">
               <div
                 className="w-[500px] h-[300px] bg-cover bg-center"
@@ -93,7 +85,7 @@ const CourseModal = ({ closeModal, store, courseInfo }: CourseModalProps) => {
               >
                 <h3 className="text-center w-3/4 bg-amber-100 bg-opacity-90 text-white text-3xl">
                   <button onClick={openStoreModal} className="font-black">
-                    매장목록 :<StoreNames />
+                    매장목록 :{/* <StoreNames /> */}
                   </button>
                 </h3>
               </div>
@@ -101,36 +93,22 @@ const CourseModal = ({ closeModal, store, courseInfo }: CourseModalProps) => {
           </section>
           <section className="w-[500px] m-10">
             <section>
-              <p>
-                긴 코멘트 :<LongComment />
-              </p>
-              <p>
-                짧은 코멘트 : <ShortComment />
-              </p>
+              <p>긴 코멘트 :{/* <LongComment /> */}</p>
+              <p>짧은 코멘트 :{/* <ShortComment /> */}</p>
             </section>
             <section>
               <ul>
-                <li>
-                  코스 첫 가게 :<StartStore />
-                </li>
-                <li>
-                  코스 마지막 가게 :<EndStore />
-                </li>
-                <li>
-                  추천 이용교통에 대한 코멘트 :<Comment />
-                </li>
-                <li>
-                  추천 이용교통 : <TransPorts />
-                </li>
+                <li>코스 첫 가게 :{/* <StartStore /> */}</li>
+                <li>코스 마지막 가게 :{/* <EndStore /> */}</li>
+                <li>추천 이용교통에 대한 코멘트 :{/* <Comment /> */}</li>
+                <li>추천 이용교통 :{/* <TransPorts /> */}</li>
               </ul>
             </section>
             <section>
               <ul>
                 코스리뷰들
                 <li>코스 uuid</li>
-                <li>
-                  <User />
-                </li>
+                <li>{/* <User /> */}</li>
                 <li>리뷰우우우</li>
               </ul>
             </section>
