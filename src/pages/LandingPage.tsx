@@ -13,6 +13,7 @@ import Header from '../components/Commons/Header';
 import MultiCarousel from '../components/MultiCarousel/MultiCarousel';
 import SearchTopstore from '../components/Search/SearchTopstore';
 import Stores from '../components/Post/Course/Stores';
+import SearchTopcourse from '../components/Search/SearchTopcourse';
 
 const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
@@ -66,10 +67,11 @@ const LandingPage = () => {
             />
           </header>
           <section className="">
-            <div className="text-center">
-              <h1 className="mb-12 mt-20 h-[30px] text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743]">
+            <div className="text-center mb-12 mt-20">
+              <h1 className="h-[30px] text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743] mb-5">
                 이번 주 TOP 매장
               </h1>
+              <h2>최고의 식사를 찾아 떠나는 주간 맛집 여행 ✈️</h2>
             </div>
             <article className="flex justify-center">
               <div className="w-10/12">
@@ -84,51 +86,21 @@ const LandingPage = () => {
             </article>
           </section>
           <section>
-            <div className="text-center">
-              <h1 className="mt-40 mb-12 h-[30px] text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743]">
+            <div className="text-center mt-40 mb-12">
+              <h1 className="h-[30px] text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743] mb-5">
                 이번 주 TOP 코스
               </h1>
+              <h2>주간 최고 맛집 리스트를 만나보세요!</h2>
             </div>
             <article className="flex justify-center">
-              <div className="w-10/12">
+              <div className="w-10/12 mb-20">
                 <MultiCarousel autoPlay={true} type={'course'}>
                   {courseData.map((item) => (
                     <div
                       key={item.uuid}
-                      className="flex justify-center w-[800px] h-[450px] cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-lg rounded-[30px] bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center"
+                      className="bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center w-[600px]"
                     >
-                      <div className="w-[800px] h-[450px] rounded-[30px]  flex justify-center items-center bg-blue-100 bg-opacity-30">
-                        <section className="w-11/12 flex justify-center items-center">
-                          <section className="flex-row justify-center items-center mr-3 text-amber-100 text-left">
-                            <div className="mb-10">
-                              <Name name={item.name} />
-                            </div>
-                            <div className="mb-3">
-                              <User user={item.user} />
-                            </div>
-                            <Tags tags={item.tags} />
-                          </section>
-                          <section className="w-[450px] h-[400px] bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
-                            <section className="mb-10 text-left w-3/4">
-                              <Stores stores={item.stores} />
-                              {/* <StoresNames storeNames={item.storeNames} /> */}
-                            </section>
-                            <section className="flex justify-center items-center">
-                              <section>
-                                <ShortComment
-                                  shortComment={item.shortComment}
-                                />
-                                <LongComment longComment={item.longComment} />
-                              </section>
-                              <TransPorts
-                                key={`rank-top-course-transports-${item.uuid}`}
-                                transports={item.transports}
-                              />
-                              {/* <IsPrivate isPrivate={item.isPrivate} /> */}
-                            </section>
-                          </section>
-                        </section>
-                      </div>
+                      <SearchTopcourse item={item as Course} />
                     </div>
                   ))}
                 </MultiCarousel>

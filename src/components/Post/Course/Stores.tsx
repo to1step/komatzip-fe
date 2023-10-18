@@ -91,7 +91,7 @@ const Stores = ({ stores }: StoresProps) => {
   }, [handleDocumentClick]);
 
   return (
-    <div className="relative flex-row justify-center items-center mx-1 cursor-pointer transition-all duration-300 ease-in-out transform  hover:ring-4 hover:ring-amber-500 hover:rounded-xl">
+    <div className="relative flex-row justify-center items-center  cursor-pointer transition-all duration-300 ease-in-out transform  hover:ring-4 hover:ring-amber-500 hover:rounded-xl">
       {storeInfo.map((info, index) => (
         <div
           key={`store-${index}`}
@@ -103,6 +103,7 @@ const Stores = ({ stores }: StoresProps) => {
             <div className="relative">
               <span className="absolute text-[20px]">{info.category}</span>
               <span className="ml-10">{info.name}</span>
+              {/* <span>{info.uuid}</span> */}
             </div>
           </div>
           {index !== storeInfo.length - 1 && <br />}
