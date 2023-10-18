@@ -85,7 +85,7 @@ const LandingPage = () => {
           </section>
           <section>
             <div className="text-center">
-              <h1 className="mt-40 mb-12 h-[30px] text-4xl font-bold  text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743]">
+              <h1 className="mt-40 mb-12 h-[30px] text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743]">
                 이번 주 TOP 코스
               </h1>
             </div>
