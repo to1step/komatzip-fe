@@ -2,10 +2,7 @@ import Name from '../../components/Post/Name';
 import Tags from '../../components/Post/Tags';
 import ShortComment from '../Post/Course/ShortComment';
 import User from '../Post/Course/User';
-import TransPorts from '../Post/Course/Transports';
 import { Course } from '@to1step/propose-backend';
-import LongComment from '../Post/Course/LongComment';
-import Stores from '../Post/Course/Stores';
 import StoreNames from '../Post/Course/StoreNames';
 
 const SearchTopcourse = ({ item }: { item: Course }) => {
