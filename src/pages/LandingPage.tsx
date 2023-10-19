@@ -22,7 +22,16 @@ const LandingPage = () => {
           // `/v1/rank?type=store&region=서울특별시%20강남구`,
         )
         .then((response) => {
-          if (response && response.data.length > 0) setData(response.data); // 순위 정보
+          if (response && response.data.length > 0) {
+            setData(response.data); // 순위 정보
+            const uuidArray = response.data.map((item) => {
+              console.log('uuid는여:', item.uuid);
+              return item.uuid;
+            });
+            setCourseUuid(uuidArray);
+          } else {
+            console.log('서버에서 받은 데이터 없음');
+          }
         })
         .catch((error) => {
           console.log('Topstore 데이터 fetching 중 에러 발생: ', error);

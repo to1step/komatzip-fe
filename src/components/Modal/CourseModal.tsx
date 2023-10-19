@@ -36,14 +36,13 @@ const CourseModal = ({
   store,
   courseInfo,
   uuid,
-  courseUUID,
 }: CourseModalProps) => {
   const [isStoreModalOpen, setIsStoreModalOpen] = useState(false);
 
   useEffect(() => {
     if (uuid) {
       axiosInstance
-        .get<CourseEntireInfo>(`/v1/courses/${courseUUID}`)
+        .get<CourseEntireInfo>(`/v1/courses/${uuid}`)
         .then((response) => {
           if (response && response.data) console.log(response.data);
         })
@@ -51,7 +50,7 @@ const CourseModal = ({
           console.log('CourseModal 데이터 fetching 중 에러 발생: ', error);
         });
     }
-  }, [uuid, courseUUID]);
+  }, [uuid]);
 
   const openStoreModal = () => {
     setIsStoreModalOpen(true);
@@ -72,15 +71,16 @@ const CourseModal = ({
         </button>
         <header className="flex">
           <h2 className="text-xl font-semibold mb-4">
-            코스 이름 :{/* <Name name={name} /> */}
+            코스 이름 :{/* <Name name={courseInfo.name} /> */}
           </h2>
-          <p>내가 좋아요 했는지 유무 :{/* <ILike /> */}</p>
-          <p>리뷰 수 :{/* <ReviewCount /> */}</p>
-          <p>좋아요 수 :{/* <LikeCount /> */}</p>
+          {/* 
+          <p>내가 좋아요 했는지 유무 : <ILike /> </p>
+          <p>리뷰 수 :<ReviewCount /> </p>
+          <p>좋아요 수 :<LikeCount /> </p>
           <p>
             공개 여부 : 기본값 비공개
-            {/* <IsPrivate /> */}
-          </p>
+            <IsPrivate />
+          </p>  */}
         </header>
         <main className="flex">
           <section>
@@ -115,7 +115,10 @@ const CourseModal = ({
               <ul>
                 코스리뷰들
                 <li>코스 uuid</li>
-                <li>{/* <User /> */}</li>
+                <li>
+                  {' '}
+                  <User />{' '}
+                </li>
                 <li>리뷰우우우</li>
               </ul>
             </section>

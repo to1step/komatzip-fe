@@ -1,9 +1,9 @@
-import { Course } from '@to1step/propose-backend';
+import { CourseEntireInfo } from '@to1step/propose-backend';
 import { useState } from 'react';
 import CourseModal from '../../Modal/CourseModal';
 
 interface StoreNamesProps {
-  stores: Course[];
+  stores: CourseEntireInfo[];
 }
 
 const StoreNames = ({ stores }: StoreNamesProps) => {
@@ -17,8 +17,8 @@ const StoreNames = ({ stores }: StoreNamesProps) => {
     setIsModalOpen(true);
   };
 
-  const closeModal = (uuid: string) => {
-    setSelectedStoreUuid(uuid);
+  const closeModal = () => {
+    setSelectedStoreUuid(null);
     setIsModalOpen(false);
   };
 
@@ -60,13 +60,7 @@ const StoreNames = ({ stores }: StoreNamesProps) => {
       })}
 
       {isModalOpen && (
-        <CourseModal
-          closeModal={closeModal}
-          store={selectedStore}
-          courseInfo={selectedCourseInfo}
-          uuid={selectedStoreUuid} // Pass the uuid
-          courseUUID={selectedCourseInfo.uuid} // Pass the courseUUID
-        />
+        <CourseModal closeModal={closeModal} uuid={selectedStoreUuid} />
       )}
     </section>
   );
