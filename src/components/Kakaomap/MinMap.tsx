@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 interface MiniMapProps {
   lat: number;
   lng: number;
 }
 
-const MiniMap: React.FC<MiniMapProps> = ({ lat, lng }) => {
+const MiniMap = ({ lat, lng }: MiniMapProps) => {
   useEffect(() => {
     const script = document.createElement('script');
     script.async = true;

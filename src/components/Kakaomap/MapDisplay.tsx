@@ -1,25 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { StoreEntireInfo } from '@to1step/propose-backend';
 
 interface MapDisplayProps {
   map: kakao.maps.Map | null;
   markersData: StoreEntireInfo[];
-  myPosition: { lat: number; lng: number } | null; // 내 위치 정보 추가
+  myPosition: { lat: number; lng: number } | null;
 }
 
-const MapDisplay: React.FC<MapDisplayProps> = ({
-  map,
-  markersData,
-  myPosition,
-}) => {
+const MapDisplay = ({ map, markersData, myPosition }: MapDisplayProps) => {
   const infowindowRef = useRef<kakao.maps.InfoWindow | null>(null);
 
   useEffect(() => {
     if (map) {
-      const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 }); // 인포윈도우 생성
+      const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
       infowindowRef.current = infowindow;
 
-      // 마커를 생성하고 이벤트 리스너 추가
       markersData.forEach((markerInfo) => {
         const markerPosition = new window.kakao.maps.LatLng(
           markerInfo.coordinates[1],
@@ -41,7 +36,6 @@ const MapDisplay: React.FC<MapDisplayProps> = ({
         marker.setMap(map);
       });
 
-      // 내 위치 마커 추가
       if (myPosition) {
         const myPositionMarker = new window.kakao.maps.Marker({
           position: new window.kakao.maps.LatLng(
@@ -54,7 +48,6 @@ const MapDisplay: React.FC<MapDisplayProps> = ({
           ),
         });
 
-        // 마커 이벤트 리스너 추가 (마우스 오버 시 인포윈도우 표시)
         window.kakao.maps.event.addListener(
           myPositionMarker,
           'mouseover',
@@ -97,7 +90,7 @@ const MapDisplay: React.FC<MapDisplayProps> = ({
     }
   };
 
-  return null; // 이 컴포넌트는 렌더링을 하지 않고 마커를 지도에 추가하기만 합니다.
+  return null;
 };
 
 export default MapDisplay;
