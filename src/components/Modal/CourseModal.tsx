@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Course, Store, StoreEntireInfo } from '@to1step/propose-backend';
 import PostModal from './PostModal';
 import { CourseEntireInfo } from '@to1step/propose-backend';
@@ -6,7 +6,7 @@ import LongComment from '../Post/Course/LongComment';
 import ShortComment from '../Post/Course/ShortComment';
 import IsPrivate from '../Post/Course/IsPrivate';
 import Stores from '../Post/Course/Stores';
-import StoreNames from '../Post/Course/StoresNames';
+import StoreNames from '../Post/Course/StoreNames';
 import User from '../Post/Course/User';
 import Name from '../Post/Name';
 import Tags from '../Post/Tags';
@@ -27,24 +27,31 @@ interface CourseModalProps {
   store: StoreEntireInfo | Store;
   courseInfo: CourseEntireInfo | Course;
   closeModal: () => void;
+  uuid: string;
+  courseUUID: string;
 }
 
-const CourseModal = ({ closeModal, store, courseInfo }: CourseModalProps) => {
+const CourseModal = ({
+  closeModal,
+  store,
+  courseInfo,
+  uuid,
+  courseUUID,
+}: CourseModalProps) => {
   const [isStoreModalOpen, setIsStoreModalOpen] = useState(false);
 
-  // useEffect(() => {
-  //   if (uuid) {
-  //     axiosInstance
-  //       .get<CourseEntireInfo[]>(`/v1/courses/${courseUUID}`)
-  //       .then((response) => {
-  //         if (response && response.data.length > 0)
-  //           setCourseData(response.data); // 순위 정보
-  //       })
-  //       .catch((error) => {
-  //         console.log('Topcourse 데이터 fetching 중 에러 발생: ', error);
-  //       });
-  //   }
-  // }, [uuid]);
+  useEffect(() => {
+    if (uuid) {
+      axiosInstance
+        .get<CourseEntireInfo>(`/v1/courses/${courseUUID}`)
+        .then((response) => {
+          if (response && response.data) console.log(response.data);
+        })
+        .catch((error) => {
+          console.log('CourseModal 데이터 fetching 중 에러 발생: ', error);
+        });
+    }
+  }, [uuid, courseUUID]);
 
   const openStoreModal = () => {
     setIsStoreModalOpen(true);

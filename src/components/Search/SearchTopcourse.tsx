@@ -6,25 +6,31 @@ import TransPorts from '../Post/Course/Transports';
 import { Course } from '@to1step/propose-backend';
 import LongComment from '../Post/Course/LongComment';
 import Stores from '../Post/Course/Stores';
+import StoreNames from '../Post/Course/StoreNames';
 
 const SearchTopcourse = ({ item }: { item: Course }) => {
   return (
     <article>
       <div className="bg-blue-100 bg-opacity-30">
         <section className="flex flex-col justify-center items-center">
-          <section className="m-5 text-amber-100 text-left">
-            <div>
-              <Name name={item.name} />
+          <section className=" mt-5 text-amber-200">
+            <div className="flex justify-start items-center my-4">
+              <div>
+                <Name name={item.name} />
+              </div>
+              <div className="ml-10">
+                <Tags tags={item.tags} />
+              </div>
             </div>
-            <div className="">
+            <div className="flex justify-start items-center">
               <User user={item.user} />
             </div>
-            <Tags tags={item.tags} />
+            <ShortComment shortComment={item.shortComment} />
           </section>
-          <section className="w-3/5 h-[300px] m-8 bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
-            <section className="mb-10 text-left w-3/4">
-              <Stores stores={item.stores} />
-              {/* <StoresNames storeNames={item.storeNames} /> */}
+          <section className="w-4/5 h-[250px] m-8 bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
+            <section className="w-3/4">
+              {/* <Stores stores={item.stores} /> */}
+              <StoreNames stores={item.stores} />
             </section>
             {/* <section className="flex justify-center items-center">
             <section>
