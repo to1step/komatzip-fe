@@ -35,12 +35,11 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
   }, [markerInfo, prevMarkerInfo]);
 
   const handleReviewSubmit = async () => {
-    console.log('리뷰 작성 버튼 클릭됨');
     try {
       const response = await axios.post(
         `/v1/stores/${markerInfo.uuid}/review`,
         {
-          text: reviewText,
+          review: reviewText,
         },
         {
           headers: {
@@ -48,8 +47,13 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
           },
         },
       );
-      console.log('서버 응답:', response);
-      const newReview = response.data as StoreReview;
+      console.log('서버 응답:', response.data);
+      // const newReview = response.data as StoreReview;
+      const newReview = {
+        uuid: 'temporary-uuid',
+        user: 'user-id',
+        review: reviewText,
+      };
       setReviews([...reviews, newReview]);
       setReviewText('');
     } catch (error) {
@@ -74,19 +78,21 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
   };
 
   return (
-    <div className="mt-4 flex">
-      <textarea
-        value={reviewText}
-        onChange={(e) => setReviewText(e.target.value)}
-        placeholder="리뷰를 작성하세요."
-        className="w-[500px] p-2 border rounded"
-      />
-      <button
-        onClick={handleReviewSubmit}
-        className="px-4 mt-1 h-[5vw] bg-blue-500 text-white rounded hover:bg-blue-600 ml-2"
-      >
-        작성
-      </button>
+    <div className="mt-4">
+      <div className="flex">
+        <textarea
+          value={reviewText}
+          onChange={(e) => setReviewText(e.target.value)}
+          placeholder="리뷰를 작성하세요."
+          className="w-[500px] p-2 border rounded"
+        />
+        <button
+          onClick={handleReviewSubmit}
+          className="px-4 mt-1 h-[5vw] bg-blue-500 text-white rounded hover:bg-blue-600 ml-2"
+        >
+          작성
+        </button>
+      </div>
 
       <div className="mt-4">
         {reviews.map((review) => (
