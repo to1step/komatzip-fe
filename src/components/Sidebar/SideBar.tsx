@@ -1,5 +1,10 @@
 import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/module';
+import { useEffect } from 'react';
+import axiosInstance from '../../api/apiInstance';
+import { UserMyInfo, loginAction } from '../../redux/module/user';
 
 type SideBarProps = {
   onClose: () => void;
@@ -9,11 +14,23 @@ function SideBar({ onClose }: SideBarProps) {
   const handleClose = () => {
     onClose();
   };
+  const userData = useSelector((state: RootState) => state.user.userData);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!userData) {
+      axiosInstance.get<UserMyInfo>('/v1/users/me').then((response) => {
+        if (response && response.data) dispatch(loginAction(response.data));
+      });
+    }
+  }, [userData, dispatch]);
 
   return (
     <div className="fixed z-30 top-0 right-0 h-full w-64 bg-black text-white shadow-md bg-opacity-60">
       <div className="p-4 flex justify-between items-center">
-        <h2 className="text-2xl font-semibold mb-0">@@님</h2>
+        <h2 className="text-2xl font-semibold mb-0">
+          {userData ? `${userData.nickname}님` : '로그인 해주세요'}
+        </h2>
         <div>
           <FaTimes
             className="text-2xl cursor-pointer text-white hover:text-blue-500"
@@ -25,7 +42,7 @@ function SideBar({ onClose }: SideBarProps) {
       <div className="p-4">
         <ul>
           <li className="mb-2">
-            <Link to="/">My Courses</Link>
+            <Link to="/mycourses">My Courses</Link>
           </li>
           <li className="mb-2">
             <Link to="/">About Me</Link>

@@ -9,44 +9,45 @@ interface LikeButtonProps {
 }
 
 const LikeButton = ({ markerInfo, token }: LikeButtonProps) => {
-  const [isClickLike, setIsClickLike] = useState<boolean>(false);
-  const [markerLike, setMarkerLike] = useState<boolean>(
-    (markerInfo && markerInfo.iLike) || false,
+  const initialLikeState = localStorage.getItem(`like-${markerInfo.uuid}`);
+  const [isClickLike, setIsClickLike] = useState(false);
+  const [markerLike, setMarkerLike] = useState(
+    initialLikeState === 'true' || false,
   );
 
   useEffect(() => {
-    const saveUserLike = async () => {
-      try {
-        if (markerLike && markerInfo) {
-          await axios.post(
-            `https://api.to1step.shop/v1/stores/${markerInfo.uuid}/like`,
-            null,
-            {
+    if (isClickLike) {
+      // 서버에 좋아요 정보 업데이트
+      const saveUserLike = async () => {
+        try {
+          if (markerLike && markerInfo) {
+            await axios.post(`/v1/stores/${markerInfo.uuid}/like`, null, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-            },
-          );
-        } else if (!markerLike && markerInfo) {
-          await axios.delete(
-            `https://api.to1step.shop/v1/stores/${markerInfo.uuid}/like`,
-            {
+            });
+          } else if (!markerLike && markerInfo) {
+            await axios.delete(`/v1/stores/${markerInfo.uuid}/like`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-            },
+            });
+          }
+          localStorage.setItem(
+            `like-${markerInfo.uuid}`,
+            markerLike.toString(),
           );
+        } catch (e) {
+          console.log(e);
         }
-      } catch (e) {
-        console.log(e);
-      }
-      setIsClickLike(false);
-    };
+        setIsClickLike(false);
+      };
 
-    if (isClickLike) saveUserLike();
+      saveUserLike();
+    }
   }, [markerLike, isClickLike, markerInfo, token]);
 
-  const handleClickLike = async () => {
+  const handleClickLike = () => {
     setIsClickLike(true);
     setMarkerLike((prevState) => !prevState);
   };
