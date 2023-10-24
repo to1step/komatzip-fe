@@ -1,10 +1,29 @@
 import axiosInstance from '../../api/apiInstance';
 
 const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
-  const handleImageUpload = async () => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files[0];
+
+    if (!file) {
+      console.log('🌼 선택된 이미지 파일 없음');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
     try {
-      const response = await axiosInstance.post('/v1/images');
-      console.log('이미지 업로드 완료!', response);
+      const response = await axiosInstance.post('/v1/images', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.data && response.data.imageUrl) {
+        console.log('이미지 업로드 완료!', response.data.imageUrl);
+      }
     } catch (error) {
       console.error('😥 이미지 업로드 실패', error);
     }

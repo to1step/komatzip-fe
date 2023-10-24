@@ -12,7 +12,7 @@ import Header from '../../components/Commons/Header';
 // import SNSInfo from '../../components/MyPage/SNSInfo';
 import { VscMail } from 'react-icons/vsc';
 import { IoEarthSharp, IoNotificationsOutline } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import EmailNotification from '../../components/MyPage/EmailNotification';
 
 // TODO
@@ -29,19 +29,26 @@ import { Link } from 'react-router-dom';
 const MyPage = () => {
   const userData = useSelector((state: RootState) => state.user.userData);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!userData) {
       axiosInstance
         .get<UserMyInfo>('/v1/users/me')
         .then((response) => {
-          if (response && response.data) dispatch(loginAction(response.data));
+          if (response && response.data) {
+            dispatch(loginAction(response.data));
+            console.log('🌼 마이페이지 정보', response.data);
+          } else {
+            navigate('/');
+          }
         })
         .catch((error) => {
           console.log('마이페이지 데이터 fetching 중 에러: ', error);
+          navigate('/');
         });
     }
-  }, [userData, dispatch]);
+  }, [userData, dispatch, navigate]);
 
   // const handleLogout = () => {
   //   dispatch(logoutAction());

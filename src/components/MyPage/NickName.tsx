@@ -18,6 +18,8 @@ const NickName = ({ nickname }: { nickname: string }) => {
     try {
       const response = await axiosInstance.patch('/v1/users/me', {
         nickname: editedNickname,
+        commentAlarm: commentAlarm,
+        updateAlarm: updateAlarm,
       });
 
       if (response.status === 200) {

@@ -14,15 +14,11 @@ const EmailNotification = ({
   onUpdateAlarmToggle,
 }: EmailNotificationProps) => {
   const toggleCommentAlarm = () => {
-    const newCommentAlarm = !commentAlarm;
-    // 토글 스위치 클릭 시 서버로 값을 전송
-    onCommentAlarmToggle(newCommentAlarm);
+    onCommentAlarmToggle(!commentAlarm);
   };
 
   const toggleUpdateAlarm = () => {
-    const newUpdateAlarm = !updateAlarm;
-    // 토글 스위치 클릭 시 서버로 값을 전송
-    onUpdateAlarmToggle(newUpdateAlarm);
+    onUpdateAlarmToggle(!updateAlarm);
   };
 
   return (
