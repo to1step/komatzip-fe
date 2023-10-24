@@ -4,15 +4,16 @@ import CourseModal from '../../Modal/CourseModal';
 
 interface StoreNamesProps {
   stores: CourseEntireInfo[];
+  uuid: string;
 }
 
-const StoreNames = ({ stores }: StoreNamesProps) => {
+const StoreNames = ({ stores, uuid }: StoreNamesProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedStoreUuid, setSelectedStoreUuid] = useState<string | null>(
     null,
   );
 
-  const openModal = (uuid: string) => {
+  const openModal = () => {
     setSelectedStoreUuid(uuid);
     setIsModalOpen(true);
   };
@@ -46,13 +47,14 @@ const StoreNames = ({ stores }: StoreNamesProps) => {
           <span
             key={`${store.uuid}-${store.name}`}
             className="text-l relative cursor-pointer"
-            onClick={() => openModal(store.uuid)}
+            onClick={openModal}
           >
             <div className="absolute h-full border-l-8 border-black border-orange-300 mx-2.5"></div>
             <div>
               <div className="relative h-[50px]">
                 <span className="absolute text-[23px]">{categoryString}</span>
                 <span className="ml-10">{store.name}</span>
+                <span className="ml-10">{uuid}</span>
               </div>
             </div>
           </span>
