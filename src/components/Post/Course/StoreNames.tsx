@@ -4,7 +4,7 @@ import CourseModal from '../../Modal/CourseModal';
 
 interface StoreNamesProps {
   stores: CourseEntireInfo[];
-  uuid: string;
+  uuid: string | null;
 }
 
 const StoreNames = ({ stores, uuid }: StoreNamesProps) => {
@@ -54,7 +54,6 @@ const StoreNames = ({ stores, uuid }: StoreNamesProps) => {
               <div className="relative h-[50px]">
                 <span className="absolute text-[23px]">{categoryString}</span>
                 <span className="ml-10">{store.name}</span>
-                <span className="ml-10">{uuid}</span>
               </div>
             </div>
           </span>

@@ -27,8 +27,10 @@ interface CourseModalProps {
   store: StoreEntireInfo | Store;
   courseInfo: CourseEntireInfo | Course;
   closeModal: () => void;
-  uuid: string;
+  uuid: string | null;
   courseUUID: string;
+  storeNames: { [key: string]: string[] };
+  likeCount: number;
 }
 
 const CourseModal = ({
@@ -44,7 +46,9 @@ const CourseModal = ({
       axiosInstance
         .get<CourseEntireInfo>(`/v1/courses/${uuid}`)
         .then((response) => {
-          if (response && response.data) console.log(response.data);
+          if (response && response.data) {
+            console.log('특정 코스 정보:', response.data);
+          }
         })
         .catch((error) => {
           console.log('CourseModal 데이터 fetching 중 에러 발생: ', error);
@@ -71,12 +75,19 @@ const CourseModal = ({
         </button>
         <header className="flex">
           <h2 className="text-xl font-semibold mb-4">
-            코스 이름 :{/* <Name name={courseInfo.name} /> */}
+            코스 이름 :
+            {/* {courseInfo.storeNames ? (
+              <Name name={courseInfo.name} storeNames={courseInfo.storeNames} />
+            ) : (
+              <Name name={courseInfo.name} />
+            )} */}
           </h2>
+
           {/* 
           <p>내가 좋아요 했는지 유무 : <ILike /> </p>
           <p>리뷰 수 :<ReviewCount /> </p>
-          <p>좋아요 수 :<LikeCount /> </p>
+<p>            좋아요 수 :
+            <LikeCount likeCount={courseInfo.likeCount} /></p>
           <p>
             공개 여부 : 기본값 비공개
             <IsPrivate />
@@ -115,10 +126,7 @@ const CourseModal = ({
               <ul>
                 코스리뷰들
                 <li>코스 uuid</li>
-                <li>
-                  {' '}
-                  <User />{' '}
-                </li>
+                <li> {/* <User />{' '} */}</li>
                 <li>리뷰우우우</li>
               </ul>
             </section>

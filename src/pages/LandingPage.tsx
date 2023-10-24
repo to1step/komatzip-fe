@@ -25,7 +25,6 @@ const LandingPage = () => {
           if (response && response.data.length > 0) {
             setData(response.data); // 순위 정보
             const uuidArray = response.data.map((item) => {
-              console.log('uuid는여:', item.uuid);
               return item.uuid;
             });
             setCourseUuid(uuidArray);
