@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Course, Store, StoreEntireInfo } from '@to1step/propose-backend';
 import PostModal from './PostModal';
 import { CourseEntireInfo } from '@to1step/propose-backend';
@@ -6,7 +6,7 @@ import LongComment from '../Post/Course/LongComment';
 import ShortComment from '../Post/Course/ShortComment';
 import IsPrivate from '../Post/Course/IsPrivate';
 import Stores from '../Post/Course/Stores';
-import StoreNames from '../Post/Course/StoresNames';
+import StoreNames from '../Post/Course/StoreNames';
 import User from '../Post/Course/User';
 import Name from '../Post/Name';
 import Tags from '../Post/Tags';
@@ -27,24 +27,34 @@ interface CourseModalProps {
   store: StoreEntireInfo | Store;
   courseInfo: CourseEntireInfo | Course;
   closeModal: () => void;
+  uuid: string | null;
+  courseUUID: string;
+  storeNames: { [key: string]: string[] };
+  likeCount: number;
 }
 
-const CourseModal = ({ closeModal, store, courseInfo }: CourseModalProps) => {
+const CourseModal = ({
+  closeModal,
+  store,
+  courseInfo,
+  uuid,
+}: CourseModalProps) => {
   const [isStoreModalOpen, setIsStoreModalOpen] = useState(false);
 
-  // useEffect(() => {
-  //   if (uuid) {
-  //     axiosInstance
-  //       .get<CourseEntireInfo[]>(`/v1/courses/${courseUUID}`)
-  //       .then((response) => {
-  //         if (response && response.data.length > 0)
-  //           setCourseData(response.data); // 순위 정보
-  //       })
-  //       .catch((error) => {
-  //         console.log('Topcourse 데이터 fetching 중 에러 발생: ', error);
-  //       });
-  //   }
-  // }, [uuid]);
+  useEffect(() => {
+    if (uuid) {
+      axiosInstance
+        .get<CourseEntireInfo>(`/v1/courses/${uuid}`)
+        .then((response) => {
+          if (response && response.data) {
+            console.log('특정 코스 정보:', response.data);
+          }
+        })
+        .catch((error) => {
+          console.log('CourseModal 데이터 fetching 중 에러 발생: ', error);
+        });
+    }
+  }, [uuid]);
 
   const openStoreModal = () => {
     setIsStoreModalOpen(true);
@@ -65,15 +75,23 @@ const CourseModal = ({ closeModal, store, courseInfo }: CourseModalProps) => {
         </button>
         <header className="flex">
           <h2 className="text-xl font-semibold mb-4">
-            코스 이름 :{/* <Name name={name} /> */}
+            코스 이름 :
+            {/* {courseInfo.storeNames ? (
+              <Name name={courseInfo.name} storeNames={courseInfo.storeNames} />
+            ) : (
+              <Name name={courseInfo.name} />
+            )} */}
           </h2>
-          <p>내가 좋아요 했는지 유무 :{/* <ILike /> */}</p>
-          <p>리뷰 수 :{/* <ReviewCount /> */}</p>
-          <p>좋아요 수 :{/* <LikeCount /> */}</p>
+
+          {/* 
+          <p>내가 좋아요 했는지 유무 : <ILike /> </p>
+          <p>리뷰 수 :<ReviewCount /> </p>
+<p>            좋아요 수 :
+            <LikeCount likeCount={courseInfo.likeCount} /></p>
           <p>
             공개 여부 : 기본값 비공개
-            {/* <IsPrivate /> */}
-          </p>
+            <IsPrivate />
+          </p>  */}
         </header>
         <main className="flex">
           <section>
@@ -108,7 +126,7 @@ const CourseModal = ({ closeModal, store, courseInfo }: CourseModalProps) => {
               <ul>
                 코스리뷰들
                 <li>코스 uuid</li>
-                <li>{/* <User /> */}</li>
+                <li> {/* <User />{' '} */}</li>
                 <li>리뷰우우우</li>
               </ul>
             </section>

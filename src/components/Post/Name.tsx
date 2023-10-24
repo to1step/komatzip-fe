@@ -1,12 +1,17 @@
 interface NameProps {
   name: string;
+  storeNames: { [key: string]: string[] };
 }
 
-const Name = ({ name }: NameProps) => {
+const Name = ({ name, storeNames }: NameProps) => {
   return (
     <div>
       <article>
-        <p className="text-[25px] font-bold">{name}</p>
+        {storeNames && storeNames[name] ? (
+          <span className="text-[25px] font-bold">{storeNames[name]}</span>
+        ) : (
+          <span className="text-[25px] font-bold">{name}</span>
+        )}
       </article>
     </div>
   );

@@ -1,24 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Course, Store } from '@to1step/propose-backend';
 import axiosInstance from '../api/apiInstance';
 import { RootState } from '../redux/module';
-import Name from '../components/Post/Name';
-import Tags from '../components/Post/Tags';
-import LongComment from '../components/Post/Course/LongComment';
-import ShortComment from '../components/Post/Course/ShortComment';
-import User from '../components/Post/Course/User';
-import TransPorts from '../components/Post/Course/Transports';
 import Header from '../components/Commons/Header';
 import MultiCarousel from '../components/MultiCarousel/MultiCarousel';
 import SearchTopstore from '../components/Search/SearchTopstore';
-import Stores from '../components/Post/Course/Stores';
 import SearchTopcourse from '../components/Search/SearchTopcourse';
 
 const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = React.useState<Store[]>([]);
   const [courseData, setCourseData] = React.useState<Course[]>([]);
+  const [courseUuid, setCourseUuid] = useState<string[]>([]);
 
   useEffect(() => {
     if (address) {
@@ -28,7 +22,15 @@ const LandingPage = () => {
           // `/v1/rank?type=store&region=서울특별시%20강남구`,
         )
         .then((response) => {
-          if (response && response.data.length > 0) setData(response.data); // 순위 정보
+          if (response && response.data.length > 0) {
+            setData(response.data); // 순위 정보
+            const uuidArray = response.data.map((item) => {
+              return item.uuid;
+            });
+            setCourseUuid(uuidArray);
+          } else {
+            console.log('서버에서 받은 데이터 없음');
+          }
         })
         .catch((error) => {
           console.log('Topstore 데이터 fetching 중 에러 발생: ', error);
@@ -44,8 +46,11 @@ const LandingPage = () => {
           // `/v1/rank?type=course&region=서울특별시%20강남구`,
         )
         .then((response) => {
-          if (response && response.data.length > 0)
+          if (response && response.data.length > 0) {
             setCourseData(response.data); // 순위 정보
+            const uuidArray = response.data.map((item) => item.uuid);
+            setCourseUuid(uuidArray);
+          }
         })
         .catch((error) => {
           console.log('Topcourse 데이터 fetching 중 에러 발생: ', error);
@@ -100,7 +105,7 @@ const LandingPage = () => {
                       key={item.uuid}
                       className="bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center w-[600px]"
                     >
-                      <SearchTopcourse item={item as Course} />
+                      <SearchTopcourse item={item as Course} uuid={item.uuid} />
                     </div>
                   ))}
                 </MultiCarousel>
