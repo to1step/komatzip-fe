@@ -1,9 +1,20 @@
 import { useState } from 'react';
 import axiosInstance from '../../api/apiInstance';
+import { User } from '@to1step/propose-backend';
 
-const NickName = ({ nickname }: { nickname: string }) => {
+const NickName = ({
+  nickname,
+  commentAlarm,
+  updateAlarm,
+}: {
+  nickname: User;
+  commentAlarm: boolean;
+  updateAlarm: boolean;
+}) => {
   const [editing, setEditing] = useState(false);
   const [editedNickname, setEditedNickname] = useState(nickname);
+  const [editedCommentAlarm, setEditedCommentAlarm] = useState(commentAlarm);
+  const [editedUpdateAlarm, setEditedUpdateAlarm] = useState(updateAlarm);
 
   const handleEdit = () => {
     setEditing(true);
@@ -18,8 +29,8 @@ const NickName = ({ nickname }: { nickname: string }) => {
     try {
       const response = await axiosInstance.patch('/v1/users/me', {
         nickname: editedNickname,
-        commentAlarm: commentAlarm,
-        updateAlarm: updateAlarm,
+        commentAlarm: editedCommentAlarm,
+        updateAlarm: editedUpdateAlarm,
       });
 
       if (response.status === 200) {

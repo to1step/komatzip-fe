@@ -79,7 +79,11 @@ const MyPage = () => {
             </section>
             <section className="font-black text-[20px] mt-10 mb-20">
               {userData ? (
-                <NickName nickname={userData.nickname} />
+                <NickName
+                  nickname={userData.nickname}
+                  commentAlarm={userData.commentAlarm}
+                  updateAlarm={userData.updateAlarm}
+                />
               ) : (
                 <Link to="/login">로그인하러 가기</Link>
               )}
@@ -91,7 +95,11 @@ const MyPage = () => {
             <ul>
               <li>
                 {userData ? (
-                  <NickName nickname={userData.nickname} />
+                  <NickName
+                    nickname={userData.nickname}
+                    commentAlarm={userData.commentAlarm}
+                    updateAlarm={userData.updateAlarm}
+                  />
                 ) : (
                   <p className="text-xl font-semibold mr-8">닉네임 준비중</p>
                 )}
