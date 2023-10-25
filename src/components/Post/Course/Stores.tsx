@@ -12,6 +12,7 @@ const mapStoresToNames = async (storeIds: string[]) => {
       const response = await axiosInstance.get(`v1/stores/${storeUUID}`);
       const storeData = response.data;
 
+      // TODO: 카테고리 switch 컴포넌트로 만들어서 호출하기만 하기
       // 카테고리 값에 따라 카테고리 문자열 설정
       let categoryString: string;
       switch (storeData.category) {

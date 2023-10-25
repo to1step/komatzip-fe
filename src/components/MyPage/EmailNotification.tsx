@@ -1,4 +1,5 @@
 import { IoNotificationsOutline } from 'react-icons/io5';
+import axiosInstance from '../../api/apiInstance';
 
 interface EmailNotificationProps {
   commentAlarm: boolean;
@@ -13,12 +14,36 @@ const EmailNotification = ({
   onCommentAlarmToggle,
   onUpdateAlarmToggle,
 }: EmailNotificationProps) => {
+  const [editedCommentAlarm, setEditedCommentAlarm] = useState(commentAlarm);
+  const [editedUpdateAlarm, setEditedUpdatedAlarm] = useState(updateAlarm);
+
   const toggleCommentAlarm = () => {
-    onCommentAlarmToggle(!commentAlarm);
+    onCommentAlarmToggle(!editedCommentAlarm);
+    setEditedCommentAlarm(!editedCommentAlarm);
+    ToggleSave();
   };
 
   const toggleUpdateAlarm = () => {
-    onUpdateAlarmToggle(!updateAlarm);
+    onUpdateAlarmToggle(!editedUpdateAlarm);
+    setEditedUpdatedAlarm(!editedUpdateAlarm);
+    ToggleSave();
+  };
+
+  const ToggleSave = async () => {
+    try {
+      const response = await axiosInstance.patch('/v1/users/me', {
+        commentAlarm: editedCommentAlarm,
+        updateAlarm: editedUpdateAlarm,
+      });
+
+      if (response.status === 200) {
+        console.error('🌼 알림 상태 변경 성공 :', response);
+      } else {
+        console.error('😥 알림 상태 변경 실패 :', response);
+      }
+    } catch (error) {
+      console.error('😥 알림 상태 변경 실패 :', error);
+    }
   };
 
   return (
@@ -31,7 +56,7 @@ const EmailNotification = ({
           <li className="ml-2 relative inline-block w-10 h-6 align-middle select-none transition-transform duration-300 ease-in-out">
             <input
               type="checkbox"
-              checked={commentAlarm}
+              checked={editedCommentAlarm}
               onChange={toggleCommentAlarm}
               className={`toggle-checkbox absolute block w-6 h-6 rounded-full border-4 appearance-none cursor-pointer ${
                 commentAlarm
@@ -51,7 +76,7 @@ const EmailNotification = ({
           <li className="ml-2 relative inline-block w-10 h-6 align-middle select-none transition-transform duration-300 ease-in-out">
             <input
               type="checkbox"
-              checked={updateAlarm}
+              checked={editedUpdateAlarm}
               onChange={toggleUpdateAlarm}
               className={`toggle-checkbox absolute block w-6 h-6 rounded-full border-4 appearance-none cursor-pointer ${
                 updateAlarm
