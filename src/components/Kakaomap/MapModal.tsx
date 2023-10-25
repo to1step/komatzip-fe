@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { StoreEntireInfo } from '@to1step/propose-backend';
 import LikeButton from '../MapModal/LikeButton';
 import CopyAddressButton from '../MapModal/CopyAddressButton';
@@ -12,11 +12,11 @@ interface MapModalProps {
   recommendedCourses: StoreEntireInfo[];
 }
 
-const MapModal: React.FC<MapModalProps> = ({
+const MapModal = ({
   markerInfo,
   onClose,
   recommendedCourses,
-}) => {
+}: MapModalProps) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const token = localStorage.getItem('JWtTokken');
 

@@ -36,9 +36,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `https://api.to1step.shop/v1/stores/location?region=${encodeURIComponent(
-            address,
-          )}`,
+          `/v1/stores/location?region=${encodeURIComponent(address)}`,
         );
 
         let markersData: StoreEntireInfo[] = Array.isArray(data.data)
