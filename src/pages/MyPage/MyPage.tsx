@@ -13,7 +13,6 @@ import Header from '../../components/Commons/Header';
 import { VscMail } from 'react-icons/vsc';
 import { IoEarthSharp, IoNotificationsOutline } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
-// import EmailNotification from '../../components/MyPage/EmailNotification';
 
 // TODO
 // axiosInstance + /v1/users/me
@@ -56,7 +55,7 @@ const MyPage = () => {
 
   return (
     <article className="h-screen flex flex-col justify-center items-center">
-      <header>
+      <header className="w-full">
         <Header
           showTitle={true}
           showBackButtonIcon={false}
@@ -65,10 +64,10 @@ const MyPage = () => {
           showHamburgerButton={true}
         />
       </header>
-      <main className="flex w-full items-center justify-center">
-        <section className="bg-white w-1/6 h-full rounded-xl flex-row items-center justify-start text-center">
+      <main className="w-full">
+        <section className="bg-white w-3/4 rounded-xl">
           <div className="m-10">
-            <section className="flex justify-center items-center border-b-2">
+            <section className="border-b-2">
               {userData ? (
                 <ProfileImage profileImage={userData.profileImage} />
               ) : (
@@ -77,7 +76,7 @@ const MyPage = () => {
                 </p>
               )}
             </section>
-            <section className="font-black text-[20px] mt-10 mb-20">
+            <section className="font-black text-[20px] mt-10">
               {userData ? (
                 <NickName
                   nickname={userData.nickname}
@@ -90,7 +89,7 @@ const MyPage = () => {
             </section>
           </div>
         </section>
-        <section className="bg-white w-1/2 h-full rounded-xl my-12">
+        <section className="bg-white w-3/4 rounded-xl">
           <div className="flex-row justify-center items-center">
             <ul>
               <li>
@@ -138,6 +137,8 @@ const MyPage = () => {
                   <EmailNotification
                     commentAlarm={userData.commentAlarm}
                     updateAlarm={userData.updateAlarm}
+                    onCommentAlarmToggle={userData.commentAlarm}
+                    onUpdateAlarmToggle={userData.updateAlarm}
                   />
                 ) : (
                   <div className="flex">

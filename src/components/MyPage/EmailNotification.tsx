@@ -1,5 +1,6 @@
 import { IoNotificationsOutline } from 'react-icons/io5';
 import axiosInstance from '../../api/apiInstance';
+import { useState } from 'react';
 
 interface EmailNotificationProps {
   commentAlarm: boolean;
@@ -20,20 +21,24 @@ const EmailNotification = ({
   const toggleCommentAlarm = () => {
     onCommentAlarmToggle(!editedCommentAlarm);
     setEditedCommentAlarm(!editedCommentAlarm);
-    ToggleSave();
+    ToggleSave({
+      commentAlarm: editedCommentAlarm,
+    });
   };
 
   const toggleUpdateAlarm = () => {
     onUpdateAlarmToggle(!editedUpdateAlarm);
     setEditedUpdatedAlarm(!editedUpdateAlarm);
-    ToggleSave();
+    ToggleSave({ updataAlarm: editedUpdateAlarm });
   };
 
-  const ToggleSave = async () => {
+  const ToggleSave = async (payload: {
+    commentAlarm: boolean;
+    updataAlarm: newUpdataAlarmState;
+  }) => {
     try {
       const response = await axiosInstance.patch('/v1/users/me', {
-        commentAlarm: editedCommentAlarm,
-        updateAlarm: editedUpdateAlarm,
+        payload,
       });
 
       if (response.status === 200) {
@@ -79,14 +84,14 @@ const EmailNotification = ({
               checked={editedUpdateAlarm}
               onChange={toggleUpdateAlarm}
               className={`toggle-checkbox absolute block w-6 h-6 rounded-full border-4 appearance-none cursor-pointer ${
-                updateAlarm
+                editedUpdateAlarm
                   ? 'bg-blue-200 border-blue-400 transform translate-x-full'
                   : 'bg-gray-200 border-gray-400 transform translate-x-0'
               }`}
             />
             <label
               className={`toggle-label block overflow-hidden h-6 rounded-full cursor-pointer transition-bg duration-300 ${
-                updateAlarm ? 'bg-blue-200' : 'bg-gray-300'
+                editedUpdateAlarm ? 'bg-blue-200' : 'bg-gray-300'
               }`}
             ></label>
           </li>

@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import axiosInstance from '../../api/apiInstance';
-import { User } from '@to1step/propose-backend';
 
 const NickName = ({
   nickname,
   commentAlarm,
   updateAlarm,
 }: {
-  nickname: User;
+  nickname: string;
   commentAlarm: boolean;
   updateAlarm: boolean;
 }) => {

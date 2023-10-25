@@ -101,12 +101,6 @@ const Header = ({
                 >
                   Login
                 </Link>
-                <Link
-                  to="/mypage"
-                  className="text-xl my-[30px] mr-[50px] text-orange-200 font-semibold hover:text-orange-900"
-                >
-                  My Page
-                </Link>
               </>
             ))}
 

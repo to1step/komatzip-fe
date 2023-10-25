@@ -13,6 +13,10 @@ const StoreNames = ({ stores, uuid }: StoreNamesProps) => {
     null,
   );
 
+  const [likeCount, setLikeCount] = useState<CourseEntireInfo | number>(
+    undefined,
+  );
+
   const openModal = () => {
     setSelectedStoreUuid(uuid);
     setIsModalOpen(true);
@@ -47,7 +51,10 @@ const StoreNames = ({ stores, uuid }: StoreNamesProps) => {
           <span
             key={`${store.uuid}-${store.name}`}
             className="text-l relative cursor-pointer"
-            onClick={openModal}
+            onClick={() => {
+              setLikeCount(store.likeCount);
+              openModal();
+            }}
           >
             <div className="absolute h-full border-l-8 border-black border-orange-300 mx-2.5"></div>
             <div>
@@ -61,7 +68,11 @@ const StoreNames = ({ stores, uuid }: StoreNamesProps) => {
       })}
 
       {isModalOpen && (
-        <CourseModal closeModal={closeModal} uuid={selectedStoreUuid} />
+        <CourseModal
+          closeModal={closeModal}
+          uuid={selectedStoreUuid}
+          likeCount={likeCount}
+        />
       )}
     </section>
   );

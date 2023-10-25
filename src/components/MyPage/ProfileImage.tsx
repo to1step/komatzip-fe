@@ -30,15 +30,11 @@ const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
   };
 
   return (
-    <section>
-      <div className="mb-10 flex justify-center items-center rounded-full border-2 w-[150px] h-[150px]">
-        {profileImage ? (
-          <img src={profileImage} alt="프로필 이미지" />
-        ) : (
-          <p>No image</p>
-        )}
+    <section className="bg-blue-400 flex-row justify-center items-center text-center">
+      <div className="my-10 flex justify-center items-center rounded-full border-2 w-[150px] h-[150px]">
+        <img src={profileImage} alt="프로필 이미지" />
       </div>
-      <div className="mb-1">
+      <div className="mb-4">
         <input
           type="file"
           accept="image/*"
@@ -52,8 +48,6 @@ const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
         >
           이미지 업로드
         </label>
-      </div>
-      <div>
         <button className=" w-32 text-yellow-500">이미지 제거</button>
       </div>
     </section>
