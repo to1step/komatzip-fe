@@ -12,8 +12,6 @@ const NickName = ({
 }) => {
   const [editing, setEditing] = useState(false);
   const [editedNickname, setEditedNickname] = useState(nickname);
-  const [editedCommentAlarm, setEditedCommentAlarm] = useState(commentAlarm);
-  const [editedUpdateAlarm, setEditedUpdateAlarm] = useState(updateAlarm);
 
   const handleEdit = () => {
     setEditing(true);
@@ -28,8 +26,8 @@ const NickName = ({
     try {
       const response = await axiosInstance.patch('/v1/users/me', {
         nickname: editedNickname,
-        commentAlarm: editedCommentAlarm,
-        updateAlarm: editedUpdateAlarm,
+        commentAlarm,
+        updateAlarm,
       });
 
       if (response.status === 200) {

@@ -3,10 +3,10 @@ import Image from '../../components/Post/Store/Image';
 import Name from '../../components/Post/Name';
 import Location from '../../components/Post/Store/Location';
 import Description from '../../components/Post/Store/Description';
-import Category from '../../components/Post/Store/Category';
 import Tags from '../../components/Post/Tags';
 import { Store } from '@to1step/propose-backend';
 import PostModal from '../Modal/PostModal';
+import StoreCategory from '../Post/Store/StoreSymbol';
 
 const SearchTopstore = ({ item }: { item: Store }) => {
   const [selectedStore, setSelectedStore] = useState<Store | null>(null);
@@ -51,7 +51,7 @@ const SearchTopstore = ({ item }: { item: Store }) => {
               <Description description={item.description} />
             </section>
             <section className="flex">
-              <Category category={item.category} />
+              <StoreCategory category={item.category} />
               <Tags tags={item.tags} />
             </section>
           </section>

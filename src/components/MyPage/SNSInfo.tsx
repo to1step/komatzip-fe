@@ -1,6 +1,10 @@
 import Email from './Email';
 
-const SNSInfo = () => {
+interface UserData {
+  provider: string;
+  email: string;
+}
+const SNSInfo = ({ userData }: { userData: UserData }) => {
   return (
     <>
       <div className="flex-row">

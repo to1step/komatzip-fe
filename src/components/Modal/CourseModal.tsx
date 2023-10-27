@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Course, Store, StoreEntireInfo } from '@to1step/propose-backend';
+import { Store, StoreEntireInfo } from '@to1step/propose-backend';
 import PostModal from './PostModal';
 import { CourseEntireInfo } from '@to1step/propose-backend';
 import axiosInstance from '../../api/apiInstance';
@@ -9,20 +9,15 @@ import axiosInstance from '../../api/apiInstance';
 // TODO : Stores 대신 uuid를 클릭하게 만들기
 
 interface CourseModalProps {
-  store: StoreEntireInfo | Store;
+  store?: StoreEntireInfo | Store;
   closeModal: () => void;
   uuid: string | null;
   // courseUUID: string;
   // storeNames: { [key: string]: string[] };
-  likeCount: CourseEntireInfo | number;
+  likeCount: CourseEntireInfo | number | undefined;
 }
 
-const CourseModal = ({
-  closeModal,
-  store,
-  uuid,
-  likeCount,
-}: CourseModalProps) => {
+const CourseModal = ({ closeModal, store, uuid }: CourseModalProps) => {
   const [isStoreModalOpen, setIsStoreModalOpen] = useState(false);
 
   useEffect(() => {

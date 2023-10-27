@@ -4,7 +4,7 @@ const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const file = event.target.files[0];
+    const file = event.target.files && event.target.files[0];
 
     if (!file) {
       console.log('🌼 선택된 이미지 파일 없음');
@@ -30,11 +30,11 @@ const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
   };
 
   return (
-    <section className="bg-blue-400 flex-row justify-center items-center text-center">
-      <div className="my-10 flex justify-center items-center rounded-full border-2 w-[150px] h-[150px]">
-        <img src={profileImage} alt="프로필 이미지" />
+    <section>
+      <div className="bg-blue-300 rounded-full border-2 w-[150px] h-[150px] flex justify-center items-center">
+        {profileImage && <img src={profileImage} alt="프로필 이미지" />}
       </div>
-      <div className="mb-4">
+      <div className="my-2 flex flex-row justify-center items-center">
         <input
           type="file"
           accept="image/*"
@@ -44,11 +44,13 @@ const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
         />
         <label
           htmlFor="imageUploadInput"
-          className="h-8 w-32 bg-yellow-500 text-white rounded-lg"
+          className="w-32 bg-yellow-500 text-white rounded-full text-center"
         >
           이미지 업로드
         </label>
-        <button className=" w-32 text-yellow-500">이미지 제거</button>
+        <button className="w-32 text-yellow-500 text-center">
+          이미지 제거
+        </button>
       </div>
     </section>
   );

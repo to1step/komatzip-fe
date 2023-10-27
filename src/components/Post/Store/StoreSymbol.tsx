@@ -1,10 +1,12 @@
 import { StoreCategory } from '@to1step/propose-backend/src/database/types/enums';
 
-interface CategoryProps {
+// 매장 Post에 보이는 카테고리 / 태그랑 함께 사용중
+
+interface StoreCategoryProps {
   category: StoreCategory;
 }
 
-const Category = ({ category }: CategoryProps) => {
+const StorePostCategory = ({ category }: StoreCategoryProps) => {
   let categoryName = '';
 
   switch (category) {
@@ -27,4 +29,4 @@ const Category = ({ category }: CategoryProps) => {
   );
 };
 
-export default Category;
+export default StorePostCategory;
