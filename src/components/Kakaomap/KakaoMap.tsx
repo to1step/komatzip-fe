@@ -20,7 +20,6 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
     null,
   );
   const [visibleMarkers, setVisibleMarkers] = useState<StoreEntireInfo[]>([]);
-  const visibleMarkersRef = useRef<StoreEntireInfo[]>([]);
   const infowindowRef = useRef<kakao.maps.InfoWindow | null>(null);
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
   const [myPosition, setMyPosition] = useState<{
@@ -83,7 +82,6 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
                         ),
                       );
                       setVisibleMarkers(visibleMarkers);
-                      visibleMarkersRef.current = visibleMarkers;
                     }
                   };
 
@@ -133,7 +131,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   >([]);
 
   const calculateDistance = (clickedLng: number, clickedLat: number) => {
-    const recommendedCourses = visibleMarkersRef.current.filter((marker) => {
+    const recommendedCourses = visibleMarkers.filter((marker) => {
       const markerLng = marker.coordinates[0];
       const markerLat = marker.coordinates[1];
       const distance = Math.sqrt(
@@ -155,12 +153,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
 
     if (map) {
       map.panTo(markerPosition);
-      displayInfoWindow(
-        null,
-        markerInfo.name,
-        markerInfo.coordinates[1],
-        markerInfo.coordinates[0],
-      );
+      displayInfoWindow(null, markerInfo.name);
     }
   };
 
@@ -171,8 +164,6 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   const displayInfoWindow = (
     marker: kakao.maps.Marker | null,
     title: string,
-    lat: number,
-    lng: number,
   ) => {
     const infowindow = infowindowRef.current;
     if (infowindow && map) {
@@ -210,11 +201,11 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
       </div>
       <MapDisplay
         map={map}
-        markersData={visibleMarkersRef.current}
+        markersData={visibleMarkers}
         myPosition={myPosition}
       />
       <MarkerList
-        markers={visibleMarkersRef.current}
+        markers={visibleMarkers}
         activeMarkerTitle={activeMarkerTitle}
         onMarkerClick={handleMarkerClick}
         onMarkerMouseOver={handleMarkerMouseOver}
