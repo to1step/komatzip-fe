@@ -1,6 +1,6 @@
 interface NameProps {
   name: string;
-  storeNames: { [key: string]: string[] };
+  storeNames?: { [key: string]: string[] };
 }
 
 const Name = ({ name, storeNames }: NameProps) => {

@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import InputBox from '../Commons/InputBox';
@@ -17,6 +17,7 @@ import { Store } from '@to1step/propose-backend';
 const Search = () => {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = React.useState<Store[]>([]);
+  console.log(data);
 
   useEffect(() => {
     if (address) {
@@ -45,7 +46,7 @@ const Search = () => {
     }
   };
 
-  const SearchStore = async (e: KeyboardEvent<HTMLInputElement>) => {
+  const SearchStore = async (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     try {
@@ -91,7 +92,7 @@ const Search = () => {
   return (
     <div className="flex-row justify-center items-center mb-10">
       <header>
-        <form onSubmit={SearchStore}>
+        <form onSubmit={() => SearchStore}>
           <div className="flex justify-center items-center">
             <div>
               <select

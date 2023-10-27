@@ -4,7 +4,7 @@ import { Store, StoreEntireInfo } from '@to1step/propose-backend';
 // 매장 랭킹, 검색 결과의 매장을 클릭했을 때 출력되는 컴포넌트
 
 interface PostModalProps {
-  store: StoreEntireInfo | Store;
+  store?: StoreEntireInfo | Store;
   closeModal: () => void;
 }
 
@@ -18,12 +18,12 @@ const PostModal = ({ store, closeModal }: PostModalProps) => {
         >
           X
         </button>
-        <h2 className="text-xl font-semibold mb-4">{store.name}</h2>
-        <p className="mb-2">{store.description}</p>
-        <p className="mb-2">카테고리: {store.category}</p>
-        <p className="mb-2">태그: {store.tags.join(', ')}</p>
-        <p className="mb-2">주소: {store.location}</p>
-        <p className="mb-2">좌표:{store.coordinates}</p>
+        <h2 className="text-xl font-semibold mb-4">{store?.name}</h2>
+        <p className="mb-2">{store?.description}</p>
+        <p className="mb-2">카테고리: {store?.category}</p>
+        <p className="mb-2">태그: {store?.tags.join(', ')}</p>
+        <p className="mb-2">주소: {store?.location}</p>
+        <p className="mb-2">좌표:{store?.coordinates}</p>
         {/* <div>
           <PostModalMap coordinates={store.coordinates} />
         </div> */}

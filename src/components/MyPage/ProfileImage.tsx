@@ -1,10 +1,29 @@
 import axiosInstance from '../../api/apiInstance';
 
 const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
-  const handleImageUpload = async () => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files && event.target.files[0];
+
+    if (!file) {
+      console.log('🌼 선택된 이미지 파일 없음');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
     try {
-      const response = await axiosInstance.post('/v1/images');
-      console.log('이미지 업로드 완료!', response);
+      const response = await axiosInstance.post('/v1/images', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.data && response.data.imageUrl) {
+        console.log('이미지 업로드 완료!', response.data.imageUrl);
+      }
     } catch (error) {
       console.error('😥 이미지 업로드 실패', error);
     }
@@ -12,14 +31,10 @@ const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
 
   return (
     <section>
-      <div className="mb-10 flex justify-center items-center rounded-full border-2 w-[150px] h-[150px]">
-        {profileImage ? (
-          <img src={profileImage} alt="프로필 이미지" />
-        ) : (
-          <p>No image</p>
-        )}
+      <div className="bg-blue-300 rounded-full border-2 w-[150px] h-[150px] flex justify-center items-center">
+        {profileImage && <img src={profileImage} alt="프로필 이미지" />}
       </div>
-      <div className="mb-1">
+      <div className="my-2 flex flex-row justify-center items-center">
         <input
           type="file"
           accept="image/*"
@@ -29,13 +44,13 @@ const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
         />
         <label
           htmlFor="imageUploadInput"
-          className="h-8 w-32 bg-yellow-500 text-white rounded-lg"
+          className="w-32 bg-yellow-500 text-white rounded-full text-center"
         >
           이미지 업로드
         </label>
-      </div>
-      <div>
-        <button className=" w-32 text-yellow-500">이미지 제거</button>
+        <button className="w-32 text-yellow-500 text-center">
+          이미지 제거
+        </button>
       </div>
     </section>
   );

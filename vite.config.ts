@@ -16,4 +16,7 @@ export default defineConfig({
       '/v1': 'https://api.to1step.shop',
     },
   },
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+  },
 });

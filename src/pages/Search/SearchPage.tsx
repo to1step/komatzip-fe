@@ -7,15 +7,12 @@ import Header from '../../components/Commons/Header';
 
 // 검색 결과 페이지
 
-// 예상 구현 방법
-// 1. Search 컴포넌트에서 검색
-// 2. searchResult로 검색 결과 상태 관리
-// 3. SearchPage에서 검색 결과 상태를 가져오기
-// 4. SearchResult에 검색 결과 상태(검색 단어) 출력
-// 5. 결과의 각 컴포넌트에 상태 뿌려주기(매장,코스라 따로 뿌려줘야할듯 -> 어떻게?)
-// 5-1. 어떻게? -> 코스 검색결과, 매장 검색결과를 각각 redux에 상태로 관리!
+interface SearchTopcourseProps {
+  category: number;
+  likeCount: number;
+}
 
-const SearchPage = () => {
+const SearchPage = ({ category, likeCount }: SearchTopcourseProps) => {
   // const [currentPage, setCurrentPage] = useState(1); // 지금 페이지
   // const limit = 5; // 1페이지마다 몇 개의 포스트 보일지 결정
 
@@ -81,7 +78,12 @@ const SearchPage = () => {
         <article className="flex flex-wrap">
           {searchResultsCourse.map((item) => (
             <div key={item.uuid} className="w-1/4 flex justify-center">
-              <SearchTopcourse item={item as Course} />
+              <SearchTopcourse
+                item={item as Course}
+                uuid={item.uuid}
+                likeCount={likeCount}
+                category={category}
+              />
             </div>
           ))}
         </article>
