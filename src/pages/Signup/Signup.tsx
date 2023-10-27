@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import LoginBackground from '../../components/background/LoginBackground';
 import axiosInstance from '../../api/apiInstance';
 import MenuBar from '../../components/background/MenuBar';
@@ -18,7 +18,7 @@ const SignUp = () => {
     confirmPassword: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const [check, setCheck] = useState<boolean>(false);
