@@ -1,22 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Course, Store, StoreEntireInfo } from '@to1step/propose-backend';
+import { Store, StoreEntireInfo } from '@to1step/propose-backend';
 import PostModal from './PostModal';
 import { CourseEntireInfo } from '@to1step/propose-backend';
-import LongComment from '../Post/Course/LongComment';
-import ShortComment from '../Post/Course/ShortComment';
-import IsPrivate from '../Post/Course/IsPrivate';
-import Stores from '../Post/Course/Stores';
-import StoreNames from '../Post/Course/StoreNames';
-import User from '../Post/Course/User';
-import Name from '../Post/Name';
-import Tags from '../Post/Tags';
-import TransPorts from '../Post/Course/Transports';
-import StartStore from '../Post/Course/StartStore';
-import EndStore from '../Post/Course/EndStore';
-import Comment from '../Post/Course/Comment';
-import ReviewCount from '../Post/Course/ReviewCount';
-import LikeCount from '../Post/Course/LikeCount';
-import ILike from '../Post/Course/ILike';
 import axiosInstance from '../../api/apiInstance';
 // import PostModalMap from './PostModalMap';
 
@@ -24,21 +9,15 @@ import axiosInstance from '../../api/apiInstance';
 // TODO : Stores 대신 uuid를 클릭하게 만들기
 
 interface CourseModalProps {
-  store: StoreEntireInfo | Store;
-  courseInfo: CourseEntireInfo | Course;
+  store?: StoreEntireInfo | Store;
   closeModal: () => void;
   uuid: string | null;
-  courseUUID: string;
-  storeNames: { [key: string]: string[] };
-  likeCount: number;
+  // courseUUID: string;
+  // storeNames: { [key: string]: string[] };
+  likeCount: CourseEntireInfo | number | undefined;
 }
 
-const CourseModal = ({
-  closeModal,
-  store,
-  courseInfo,
-  uuid,
-}: CourseModalProps) => {
+const CourseModal = ({ closeModal, store, uuid }: CourseModalProps) => {
   const [isStoreModalOpen, setIsStoreModalOpen] = useState(false);
 
   useEffect(() => {
@@ -82,12 +61,12 @@ const CourseModal = ({
               <Name name={courseInfo.name} />
             )} */}
           </h2>
-
+          <p>
+            좋아요 수 :{/* <LikeCount likeCount={courseInfo.likeCount} /> */}
+          </p>
           {/* 
           <p>내가 좋아요 했는지 유무 : <ILike /> </p>
           <p>리뷰 수 :<ReviewCount /> </p>
-<p>            좋아요 수 :
-            <LikeCount likeCount={courseInfo.likeCount} /></p>
           <p>
             공개 여부 : 기본값 비공개
             <IsPrivate />

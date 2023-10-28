@@ -1,7 +1,15 @@
 import { useState } from 'react';
 import axiosInstance from '../../api/apiInstance';
 
-const NickName = ({ nickname }: { nickname: string }) => {
+const NickName = ({
+  nickname,
+  commentAlarm,
+  updateAlarm,
+}: {
+  nickname: string;
+  commentAlarm: boolean;
+  updateAlarm: boolean;
+}) => {
   const [editing, setEditing] = useState(false);
   const [editedNickname, setEditedNickname] = useState(nickname);
 
@@ -18,6 +26,8 @@ const NickName = ({ nickname }: { nickname: string }) => {
     try {
       const response = await axiosInstance.patch('/v1/users/me', {
         nickname: editedNickname,
+        commentAlarm,
+        updateAlarm,
       });
 
       if (response.status === 200) {

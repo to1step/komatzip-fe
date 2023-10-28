@@ -1,17 +1,51 @@
 import axios from 'axios';
+import { getToken } from '../util/cookie.util';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000',
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    console.error('🌼axiosInstance.request에서 에러 발생', error);
+    return Promise.reject(error);
+  },
+);
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    const data = response.data;
-    return data;
+    return response.data;
   },
-  (error) => {
-    console.error('axiosInstance에서 에러 발생:', error);
+  async (error) => {
+    if (error.response && error.response.data.code === 1101) {
+      // 토큰 만료 시 '/v1/auth/refresh-token'으로 토큰을 갱신하는 요청
+      try {
+        const refresh_token = getToken();
+        const refreshResponse = await axiosInstance.post(
+          '/v1/auth/refresh-token',
+          {
+            grant_type: 'refresh_token',
+            refresh_token: refresh_token,
+          },
+        );
+        // 갱신에 성공하면 원래의 요청을 다시 시도
+        const newAccessToken = refreshResponse.data.access_token;
+        error.config.headers.Authorization = `Bearer ${newAccessToken}`;
+        return axiosInstance(error.config);
+      } catch (refreshTokenError) {
+        console.log('🌼 토큰 갱신 실패:', refreshTokenError);
+        window.location.href = '/login';
+        return Promise.reject(refreshTokenError);
+      }
+    }
+    console.error('🌼 axiosInstance.response에서 에러 발생:', error);
     return Promise.reject(error);
   },
 );

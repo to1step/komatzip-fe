@@ -27,7 +27,6 @@ const Login = () => {
         '/v1/users/me',
       );
       dispatch(loginAction(myInfo));
-
       navigate('/'); // 로그인 성공시 메인으로 이동
     } catch (error) {
       console.log(error);
