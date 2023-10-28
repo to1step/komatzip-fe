@@ -49,9 +49,16 @@ const MyPage = () => {
     }
   }, [userData, dispatch, navigate]);
 
-  // const handleLogout = () => {
-  //   dispatch(logoutAction());
-  // };
+  const updateProfile = (img: string) => {
+    if (!userData) return;
+
+    dispatch(
+      loginAction({
+        ...userData,
+        profileImage: img,
+      }),
+    );
+  };
 
   return (
     <article className="h-screen flex flex-col justify-center items-center">
@@ -69,7 +76,10 @@ const MyPage = () => {
           <div>
             <section>
               {userData ? (
-                <ProfileImage profileImage={userData.profileImage} />
+                <ProfileImage
+                  userData={userData}
+                  updateProfile={updateProfile}
+                />
               ) : (
                 <p className="mb-10 flex justify-center items-center rounded-full  w-[150px] h-[150px]">
                   No image
