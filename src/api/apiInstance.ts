@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { getToken } from '../util/cookie.util';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000',
@@ -24,15 +24,15 @@ axiosInstance.interceptors.response.use(
     return response.data;
   },
   async (error) => {
-    const navigate = useNavigate();
-
-    if (error.response && error.response.statues === 1101) {
+    if (error.response && error.response.data.code === 1101) {
       // 토큰 만료 시 '/v1/auth/refresh-token'으로 토큰을 갱신하는 요청
       try {
+        const refresh_token = getToken();
         const refreshResponse = await axiosInstance.post(
           '/v1/auth/refresh-token',
           {
             grant_type: 'refresh_token',
+            refresh_token: refresh_token,
           },
         );
         // 갱신에 성공하면 원래의 요청을 다시 시도
@@ -41,7 +41,7 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(error.config);
       } catch (refreshTokenError) {
         console.log('🌼 토큰 갱신 실패:', refreshTokenError);
-        navigate('/login');
+        window.location.href = '/login';
         return Promise.reject(refreshTokenError);
       }
     }

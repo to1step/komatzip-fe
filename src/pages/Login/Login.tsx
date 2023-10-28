@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { UserMyInfo, loginAction } from '../../redux/module/user';
 import { useDispatch } from 'react-redux';
-import { getToken } from '../../util/cookie.util';
 
 type LoginForm = {
   email: string;
@@ -28,7 +27,6 @@ const Login = () => {
         '/v1/users/me',
       );
       dispatch(loginAction(myInfo));
-      getToken();
       navigate('/'); // 로그인 성공시 메인으로 이동
     } catch (error) {
       console.log(error);
