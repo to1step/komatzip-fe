@@ -18,12 +18,15 @@ const PostModalMap = ({ coordinates }: Store) => {
       '//dapi.kakao.com/v2/maps/sdk.js?appkey=d9625d7b72cda469a44e36c806446dcb&autoload=false'; // autoload=false 추가
     script.async = false; // 동기적으로 로드
 
-    // 스크립트가 로드된 후에 실행될 내용
-    script.onload = () => {
+    // 스크립트 <head> 태그에 추가
+    document.head.appendChild(script);
+
+    window.kakao.maps.load(() => {
       // window.kakao.maps 객체가 정의될 때까지 반복해서 확인
       const interval = setInterval(() => {
         if (window.kakao && window.kakao.maps) {
           clearInterval(interval); // 객체가 정의되면 setInterval 종료
+
           const mapContainer = mapContainerRef.current; // 지도를 표시할 div
           const mapOption = {
             center: new window.kakao.maps.LatLng(
@@ -39,15 +42,7 @@ const PostModalMap = ({ coordinates }: Store) => {
           mapInstanceRef.current = map;
         }
       }, 100);
-    };
-
-    // API 스크립트를 로드한 후 콜백 함수를 실행
-    window.kakao.maps.load(() => {
-      script.onload();
     });
-
-    // 스크립트를 <head> 태그에 추가
-    document.head.appendChild(script);
 
     return () => {
       document.head.removeChild(script);

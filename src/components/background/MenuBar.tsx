@@ -1,7 +1,5 @@
-import { useState } from 'react';
-
 const MenuBar = () => {
-  const [login, setLogin] = useState<boolean>(false);
+  const login = false;
 
   return (
     <div
