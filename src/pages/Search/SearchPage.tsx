@@ -7,12 +7,7 @@ import Header from '../../components/Commons/Header';
 
 // 검색 결과 페이지
 
-interface SearchTopcourseProps {
-  category: number;
-  likeCount: number;
-}
-
-const SearchPage = ({ category, likeCount }: SearchTopcourseProps) => {
+const SearchPage = () => {
   // const [currentPage, setCurrentPage] = useState(1); // 지금 페이지
   // const limit = 5; // 1페이지마다 몇 개의 포스트 보일지 결정
 
@@ -78,12 +73,7 @@ const SearchPage = ({ category, likeCount }: SearchTopcourseProps) => {
         <article className="flex flex-wrap">
           {searchResultsCourse.map((item) => (
             <div key={item.uuid} className="w-1/4 flex justify-center">
-              <SearchTopcourse
-                item={item as Course}
-                uuid={item.uuid}
-                likeCount={likeCount}
-                category={category}
-              />
+              <SearchTopcourse item={item as Course} uuid={item.uuid} />
             </div>
           ))}
         </article>
