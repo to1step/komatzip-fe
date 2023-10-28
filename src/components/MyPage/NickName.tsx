@@ -48,16 +48,21 @@ const NickName = ({
     <ul className="flex-row">
       <li className="list-none">
         {editing ? (
-          <div className="text-xl font-semibold flex">
-            닉네임
+          <div className="flex">
+            <p className="font-semibold text-xl">닉네임</p>
             <input
               type="text"
               value={editedNickname}
               onChange={handleNicknameChange}
-              className="border-b-2"
+              className="border-b-2 ml-20 mr-4"
+              placeholder="수정할 닉네임을 입력하세요"
             />
-            <button onClick={handleSave}>저장</button>
-            <button onClick={handleCancel}>취소</button>
+            <button onClick={handleSave} className="mx-2">
+              저장
+            </button>
+            <button onClick={handleCancel} className="mx-1">
+              취소
+            </button>
           </div>
         ) : (
           <div className="text-xl font-semibold">

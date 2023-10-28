@@ -1,18 +1,19 @@
+import { IoCamera } from 'react-icons/io5';
 import axiosInstance from '../../api/apiInstance';
 
 const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const file = event.target.files && event.target.files[0];
+    const files = event.target.files;
 
-    if (!file) {
+    if (!files || files.length === 0) {
       console.log('🌼 선택된 이미지 파일 없음');
       return;
     }
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', files[0]);
 
     try {
       const response = await axiosInstance.post('/v1/images', formData, {
@@ -22,7 +23,7 @@ const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
       });
 
       if (response.data && response.data.imageUrl) {
-        console.log('이미지 업로드 완료!', response.data.imageUrl);
+        console.log('😥 이미지 업로드 완료!', response.data.imageUrl);
       }
     } catch (error) {
       console.error('😥 이미지 업로드 실패', error);
@@ -31,9 +32,13 @@ const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
 
   return (
     <section>
-      <div className="bg-blue-300 rounded-full border-2 w-[150px] h-[150px] flex justify-center items-center">
-        {profileImage && <img src={profileImage} alt="프로필 이미지" />}
-      </div>
+      {profileImage && (
+        <img
+          src={profileImage}
+          alt="프로필 이미지"
+          className="rounded-full border-2 w-[150px] h-[150px] flex justify-center items-center"
+        />
+      )}
       <div className="my-2 flex flex-row justify-center items-center">
         <input
           type="file"
@@ -44,13 +49,10 @@ const ProfileImage = ({ profileImage }: { profileImage: string | null }) => {
         />
         <label
           htmlFor="imageUploadInput"
-          className="w-32 bg-yellow-500 text-white rounded-full text-center"
+          className="bg-slate-400 text-white rounded-full text-center cursor-pointer"
         >
-          이미지 업로드
+          <IoCamera size={35} />
         </label>
-        <button className="w-32 text-yellow-500 text-center">
-          이미지 제거
-        </button>
       </div>
     </section>
   );
