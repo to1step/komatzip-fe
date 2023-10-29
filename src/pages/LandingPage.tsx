@@ -7,11 +7,13 @@ import Header from '../components/Commons/Header';
 import MultiCarousel from '../components/MultiCarousel/MultiCarousel';
 import SearchTopstore from '../components/Search/SearchTopstore';
 import SearchTopcourse from '../components/Search/SearchTopcourse';
+import StoreSkeleton from '../components/Skeleton/StoreSkeleton';
+import CourseSkeleton from '../components/Skeleton/CourseSkeleton';
 
 const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
-  const [data, setData] = React.useState<Store[]>([]);
-  const [courseData, setCourseData] = React.useState<Course[]>([]);
+  const [data, setData] = React.useState<Store[]>();
+  const [courseData, setCourseData] = React.useState<Course[]>();
   const [courseUuid, setCourseUuid] = useState<string[]>([]);
   console.log(courseUuid);
 
@@ -81,6 +83,10 @@ const LandingPage = () => {
             </div>
             <article className="flex justify-center">
               <div className="w-10/12">
+                {!data ? 
+                <div  className='flex justify-center gap-5'>
+                {['1', '2', '3', '4'].map(() => <StoreSkeleton />)}
+              </div> :
                 <MultiCarousel type={'store'}>
                   {data.map((item) => (
                     <div key={item.uuid} className="w-1/5 flex justify-center">
@@ -88,18 +94,23 @@ const LandingPage = () => {
                     </div>
                   ))}
                 </MultiCarousel>
+}
               </div>
             </article>
           </section>
           <section>
             <div className="text-center mt-40 mb-12">
               <h1 className="h-[30px] text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743] mb-5">
-                이번 주 TOP 코스
+                이번 주 TOP 코스xxc
               </h1>
               <h2>주간 최고 맛집 리스트를 만나보세요!</h2>
             </div>
             <article className="flex justify-center">
               <div className="w-10/12 mb-20">
+              {!courseData ? 
+                <div  className='flex justify-center gap-5'>
+                  {['1', '2'].map(() => <CourseSkeleton />)}
+                </div> :
                 <MultiCarousel autoPlay={true} type={'course'}>
                   {courseData.map((item) => (
                     <div
@@ -110,6 +121,7 @@ const LandingPage = () => {
                     </div>
                   ))}
                 </MultiCarousel>
+              }
               </div>
             </article>
           </section>
