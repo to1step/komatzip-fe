@@ -46,6 +46,20 @@ const MyPage = () => {
     }
   }, [userData, dispatch, navigate]);
 
+<<<<<<< HEAD
+=======
+  const updateProfile = (img: string) => {
+    if (!userData) return;
+
+    dispatch(
+      loginAction({
+        ...userData,
+        profileImage: img,
+      }),
+    );
+  };
+
+>>>>>>> b82028010723d5734b12d922c6759492deb1f204
   return (
     <article className="h-screen flex flex-col justify-center items-center">
       <header className="w-full">
@@ -62,7 +76,10 @@ const MyPage = () => {
           <div>
             <section>
               {userData ? (
-                <ProfileImage profileImage={userData.profileImage} />
+                <ProfileImage
+                  userData={userData}
+                  updateProfile={updateProfile}
+                />
               ) : (
                 <p className="bg-blue-200 rounded-full border-2 w-[150px] h-[150px] flex justify-center items-center">
                   No image
