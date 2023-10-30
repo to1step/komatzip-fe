@@ -107,7 +107,7 @@ const LandingPage = () => {
           <section>
             <div className="text-center mt-40 mb-12">
               <h1 className="h-[30px] text-4xl font-bold inline-block bg-gradient-to-t from-[#FFF743] mb-5">
-                이번 주 TOP 코스xxc
+                이번 주 TOP 코스
               </h1>
               <h2>주간 최고 맛집 리스트를 만나보세요!</h2>
             </div>

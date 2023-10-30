@@ -1,4 +1,4 @@
-function CourseSkeleton() {
+const CourseSkeleton = () => {
   return (
     <div className="flex flex-col gap-5 p-2 mx-auto bg-white shadow-lg select-none sm:w-full sm:p-4 sm:h-96 rounded-2xl">
       <div className="flex flex-col flex-1 gap-5 sm:p-2">
@@ -15,6 +15,6 @@ function CourseSkeleton() {
       <div className="w-full h-3" />
     </div>
   );
-}
+};
 
 export default CourseSkeleton;
