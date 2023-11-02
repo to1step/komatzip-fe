@@ -18,7 +18,7 @@ const MiniMap = ({ lat, lng }: MiniMapProps) => {
         const container = document.getElementById('mini-map');
         const options = {
           center: new window.kakao.maps.LatLng(lat, lng),
-          level: 4,
+          level: 3,
         };
 
         const map = new window.kakao.maps.Map(container, options);
