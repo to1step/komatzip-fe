@@ -96,7 +96,10 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
 
       <div className="mt-4">
         {reviews.map((review) => (
-          <div key={review.uuid} className="border p-4 mb-2 rounded">
+          <div
+            key={review.uuid}
+            className="border p-4 mb-2 rounded flex justify-between items-center"
+          >
             <p>{review.review}</p>
             <button
               onClick={() => handleReviewDelete(review.uuid)}

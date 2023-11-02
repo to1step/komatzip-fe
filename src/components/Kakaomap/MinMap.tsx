@@ -30,7 +30,7 @@ const MiniMap = ({ lat, lng }: MiniMapProps) => {
     };
   }, [lat, lng]);
 
-  return <div id="mini-map" style={{ width: '100%', height: '200px' }} />;
+  return <div id="mini-map" style={{ width: '100%', height: '275px' }} />;
 };
 
 export default MiniMap;
