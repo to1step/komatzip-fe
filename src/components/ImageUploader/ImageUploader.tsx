@@ -40,9 +40,13 @@ const ImageUploader = () => {
         />
         <label
           htmlFor="imageUploadInput"
-          className="w-32 h-32 border-dashed border-2 bg-gray-100 border-gray-300 flex justify-center items-center cursor-pointer rounded-2xl"
+          className="w-32 h-32 border-dashed border-2 bg-gray-100 border-gray-300 flex justify-center items-center cursor-pointer rounded-2xl transition duration-300 hover:bg-gray-200"
         >
-          + 📷Upload
+          +
+          <span role="img" aria-label="camera">
+            📷
+          </span>{' '}
+          Upload
         </label>
         {images.map((image, i) => (
           <div
