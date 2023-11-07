@@ -4,7 +4,6 @@ import LikeButton from '../MapModal/LikeButton';
 import CopyAddressButton from '../MapModal/CopyAddressButton';
 import ReviewList from '../MapModal/ReviewList';
 import CourseList from '../MapModal/CourseList';
-import MiniMap from './MinMap';
 
 interface MapModalProps {
   markerInfo: StoreEntireInfo | null;
@@ -78,12 +77,12 @@ const MapModal = ({
               className="w-[180px] h-30 rounded"
             />
           </div>
-          <div className="text-2xl font-semibold mt-20">리뷰⭐</div>
+          <div className="text-2xl font-semibold mt-16">리뷰⭐</div>
           <ReviewList markerInfo={markerInfo} token={token} />
-          <MiniMap
+          {/* <MiniMap
             lat={markerInfo.coordinates[1]}
             lng={markerInfo.coordinates[0]}
-          />
+          /> */}
         </div>
       </div>
     </div>

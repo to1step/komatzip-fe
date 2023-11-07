@@ -20,7 +20,7 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
       const fetchStoreInfo = async () => {
         try {
           const response = await axios.get(`/v1/stores/${markerInfo.uuid}`);
-          const storeInfo = response.data;
+          const storeInfo = response.data.data;
           console.log('서버 응답:', response);
           const storeReviews = storeInfo.storeReviews || [];
           setReviews(storeReviews);
@@ -35,6 +35,15 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
   }, [markerInfo, prevMarkerInfo]);
 
   const handleReviewSubmit = async () => {
+    const newReview = {
+      uuid: Math.random().toString(),
+      review: reviewText,
+      user: '현재 사용자 ID',
+    };
+
+    setReviews((prevReviews) => [...prevReviews, newReview]);
+    setReviewText('');
+
     try {
       const response = await axios.post(
         `/v1/stores/${markerInfo.uuid}/review`,
@@ -48,16 +57,11 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
         },
       );
       console.log('서버 응답:', response.data);
-      // const newReview = response.data as StoreReview;
-      const newReview = {
-        uuid: 'temporary-uuid',
-        user: 'user-id',
-        review: reviewText,
-      };
-      setReviews([...reviews, newReview]);
-      setReviewText('');
     } catch (error) {
       console.error('Error submitting review:', error);
+      setReviews((prevReviews) =>
+        prevReviews.filter((review) => review.uuid !== newReview.uuid),
+      );
     }
   };
 
@@ -79,31 +83,31 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
 
   return (
     <div className="mt-4">
-      <div className="flex">
+      <div className="flex w-full">
         <textarea
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
-          placeholder="리뷰를 작성하세요."
-          className="w-[500px] p-2 border rounded"
+          placeholder="후기를 작성해 주세요."
+          className="w-10/12 h-[60px] p-2 border rounded"
         />
         <button
           onClick={handleReviewSubmit}
-          className="px-4 mt-1 h-[5vw] bg-blue-500 text-white rounded hover:bg-blue-600 ml-2"
+          className="px-4 mt-1 ml-3 h-[45px] bg-blue-500 text-white rounded hover:bg-blue-600 "
         >
           작성
         </button>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-4 w-full overflow-auto h-[198px] border-2  border-blue-200 rounded-lg p-0">
         {reviews.map((review) => (
           <div
             key={review.uuid}
-            className="border p-4 mb-2 rounded flex justify-between items-center"
+            className="border mt-1 ml-1 p-4 mb-2 rounded flex justify-between items-center"
           >
-            <p>{review.review}</p>
+            <p className="w-[400px]">{review.review}</p>
             <button
               onClick={() => handleReviewDelete(review.uuid)}
-              className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+              className="w-[55px] px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
             >
               삭제
             </button>

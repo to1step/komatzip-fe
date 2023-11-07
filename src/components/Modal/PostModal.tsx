@@ -6,6 +6,7 @@ import CopyAddressButton from '../MapModal/CopyAddressButton';
 import Tags from '../Post/Tags';
 import { useRef, useEffect } from 'react';
 import ImageUploader from '../ImageUploader/ImageUploader';
+import ReviewList from '../MapModal/ReviewList';
 // 매장 랭킹, 검색 결과의 매장을 클릭했을 때 출력되는 컴포넌트
 
 interface PostModalProps {
@@ -57,11 +58,12 @@ const PostModal = ({ store, closeModal }: PostModalProps) => {
         {store && <Tags tags={store?.tags} />}
         <hr className="my-4 border-gray-200" />
         <div className="text-xl font-semibold mb-2">이용자 후기</div>
+        {store && <ReviewList markerInfo={store} token={token} />}
         {/* <p className="mb-2">카테고리: {store?.category}</p>
         <p className="mb-2">태그: {store?.tags.join(', ')}</p>
         <p className="mb-2">주소: {store?.location}</p>
       <p className="mb-2">좌표:{store?.coordinates}</p> */}
-        <hr className="my-4 border-gray-200" />
+        <hr className="my-4 border-gray-200 mt-6" />
         <div className="text-xl font-semibold mb-2">포토 후기</div>
         <ImageUploader />
         <hr className="my-4 border-gray-200" />
