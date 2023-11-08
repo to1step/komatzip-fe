@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../api/apiInstance';
 import { StoreEntireInfo, StoreReview, Store } from '@to1step/propose-backend';
 
 interface ReviewListProps {
@@ -19,10 +19,12 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
       console.log('markerInfo 데이터:', markerInfo);
       const fetchStoreInfo = async () => {
         try {
-          const response = await axios.get(`/v1/stores/${markerInfo.uuid}`);
-          const storeInfo = response.data.data;
+          const response = await axiosInstance.get(
+            `/v1/stores/${markerInfo.uuid}`,
+          );
+          const storeInfo = response.data;
           console.log('서버 응답:', response);
-          const storeReviews = storeInfo.storeReviews || [];
+          const storeReviews = storeInfo.storeReviews;
           setReviews(storeReviews);
         } catch (error) {
           console.error('Error fetching store info:', error);
@@ -46,8 +48,7 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
 
     try {
       if (markerInfo) {
-        // markerInfo가 null이 아닐 때만 요청을 보냄
-        const response = await axios.post(
+        const response = await axiosInstance.post(
           `/v1/stores/${markerInfo.uuid}/review`,
           {
             review: reviewText,
@@ -71,8 +72,7 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
   const handleReviewDelete = async (reviewUUID: string) => {
     try {
       if (markerInfo) {
-        // markerInfo가 null이 아닐 때만 요청을 보냄
-        await axios.delete(
+        await axiosInstance.delete(
           `/v1/stores/${markerInfo.uuid}/reviews/${reviewUUID}`,
           {
             headers: {
