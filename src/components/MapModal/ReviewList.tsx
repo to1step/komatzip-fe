@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { StoreEntireInfo, StoreReview } from '@to1step/propose-backend';
+import { StoreEntireInfo, StoreReview, Store } from '@to1step/propose-backend';
 
 interface ReviewListProps {
-  markerInfo: StoreEntireInfo;
+  markerInfo: StoreEntireInfo | Store | null;
   token: string | null;
 }
 
@@ -29,7 +29,7 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
         }
       };
 
-      setPrevMarkerInfo(markerInfo);
+      setPrevMarkerInfo(markerInfo as StoreEntireInfo | null);
       fetchStoreInfo();
     }
   }, [markerInfo, prevMarkerInfo]);
@@ -45,18 +45,21 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
     setReviewText('');
 
     try {
-      const response = await axios.post(
-        `/v1/stores/${markerInfo.uuid}/review`,
-        {
-          review: reviewText,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      if (markerInfo) {
+        // markerInfo가 null이 아닐 때만 요청을 보냄
+        const response = await axios.post(
+          `/v1/stores/${markerInfo.uuid}/review`,
+          {
+            review: reviewText,
           },
-        },
-      );
-      console.log('서버 응답:', response.data);
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        console.log('서버 응답:', response.data);
+      }
     } catch (error) {
       console.error('Error submitting review:', error);
       setReviews((prevReviews) =>
@@ -67,15 +70,18 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
 
   const handleReviewDelete = async (reviewUUID: string) => {
     try {
-      await axios.delete(
-        `/v1/stores/${markerInfo?.uuid}/reviews/${reviewUUID}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      if (markerInfo) {
+        // markerInfo가 null이 아닐 때만 요청을 보냄
+        await axios.delete(
+          `/v1/stores/${markerInfo.uuid}/reviews/${reviewUUID}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        },
-      );
-      setReviews(reviews.filter((review) => review.uuid !== reviewUUID));
+        );
+        setReviews(reviews.filter((review) => review.uuid !== reviewUUID));
+      }
     } catch (error) {
       console.error('Error deleting review:', error);
     }
