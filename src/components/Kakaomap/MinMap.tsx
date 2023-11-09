@@ -18,7 +18,7 @@ const MiniMap = ({ lat, lng }: MiniMapProps) => {
         const container = document.getElementById('mini-map');
         const options = {
           center: new window.kakao.maps.LatLng(lat, lng),
-          level: 4,
+          level: 3,
         };
 
         const map = new window.kakao.maps.Map(container, options);
@@ -30,7 +30,7 @@ const MiniMap = ({ lat, lng }: MiniMapProps) => {
     };
   }, [lat, lng]);
 
-  return <div id="mini-map" style={{ width: '100%', height: '200px' }} />;
+  return <div id="mini-map" style={{ width: '100%', height: '275px' }} />;
 };
 
 export default MiniMap;

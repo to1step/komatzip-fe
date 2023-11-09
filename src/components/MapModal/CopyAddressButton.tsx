@@ -21,7 +21,7 @@ const CopyAddressButton = ({ location }: CopyAddressButtonProps) => {
 
   return (
     <div onClick={handleCopyAddress}>
-      <BiCopy color={isCopyAddress ? '#32A852' : '#FF3257'} />
+      <BiCopy size="24" color={isCopyAddress ? '#32A852' : '#FF3257'} />
     </div>
   );
 };

@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { StoreEntireInfo } from '@to1step/propose-backend';
+import { Store, StoreEntireInfo } from '@to1step/propose-backend';
 
 interface LikeButtonProps {
-  markerInfo: StoreEntireInfo;
-  token: string | null;
+  markerInfo: StoreEntireInfo | Store;
 }
 
-const LikeButton = ({ markerInfo, token }: LikeButtonProps) => {
+const LikeButton = ({ markerInfo }: LikeButtonProps) => {
   const initialLikeState = localStorage.getItem(`like-${markerInfo.uuid}`);
   const [isClickLike, setIsClickLike] = useState(false);
   const [markerLike, setMarkerLike] = useState(
@@ -21,17 +20,9 @@ const LikeButton = ({ markerInfo, token }: LikeButtonProps) => {
       const saveUserLike = async () => {
         try {
           if (markerLike && markerInfo) {
-            await axios.post(`/v1/stores/${markerInfo.uuid}/like`, null, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
+            await axios.post(`/v1/stores/${markerInfo.uuid}/like`, null, {});
           } else if (!markerLike && markerInfo) {
-            await axios.delete(`/v1/stores/${markerInfo.uuid}/like`, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
+            await axios.delete(`/v1/stores/${markerInfo.uuid}/like`, {});
           }
           localStorage.setItem(
             `like-${markerInfo.uuid}`,
@@ -45,7 +36,7 @@ const LikeButton = ({ markerInfo, token }: LikeButtonProps) => {
 
       saveUserLike();
     }
-  }, [markerLike, isClickLike, markerInfo, token]);
+  }, [markerLike, isClickLike, markerInfo]);
 
   const handleClickLike = () => {
     setIsClickLike(true);
