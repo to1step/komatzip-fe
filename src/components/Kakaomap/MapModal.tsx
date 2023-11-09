@@ -17,7 +17,6 @@ const MapModal = ({
   recommendedCourses,
 }: MapModalProps) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
-  const token = localStorage.getItem('JWtTokken');
 
   const handleClickOutside = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -46,7 +45,7 @@ const MapModal = ({
             <div className="text-3xl font-bold text-blue-500 mr-4 mb-2">
               {markerInfo.name}
             </div>
-            <LikeButton markerInfo={markerInfo} token={token} />
+            <LikeButton markerInfo={markerInfo} />
           </div>
           <div className="flex items-center mb-2">
             <div className="mr-3 text-lg text-gray-500 font-bold">{`${markerInfo.location}`}</div>
@@ -78,7 +77,7 @@ const MapModal = ({
             />
           </div>
           <div className="text-2xl font-semibold mt-16">리뷰⭐</div>
-          <ReviewList markerInfo={markerInfo} token={token} />
+          <ReviewList markerInfo={markerInfo} />
           {/* <MiniMap
             lat={markerInfo.coordinates[1]}
             lng={markerInfo.coordinates[0]}

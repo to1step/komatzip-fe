@@ -4,10 +4,9 @@ import { StoreEntireInfo, StoreReview, Store } from '@to1step/propose-backend';
 
 interface ReviewListProps {
   markerInfo: StoreEntireInfo | Store | null;
-  token: string | null;
 }
 
-const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
+const ReviewList = ({ markerInfo }: ReviewListProps) => {
   const [prevMarkerInfo, setPrevMarkerInfo] = useState<StoreEntireInfo | null>(
     null,
   );
@@ -19,12 +18,12 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
       console.log('markerInfo 데이터:', markerInfo);
       const fetchStoreInfo = async () => {
         try {
-          const response = await axiosInstance.get(
+          const response = await axiosInstance.get<StoreEntireInfo>(
             `/v1/stores/${markerInfo.uuid}`,
           );
           const storeInfo = response.data;
           console.log('서버 응답:', response);
-          const storeReviews = storeInfo.storeReviews;
+          const storeReviews = storeInfo.storeReviews || [];
           setReviews(storeReviews);
         } catch (error) {
           console.error('Error fetching store info:', error);
@@ -37,35 +36,26 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
   }, [markerInfo, prevMarkerInfo]);
 
   const handleReviewSubmit = async () => {
-    const newReview = {
-      uuid: Math.random().toString(),
-      review: reviewText,
-      user: '현재 사용자 ID',
-    };
-
-    setReviews((prevReviews) => [...prevReviews, newReview]);
-    setReviewText('');
-
     try {
       if (markerInfo) {
+        const newReview = {
+          uuid: Math.random().toString(),
+          review: reviewText,
+          user: '현재 사용자 ID',
+        };
+
         const response = await axiosInstance.post(
           `/v1/stores/${markerInfo.uuid}/review`,
           {
             review: reviewText,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
         );
         console.log('서버 응답:', response.data);
+        setReviews((prevReviews) => [...prevReviews, newReview]);
+        setReviewText('');
       }
     } catch (error) {
       console.error('Error submitting review:', error);
-      setReviews((prevReviews) =>
-        prevReviews.filter((review) => review.uuid !== newReview.uuid),
-      );
     }
   };
 
@@ -74,11 +64,6 @@ const ReviewList = ({ markerInfo, token }: ReviewListProps) => {
       if (markerInfo) {
         await axiosInstance.delete(
           `/v1/stores/${markerInfo.uuid}/reviews/${reviewUUID}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
         );
         setReviews(reviews.filter((review) => review.uuid !== reviewUUID));
       }
