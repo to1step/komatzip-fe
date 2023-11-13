@@ -37,7 +37,8 @@ jobs:
       - name: Npm build
         run: npm run build --if-present
         env: 
-          REACT_APP_PUBLIC_API: ${{ secrets.REACT_APP_PUBLIC_API }}
+          PUBLIC_API: ${{ secrets.REACT_APP_PUBLIC_API }}
+          KAKAO_JAVASCRIPT_KEY: ${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}
 
       - name: Upload s3
         run: |
