@@ -29,6 +29,11 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@to1step'
 
+      - name: .env setting
+        run: |
+          echo "VITE_PUBLIC_API=${{ secrets.VITE_PUBLIC_API }}" > .env
+          echo "VITE_KAKAO_JAVASCRIPT_KEY=${{ secrets.VITE_KAKAO_JAVASCRIPT_KEY }}" >> .env
+
       - name: CI
         run: npm ci
         env:
@@ -36,9 +41,6 @@ jobs:
 
       - name: Npm build
         run: npm run build --if-present
-        env: 
-          PUBLIC_API: ${{ secrets.REACT_APP_PUBLIC_API }}
-          KAKAO_JAVASCRIPT_KEY: ${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}
 
       - name: Upload s3
         run: |
