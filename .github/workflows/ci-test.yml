@@ -1,0 +1,40 @@
+name: Frontend Test
+
+# 구독할 이벤트
+on:
+  push:
+    branches: [main]  # main 브랜치로의 푸시 이벤트를 구독합니다.
+  pull_request:
+    branches: [main]  # main 브랜치로의 풀 리퀘스트 이벤트를 구독합니다.
+
+# jobs 단위로 개별 서버(정확히는 Docker 컨테이너 단위라고 한다.)에서 작업이 수행된다.
+# 각 작업은 병렬로 실행 된다고 하는데, needs: build와 같이 표시해서 기다릴 수도 있다.
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Ubuntu 최신 버전에서 작업을 실행합니다.
+
+    strategy:
+      matrix:
+        node-version: [18.x]  # Node.js 18.x 버전을 사용하는 매트릭스를 정의합니다.
+
+    # uses 개념은 다른 사람이 작성한 내용을 실행하는 개념이다.
+    # actions/checkout: GitHub의 마지막 커밋으로 Checkout 한다.
+    # actions/setup-node: Node.js를 설치한다.
+    # run 개념은 명령어를 실행한다. 셸 스크립트와 동일하다.
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3  # GitHub의 마지막 커밋으로 소스 코드를 Checkout합니다.
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}  # 정의된 Node.js 버전을 설치합니다.
+
+      - name: CI
+        run: npm ci  # npm ci 명령어를 사용하여 종속성을 설치합니다. (npm install과 유사)
+
+      - name: Eslint
+        run: npx eslint --fix .  # eslint를 실행하여 코드 스타일을 검사하고 수정합니다.
+
+      - name: Npm build
+        run: npm run build --if-present  # 프로젝트를 빌드합니다. (존재할 때만 실행)

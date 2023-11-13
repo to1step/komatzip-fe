@@ -12,9 +12,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.449.0",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
     "eslint": "^8.47.0",
+    "fs": "^0.0.1-security",
     "js-cookie": "^3.0.5",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",

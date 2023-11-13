@@ -1,0 +1,71 @@
+name: S3 Upload
+
+# main 에 push 가 되었다는 것은 병합이 완료 되었다는 것도 포함 됨
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://npm.pkg.github.com/
+          scope: '@to1step'
+
+      - name: CI
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Npm build
+        run: npm run build --if-present
+        env: 
+          REACT_APP_PUBLIC_API: ${{ secrets.REACT_APP_PUBLIC_API }}
+
+      - name: Upload s3
+        run: |
+          AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+          AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+          node ci/upload-s3.js
+
+  invalidateCache:
+    needs: upload
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install AWS CLI
+        run: |
+          pip install awscli --upgrade --user
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region ap-northeast-2
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTIONS_ID }} --paths "/*"

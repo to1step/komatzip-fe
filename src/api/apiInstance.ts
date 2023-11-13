@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from '../util/cookie.util';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: process.env.REACT_APP_PUBLIC_API ?? 'http://localhost:3000',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
