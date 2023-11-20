@@ -3,7 +3,7 @@ import axiosInstance from '../../api/apiInstance';
 import { StoreEntireInfo, StoreReview, Store } from '@to1step/propose-backend';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/module';
-import { success, errors } from '../../util/toastify';
+import { success } from '../../util/toastify';
 
 interface ReviewListProps {
   markerInfo: StoreEntireInfo | Store | null;
@@ -79,9 +79,7 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
             setReviews((prevReviews) =>
               prevReviews.filter((review) => review.uuid !== reviewUUID),
             );
-            success('리뷰가 삭제 되었습니다.');
-          } else {
-            errors('해당 리뷰를 삭제할 수 있는 권한이 없습니다.');
+            success('리뷰가 삭제되었습니다.');
           }
         } else {
           console.log('리뷰를 찾을 수 없습니다.');
@@ -116,12 +114,14 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
             className="border mt-1 ml-1 p-4 mb-2 rounded flex justify-between items-center"
           >
             <p className="w-[400px]">{review.review}</p>
-            <button
-              onClick={() => handleReviewDelete(review.uuid)}
-              className="w-[55px] px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
-            >
-              삭제
-            </button>
+            {userData?.nickname === review.nickname && (
+              <button
+                onClick={() => handleReviewDelete(review.uuid)}
+                className="w-[55px] px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+              >
+                삭제
+              </button>
+            )}
           </div>
         ))}
       </div>
