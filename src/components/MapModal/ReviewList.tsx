@@ -46,7 +46,7 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
         const newReview = {
           uuid: Math.random().toString(),
           review: reviewText,
-          user: userData.nickname,
+          user: userData.email,
           nickname: userData.nickname,
         };
 
