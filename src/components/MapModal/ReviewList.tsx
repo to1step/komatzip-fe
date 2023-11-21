@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../api/apiInstance';
 import { StoreEntireInfo, StoreReview, Store } from '@to1step/propose-backend';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/module';
+import { success } from '../../util/toastify';
 
 interface ReviewListProps {
   markerInfo: StoreEntireInfo | Store | null;
@@ -12,6 +15,8 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
   );
   const [reviews, setReviews] = useState<StoreReview[]>([]);
   const [reviewText, setReviewText] = useState<string>('');
+
+  const userData = useSelector((state: RootState) => state.user.userData);
 
   useEffect(() => {
     if (markerInfo && prevMarkerInfo !== markerInfo) {
@@ -37,11 +42,12 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
 
   const handleReviewSubmit = async () => {
     try {
-      if (markerInfo) {
+      if (markerInfo && userData) {
         const newReview = {
           uuid: Math.random().toString(),
           review: reviewText,
-          user: '현재 사용자 ID',
+          user: userData.email,
+          nickname: userData.nickname,
         };
 
         const response = await axiosInstance.post(
@@ -61,11 +67,23 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
 
   const handleReviewDelete = async (reviewUUID: string) => {
     try {
-      if (markerInfo) {
-        await axiosInstance.delete(
-          `/v1/stores/${markerInfo.uuid}/reviews/${reviewUUID}`,
+      if (markerInfo && userData) {
+        const reviewToDelete = reviews.find(
+          (review) => review.uuid === reviewUUID,
         );
-        setReviews(reviews.filter((review) => review.uuid !== reviewUUID));
+        if (reviewToDelete) {
+          if (reviewToDelete.nickname === userData.nickname) {
+            await axiosInstance.delete(
+              `/v1/stores/${markerInfo.uuid}/reviews/${reviewUUID}`,
+            );
+            setReviews((prevReviews) =>
+              prevReviews.filter((review) => review.uuid !== reviewUUID),
+            );
+            success('리뷰가 삭제되었습니다.');
+          }
+        } else {
+          console.log('리뷰를 찾을 수 없습니다.');
+        }
       }
     } catch (error) {
       console.error('Error deleting review:', error);
@@ -96,12 +114,14 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
             className="border mt-1 ml-1 p-4 mb-2 rounded flex justify-between items-center"
           >
             <p className="w-[400px]">{review.review}</p>
-            <button
-              onClick={() => handleReviewDelete(review.uuid)}
-              className="w-[55px] px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
-            >
-              삭제
-            </button>
+            {userData?.nickname === review.nickname && (
+              <button
+                onClick={() => handleReviewDelete(review.uuid)}
+                className="w-[55px] px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+              >
+                삭제
+              </button>
+            )}
           </div>
         ))}
       </div>
