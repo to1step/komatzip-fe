@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../api/apiInstance';
-import { StoreEntireInfo, StoreReview, Store } from '@to1step/propose-backend';
+import { StoreEntireInfo, StoreReviewWithUser } from '@to1step/propose-backend';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/module';
 import { success } from '../../util/toastify';
 
 interface ReviewListProps {
-  markerInfo: StoreEntireInfo | Store | null;
+  markerInfo: StoreEntireInfo;
 }
 
 const ReviewList = ({ markerInfo }: ReviewListProps) => {
   const [prevMarkerInfo, setPrevMarkerInfo] = useState<StoreEntireInfo | null>(
     null,
   );
-  const [reviews, setReviews] = useState<StoreReview[]>([]);
+  const [reviews, setReviews] = useState<StoreReviewWithUser[]>([]);
   const [reviewText, setReviewText] = useState<string>('');
 
   const userData = useSelector((state: RootState) => state.user.userData);
@@ -48,6 +48,7 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
           review: reviewText,
           user: userData.email,
           nickname: userData.nickname,
+          myReview: false,
         };
 
         const response = await axiosInstance.post(

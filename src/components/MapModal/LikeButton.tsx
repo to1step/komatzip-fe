@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { Store, StoreEntireInfo } from '@to1step/propose-backend';
+import { StoreEntireInfo } from '@to1step/propose-backend';
 
 interface LikeButtonProps {
-  markerInfo: StoreEntireInfo | Store;
+  markerInfo: StoreEntireInfo;
 }
 
 const LikeButton = ({ markerInfo }: LikeButtonProps) => {
@@ -20,9 +20,13 @@ const LikeButton = ({ markerInfo }: LikeButtonProps) => {
       const saveUserLike = async () => {
         try {
           if (markerLike && markerInfo) {
-            await axios.post(`/v1/stores/${markerInfo.uuid}/like`, null, {});
+            await axios.post(
+              `/api/v1/stores/${markerInfo.uuid}/like`,
+              null,
+              {},
+            );
           } else if (!markerLike && markerInfo) {
-            await axios.delete(`/v1/stores/${markerInfo.uuid}/like`, {});
+            await axios.delete(`/api/v1/stores/${markerInfo.uuid}/like`, {});
           }
           localStorage.setItem(
             `like-${markerInfo.uuid}`,

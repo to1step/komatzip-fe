@@ -111,8 +111,11 @@ const CourseModal = ({ closeModal, store, uuid }: CourseModalProps) => {
             </section>
           </section>
         </main>
-        {isStoreModalOpen && (
-          <PostModal closeModal={closeStoreModal} store={store} />
+        {isStoreModalOpen && store && (
+          <PostModal
+            closeModal={closeStoreModal}
+            store={store as StoreEntireInfo}
+          />
         )}
       </article>
     </div>

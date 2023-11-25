@@ -49,7 +49,7 @@ const StoreNames = ({ stores, uuid }: StoreNamesProps) => {
             }
           }}
         >
-          <div className="absolute h-full border-l-8 border-black border-orange-300 mx-2.5"></div>
+          <div className="absolute h-full border-l-8 border-orange-300 mx-2.5"></div>
           <div>
             <div className="relative h-[50px]">
               {typeof store !== 'string' && (

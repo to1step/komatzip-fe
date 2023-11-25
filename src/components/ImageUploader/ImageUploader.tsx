@@ -1,9 +1,41 @@
 import axiosInstance from '../../api/apiInstance';
-import { useState } from 'react';
-import ModalImage from './ZoomImage';
+import { useState, useEffect } from 'react';
+import ZoomImage from './ZoomImage';
+import { StoreEntireInfo, StoreImage } from '@to1step/propose-backend';
 
-const ImageUploader = () => {
-  const [images, setImages] = useState<string[]>([]);
+interface ImageUploadProps {
+  markerInfo: StoreEntireInfo;
+}
+
+const ImageUploader = ({ markerInfo }: ImageUploadProps) => {
+  const [images, setImages] = useState<StoreImage[]>([]);
+
+  useEffect(() => {
+    if (markerInfo && markerInfo.storeReviewImages) {
+      setImages(markerInfo.storeReviewImages);
+    } else {
+      setImages([]);
+    }
+  }, [markerInfo]);
+
+  const fetchStoreImages = async () => {
+    try {
+      if (markerInfo) {
+        const response = await axiosInstance.get<StoreEntireInfo>(
+          `/v1/stores/${markerInfo.uuid}`,
+        );
+        const storeInfo = response.data;
+        const storeImages = storeInfo.storeReviewImages || [];
+        setImages(storeImages);
+      }
+    } catch (error) {
+      console.error('Error fetching store images:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStoreImages();
+  }, [markerInfo]);
 
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -14,17 +46,40 @@ const ImageUploader = () => {
     const formData = new FormData();
     formData.append('images', imageFile);
 
-    const response = await axiosInstance
-      .post('/v1/images', formData, {
+    try {
+      const response = await axiosInstance.post('/v1/images', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
-      })
-      .catch(() => null);
+      });
 
-    if (response?.data?.imageLocationList?.[0]) {
-      setImages((prevImages) => [
-        ...prevImages,
-        response.data.imageLocationList[0],
-      ]);
+      if (response?.data?.imageLocationList) {
+        const imageSrc = response.data.imageLocationList[0] as string;
+        const storeUUID = markerInfo.uuid;
+
+        if (storeUUID) {
+          const imageResponse = await axiosInstance.post(
+            `/v1/stores/${storeUUID}/image`,
+            {
+              src: imageSrc,
+            },
+          );
+
+          console.log('서버 응답:', imageResponse.data);
+
+          if (imageResponse?.data?.image) {
+            const newImage: StoreImage = {
+              user: '',
+              store: markerInfo.uuid,
+              imageSrc: imageResponse.data.image as string,
+            };
+
+            setImages((prevImages) => [...prevImages, newImage]);
+
+            fetchStoreImages();
+          }
+        }
+      }
+    } catch (error) {
+      console.error('이미지 업로드 중 오류가 발생했습니다:', error);
     }
   };
 
@@ -53,7 +108,11 @@ const ImageUploader = () => {
             key={i}
             className="w-44 h-32 ml-2 border border-gray-300 flex justify-center items-center rounded-2xl"
           >
-            <ModalImage src={image} alt={`Uploaded ${i}`} />
+            <ZoomImage
+              key={image.imageSrc}
+              src={image.imageSrc}
+              alt={`Uploaded ${i}`}
+            />
           </div>
         ))}
       </div>

@@ -99,7 +99,7 @@ const Search = () => {
                 id="searchType"
                 value={searchType}
                 onChange={(e) => setSearchType(e.target.value)}
-                className="h-[40px] border-orange-600 border-2 border-r-0 text-sm placeholder-left px-5 border rounded-l-full rounded-r-none focus:outline-none"
+                className="h-[40px] border-orange-600 border-2 border-r-0 text-sm placeholder-left px-5 rounded-l-full rounded-r-none focus:outline-none"
               >
                 <option value="tags">태그 검색</option>
                 <option value="keyword">매장 검색</option>
