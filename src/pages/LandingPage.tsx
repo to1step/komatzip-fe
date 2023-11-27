@@ -8,12 +8,7 @@ import MultiCarousel from '../components/MultiCarousel/MultiCarousel';
 import SearchTopstore from '../components/Search/SearchTopstore';
 import SearchTopcourse from '../components/Search/SearchTopcourse';
 
-interface LandingPageProps {
-  category: number;
-  likeCount: number;
-}
-
-const LandingPage = ({ category, likeCount }: LandingPageProps) => {
+const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = React.useState<Store[]>([]);
   const [courseData, setCourseData] = React.useState<Course[]>([]);
@@ -111,12 +106,7 @@ const LandingPage = ({ category, likeCount }: LandingPageProps) => {
                       key={item.uuid}
                       className="bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center w-[600px]"
                     >
-                      <SearchTopcourse
-                        item={item as Course}
-                        uuid={item.uuid}
-                        likeCount={likeCount}
-                        category={category}
-                      />
+                      <SearchTopcourse item={item as Course} uuid={item.uuid} />
                     </div>
                   ))}
                 </MultiCarousel>

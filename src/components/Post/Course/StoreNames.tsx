@@ -7,8 +7,6 @@ import { StoreCategory } from '@to1step/propose-backend/src/database/types/enums
 interface StoreNamesProps {
   stores: (CourseEntireInfo & { category: StoreCategory })[] | string[];
   uuid: string;
-  likeCount: number;
-  category: number;
 }
 
 const StoreNames = ({ stores, uuid }: StoreNamesProps) => {

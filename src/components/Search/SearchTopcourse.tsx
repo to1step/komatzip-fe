@@ -5,17 +5,7 @@ import User from '../Post/Course/User';
 import { Course } from '@to1step/propose-backend';
 import StoreNames from '../Post/Course/StoreNames';
 
-const SearchTopcourse = ({
-  item,
-  uuid,
-  category,
-  likeCount,
-}: {
-  item: Course;
-  uuid: string;
-  category: number;
-  likeCount: number;
-}) => {
+const SearchTopcourse = ({ item, uuid }: { item: Course; uuid: string }) => {
   return (
     <article>
       <div className="bg-blue-100 bg-opacity-30">
@@ -36,12 +26,7 @@ const SearchTopcourse = ({
           </section>
           <section className="w-4/5 h-[250px] m-8 bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
             <section className="w-3/4">
-              <StoreNames
-                stores={item.stores}
-                uuid={uuid}
-                likeCount={likeCount}
-                category={category}
-              />
+              <StoreNames stores={item.stores} uuid={uuid} />
             </section>
             {/* <section className="flex justify-center items-center">
             <section>

@@ -46,8 +46,6 @@ const MyPage = () => {
     }
   }, [userData, dispatch, navigate]);
 
-<<<<<<< HEAD
-=======
   const updateProfile = (img: string) => {
     if (!userData) return;
 
@@ -59,7 +57,15 @@ const MyPage = () => {
     );
   };
 
->>>>>>> b82028010723d5734b12d922c6759492deb1f204
+
+    dispatch(
+      loginAction({
+        ...userData,
+        profileImage: img,
+      }),
+    );
+  };
+
   return (
     <article className="h-screen flex flex-col justify-center items-center">
       <header className="w-full">
