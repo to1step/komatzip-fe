@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CourseModal from '../../Modal/CourseModal';
 import CategorySymbol from './CategorySymbol';
 import { StoreCategory } from '@to1step/propose-backend/src/database/types/enums';
+import ModalPortal from '../../Modal/ModalPortal';
 
 interface StoreNamesProps {
   stores: (CourseEntireInfo & { category: StoreCategory })[] | string[];
@@ -65,11 +66,13 @@ const StoreNames = ({ stores, uuid }: StoreNamesProps) => {
       ))}
 
       {isModalOpen && (
-        <CourseModal
-          closeModal={closeModal}
-          uuid={selectedStoreUuid}
-          likeCount={likeCount}
-        />
+        <ModalPortal>
+          <CourseModal
+            closeModal={closeModal}
+            uuid={selectedStoreUuid}
+            likeCount={likeCount}
+          />
+        </ModalPortal>
       )}
     </section>
   );

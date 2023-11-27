@@ -7,6 +7,7 @@ import Tags from '../../components/Post/Tags';
 import { Store } from '@to1step/propose-backend';
 import PostModal from '../Modal/PostModal';
 import StoreCategory from '../Post/Store/StoreSymbol';
+import ModalPortal from '../Modal/ModalPortal';
 
 const SearchTopstore = ({ item }: { item: Store }) => {
   const [selectedStore, setSelectedStore] = useState<Store | null>(null);
@@ -58,7 +59,9 @@ const SearchTopstore = ({ item }: { item: Store }) => {
         </section>
       </main>
       {isModalOpen && selectedStore && (
-        <PostModal store={selectedStore} closeModal={closeModal} />
+        <ModalPortal>
+          <PostModal store={selectedStore} closeModal={closeModal} />
+        </ModalPortal>
       )}
     </div>
   );

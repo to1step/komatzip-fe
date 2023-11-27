@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import axiosInstance from '../../api/apiInstance';
 import ProfileImage from '../../components/MyPage/ProfileImage';
 import NickName from '../../components/MyPage/NickName';
@@ -57,15 +57,6 @@ const MyPage = () => {
     );
   };
 
-
-    dispatch(
-      loginAction({
-        ...userData,
-        profileImage: img,
-      }),
-    );
-  };
-
   return (
     <article className="h-screen flex flex-col justify-center items-center">
       <header className="w-full">
@@ -82,10 +73,16 @@ const MyPage = () => {
           <div>
             <section>
               {userData ? (
-                <ProfileImage
-                  userData={userData}
-                  updateProfile={updateProfile}
-                />
+                <div>
+                  <ProfileImage
+                    userData={userData}
+                    updateProfile={updateProfile}
+                  />
+                  <ProfileImage
+                    userData={userData}
+                    updateProfile={updateProfile}
+                  />
+                </div>
               ) : (
                 <p className="bg-blue-200 rounded-full border-2 w-[150px] h-[150px] flex justify-center items-center">
                   No image

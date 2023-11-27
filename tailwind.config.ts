@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'topcourse-bg01': "url('/img/topcourse-bg01')",
-        'topcourse-bg02': "url('/img/topcourse-bg02.png')",
+        'topcourse-bg01': "url('/images/topcourse-bg01')",
+        'topcourse-bg02': "url('/images/topcourse-bg02.png')",
       },
       fontFamily: {
         'custom-sea': ['Yeongdeok Sea', 'sans'],

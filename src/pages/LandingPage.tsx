@@ -7,11 +7,13 @@ import Header from '../components/Commons/Header';
 import MultiCarousel from '../components/MultiCarousel/MultiCarousel';
 import SearchTopstore from '../components/Search/SearchTopstore';
 import SearchTopcourse from '../components/Search/SearchTopcourse';
+import StoreSkeleton from '../components/Skeleton/StoreSkeleton';
+import CourseSkeleton from '../components/Skeleton/CourseSkeleton';
 
 const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
-  const [data, setData] = React.useState<Store[]>([]);
-  const [courseData, setCourseData] = React.useState<Course[]>([]);
+  const [data, setData] = React.useState<Store[]>();
+  const [courseData, setCourseData] = React.useState<Course[]>();
   const [courseUuid, setCourseUuid] = useState<string[]>([]);
   console.log(courseUuid);
 
@@ -81,13 +83,24 @@ const LandingPage = () => {
             </div>
             <article className="flex justify-center">
               <div className="w-10/12">
-                <MultiCarousel type={'store'}>
-                  {data.map((item) => (
-                    <div key={item.uuid} className="w-1/5 flex justify-center">
-                      <SearchTopstore item={item as Store} />
-                    </div>
-                  ))}
-                </MultiCarousel>
+                {!data ? (
+                  <div className="flex justify-center gap-5">
+                    {['1', '2', '3', '4'].map(() => (
+                      <StoreSkeleton />
+                    ))}
+                  </div>
+                ) : (
+                  <MultiCarousel type={'store'}>
+                    {data.map((item) => (
+                      <div
+                        key={item.uuid}
+                        className="w-1/5 flex justify-center"
+                      >
+                        <SearchTopstore item={item as Store} />
+                      </div>
+                    ))}
+                  </MultiCarousel>
+                )}
               </div>
             </article>
           </section>
@@ -100,16 +113,27 @@ const LandingPage = () => {
             </div>
             <article className="flex justify-center">
               <div className="w-10/12 mb-20">
-                <MultiCarousel autoPlay={true} type={'course'}>
-                  {courseData.map((item) => (
-                    <div
-                      key={item.uuid}
-                      className="bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center w-[600px]"
-                    >
-                      <SearchTopcourse item={item as Course} uuid={item.uuid} />
-                    </div>
-                  ))}
-                </MultiCarousel>
+                {!courseData ? (
+                  <div className="flex justify-center gap-5">
+                    {['1', '2'].map(() => (
+                      <CourseSkeleton />
+                    ))}
+                  </div>
+                ) : (
+                  <MultiCarousel autoPlay={true} type={'course'}>
+                    {courseData.map((item) => (
+                      <div
+                        key={item.uuid}
+                        className="bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center w-[600px]"
+                      >
+                        <SearchTopcourse
+                          item={item as Course}
+                          uuid={item.uuid}
+                        />
+                      </div>
+                    ))}
+                  </MultiCarousel>
+                )}
               </div>
             </article>
           </section>
