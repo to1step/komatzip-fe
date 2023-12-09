@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../api/apiInstance';
-import { StoreEntireInfo, StoreReviewWithUser } from '@to1step/propose-backend';
+import {
+  StoreEntireInfo,
+  Store,
+  StoreReviewWithUser,
+} from '@to1step/propose-backend';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/module';
 import { success } from '../../util/toastify';
@@ -43,7 +47,7 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
   const handleReviewSubmit = async () => {
     try {
       if (markerInfo && userData) {
-        const newReview = {
+        const newReview: StoreReviewWithUser = {
           uuid: Math.random().toString(),
           review: reviewText,
           user: userData.email,
