@@ -4,18 +4,16 @@ import Name from '../../components/Post/Name';
 import Location from '../../components/Post/Store/Location';
 import Description from '../../components/Post/Store/Description';
 import Tags from '../../components/Post/Tags';
-import { StoreEntireInfo } from '@to1step/propose-backend';
+import { Store } from '@to1step/propose-backend';
 import PostModal from '../Modal/PostModal';
 import StoreCategory from '../Post/Store/StoreSymbol';
 import ModalPortal from '../Modal/ModalPortal';
 
-const SearchTopstore = ({ item }: { item: StoreEntireInfo }) => {
-  const [selectedStore, setSelectedStore] = useState<StoreEntireInfo | null>(
-    null,
-  );
+const SearchTopstore = ({ item }: { item: Store }) => {
+  const [selectedStore, setSelectedStore] = useState<Store | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = (store: StoreEntireInfo) => {
+  const openModal = (store: Store) => {
     setSelectedStore(store);
     setIsModalOpen(true);
   };

@@ -1,4 +1,4 @@
-import { StoreEntireInfo } from '@to1step/propose-backend';
+import { Store, StoreEntireInfo } from '@to1step/propose-backend';
 // import PostModalMap from './PostModalMap';
 import MiniMap from '../Kakaomap/MinMap';
 import LikeButton from '../MapModal/LikeButton';
@@ -10,7 +10,7 @@ import ReviewList from '../MapModal/ReviewList';
 // 매장 랭킹, 검색 결과의 매장을 클릭했을 때 출력되는 컴포넌트
 
 interface PostModalProps {
-  store: StoreEntireInfo;
+  store: StoreEntireInfo | Store;
   closeModal: () => void;
 }
 

@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../api/apiInstance';
-import { StoreEntireInfo, StoreReviewWithUser } from '@to1step/propose-backend';
+import {
+  StoreEntireInfo,
+  Store,
+  StoreReviewWithUser,
+} from '@to1step/propose-backend';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/module';
 import { success } from '../../util/toastify';
 
 interface ReviewListProps {
-  markerInfo: StoreEntireInfo;
+  markerInfo: StoreEntireInfo | Store | null;
 }
 
 const ReviewList = ({ markerInfo }: ReviewListProps) => {
@@ -20,7 +24,6 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
 
   useEffect(() => {
     if (markerInfo && prevMarkerInfo !== markerInfo) {
-      console.log('markerInfo 데이터:', markerInfo);
       const fetchStoreInfo = async () => {
         try {
           const response = await axiosInstance.get<StoreEntireInfo>(
@@ -43,7 +46,7 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
   const handleReviewSubmit = async () => {
     try {
       if (markerInfo && userData) {
-        const newReview = {
+        const newReview: StoreReviewWithUser = {
           uuid: Math.random().toString(),
           review: reviewText,
           user: userData.email,

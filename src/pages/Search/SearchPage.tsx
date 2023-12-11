@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import SearchTopcourse from '../../components/Search/SearchTopcourse';
 import SearchTopstore from '../../components/Search/SearchTopstore';
-import { Course, StoreEntireInfo } from '@to1step/propose-backend';
+import { Course, Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
 import Header from '../../components/Commons/Header';
 
@@ -54,7 +54,7 @@ const SearchPage = () => {
         <article className="flex flex-wrap">
           {searchResultsStore.map((item) => (
             <div key={item.uuid} className="w-1/5 flex justify-center">
-              <SearchTopstore item={item as StoreEntireInfo} />
+              <SearchTopstore item={item as Store} />
             </div>
           ))}
         </article>

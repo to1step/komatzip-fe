@@ -1,18 +1,18 @@
 import axiosInstance from '../../api/apiInstance';
 import { useState, useEffect } from 'react';
 import ZoomImage from './ZoomImage';
-import { StoreEntireInfo, StoreImage } from '@to1step/propose-backend';
+import { Store, StoreEntireInfo, StoreImage } from '@to1step/propose-backend';
 
 interface ImageUploadProps {
-  markerInfo: StoreEntireInfo;
+  markerInfo: StoreEntireInfo | Store;
 }
 
 const ImageUploader = ({ markerInfo }: ImageUploadProps) => {
   const [images, setImages] = useState<StoreImage[]>([]);
 
   useEffect(() => {
-    if (markerInfo && markerInfo.storeReviewImages) {
-      setImages(markerInfo.storeReviewImages);
+    if (markerInfo && (markerInfo as StoreEntireInfo).storeReviewImages) {
+      setImages((markerInfo as StoreEntireInfo).storeReviewImages);
     } else {
       setImages([]);
     }

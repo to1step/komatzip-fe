@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { StoreEntireInfo } from '@to1step/propose-backend';
+import { Store, StoreEntireInfo } from '@to1step/propose-backend';
 
 interface LikeButtonProps {
-  markerInfo: StoreEntireInfo;
+  markerInfo: StoreEntireInfo | Store;
 }
 
 const LikeButton = ({ markerInfo }: LikeButtonProps) => {

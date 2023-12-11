@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Course, StoreEntireInfo } from '@to1step/propose-backend';
+import { Course, Store } from '@to1step/propose-backend';
 import axiosInstance from '../api/apiInstance';
 import { RootState } from '../redux/module';
 import Header from '../components/Commons/Header';
@@ -12,7 +12,7 @@ import CourseSkeleton from '../components/Skeleton/CourseSkeleton';
 
 const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
-  const [data, setData] = React.useState<StoreEntireInfo[]>();
+  const [data, setData] = React.useState<Store[]>();
   const [courseData, setCourseData] = React.useState<Course[]>();
   const [courseUuid, setCourseUuid] = useState<string[]>([]);
   console.log(courseUuid);
@@ -20,7 +20,7 @@ const LandingPage = () => {
   useEffect(() => {
     if (address) {
       axiosInstance
-        .get<StoreEntireInfo[]>(
+        .get<Store[]>(
           `/v1/rank?type=store&region=${encodeURIComponent(address)}`,
           // `/v1/rank?type=store&region=서울특별시%20강남구`,
         )
@@ -96,7 +96,7 @@ const LandingPage = () => {
                         key={item.uuid}
                         className="w-1/5 flex justify-center"
                       >
-                        <SearchTopstore item={item as StoreEntireInfo} />
+                        <SearchTopstore item={item as Store} />
                       </div>
                     ))}
                   </MultiCarousel>
