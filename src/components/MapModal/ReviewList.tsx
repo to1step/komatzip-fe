@@ -24,7 +24,6 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
 
   useEffect(() => {
     if (markerInfo && prevMarkerInfo !== markerInfo) {
-      console.log('markerInfo 데이터:', markerInfo);
       const fetchStoreInfo = async () => {
         try {
           const response = await axiosInstance.get<StoreEntireInfo>(

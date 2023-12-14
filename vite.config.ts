@@ -1,4 +1,3 @@
-// vite.config.ts
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -13,7 +12,10 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      '/v1': 'https://api.to1step.shop',
+      '/api/v1': {
+        target: 'https://api.to1step.shop',
+        changeOrigin: true,
+      },
     },
   },
   define: {
