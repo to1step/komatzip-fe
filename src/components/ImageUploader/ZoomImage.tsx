@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-interface ModalImageProps {
+interface ZoomImageProps {
   src: string;
   alt: string;
 }
 
-const ZoomImage = ({ src, alt }: ModalImageProps) => {
+const ZoomImage = ({ src, alt }: ZoomImageProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleClick = () => {

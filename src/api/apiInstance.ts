@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from '../util/cookie.util';
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_PUBLIC_API ?? 'http://localhost:3000',
+  baseURL: import.meta.env.VITE_PUBLIC_API ?? 'http://localhost:3000/api',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -25,11 +25,11 @@ axiosInstance.interceptors.response.use(
   },
   async (error) => {
     if (error.response && error.response.data.code === 1101) {
-      // 토큰 만료 시 '/v1/auth/refresh-token'으로 토큰을 갱신하는 요청
+      // 토큰 만료 시 '/api/v1/auth/refresh-token'으로 토큰을 갱신하는 요청
       try {
         const refresh_token = getToken();
         const refreshResponse = await axiosInstance.post(
-          '/v1/auth/refresh-token',
+          '/api/v1/auth/refresh-token',
           {
             grant_type: 'refresh_token',
             refresh_token: refresh_token,

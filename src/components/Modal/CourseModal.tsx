@@ -1,15 +1,12 @@
-import { useEffect, useState } from 'react';
-import { Store, StoreEntireInfo } from '@to1step/propose-backend';
-import PostModal from './PostModal';
+import { useEffect } from 'react';
 import { CourseEntireInfo } from '@to1step/propose-backend';
 import axiosInstance from '../../api/apiInstance';
 // import PostModalMap from './PostModalMap';
 
 // 코스의 매장목록을 클릭했을 때 출력되는 컴포넌트
 // TODO : Stores 대신 uuid를 클릭하게 만들기
-
+// TODO: post Modal을 사용하지 않는 것 확인 (기획에 해당 부분이 존재하지 않음) -> 필요시 다시 추가
 interface CourseModalProps {
-  store?: StoreEntireInfo | Store;
   closeModal: () => void;
   uuid: string | null;
   // courseUUID: string;
@@ -17,9 +14,7 @@ interface CourseModalProps {
   likeCount: CourseEntireInfo | number | undefined;
 }
 
-const CourseModal = ({ closeModal, store, uuid }: CourseModalProps) => {
-  const [isStoreModalOpen, setIsStoreModalOpen] = useState(false);
-
+const CourseModal = ({ closeModal, uuid }: CourseModalProps) => {
   useEffect(() => {
     if (uuid) {
       axiosInstance
@@ -34,14 +29,6 @@ const CourseModal = ({ closeModal, store, uuid }: CourseModalProps) => {
         });
     }
   }, [uuid]);
-
-  const openStoreModal = () => {
-    setIsStoreModalOpen(true);
-  };
-
-  const closeStoreModal = () => {
-    setIsStoreModalOpen(false);
-  };
 
   return (
     <div className="z-50 fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-500 bg-opacity-80">
@@ -81,7 +68,7 @@ const CourseModal = ({ closeModal, store, uuid }: CourseModalProps) => {
                 style={{ backgroundImage: 'url(/images/topcourse-bg04.jpg)' }}
               >
                 <h3 className="text-center w-3/4 bg-amber-100 bg-opacity-90 text-white text-3xl">
-                  <button onClick={openStoreModal} className="font-black">
+                  <button className="font-black">
                     매장목록 :{/* <StoreNames /> */}
                   </button>
                 </h3>
@@ -111,9 +98,6 @@ const CourseModal = ({ closeModal, store, uuid }: CourseModalProps) => {
             </section>
           </section>
         </main>
-        {isStoreModalOpen && (
-          <PostModal closeModal={closeStoreModal} store={store} />
-        )}
       </article>
     </div>
   );
