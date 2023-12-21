@@ -82,7 +82,6 @@ const Header = ({
           {showMainHeaderButton &&
             (myInfo?.isLoggedIn ? (
               <>
-                {/* <Link to "/">여기가 수도권</Link>showSmallTitle */}
                 <Link
                   to="/mypage"
                   className="text-xl my-[30px] mr-[50px] text-orange-200 font-semibold hover:text-orange-900"

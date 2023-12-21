@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axiosInstance from '../../api/apiInstance';
 import ProfileImage from '../../components/MyPage/ProfileImage';
 import NickName from '../../components/MyPage/NickName';
@@ -6,10 +6,8 @@ import Email from '../../components/MyPage/Email';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserMyInfo, loginAction } from '../../redux/module/user';
 import { RootState } from '../../redux/module';
-// import EmailNotification from '../../components/MyPage/EmailNotification';
 import AccountDeletion from '../../components/MyPage/AccountDeletion';
 import Header from '../../components/Commons/Header';
-// import SNSInfo from '../../components/MyPage/SNSInfo';
 import { VscMail } from 'react-icons/vsc';
 import {
   IoAlertCircleOutline,
@@ -160,11 +158,6 @@ const MyPage = () => {
                   <IoEarthSharp size={26} />
                 </li>
                 <li className="text-xl font-semibold mr-8">소셜 정보</li>
-                {/* {userData ? (
-                <SNSInfo email={userData.email} />
-              ) : (
-                <p className="mr-8">SNS 준비중</p>
-              )} */}
               </ul>
               <ul className="flex m-4">
                 <div className="flex items-center justify-center ml-4">
@@ -186,25 +179,7 @@ const MyPage = () => {
                   </li>
                 </div>
               </ul>
-              <ul>
-                {/* <li>
-                  {userData ? (
-                    <EmailNotification
-                      commentAlarm={userData.commentAlarm}
-                      updateAlarm={userData.updateAlarm}
-                      onCommentAlarmToggle={userData.commentAlarm}
-                      onUpdateAlarmToggle={userData.updateAlarm}
-                    />
-                  ) : (
-                    <div className="flex">
-                      <IoNotificationsOutline size={26} />
-                      <p className="text-xl font-semibold mr-8">
-                        이메일 수신 설정
-                      </p>
-                    </div>
-                  )}
-                </li> */}
-              </ul>
+              <ul></ul>
               <AccountDeletion />
             </section>
           )}

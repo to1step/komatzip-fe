@@ -82,7 +82,6 @@ function App() {
     <div>
       <main>
         <Routes>
-          {/* IF 문임  */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/map" element={<MapPage />} />
