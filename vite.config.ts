@@ -20,5 +20,8 @@ export default defineConfig({
   },
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    'process.env.KAKAO_JAVASCRIPT_KEY': JSON.stringify(
+      process.env.KAKAO_JAVASCRIPT_KEY || '',
+    ),
   },
 });
