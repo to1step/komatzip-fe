@@ -12,7 +12,6 @@ import { removeCookie } from '../../util/cookie.util';
 
 interface HeaderProps {
   showTitle?: boolean;
-  showSmallTitle?: boolean;
   showBackButtonIcon?: boolean;
   showSearch?: boolean;
   showMainHeaderButton?: boolean;
@@ -20,7 +19,6 @@ interface HeaderProps {
 }
 
 const Header = ({
-  showSmallTitle = true, // 여기가 수도권 작은 로고버튼
   showTitle = true, // 여기가 수도권 큰 로고버튼
   showBackButtonIcon = false, // 뒤로가기 버튼
   showSearch = false, // 검색창 및 맵페이지 연결 버튼
