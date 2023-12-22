@@ -139,7 +139,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
           Math.pow(clickedLat - markerLat, 2),
       );
 
-      return distance < 2.1;
+      return distance < 1.1;
     });
 
     return recommendedCourses;
