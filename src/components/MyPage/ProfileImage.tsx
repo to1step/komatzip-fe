@@ -44,13 +44,17 @@ const ProfileImage = ({ userData, updateProfile }: IProps) => {
   };
 
   return (
-    <section>
-      <div className="bg-blue-300 rounded-full border-2 w-[150px] h-[150px] flex justify-center items-center">
+    <section className="relative">
+      <div className="w-[150px] h-[150px] relative">
         {userData.profileImage && (
-          <img src={userData.profileImage} alt="프로필 이미지" />
+          <img
+            src={userData.profileImage}
+            alt="프로필 이미지"
+            className="w-full h-full object-cover rounded-full border-2 "
+          />
         )}
       </div>
-      <div className="my-2 flex flex-row justify-center items-center">
+      <div className="flex absolute top-12 left-10 m-2">
         <input
           type="file"
           accept="image/*"
@@ -60,7 +64,7 @@ const ProfileImage = ({ userData, updateProfile }: IProps) => {
         />
         <label
           htmlFor="imageUploadInput"
-          className="w-32 bg-yellow-500 text-white rounded-full text-center"
+          className="bg-yellow-500 text-white rounded-full text-center"
         >
           <IoCamera size={35} />
         </label>
