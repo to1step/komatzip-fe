@@ -66,25 +66,6 @@ const SearchPage = () => {
           onPageChange={handlePageChange}
         /> */}
       </section>
-      <section>
-        <h1 className="text-center mb-12 mt-20 h-[30px] text-4xl font-bold">
-          코스 검색 결과
-        </h1>
-        <article className="flex flex-wrap">
-          {searchResultsCourse.map((item) => (
-            <div key={item.uuid} className="w-1/4 flex justify-center">
-              <SearchTopcourse item={item as Course} uuid={item.uuid} />
-            </div>
-          ))}
-        </article>
-        {/* <Pagination
-          currentPage={currentPage}
-          totalItems={totalCourseItems}
-          itemsPerPage={limit}
-          totalPages={totalPagesCourse}
-          onPageChange={handlePageChange}
-        /> */}
-      </section>
     </main>
   );
 };
