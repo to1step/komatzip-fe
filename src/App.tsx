@@ -12,7 +12,6 @@ import { User } from '@to1step/propose-backend';
 import Login from './pages/Login/Login';
 import SignUp from './pages/Signup/Signup';
 import MyPage from './pages/MyPage/MyPage';
-import MyCourses from './pages/MyCourses/MyCourses';
 import { UserMyInfo, loginAction } from './redux/module/user';
 
 function App() {
@@ -91,7 +90,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/mycourses" element={<MyCourses />} />
         </Routes>
       </main>
     </div>

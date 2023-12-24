@@ -51,11 +51,6 @@ function SideBar({ onClose }: SideBarProps) {
               About Me
             </Link>
           </li>
-          <li className="mb-2">
-            <Link to="/" className="hover:text-orange-200">
-              따라란
-            </Link>
-          </li>
         </ul>
       </div>
     </div>
