@@ -15,6 +15,7 @@ import {
   IoHeartSharp,
 } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
+import StoreRegistrationModal from '../../components/Modal/StoreRegistrationModal/StoreRegistrationModal';
 
 const MyPage = () => {
   const userData = useSelector((state: RootState) => state.user.userData);
@@ -22,6 +23,15 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const [selectedTab, setSelectedTab] = useState('내 정보');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleTabClick = (tabName: string) => {
     setSelectedTab(tabName);
@@ -197,7 +207,13 @@ const MyPage = () => {
               <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto">
                 <IoAlertCircleOutline size={26} />
                 <h3>등록된 가게가 없습니다.</h3>
-                <button className="font-semibold">등록하러 가기</button>
+                <button onClick={handleOpenModal} className="font-semibold">
+                  등록하러 가기
+                </button>
+
+                {isModalOpen && (
+                  <StoreRegistrationModal onClose={handleCloseModal} />
+                )}
               </section>
             )}
           </section>
