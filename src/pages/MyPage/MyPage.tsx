@@ -98,16 +98,14 @@ const MyPage = () => {
         </section>
         <section className="mt-8">
           <section className="flex">
-            <div
+            <button
               className={
                 selectedTab === '내 정보'
                   ? 'bg-yellow-400 w-1/3 text-center rounded-t-2xl bg-opacity-70'
                   : 'bg-yellow-300 w-1/3 text-center rounded-t-2xl bg-opacity-40'
               }
               onClick={() => handleTabClick('내 정보')}
-            >
-              <button>내 정보</button>
-            </div>
+            ></button>
             <div
               className={
                 selectedTab === '내 코스'

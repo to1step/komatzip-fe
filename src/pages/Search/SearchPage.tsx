@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
-import SearchTopcourse from '../../components/Search/SearchTopcourse';
 import SearchTopstore from '../../components/Search/SearchTopstore';
-import { Course, Store } from '@to1step/propose-backend';
+import { Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
 import Header from '../../components/Commons/Header';
 
