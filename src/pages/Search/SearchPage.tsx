@@ -13,9 +13,7 @@ const SearchPage = () => {
   const searchResultsStore = useSelector(
     (state: RootState) => state.search.searchResultsStore,
   );
-  const searchResultsCourse = useSelector(
-    (state: RootState) => state.search.searchResultsCourse,
-  );
+
   const searchQuery = useSelector(
     (state: RootState) => state.search.searchQuery,
   );
