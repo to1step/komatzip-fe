@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axiosInstance from '../../api/apiInstance';
 import ProfileImage from '../../components/MyPage/ProfileImage';
 import NickName from '../../components/MyPage/NickName';
@@ -25,13 +25,13 @@ const MyPage = () => {
   const [selectedTab, setSelectedTab] = useState('내 정보');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenModal = () => {
+  const openModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
-  };
+  }, []);
 
   const handleTabClick = (tabName: string) => {
     setSelectedTab(tabName);
@@ -66,7 +66,7 @@ const MyPage = () => {
   };
 
   return (
-    <article className="flex flex-col justify-center items-center">
+    <article className="relative flex flex-col justify-center items-center">
       <header className="w-full">
         <Header
           showTitle={true}
@@ -76,7 +76,7 @@ const MyPage = () => {
           showHamburgerButton={true}
         />
       </header>
-      <main className="w-3/4 flex-row justify-center items-center h-screen ">
+      <main className="w-3/4 flex-row justify-center items-center h-screen relative">
         <section className="bg-white rounded-3xl">
           <div className="flex flex-col justify-center items-center mx-4 mb-4 h-[280px]">
             <section>
@@ -107,7 +107,7 @@ const MyPage = () => {
             </section>
           </div>
         </section>
-        <section className="h-3/4">
+        <section className="h-3/4 relative">
           <section className="mt-8">
             <section className="flex ">
               <button
@@ -142,7 +142,7 @@ const MyPage = () => {
               </div>
             </section>
           </section>
-          <section className="bg-white rounded-b-2xl">
+          <section className="bg-white rounded-b-2xl relative z-10">
             {selectedTab === '내 정보' && (
               <section className="w-2/3 flex flex-col items-start m-auto">
                 <ul className="flex mx-4 my-6">
@@ -204,15 +204,16 @@ const MyPage = () => {
               </section>
             )}
             {selectedTab === '내 가게' && (
-              <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto">
-                <IoAlertCircleOutline size={26} />
-                <h3>등록된 가게가 없습니다.</h3>
-                <button onClick={handleOpenModal} className="font-semibold">
-                  등록하러 가기
-                </button>
-
+              <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto relative z-0">
+                <div>
+                  <IoAlertCircleOutline size={26} />
+                  <h3>등록된 가게가 없습니다.</h3>
+                  <button onClick={() => openModal()} className="font-semibold">
+                    등록하러 가기
+                  </button>
+                </div>
                 {isModalOpen && (
-                  <StoreRegistrationModal onClose={handleCloseModal} />
+                  <StoreRegistrationModal closeModal={closeModal} />
                 )}
               </section>
             )}
