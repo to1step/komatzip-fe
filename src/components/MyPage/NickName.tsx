@@ -12,6 +12,7 @@ const NickName = ({
 }) => {
   const [editing, setEditing] = useState(false);
   const [editedNickname, setEditedNickname] = useState(nickname);
+  const [updateSuccess, setUpdateSuccess] = useState(true);
 
   const handleEdit = () => {
     setEditing(true);
@@ -19,6 +20,7 @@ const NickName = ({
 
   const handleCancel = () => {
     setEditing(false);
+    setUpdateSuccess(true);
     setEditedNickname(nickname);
   };
 
@@ -32,11 +34,14 @@ const NickName = ({
 
       if (response.status === 200) {
         setEditing(false);
+        setUpdateSuccess(true);
       } else {
         console.error('😥 닉네임 변경 실패 :', response);
+        setUpdateSuccess(false);
       }
     } catch (error) {
       console.error('😥 닉네임 변경 실패 :', error);
+      setUpdateSuccess(false);
     }
   };
 
@@ -47,7 +52,7 @@ const NickName = ({
   return (
     <ul className="flex-row">
       <li className="list-none">
-        {editing ? (
+        {editing && updateSuccess ? (
           <div className="flex">
             <p className="font-semibold text-xl">닉네임</p>
             <input
@@ -66,7 +71,7 @@ const NickName = ({
           </div>
         ) : (
           <div className="text-xl font-semibold">
-            닉네임 : {nickname}
+            닉네임 : {editing ? editedNickname : nickname}
             <button onClick={handleEdit}>수정</button>
           </div>
         )}

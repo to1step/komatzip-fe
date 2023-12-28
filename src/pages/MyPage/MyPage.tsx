@@ -86,6 +86,7 @@ const MyPage = () => {
             <section>
               {userData ? (
                 <NickName
+                  key={selectedTab}
                   nickname={userData.nickname}
                   commentAlarm={userData.commentAlarm}
                   updateAlarm={userData.updateAlarm}
@@ -138,12 +139,13 @@ const MyPage = () => {
                   </div>
                   {userData ? (
                     <NickName
+                      key={selectedTab}
                       nickname={userData.nickname}
                       commentAlarm={userData.commentAlarm}
                       updateAlarm={userData.updateAlarm}
                     />
                   ) : (
-                    <p className="text-xl font-semibold mr-8">닉네임 준비중</p>
+                    <Link to="/login">로그인하러 가기</Link>
                   )}
                 </li>
               </ul>

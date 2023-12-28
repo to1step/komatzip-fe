@@ -46,9 +46,15 @@ const ProfileImage = ({ userData, updateProfile }: IProps) => {
   return (
     <section className="relative">
       <div className="w-[150px] h-[150px] relative">
-        {userData.profileImage && (
+        {userData.profileImage ? (
           <img
             src={userData.profileImage}
+            alt="프로필 이미지"
+            className="w-full h-full object-cover rounded-full border-2 "
+          />
+        ) : (
+          <img
+            src="/images/default_profile.png"
             alt="프로필 이미지"
             className="w-full h-full object-cover rounded-full border-2 "
           />
