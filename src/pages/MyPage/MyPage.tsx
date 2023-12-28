@@ -16,6 +16,7 @@ import {
 } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import StoreRegistrationModal from '../../components/Modal/StoreRegistrationModal/StoreRegistrationModal';
+import ModalComponent from '../../components/Modal/ModalComponent';
 
 const MyPage = () => {
   const userData = useSelector((state: RootState) => state.user.userData);
@@ -142,7 +143,7 @@ const MyPage = () => {
               </div>
             </section>
           </section>
-          <section className="bg-white rounded-b-2xl relative z-10">
+          <section className="bg-white rounded-b-2xl relative">
             {selectedTab === '내 정보' && (
               <section className="w-2/3 flex flex-col items-start m-auto">
                 <ul className="flex mx-4 my-6">
@@ -213,7 +214,9 @@ const MyPage = () => {
                   </button>
                 </div>
                 {isModalOpen && (
-                  <StoreRegistrationModal closeModal={closeModal} />
+                  <ModalComponent>
+                    <StoreRegistrationModal closeModal={closeModal} />
+                  </ModalComponent>
                 )}
               </section>
             )}
