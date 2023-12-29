@@ -118,8 +118,10 @@ const MyPage = () => {
                     : 'bg-yellow-300 w-1/3 text-center rounded-t-2xl bg-opacity-40'
                 }
                 onClick={() => handleTabClick('내 정보')}
-              >내 정보</button>
-              <div
+              >
+                내 정보
+              </button>
+              <button
                 className={`${
                   selectedTab === '내 코스'
                     ? 'bg-yellow-400 '
@@ -129,9 +131,9 @@ const MyPage = () => {
                 }`}
                 onClick={() => handleTabClick('내 코스')}
               >
-                <button>내 코스</button>
-              </div>
-              <div
+                내 코스
+              </button>
+              <button
                 className={
                   selectedTab === '내 가게'
                     ? 'bg-yellow-400 rounded-t-2xl text-center w-1/3 bg-opacity-70'
@@ -139,8 +141,8 @@ const MyPage = () => {
                 }
                 onClick={() => handleTabClick('내 가게')}
               >
-                <button>내 가게</button>
-              </div>
+                내 가게
+              </button>
             </section>
           </section>
           <section className="bg-white rounded-b-2xl relative">
@@ -213,7 +215,6 @@ const MyPage = () => {
                     등록하러 가기
                   </button>
                 </div>
-
                 {isModalOpen && (
                   <ModalComponent>
                     <StoreRegistrationModal closeModal={closeModal} />
