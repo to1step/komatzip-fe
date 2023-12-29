@@ -118,7 +118,7 @@ const MyPage = () => {
                     : 'bg-yellow-300 w-1/3 text-center rounded-t-2xl bg-opacity-40'
                 }
                 onClick={() => handleTabClick('내 정보')}
-              ></button>
+              >내 정보</button>
               <div
                 className={`${
                   selectedTab === '내 코스'
@@ -205,7 +205,7 @@ const MyPage = () => {
               </section>
             )}
             {selectedTab === '내 가게' && (
-              <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto relative z-0">
+              <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto relative z-3">
                 <div>
                   <IoAlertCircleOutline size={26} />
                   <h3>등록된 가게가 없습니다.</h3>
@@ -213,6 +213,7 @@ const MyPage = () => {
                     등록하러 가기
                   </button>
                 </div>
+
                 {isModalOpen && (
                   <ModalComponent>
                     <StoreRegistrationModal closeModal={closeModal} />
