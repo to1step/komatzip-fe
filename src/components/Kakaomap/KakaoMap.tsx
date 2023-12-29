@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../api/apiInstance';
 import MarkerList from './MarkerList';
 import { StoreEntireInfo } from '@to1step/propose-backend';
 import MapModal from './MapModal';
@@ -34,13 +34,11 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(
-          `/api/v1/stores/location?region=${encodeURIComponent(address)}`,
+        const { data } = await axiosInstance.get(
+          `/v1/stores/location?region=${encodeURIComponent(address)}`,
         );
 
-        let markersData: StoreEntireInfo[] = Array.isArray(data.data)
-          ? data.data
-          : [];
+        let markersData: StoreEntireInfo[] = Array.isArray(data) ? data : [];
 
         const script = document.createElement('script');
         script.async = true;
@@ -139,7 +137,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
           Math.pow(clickedLat - markerLat, 2),
       );
 
-      return distance < 2.1;
+      return distance < 1.1;
     });
 
     return recommendedCourses;

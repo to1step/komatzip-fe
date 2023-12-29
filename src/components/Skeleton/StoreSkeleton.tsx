@@ -1,6 +1,6 @@
 const StoreSkeleton = () => {
   return (
-    <div className="mx-auto bg-white rounded shadow-lg w-96 rounded-2xl">
+    <div className="mx-auto bg-white shadow-lg w-96 rounded-2xl">
       <div className="h-48 p-3 overflow-hidden bg-gray-200 animate-pulse"></div>
       <div className="p-3 h-">
         <div className="grid grid-cols-5 gap-4 mt-2">
