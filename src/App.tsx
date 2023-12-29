@@ -52,7 +52,6 @@ function App() {
 
             const { data: locationResponseData } = await axiosInstance.get(
               `/v1/rank?type=store&region=${addressData.region_1depth_name} ${addressData.region_2depth_name}`,
-              // `/v1/rank?type=store&region=서울특별시 강남구`,
             );
 
             dispatch(
@@ -83,7 +82,6 @@ function App() {
     <div>
       <main>
         <Routes>
-          {/* IF 문임  */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/map" element={<MapPage />} />

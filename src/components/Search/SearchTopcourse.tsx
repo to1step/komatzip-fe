@@ -28,17 +28,6 @@ const SearchTopcourse = ({ item, uuid }: { item: Course; uuid: string }) => {
             <section className="w-3/4">
               <StoreNames stores={item.stores} uuid={uuid} />
             </section>
-            {/* <section className="flex justify-center items-center">
-            <section>
-              <ShortComment shortComment={item.shortComment} />
-              <LongComment longComment={item.longComment} />
-            </section>
-            <TransPorts
-              key={`rank-top-course-transports-${item.uuid}`}
-              transports={item.transports}
-            />
-            <IsPrivate isPrivate={item.isPrivate} />
-          </section> */}
           </section>
         </section>
       </div>

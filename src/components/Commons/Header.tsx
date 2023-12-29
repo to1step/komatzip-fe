@@ -19,7 +19,7 @@ interface HeaderProps {
 }
 
 const Header = ({
-  showTitle = true, // 여기가 수도권 버튼
+  showTitle = true, // 여기가 수도권 큰 로고버튼
   showBackButtonIcon = false, // 뒤로가기 버튼
   showSearch = false, // 검색창 및 맵페이지 연결 버튼
   showMainHeaderButton = true, // 로그인, 마이페이지 버튼

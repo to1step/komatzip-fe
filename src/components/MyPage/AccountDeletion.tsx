@@ -27,13 +27,15 @@ const AccountDeletion = () => {
   };
 
   return (
-    <section className="flex">
-      <IoCloseCircleOutline size={26} />
+    <section className="flex m-4 mb-10">
+      <p className="mx-4">
+        <IoCloseCircleOutline size={26} />
+      </p>
       <button
         className="text-l flex justify-center items-center"
         onClick={openModal}
       >
-        <h2 className="text-xl font-semibold mx-3">회원탈퇴</h2>
+        <h2 className="text-xl font-semibold mr-4">회원탈퇴</h2>
         <IoChevronForwardSharp size={20} />
       </button>
       {isModalOpen && (

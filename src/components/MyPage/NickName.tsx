@@ -5,13 +5,16 @@ const NickName = ({
   nickname,
   commentAlarm,
   updateAlarm,
+  profileImage,
 }: {
   nickname: string;
   commentAlarm: boolean;
   updateAlarm: boolean;
+  profileImage: string;
 }) => {
   const [editing, setEditing] = useState(false);
   const [editedNickname, setEditedNickname] = useState(nickname);
+  const [updateSuccess, setUpdateSuccess] = useState(true);
 
   const handleEdit = () => {
     setEditing(true);
@@ -19,6 +22,7 @@ const NickName = ({
 
   const handleCancel = () => {
     setEditing(false);
+    setUpdateSuccess(true);
     setEditedNickname(nickname);
   };
 
@@ -28,15 +32,19 @@ const NickName = ({
         nickname: editedNickname,
         commentAlarm,
         updateAlarm,
+        profileImage,
       });
 
       if (response.status === 200) {
         setEditing(false);
+        setUpdateSuccess(true);
       } else {
         console.error('😥 닉네임 변경 실패 :', response);
+        setUpdateSuccess(false);
       }
     } catch (error) {
       console.error('😥 닉네임 변경 실패 :', error);
+      setUpdateSuccess(false);
     }
   };
 
@@ -47,22 +55,28 @@ const NickName = ({
   return (
     <ul className="flex-row">
       <li className="list-none">
-        {editing ? (
-          <div className="text-xl font-semibold flex">
-            닉네임
+        {editing && updateSuccess ? (
+          <div className="flex justify-center items-center">
             <input
               type="text"
               value={editedNickname}
               onChange={handleNicknameChange}
               className="border-b-2"
+              placeholder="수정할 닉네임을 입력하세요"
             />
-            <button onClick={handleSave}>저장</button>
-            <button onClick={handleCancel}>취소</button>
+            <div className="text-l font-semibold">
+              <button onClick={handleSave} className="mx-2">
+                저장
+              </button>
+              <button onClick={handleCancel}>취소</button>
+            </div>
           </div>
         ) : (
-          <div className="text-xl font-semibold">
-            닉네임 : {nickname}
-            <button onClick={handleEdit}>수정</button>
+          <div className="flex justify-center items-center">
+            <p className="mr-12">{editing ? editedNickname : nickname}</p>
+            <button onClick={handleEdit} className="text-l font-semibold">
+              수정
+            </button>
           </div>
         )}
       </li>

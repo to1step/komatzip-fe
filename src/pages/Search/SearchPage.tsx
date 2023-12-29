@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
-import SearchTopcourse from '../../components/Search/SearchTopcourse';
 import SearchTopstore from '../../components/Search/SearchTopstore';
-import { Course, Store } from '@to1step/propose-backend';
+import { Store } from '@to1step/propose-backend';
 import { RootState } from '../../redux/module';
 import Header from '../../components/Commons/Header';
 
@@ -14,9 +13,7 @@ const SearchPage = () => {
   const searchResultsStore = useSelector(
     (state: RootState) => state.search.searchResultsStore,
   );
-  const searchResultsCourse = useSelector(
-    (state: RootState) => state.search.searchResultsCourse,
-  );
+
   const searchQuery = useSelector(
     (state: RootState) => state.search.searchQuery,
   );
@@ -63,25 +60,6 @@ const SearchPage = () => {
           totalItems={totalStoreItems}
           itemsPerPage={limit}
           totalPages={totalPagesStore}
-          onPageChange={handlePageChange}
-        /> */}
-      </section>
-      <section>
-        <h1 className="text-center mb-12 mt-20 h-[30px] text-4xl font-bold">
-          코스 검색 결과
-        </h1>
-        <article className="flex flex-wrap">
-          {searchResultsCourse.map((item) => (
-            <div key={item.uuid} className="w-1/4 flex justify-center">
-              <SearchTopcourse item={item as Course} uuid={item.uuid} />
-            </div>
-          ))}
-        </article>
-        {/* <Pagination
-          currentPage={currentPage}
-          totalItems={totalCourseItems}
-          itemsPerPage={limit}
-          totalPages={totalPagesCourse}
           onPageChange={handlePageChange}
         /> */}
       </section>
