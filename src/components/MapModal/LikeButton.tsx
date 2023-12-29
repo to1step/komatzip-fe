@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../api/apiInstance';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { Store, StoreEntireInfo } from '@to1step/propose-backend';
 
@@ -16,24 +16,19 @@ const LikeButton = ({ markerInfo }: LikeButtonProps) => {
 
   useEffect(() => {
     if (isClickLike) {
-      // 서버에 좋아요 정보 업데이트
       const saveUserLike = async () => {
         try {
           if (markerLike && markerInfo) {
-            await axios.post(
-              `/api/v1/stores/${markerInfo.uuid}/like`,
-              null,
-              {},
-            );
+            await axiosInstance.post(`/v1/stores/${markerInfo.uuid}/like`);
           } else if (!markerLike && markerInfo) {
-            await axios.delete(`/api/v1/stores/${markerInfo.uuid}/like`, {});
+            await axiosInstance.delete(`/v1/stores/${markerInfo.uuid}/like`);
           }
           localStorage.setItem(
             `like-${markerInfo.uuid}`,
             markerLike.toString(),
           );
         } catch (e) {
-          console.log(e);
+          console.error('An error occurred while updating likes:', e);
         }
         setIsClickLike(false);
       };
