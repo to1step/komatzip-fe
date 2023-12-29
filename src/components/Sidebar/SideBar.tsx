@@ -47,7 +47,7 @@ function SideBar({ onClose }: SideBarProps) {
             </Link>
           </li>
           <li className="mb-2">
-            <Link to="/" className="hover:text-orange-200">
+            <Link to="/mypage" className="hover:text-orange-200">
               About Me
             </Link>
           </li>
