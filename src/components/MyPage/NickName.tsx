@@ -5,10 +5,12 @@ const NickName = ({
   nickname,
   commentAlarm,
   updateAlarm,
+  profileImage,
 }: {
   nickname: string;
   commentAlarm: boolean;
   updateAlarm: boolean;
+  profileImage: string;
 }) => {
   const [editing, setEditing] = useState(false);
   const [editedNickname, setEditedNickname] = useState(nickname);
@@ -30,6 +32,7 @@ const NickName = ({
         nickname: editedNickname,
         commentAlarm,
         updateAlarm,
+        profileImage,
       });
 
       if (response.status === 200) {
