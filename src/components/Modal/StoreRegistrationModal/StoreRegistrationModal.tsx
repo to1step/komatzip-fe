@@ -76,7 +76,7 @@ const StoreRegistrationModal = ({
           <Controller
             name="category"
             control={control}
-            defaultValue="식당"
+            defaultValue=""
             rules={{ required: true }}
             render={() => (
               <label>

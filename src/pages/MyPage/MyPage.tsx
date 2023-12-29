@@ -118,10 +118,15 @@ const MyPage = () => {
                     : 'bg-yellow-300 w-1/3 text-center rounded-t-2xl bg-opacity-40'
                 }
                 onClick={() => handleTabClick('내 정보')}
+<<<<<<< HEAD
               >
                 내 정보
               </button>
               <button
+=======
+              >내 정보</button>
+              <div
+>>>>>>> cb7a8f67f40ce4d9b509d72060d36833526ca8e1
                 className={`${
                   selectedTab === '내 코스'
                     ? 'bg-yellow-400 '
@@ -215,6 +220,7 @@ const MyPage = () => {
                     등록하러 가기
                   </button>
                 </div>
+
                 {isModalOpen && (
                   <ModalComponent>
                     <StoreRegistrationModal closeModal={closeModal} />
