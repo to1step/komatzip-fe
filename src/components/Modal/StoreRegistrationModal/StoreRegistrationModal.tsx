@@ -45,7 +45,7 @@ const StoreRegistrationModal = ({
       const postData = {
         ...data, // TODO: 한 번 더 가공해서 보내기
         category: selectedCategory,
-        coordinates: [121, 10],
+        // coordinates: [121, 10],
         // startTime: null,
         // endTime: null,
         // tags: data.tags.map((tag: string) => tag.trim()),
@@ -154,6 +154,12 @@ const StoreRegistrationModal = ({
                   value={
                     Array.isArray(field.value) ? field.value.join(',') : ''
                   }
+                  onChange={(e) => {
+                    const values = e.target.value
+                      .split(',')
+                      .map((val) => parseFloat(val.trim()));
+                    field.onChange(values);
+                  }}
                 />
               </label>
             )}
