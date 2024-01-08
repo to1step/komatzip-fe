@@ -1,10 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import {
-  useForm,
-  SubmitHandler,
-  Controller,
-  useFieldArray,
-} from 'react-hook-form';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { CreateStoreForm } from '@to1step/propose-backend';
 import axiosInstance from '../../../api/apiInstance';
 
@@ -19,7 +14,7 @@ const StoreRegistrationModal = ({
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   // const [selectedStartTime] = useState<string>('');
-  const [selectedEndTime] = useState<string>('');
+  // const [selectedEndTime] = useState<string>('');
 
   // const { append } = useFieldArray({
   //   control,
@@ -48,8 +43,9 @@ const StoreRegistrationModal = ({
     try {
       console.log('보내는 요청은', data);
       const postData = {
-        ...data,
+        ...data, // TODO: 한 번 더 가공해서 보내기
         category: selectedCategory,
+        coordinates: [121, 10],
         // startTime: null,
         // endTime: null,
         // tags: data.tags.map((tag: string) => tag.trim()),
@@ -106,27 +102,17 @@ const StoreRegistrationModal = ({
             render={() => (
               <label>
                 <h3>카테고리*</h3>
-                <input
-                  type="radio"
-                  value={0}
-                  {...register('category')}
-                  onChange={() => setSelectedCategory(0)}
-                />
-                <button>식당</button>
-                <input
-                  type="radio"
-                  value={1}
-                  {...register('category')}
-                  onChange={() => setSelectedCategory(1)}
-                />
-                <button>카페</button>
-                <input
-                  type="radio"
-                  value={2}
-                  {...register('category')}
-                  onChange={() => setSelectedCategory(2)}
-                />
-                <button>공원</button>
+                {['식당', '카페', '공원'].map((category, index) => (
+                  <div key={index}>
+                    <input
+                      type="radio"
+                      value={index}
+                      {...register('category')}
+                      onChange={() => setSelectedCategory(index)}
+                    />
+                    <button>{category}</button>
+                  </div>
+                ))}
               </label>
             )}
           />
@@ -165,7 +151,9 @@ const StoreRegistrationModal = ({
                   type="text"
                   {...field}
                   placeholder="위도,경도 순으로 입력"
-                  // value={field.value.join(',')}
+                  value={
+                    Array.isArray(field.value) ? field.value.join(',') : ''
+                  }
                 />
               </label>
             )}
