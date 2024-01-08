@@ -155,9 +155,10 @@ const StoreRegistrationModal = ({
                     Array.isArray(field.value) ? field.value.join(',') : ''
                   }
                   onChange={(e) => {
-                    const values = e.target.value
-                      .split(',')
-                      .map((val) => parseFloat(val.trim()));
+                    const values = e.target.value.split(',').map((val) => {
+                      const parse = parseFloat(val.trim());
+                      return isNaN(parse) ? 0 : parse;
+                    });
                     field.onChange(values);
                   }}
                 />
