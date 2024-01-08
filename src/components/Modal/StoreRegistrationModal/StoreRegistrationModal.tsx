@@ -50,7 +50,7 @@ const StoreRegistrationModal = ({
         // endTime: null,
         // tags: data.tags.map((tag: string) => tag.trim()),
       };
-      const response = await axiosInstance.post('/api/v1/stores', postData);
+      const response = await axiosInstance.post('/v1/stores', postData);
 
       if (response.data === 200) {
         console.log('🚀 등록 성공');
