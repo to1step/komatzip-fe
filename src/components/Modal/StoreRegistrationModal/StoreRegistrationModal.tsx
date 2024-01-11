@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { CreateStoreForm } from '@to1step/propose-backend';
 import axiosInstance from '../../../api/apiInstance';
+import { ZodError } from 'zod';
+import { createStoreFormSchema } from '../../../schemas/storeFormSchema';
 
 interface StoreRegistrationModalProps {
   closeModal: () => void;
@@ -10,7 +12,11 @@ interface StoreRegistrationModalProps {
 const StoreRegistrationModal = ({
   closeModal,
 }: StoreRegistrationModalProps) => {
-  const { handleSubmit, register } = useForm<CreateStoreForm>();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<CreateStoreForm>();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   // const [selectedStartTime] = useState<string>('');
@@ -41,6 +47,7 @@ const StoreRegistrationModal = ({
 
   const onSubmit: SubmitHandler<CreateStoreForm> = async (data) => {
     try {
+      createStoreFormSchema.parse(data);
       console.log('보내는 요청은', data);
 
       const postData = {
@@ -61,7 +68,11 @@ const StoreRegistrationModal = ({
         //TODO: alert 창으로 변경
       }
     } catch (error) {
-      console.log('🚀 등록 실패', error);
+      if (error instanceof ZodError) {
+        console.log('🚀 등록 실패: Zod 유효성 검사 오류', error.errors);
+      } else {
+        console.log('🚀 등록 실패', error);
+      }
     }
   };
 
@@ -91,9 +102,18 @@ const StoreRegistrationModal = ({
             <h3>가게 이름*</h3>
             <input
               type="text"
-              {...register('name', { required: true })}
+              {...register('name', {
+                required: true,
+                maxLength: {
+                  value: 20,
+                  message: '가게 이름은 20자를 넘을 수 없습니다.',
+                },
+              })}
               placeholder="가게 이름 입력"
             />
+            {errors.name && (
+              <p className="text-red-500">{errors.name.message}</p>
+            )}
           </label>
 
           <label>
@@ -134,6 +154,7 @@ const StoreRegistrationModal = ({
               {...register('description', { required: true })}
               placeholder="설명 입력"
             />
+            {errors.description && <p>{errors.description.message}</p>}
           </label>
 
           <label>
