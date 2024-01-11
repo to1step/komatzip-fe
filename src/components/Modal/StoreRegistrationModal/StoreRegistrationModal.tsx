@@ -42,10 +42,14 @@ const StoreRegistrationModal = ({
   const onSubmit: SubmitHandler<CreateStoreForm> = async (data) => {
     try {
       console.log('보내는 요청은', data);
+
       const postData = {
         ...data, // TODO: 한 번 더 가공해서 보내기
         category: selectedCategory,
-        // coordinates: [121, 10],
+        // coordinates:
+        //   Array.isArray(data.coordinates) && data.coordinates.length >= 2
+        //     ? data.coordinates.map((i) => parseFloat(i))
+        //     : [0, 0],
         // startTime: null,
         // endTime: null,
         // tags: data.tags.map((tag: string) => tag.trim()),
@@ -83,63 +87,64 @@ const StoreRegistrationModal = ({
         </button>
         <h1 className="font-black text-xl text-center">가게 등록 모달</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Controller
-            name="name"
-            control={control}
-            rules={{ required: true }}
-            defaultValue=""
-            render={({ field }) => (
-              <label>
-                <h3>가게 이름*</h3>
-                <input type="text" {...field} placeholder="가게 이름 입력" />
-              </label>
-            )}
-          />
-          <Controller
-            name="category"
-            control={control}
-            rules={{ required: true }}
-            render={() => (
-              <label>
-                <h3>카테고리*</h3>
-                {['식당', '카페', '공원'].map((category, index) => (
-                  <div key={index}>
-                    <input
-                      type="radio"
-                      value={index}
-                      {...register('category')}
-                      onChange={() => setSelectedCategory(index)}
-                    />
-                    <button>{category}</button>
-                  </div>
-                ))}
-              </label>
-            )}
-          />
-          <Controller
-            name="description"
-            control={control}
-            rules={{ required: true }}
-            defaultValue=""
-            render={({ field }) => (
-              <label>
-                <h3>설명</h3>
-                <input type="textarea" {...field} placeholder="설명 입력" />
-              </label>
-            )}
-          />
-          <Controller
-            name="location"
-            control={control}
-            rules={{ required: true }}
-            defaultValue=""
-            render={({ field }) => (
-              <label>
-                <h3>위치</h3>
-                <input type="textarea" {...field} placeholder="위치 입력" />
-              </label>
-            )}
-          />
+          <label>
+            <h3>가게 이름*</h3>
+            <input
+              type="text"
+              {...register('name', { required: true })}
+              placeholder="가게 이름 입력"
+            />
+          </label>
+
+          <label>
+            <h3>카테고리*</h3>
+            <div>
+              <input
+                type="radio"
+                value={0}
+                {...register('category', { required: true })}
+                onChange={() => setSelectedCategory(0)}
+              />
+              <button>식당</button>
+            </div>
+            <div>
+              <input
+                type="radio"
+                value={1}
+                {...register('category', { required: true })}
+                onChange={() => setSelectedCategory(1)}
+              />
+              <button>카페</button>
+            </div>
+            <div>
+              <input
+                type="radio"
+                value={2}
+                {...register('category', { required: true })}
+                onChange={() => setSelectedCategory(2)}
+              />
+              <button>공원</button>
+            </div>
+          </label>
+
+          <label>
+            <h3>설명</h3>
+            <input
+              type="textarea"
+              {...register('description', { required: true })}
+              placeholder="설명 입력"
+            />
+          </label>
+
+          <label>
+            <h3>위치</h3>
+            <input
+              type="textarea"
+              {...register('location', { required: true })}
+              placeholder="위치 입력"
+            />
+          </label>
+
           <Controller
             name="coordinates"
             control={control}
@@ -165,6 +170,7 @@ const StoreRegistrationModal = ({
               </label>
             )}
           />
+
           {/* <Controller
             name="representImage"
             control={control}
