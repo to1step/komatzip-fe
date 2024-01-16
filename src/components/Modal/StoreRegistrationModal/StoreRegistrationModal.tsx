@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { CreateStoreForm } from '@to1step/propose-backend';
 import axiosInstance from '../../../api/apiInstance';
-import { ZodError } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { createStoreFormSchema } from '../../../schemas/storeFormSchema';
 
 interface StoreRegistrationModalProps {
@@ -16,7 +16,9 @@ const StoreRegistrationModal = ({
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<CreateStoreForm>();
+  } = useForm<CreateStoreForm>({
+    resolver: zodResolver(createStoreFormSchema),
+  });
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   // const [selectedStartTime] = useState<string>('');
@@ -68,11 +70,7 @@ const StoreRegistrationModal = ({
         //TODO: alert 창으로 변경
       }
     } catch (error) {
-      if (error instanceof ZodError) {
-        console.log('🚀 등록 실패: Zod 유효성 검사 오류', error.errors);
-      } else {
-        console.log('🚀 등록 실패', error);
-      }
+      console.log('🚀 등록 실패', error);
     }
   };
 
@@ -102,14 +100,11 @@ const StoreRegistrationModal = ({
             <h3>가게 이름*</h3>
             <input
               type="text"
-              {...register('name', {
-                required: true,
-                maxLength: {
-                  value: 20,
-                  message: '가게 이름은 20자를 넘을 수 없습니다.',
-                },
-              })}
+              {...register('name')}
               placeholder="가게 이름 입력"
+              className={`border-[1px] ${
+                errors.name ? 'border-red-500' : 'border-gray-40'
+              }`}
             />
             {errors.name && (
               <p className="text-red-500">{errors.name.message}</p>
@@ -153,8 +148,13 @@ const StoreRegistrationModal = ({
               type="textarea"
               {...register('description', { required: true })}
               placeholder="설명 입력"
+              className={`border-[1px] ${
+                errors.name ? 'border-red-500' : 'border-gray-40'
+              }`}
             />
-            {errors.description && <p>{errors.description.message}</p>}
+            {errors.description && (
+              <p className="text-red-500">{errors.description.message}</p>
+            )}
           </label>
 
           <label>
