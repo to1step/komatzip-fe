@@ -73,8 +73,13 @@ const NickName = ({
           </div>
         ) : (
           <div className="flex justify-center items-center">
-            <p className="mr-12">{editing ? editedNickname : nickname}</p>
-            <button onClick={handleEdit} className="text-l font-semibold">
+            <p className="mr-12 text-xs md:text-base">
+              {editing ? editedNickname : nickname}
+            </p>
+            <button
+              onClick={handleEdit}
+              className="text-l md:text-xl font-semibold"
+            >
               수정
             </button>
           </div>

@@ -148,15 +148,17 @@ const MyPage = () => {
           </section>
           <section className="bg-white rounded-b-2xl relative">
             {selectedTab === '내 정보' && (
-              <section className="w-2/3 flex flex-col items-start m-auto">
-                <ul className="flex mx-4 my-6">
+              <section className="w-full md:w-2/3 flex flex-col items-start m-auto">
+                <ul className="flex flex-col mx-4 my-6">
                   <li className="flex items-center justify-center mx-4 mt-8">
                     <div className="mr-4">
                       <IoHeartSharp size={26} />
                     </div>
                     {userData ? (
-                      <div className="flex ">
-                        <p className="text-xl font-semibold mr-20">닉네임</p>
+                      <div className="flex flex-col">
+                        <p className="text-l md:text-xl font-semibold mr-20">
+                          닉네임
+                        </p>
                         <NickName
                           nickname={userData.nickname}
                           commentAlarm={userData.commentAlarm}
@@ -170,17 +172,21 @@ const MyPage = () => {
                   </li>
                 </ul>
                 <ul className="flex mx-4 my-6">
-                  <li className="flex items-center justify-center mx-4 ">
+                  <li className="flex items-center justify-center mx-4">
                     <IoEarthSharp size={26} />
                   </li>
-                  <li className="text-xl font-semibold mr-8">소셜 정보</li>
+                  <li className="text-l md:text-xl font-semibold mr-8">
+                    소셜 정보
+                  </li>
                 </ul>
                 <ul className="flex mx-4 my-6">
                   <div className="flex items-center justify-center ml-4">
                     <li className="mr-4">
                       <VscMail size={26} />
                     </li>
-                    <li className="text-xl font-semibold mr-8">이메일 주소</li>
+                    <li className="text-l md:text-xl font-semibold mr-8">
+                      이메일 주소
+                    </li>
                   </div>
                   <div>
                     <li>

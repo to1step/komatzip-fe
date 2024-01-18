@@ -125,8 +125,8 @@ const Search = () => {
             </div>
           </div>
         </form>
-        <div className="flex justify-center">
-          <div className="text-center text-orange-200 mx-5">
+        <div className="flex flex-col md:flex-row justify-center items-center">
+          <div className="text-center text-orange-200 mb-2 md:mb-0 mx-2 md:mx-5 text-xs md:text-lg">
             {address ? (
               <p>현재 내 위치는 "{address}"</p>
             ) : (
@@ -134,10 +134,10 @@ const Search = () => {
             )}
           </div>
           <div>
-            <nav className="text-center font-semibold">
+            <nav className="text-center font-semibold mb-2 md:mb-0">
               <Link
                 to="/map"
-                className="text-sl text-orange-200 hover:underline"
+                className="text-xs md:text-lg text-orange-200 hover:underline"
               >
                 내 주위 추천 장소 보러 가기
               </Link>

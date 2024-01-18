@@ -118,7 +118,7 @@ const Header = ({
         <h1 className="text-center mb-10">
           <Link
             to="/"
-            className="text-7xl font-bold text-orange-200 font-custom-snow-crab"
+            className="text-4xl md:text-7xl font-bold text-orange-200 font-custom-snow-crab"
           >
             여기가 수도권
           </Link>

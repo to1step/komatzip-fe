@@ -35,7 +35,7 @@ const AccountDeletion = () => {
         className="text-l flex justify-center items-center"
         onClick={openModal}
       >
-        <h2 className="text-xl font-semibold mr-4">회원탈퇴</h2>
+        <h2 className="text-l md:text-xl font-semibold mr-4">회원탈퇴</h2>
         <IoChevronForwardSharp size={20} />
       </button>
       {isModalOpen && (
