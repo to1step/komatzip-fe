@@ -10,7 +10,7 @@ interface StoreRegistrationModalProps {
 const StoreRegistrationModal = ({
   closeModal,
 }: StoreRegistrationModalProps) => {
-  const { control, handleSubmit, register } = useForm<CreateStoreForm>();
+  const { handleSubmit, register } = useForm<CreateStoreForm>();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   // const [selectedStartTime] = useState<string>('');
@@ -144,32 +144,6 @@ const StoreRegistrationModal = ({
               placeholder="위치 입력"
             />
           </label>
-
-          <Controller
-            name="coordinates"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <label>
-                <h3>위도,경도</h3>
-                <input
-                  type="text"
-                  {...field}
-                  placeholder="위도,경도 순으로 입력"
-                  value={
-                    Array.isArray(field.value) ? field.value.join(',') : ''
-                  }
-                  onChange={(e) => {
-                    const values = e.target.value.split(',').map((val) => {
-                      const parse = parseFloat(val.trim());
-                      return isNaN(parse) ? 0 : parse;
-                    });
-                    field.onChange(values);
-                  }}
-                />
-              </label>
-            )}
-          />
 
           {/* <Controller
             name="representImage"
