@@ -14,12 +14,13 @@ const StoreRegistrationModal = ({
 }: StoreRegistrationModalProps) => {
   const {
     handleSubmit,
+    control,
     register,
     formState: { errors },
   } = useForm<CreateStoreForm>({
     resolver: zodResolver(createStoreFormSchema),
   });
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [selectedCategory] = useState<number | null>(null);
 
   // const [selectedStartTime] = useState<string>('');
   // const [selectedEndTime] = useState<string>('');
@@ -49,6 +50,7 @@ const StoreRegistrationModal = ({
 
   const onSubmit: SubmitHandler<CreateStoreForm> = async (data) => {
     try {
+      data.category = Number(data.category);
       createStoreFormSchema.parse(data);
       console.log('보내는 요청은', data);
 
@@ -113,43 +115,45 @@ const StoreRegistrationModal = ({
 
           <label>
             <h3>카테고리*</h3>
-            <div>
-              <input
-                type="radio"
-                value={0}
-                {...register('category', { required: true })}
-                onChange={() => setSelectedCategory(0)}
-              />
-              <button>식당</button>
-            </div>
-            <div>
-              <input
-                type="radio"
-                value={1}
-                {...register('category', { required: true })}
-                onChange={() => setSelectedCategory(1)}
-              />
-              <button>카페</button>
-            </div>
-            <div>
-              <input
-                type="radio"
-                value={2}
-                {...register('category', { required: true })}
-                onChange={() => setSelectedCategory(2)}
-              />
-              <button>공원</button>
-            </div>
+            <Controller
+              control={control}
+              name="category"
+              render={({ field }) => (
+                <div>
+                  <input
+                    type="radio"
+                    value={0}
+                    checked={field.value === 0}
+                    onChange={() => field.onChange(0)}
+                  />
+                  <label>식당</label>
+                  <input
+                    type="radio"
+                    value={1}
+                    checked={field.value === 1}
+                    onChange={() => field.onChange(1)}
+                  />
+                  <label>카페</label>
+                  <input
+                    type="radio"
+                    value={2}
+                    checked={field.value === 2}
+                    onChange={() => field.onChange(2)}
+                  />
+                  <label>공원</label>
+                </div>
+              )}
+            />
           </label>
 
           <label>
             <h3>설명</h3>
             <input
               type="textarea"
-              {...register('description', { required: true })}
+              {...register('description')}
               placeholder="설명 입력"
               className={`border-[1px] ${
-                errors.name ? 'border-red-500' : 'border-gray-40'
+                errors.description ? 'border-red-500' : 'border-gray-40'
               }`}
             />
             {errors.description && (
@@ -161,7 +165,7 @@ const StoreRegistrationModal = ({
             <h3>위치</h3>
             <input
               type="textarea"
-              {...register('location', { required: true })}
+              {...register('location')}
               placeholder="위치 입력"
             />
           </label>
