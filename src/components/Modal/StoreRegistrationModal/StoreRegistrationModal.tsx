@@ -4,6 +4,7 @@ import { CreateStoreForm } from '@to1step/propose-backend';
 import axiosInstance from '../../../api/apiInstance';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createStoreFormSchema } from '../../../schemas/storeFormSchema';
+import AddressInput from '../../AddressInput';
 
 interface StoreRegistrationModalProps {
   closeModal: () => void;
@@ -16,6 +17,7 @@ const StoreRegistrationModal = ({
     handleSubmit,
     control,
     register,
+    setValue,
     formState: { errors },
   } = useForm<CreateStoreForm>({
     resolver: zodResolver(createStoreFormSchema),
@@ -32,6 +34,21 @@ const StoreRegistrationModal = ({
 
   const modalRef = useRef<HTMLDivElement | null>(null);
 
+  const [location, setLocation] = useState<string | null>(null);
+  const [coordinates, setCoordinates] = useState<[number, number] | null>(null);
+
+  const handleAddressSelected = (
+    address: string,
+    coordinates: [number, number],
+  ) => {
+    setLocation(address);
+    setCoordinates(coordinates);
+    setValue('coordinates', coordinates);
+    setValue('location', address);
+    console.log('handleAddressSelected - address: ', address);
+    console.log('handleAddressSelected - coordinates: ', coordinates);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -47,7 +64,7 @@ const StoreRegistrationModal = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [closeModal]);
-
+  console.log(errors);
   const onSubmit: SubmitHandler<CreateStoreForm> = async (data) => {
     try {
       data.category = Number(data.category);
@@ -57,6 +74,7 @@ const StoreRegistrationModal = ({
       const postData = {
         ...data, // TODO: 한 번 더 가공해서 보내기
         category: selectedCategory,
+        coordinates: coordinates,
         // coordinates:
         //   Array.isArray(data.coordinates) && data.coordinates.length >= 2
         //     ? data.coordinates.map((i) => parseFloat(i))
@@ -144,6 +162,9 @@ const StoreRegistrationModal = ({
                 </div>
               )}
             />
+            {errors.category && (
+              <p className="text-red-500">카테고리를 선택해주세요</p>
+            )}
           </label>
 
           <label>
@@ -163,11 +184,23 @@ const StoreRegistrationModal = ({
 
           <label>
             <h3>위치</h3>
-            <input
-              type="textarea"
-              {...register('location')}
-              placeholder="위치 입력"
+            <Controller
+              control={control}
+              name="coordinates"
+              render={({ field }) => (
+                <AddressInput
+                  onAddressSelected={(address, coordinates) => {
+                    handleAddressSelected(address, coordinates);
+                    field.onChange(coordinates);
+                  }}
+                />
+              )}
             />
+            <p>선택한 주소: {location ? location : '주소를 선택하세요.'}</p>
+            <p>
+              선택한 좌표:{' '}
+              {coordinates ? coordinates.join(', ') : '좌표를 선택하세요.'}
+            </p>
           </label>
 
           {/* <Controller
