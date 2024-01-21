@@ -25,6 +25,8 @@ const MyPage = () => {
 
   const [selectedTab, setSelectedTab] = useState('내 정보');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [storeData, setStoreData] = useState(null);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);

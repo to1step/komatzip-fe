@@ -38,20 +38,22 @@ const Login = () => {
       <LoginBackground />
       <MenuBar />
 
-      <div className="w-full flex justify-start text-white font-bold">
+      <div className="invisible md:visible w-full flex justify-start text-white font-bold">
         <div className="w-1/5" />
         <div className="w-2/5 text-5xl flex flex-col gap-3">
           <h2 className="text-3xl">여기가 수도권</h2>
           <div>-</div>
           <div>Welcome</div>
           <div>Don't have an account?</div>
-          <button
-            type="button"
-            className="inline-flex text-orange-400 justify-center items-center px-8 py-3 mt-4 text-base bg-gray-100 border-0 rounded-3xl w-80"
-            onClick={() => navigate('/signup')}
-          >
-            SIGN UP
-          </button>
+          <div>
+            <button
+              type="button"
+              className="invisible md:visible inline-flex text-orange-400 justify-center items-center px-8 py-3 mt-4 text-base bg-gray-100 border-0 rounded-3xl w-80"
+              onClick={() => navigate('/signup')}
+            >
+              SIGN UP
+            </button>
+          </div>
         </div>
       </div>
       <div className="w-2/5">
@@ -59,6 +61,8 @@ const Login = () => {
         <form onSubmit={handleSubmit(onLogin)}>
           <div className="flex">
             <div className="flex flex-col justify-center items-center">
+              <h2 className="text-3xl visible md:invisible">여기가 수도권</h2>
+              <div className="visible md:invisible">-</div>
               <h2 className="text-3xl">LOGIN</h2>
               <input
                 type="text"
@@ -80,6 +84,13 @@ const Login = () => {
               </button>
             </div>
           </div>
+          <button
+            type="button"
+            className="visible md:invisible inline-flex text-orange-400 justify-center items-center px-8 py-3 mt-4 text-base bg-gray-100 border-0 rounded-3xl w-80"
+            onClick={() => navigate('/signup')}
+          >
+            SIGN UP
+          </button>
         </form>
       </div>
     </div>
