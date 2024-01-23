@@ -22,6 +22,7 @@ const StoreRegistrationModal = ({
   } = useForm<CreateStoreForm>({
     resolver: zodResolver(createStoreFormSchema),
   });
+  const [representImage, setRepresentImage] = useState<string | null>(null);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -40,6 +41,42 @@ const StoreRegistrationModal = ({
 
   const handleCategoryChange = (value: number) => {
     setValue('category', value);
+  };
+
+  const uploadImage = async (file: File): Promise<string> => {
+    try {
+      const formData = new FormData();
+      formData.append('images', file);
+
+      const response = await axiosInstance.post('/v1/images', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      const imageUrl = response.data?.imageLocationList?.[0];
+
+      if (imageUrl) {
+        return imageUrl;
+      } else {
+        throw new Error('Image URL not found in response data');
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  };
+
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      try {
+        const imageUrl = await uploadImage(file);
+        setRepresentImage(imageUrl);
+      } catch (error) {
+        console.error('Failed to handle image change:', error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -63,10 +100,14 @@ const StoreRegistrationModal = ({
       createStoreFormSchema.parse(data);
       console.log('보내는 요청은', data);
 
+      // 이미지가 없을 경우 빈 문자열
+      const representImageUrl = representImage || '';
+
       const postData = {
         ...data, // TODO: 한 번 더 가공해서 보내기
         category: data.category,
         coordinates: coordinates ? coordinates.map(Number) : [0, 0],
+        representImage: representImageUrl,
       };
       const response = await axiosInstance.post('/v1/stores', postData);
 
@@ -188,6 +229,56 @@ const StoreRegistrationModal = ({
             </p>
           </label>
 
+          <label>
+            <h3>대표 이미지*</h3>
+            <div>
+              <Controller
+                control={control}
+                name="representImage"
+                defaultValue=""
+                render={({ field }) => (
+                  <>
+                    <input
+                      type="file"
+                      onChange={(e) => {
+                        field.onChange(e);
+                        handleImageChange(e);
+                      }}
+                      className="hidden"
+                    />
+                    <div
+                      className={`border-[1px] ${
+                        errors.representImage
+                          ? 'border-red-500'
+                          : 'border-gray-40'
+                      }`}
+                      onClick={() => {
+                        const input = document.querySelector<HTMLInputElement>(
+                          'input[name="representImage"]',
+                        );
+                        input?.click();
+                      }}
+                    >
+                      {representImage ? (
+                        <img
+                          src={representImage}
+                          alt="Representative Image"
+                          className="w-full h-auto"
+                        />
+                      ) : (
+                        <p className="text-gray-500">
+                          클릭하여 이미지를 업로드하세요.
+                        </p>
+                      )}
+                    </div>
+                  </>
+                )}
+              />
+            </div>
+            {errors.representImage && (
+              <p className="text-red-500">{errors.representImage.message}</p>
+            )}
+          </label>
           <button type="submit" className="border border-black rounded mr-2">
             등록
           </button>

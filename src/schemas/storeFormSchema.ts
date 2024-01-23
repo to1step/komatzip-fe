@@ -15,4 +15,13 @@ export const createStoreFormSchema = z.object({
   description: z.string().min(1, { message: '설명을 작성해주세요' }),
   location: z.string().min(1),
   coordinates: z.array(z.number()).refine((data) => data.length === 2),
+  representImage: z
+    .string()
+    .nullable()
+    .refine(
+      (data) => data !== null && data !== undefined && data.trim() !== '',
+      {
+        message: '대표 이미지를 업로드 해주세요',
+      },
+    ),
 });
