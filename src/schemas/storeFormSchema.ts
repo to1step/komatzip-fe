@@ -30,4 +30,22 @@ export const createStoreFormSchema = z.object({
     .refine((data) => data !== null && data !== undefined && data.length > 0, {
       message: '한개 이상의 태그를 작성해 주세요',
     }),
+
+  startTime: z
+    .string()
+    .refine(
+      (data) => data !== null && data !== undefined && data.trim() !== '',
+      {
+        message: '오픈시간을 작성해 주세요',
+      },
+    ),
+
+  endTime: z
+    .string()
+    .refine(
+      (data) => data !== null && data !== undefined && data.trim() !== '',
+      {
+        message: '마감시간을 작성해 주세요',
+      },
+    ),
 });

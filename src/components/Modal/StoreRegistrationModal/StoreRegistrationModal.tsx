@@ -344,6 +344,37 @@ const StoreRegistrationModal = ({
               </div>
             )}
           />
+
+          <label>
+            <h3>운영 시작 시간</h3>
+            <input
+              type="text"
+              {...register('startTime')}
+              placeholder="운영 시작 시간 입력"
+              className={`border-[1px] ${
+                errors.startTime ? 'border-red-500' : 'border-gray-40'
+              }`}
+            />
+            {errors.startTime && (
+              <p className="text-red-500">{errors.startTime.message}</p>
+            )}
+          </label>
+
+          <label>
+            <h3>운영 종료 시간</h3>
+            <input
+              type="text"
+              {...register('endTime')}
+              placeholder="운영 종료 시간 입력"
+              className={`border-[1px] ${
+                errors.endTime ? 'border-red-500' : 'border-gray-40'
+              }`}
+            />
+            {errors.endTime && (
+              <p className="text-red-500">{errors.endTime.message}</p>
+            )}
+          </label>
+
           <button type="submit" className="border border-black rounded mr-2">
             등록
           </button>
