@@ -24,4 +24,10 @@ export const createStoreFormSchema = z.object({
         message: '대표 이미지를 업로드 해주세요',
       },
     ),
+
+  tags: z
+    .array(z.string())
+    .refine((data) => data !== null && data !== undefined && data.length > 0, {
+      message: '한개 이상의 태그를 작성해 주세요',
+    }),
 });

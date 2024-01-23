@@ -22,6 +22,7 @@ const StoreRegistrationModal = ({
   } = useForm<CreateStoreForm>({
     resolver: zodResolver(createStoreFormSchema),
   });
+  const tagInputRef = useRef<HTMLInputElement | null>(null);
   const [representImage, setRepresentImage] = useState<string | null>(null);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -279,6 +280,70 @@ const StoreRegistrationModal = ({
               <p className="text-red-500">{errors.representImage.message}</p>
             )}
           </label>
+          <Controller
+            name="tags"
+            control={control}
+            defaultValue={[]}
+            rules={{ required: false }}
+            render={({ field }) => (
+              <div>
+                <label>
+                  <h3>태그</h3>
+                </label>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="태그 입력"
+                    ref={tagInputRef}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const tag = e.currentTarget.value.trim();
+                        if (tag) {
+                          field.onChange([...field.value, tag]);
+                          e.currentTarget.value = '';
+                        }
+                      }
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (tagInputRef.current) {
+                        const tag = tagInputRef.current.value.trim();
+                        if (tag) {
+                          field.onChange([...field.value, tag]);
+                          tagInputRef.current.value = '';
+                        }
+                      }
+                    }}
+                  >
+                    추가
+                  </button>
+                </div>
+                {errors.tags && (
+                  <p className="text-red-500">{errors.tags.message}</p>
+                )}
+                <ul>
+                  {field.value.map((tag, index) => (
+                    <li key={index}>
+                      <span>{tag}</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          field.onChange(
+                            field.value.filter((_, i) => i !== index),
+                          );
+                        }}
+                      >
+                        삭제
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          />
           <button type="submit" className="border border-black rounded mr-2">
             등록
           </button>
