@@ -5,9 +5,10 @@ import { Store, StoreEntireInfo, StoreImage } from '@to1step/propose-backend';
 
 interface ImageUploadProps {
   markerInfo: StoreEntireInfo | Store;
+  onImageChange: () => void;
 }
 
-const ImageUploader = ({ markerInfo }: ImageUploadProps) => {
+const ImageUploader = ({ markerInfo, onImageChange }: ImageUploadProps) => {
   const [images, setImages] = useState<StoreImage[]>([]);
 
   useEffect(() => {
@@ -71,11 +72,10 @@ const ImageUploader = ({ markerInfo }: ImageUploadProps) => {
               user: '',
               store: markerInfo.uuid,
               imageSrc: imageResponse.data.image as string,
-              deletedAt: null,
             };
 
             setImages((prevImages) => [...prevImages, newImage]);
-
+            onImageChange();
             fetchStoreImages();
           }
         }
@@ -97,13 +97,12 @@ const ImageUploader = ({ markerInfo }: ImageUploadProps) => {
         setImages((prevImages) =>
           prevImages.filter((img) => img.uuid !== imageUUID),
         );
-      } else {
-        // 서버에서 삭제 실패한 경우에 대한 처리
-        console.error('이미지 삭제 실패:', response?.data?.message);
+        onImageChange(); // 이미지 변경 알림
       }
     } catch (error) {
       console.error('이미지 삭제 중 오류가 발생했습니다:', error);
     }
+    fetchStoreImages();
   };
 
   return (
