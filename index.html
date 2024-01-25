@@ -4,10 +4,12 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAO_JAVASCRIPT_KEY%"
-    ></script>
+    <script>
+      const javascriptKey = import.meta.env.VITE_JAVASCRIPT_KEY || 'YOUR_DEFAULT_KEY';
+      document.write(
+        `<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${javascriptKey}&autoload=false&libraries=services"><\/script>`
+      );
+    </script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <title>코맛집</title>
   </head>
