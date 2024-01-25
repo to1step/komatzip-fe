@@ -9,8 +9,9 @@ const MiniMap = ({ lat, lng }: MiniMapProps) => {
   useEffect(() => {
     const script = document.createElement('script');
     script.async = true;
-    script.src =
-      'https://dapi.kakao.com/v2/maps/sdk.js?appkey=8494ed9ba10ea55ff5cf793934c04231&autoload=false';
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${
+      import.meta.env.VITE_JAVASCRIPT_KEY
+    }&autoload=false`;
     document.head.appendChild(script);
 
     script.onload = () => {

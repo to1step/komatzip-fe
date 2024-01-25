@@ -21,7 +21,7 @@ function App() {
   const [data, setData] = useState<User[]>([]);
   console.log(data);
 
-  const apiKey = `a055e717c1cb42e8ee196835ba48dfcf`;
+  const apiKey = import.meta.env.VITE_REST_API_KEY || '';
 
   useEffect(() => {
     const getMyInfo = async () => {
