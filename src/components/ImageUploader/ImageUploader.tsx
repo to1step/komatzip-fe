@@ -1,8 +1,8 @@
 import axiosInstance from '../../api/apiInstance';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import ZoomImage from './ZoomImage';
 import { Store, StoreEntireInfo, StoreImage } from '@to1step/propose-backend';
-
+import { success, errors } from '../../util/toastify';
 interface ImageUploadProps {
   markerInfo: StoreEntireInfo | Store;
   onImageChange: () => void;
@@ -19,7 +19,7 @@ const ImageUploader = ({ markerInfo, onImageChange }: ImageUploadProps) => {
     }
   }, [markerInfo]);
 
-  const fetchStoreImages = async () => {
+  const fetchStoreImages = useCallback(async () => {
     try {
       if (markerInfo) {
         const response = await axiosInstance.get<StoreEntireInfo>(
@@ -32,11 +32,11 @@ const ImageUploader = ({ markerInfo, onImageChange }: ImageUploadProps) => {
     } catch (error) {
       console.error('Error fetching store images:', error);
     }
-  };
+  }, [markerInfo]);
 
   useEffect(() => {
     fetchStoreImages();
-  }, [markerInfo]);
+  }, [markerInfo, fetchStoreImages]);
 
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -76,8 +76,9 @@ const ImageUploader = ({ markerInfo, onImageChange }: ImageUploadProps) => {
 
             setImages((prevImages) => [...prevImages, newImage]);
             onImageChange();
-            fetchStoreImages();
           }
+          fetchStoreImages();
+          success('이미지가 업로드 되었습니다.');
         }
       }
     } catch (error) {
@@ -103,6 +104,7 @@ const ImageUploader = ({ markerInfo, onImageChange }: ImageUploadProps) => {
       console.error('이미지 삭제 중 오류가 발생했습니다:', error);
     }
     fetchStoreImages();
+    errors('이미지가 삭제 되었습니다.');
   };
 
   return (
