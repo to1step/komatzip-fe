@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+export type CreateStoreForm = z.infer<typeof createStoreFormSchema>;
+
 export const createStoreFormSchema = z.object({
   name: z
     .string()
