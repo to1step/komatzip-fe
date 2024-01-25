@@ -16,10 +16,6 @@ const ZoomImage = ({ src, alt, onDelete }: ZoomImageProps) => {
     setIsHovered(hoverState);
   };
 
-  const handleModalToggle = () => {
-    setModalOpen(!isModalOpen);
-  };
-
   const handleImageDelete = async () => {
     onDelete();
   };
@@ -35,14 +31,14 @@ const ZoomImage = ({ src, alt, onDelete }: ZoomImageProps) => {
           src={src}
           alt={alt}
           className="w-[174px] h-32 object-cover rounded-2xl cursor-pointer"
-          onClick={handleModalToggle}
+          onClick={() => setModalOpen(!isModalOpen)}
         />
         {isHovered && (
           <div className="absolute rounded-2xl top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50">
             <div className="flex items-center">
               <div
                 className="text-white mr-2 cursor-pointer"
-                onClick={handleModalToggle}
+                onClick={() => setModalOpen(!isModalOpen)}
               >
                 <PiMagnifyingGlassPlusBold size={24} />
               </div>
@@ -59,7 +55,7 @@ const ZoomImage = ({ src, alt, onDelete }: ZoomImageProps) => {
       {isModalOpen && (
         <div
           className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50"
-          onClick={handleModalToggle}
+          onClick={() => setModalOpen(!isModalOpen)}
         >
           <img
             src={src}
