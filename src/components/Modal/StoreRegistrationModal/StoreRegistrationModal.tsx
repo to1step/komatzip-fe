@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { CreateStoreForm } from '@to1step/propose-backend';
 import axiosInstance from '../../../api/apiInstance';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createStoreFormSchema } from '../../../schemas/storeFormSchema';
+import AddressInput from '../../AddressInput';
 
 interface StoreRegistrationModalProps {
   closeModal: () => void;
@@ -10,18 +13,72 @@ interface StoreRegistrationModalProps {
 const StoreRegistrationModal = ({
   closeModal,
 }: StoreRegistrationModalProps) => {
-  const { handleSubmit, register } = useForm<CreateStoreForm>();
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-
-  // const [selectedStartTime] = useState<string>('');
-  // const [selectedEndTime] = useState<string>('');
-
-  // const { append } = useFieldArray({
-  //   control,
-  //   name: 'images',
-  // });
+  const {
+    handleSubmit,
+    control,
+    register,
+    setValue,
+    formState: { errors },
+  } = useForm<CreateStoreForm>({
+    resolver: zodResolver(createStoreFormSchema),
+  });
+  const tagInputRef = useRef<HTMLInputElement | null>(null);
+  const [representImage, setRepresentImage] = useState<string | null>(null);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
+
+  const [location, setLocation] = useState<string | null>(null);
+  const [coordinates, setCoordinates] = useState<[number, number] | null>(null);
+
+  const handleAddressSelected = (
+    address: string,
+    coordinates: [number, number],
+  ) => {
+    setLocation(address);
+    setCoordinates(coordinates);
+    setValue('coordinates', coordinates);
+    setValue('location', address);
+  };
+
+  const handleCategoryChange = (value: number) => {
+    setValue('category', value);
+  };
+
+  const uploadImage = async (file: File): Promise<string> => {
+    try {
+      const formData = new FormData();
+      formData.append('images', file);
+
+      const response = await axiosInstance.post('/v1/images', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      const imageUrl = response.data?.imageLocationList?.[0];
+
+      if (imageUrl) {
+        return imageUrl;
+      } else {
+        throw new Error('Image URL not found in response data');
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  };
+
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      try {
+        const imageUrl = await uploadImage(file);
+        setRepresentImage(imageUrl);
+      } catch (error) {
+        console.error('Failed to handle image change:', error);
+      }
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -38,21 +95,20 @@ const StoreRegistrationModal = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [closeModal]);
-
   const onSubmit: SubmitHandler<CreateStoreForm> = async (data) => {
     try {
+      data.category = Number(data.category);
+      createStoreFormSchema.parse(data);
       console.log('보내는 요청은', data);
+
+      // 이미지가 없을 경우 빈 문자열
+      const representImageUrl = representImage || '';
 
       const postData = {
         ...data, // TODO: 한 번 더 가공해서 보내기
-        category: selectedCategory,
-        // coordinates:
-        //   Array.isArray(data.coordinates) && data.coordinates.length >= 2
-        //     ? data.coordinates.map((i) => parseFloat(i))
-        //     : [0, 0],
-        // startTime: null,
-        // endTime: null,
-        // tags: data.tags.map((tag: string) => tag.trim()),
+        category: data.category,
+        coordinates: coordinates ? coordinates.map(Number) : [0, 0],
+        representImage: representImageUrl,
       };
       const response = await axiosInstance.post('/v1/stores', postData);
 
@@ -91,100 +147,139 @@ const StoreRegistrationModal = ({
             <h3>가게 이름*</h3>
             <input
               type="text"
-              {...register('name', { required: true })}
+              {...register('name')}
               placeholder="가게 이름 입력"
+              className={`border-[1px] ${
+                errors.name ? 'border-red-500' : 'border-gray-40'
+              }`}
             />
+            {errors.name && (
+              <p className="text-red-500">{errors.name.message}</p>
+            )}
           </label>
 
           <label>
             <h3>카테고리*</h3>
-            <div>
-              <input
-                type="radio"
-                value={0}
-                {...register('category', { required: true })}
-                onChange={() => setSelectedCategory(0)}
-              />
-              <button>식당</button>
-            </div>
-            <div>
-              <input
-                type="radio"
-                value={1}
-                {...register('category', { required: true })}
-                onChange={() => setSelectedCategory(1)}
-              />
-              <button>카페</button>
-            </div>
-            <div>
-              <input
-                type="radio"
-                value={2}
-                {...register('category', { required: true })}
-                onChange={() => setSelectedCategory(2)}
-              />
-              <button>공원</button>
-            </div>
+            <Controller
+              control={control}
+              name="category"
+              render={({ field, fieldState }) => (
+                <div>
+                  <input
+                    type="radio"
+                    value={0}
+                    checked={field.value === 0}
+                    onChange={() => handleCategoryChange(0)}
+                  />
+                  <label>식당</label>
+                  <input
+                    type="radio"
+                    value={1}
+                    checked={field.value === 1}
+                    onChange={() => handleCategoryChange(1)}
+                  />
+                  <label>카페</label>
+                  <input
+                    type="radio"
+                    value={2}
+                    checked={field.value === 2}
+                    onChange={() => handleCategoryChange(2)}
+                  />
+                  <label>공원</label>
+                  {fieldState?.error && (
+                    <p className="text-red-500">{fieldState.error.message}</p>
+                  )}
+                </div>
+              )}
+            />
           </label>
 
           <label>
             <h3>설명</h3>
             <input
               type="textarea"
-              {...register('description', { required: true })}
+              {...register('description')}
               placeholder="설명 입력"
+              className={`border-[1px] ${
+                errors.description ? 'border-red-500' : 'border-gray-40'
+              }`}
             />
+            {errors.description && (
+              <p className="text-red-500">{errors.description.message}</p>
+            )}
           </label>
 
           <label>
             <h3>위치</h3>
-            <input
-              type="textarea"
-              {...register('location', { required: true })}
-              placeholder="위치 입력"
-            />
-          </label>
-
-          {/* <Controller
-            name="representImage"
-            control={control}
-            rules={{ required: false }}
-            render={({ field }) => (
-              <div>
-                <h3>이미지 등록</h3>
-                {field.value && (
-                  <div>
-                    <img
-                      src={field.value}
-                      alt="Representative Image"
-                      style={{ width: '100px', height: 'auto' }}
-                    />
-                    <button type="button" onClick={() => field.onChange(null)}>
-                      이미지 삭제
-                    </button>
-                  </div>
-                )}
-                <input
-                  type="file"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        field.onChange(reader.result as string);
-                      };
-                      reader.readAsDataURL(file);
-                    } else {
-                      field.onChange(null);
-                    }
+            <Controller
+              control={control}
+              name="coordinates"
+              render={({ field }) => (
+                <AddressInput
+                  onAddressSelected={(address, coordinates) => {
+                    handleAddressSelected(address, coordinates);
+                    field.onChange(coordinates.map(Number) as [number, number]);
                   }}
                 />
-                <button type="button" onClick={() => append(null)}>
-                  추가
-                </button>
-              </div>
+              )}
+            />
+            <p>선택한 주소: {location ? location : '주소를 선택하세요.'}</p>
+            <p>
+              선택한 좌표:{' '}
+              {coordinates ? coordinates.join(', ') : '좌표를 선택하세요.'}
+            </p>
+          </label>
+
+          <label>
+            <h3>대표 이미지*</h3>
+            <div>
+              <Controller
+                control={control}
+                name="representImage"
+                defaultValue=""
+                render={({ field }) => (
+                  <>
+                    <input
+                      type="file"
+                      onChange={(e) => {
+                        field.onChange(e);
+                        handleImageChange(e);
+                      }}
+                      className="hidden"
+                    />
+                    <div
+                      className={`border-[1px] ${
+                        errors.representImage
+                          ? 'border-red-500'
+                          : 'border-gray-40'
+                      }`}
+                      onClick={() => {
+                        const input = document.querySelector<HTMLInputElement>(
+                          'input[name="representImage"]',
+                        );
+                        input?.click();
+                      }}
+                    >
+                      {representImage ? (
+                        <img
+                          src={representImage}
+                          alt="Representative Image"
+                          className="w-full h-auto"
+                        />
+                      ) : (
+                        <p className="text-gray-500">
+                          클릭하여 이미지를 업로드하세요.
+                        </p>
+                      )}
+                    </div>
+                  </>
+                )}
+              />
+            </div>
+            {errors.representImage && (
+              <p className="text-red-500">{errors.representImage.message}</p>
             )}
-          />
+          </label>
           <Controller
             name="tags"
             control={control}
@@ -195,28 +290,51 @@ const StoreRegistrationModal = ({
                 <label>
                   <h3>태그</h3>
                 </label>
-                <input
-                  type="text"
-                  placeholder="태그 입력"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      const tag = e.currentTarget.value.trim();
-                      field.onChange([...field.value, tag]);
-                      e.currentTarget.value = '';
-                    }
-                  }}
-                />
+                <div>
+                  <input
+                    type="text"
+                    placeholder="태그 입력"
+                    ref={tagInputRef}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const tag = e.currentTarget.value.trim();
+                        if (tag) {
+                          field.onChange([...field.value, tag]);
+                          e.currentTarget.value = '';
+                        }
+                      }
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (tagInputRef.current) {
+                        const tag = tagInputRef.current.value.trim();
+                        if (tag) {
+                          field.onChange([...field.value, tag]);
+                          tagInputRef.current.value = '';
+                        }
+                      }
+                    }}
+                  >
+                    추가
+                  </button>
+                </div>
+                {errors.tags && (
+                  <p className="text-red-500">{errors.tags.message}</p>
+                )}
                 <ul>
                   {field.value.map((tag, index) => (
                     <li key={index}>
                       <span>{tag}</span>
                       <button
                         type="button"
-                        onClick={() =>
+                        onClick={() => {
                           field.onChange(
                             field.value.filter((_, i) => i !== index),
-                          )
-                        }
+                          );
+                        }}
                       >
                         삭제
                       </button>
@@ -226,43 +344,37 @@ const StoreRegistrationModal = ({
               </div>
             )}
           />
-          <Controller
-            name="startTime"
-            control={control}
-            rules={{ required: false }}
-            render={({
-              field,
-            }: {
-              field: {
-                value: string | null;
-                onChange: (value: string) => void;
-              };
-            }) => (
-              <section>
-                <h3>매장 운영 시작 시간</h3>
-                <input
-                  type="time"
-                  value={field.value || ''}
-                  onChange={(e) => field.onChange(e.target.value)}
-                />
-              </section>
+
+          <label>
+            <h3>운영 시작 시간</h3>
+            <input
+              type="text"
+              {...register('startTime')}
+              placeholder="운영 시작 시간 입력"
+              className={`border-[1px] ${
+                errors.startTime ? 'border-red-500' : 'border-gray-40'
+              }`}
+            />
+            {errors.startTime && (
+              <p className="text-red-500">{errors.startTime.message}</p>
             )}
-          />
-          <Controller
-            name="endTime"
-            rules={{ required: false }}
-            control={control}
-            render={({ field }) => (
-              <section>
-                <h3>매장 운영 종료 시간</h3>
-                <input
-                  type="time"
-                  value={selectedEndTime || ''}
-                  onChange={(e) => field.onChange(e.target.value)}
-                />
-              </section>
+          </label>
+
+          <label>
+            <h3>운영 종료 시간</h3>
+            <input
+              type="text"
+              {...register('endTime')}
+              placeholder="운영 종료 시간 입력"
+              className={`border-[1px] ${
+                errors.endTime ? 'border-red-500' : 'border-gray-40'
+              }`}
+            />
+            {errors.endTime && (
+              <p className="text-red-500">{errors.endTime.message}</p>
             )}
-          /> */}
+          </label>
+
           <button type="submit" className="border border-black rounded mr-2">
             등록
           </button>
