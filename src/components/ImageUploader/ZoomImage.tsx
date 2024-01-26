@@ -5,9 +5,10 @@ import { MdDeleteOutline } from 'react-icons/md';
 interface ZoomImageProps {
   src: string;
   alt: string;
+  onDelete: () => void;
 }
 
-const ZoomImage = ({ src, alt }: ZoomImageProps) => {
+const ZoomImage = ({ src, alt, onDelete }: ZoomImageProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -15,12 +16,8 @@ const ZoomImage = ({ src, alt }: ZoomImageProps) => {
     setIsHovered(hoverState);
   };
 
-  const handleClick = () => {
-    setModalOpen(!isModalOpen);
-  };
-
-  const handleImageDelete = () => {
-    console.log('삭제 돼버려라 얍');
+  const handleImageDelete = async () => {
+    onDelete();
   };
 
   return (
@@ -34,14 +31,14 @@ const ZoomImage = ({ src, alt }: ZoomImageProps) => {
           src={src}
           alt={alt}
           className="w-[174px] h-32 object-cover rounded-2xl cursor-pointer"
-          onClick={handleClick}
+          onClick={() => setModalOpen(!isModalOpen)}
         />
         {isHovered && (
           <div className="absolute rounded-2xl top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50">
             <div className="flex items-center">
               <div
                 className="text-white mr-2 cursor-pointer"
-                onClick={handleClick}
+                onClick={() => setModalOpen(!isModalOpen)}
               >
                 <PiMagnifyingGlassPlusBold size={24} />
               </div>
@@ -58,7 +55,7 @@ const ZoomImage = ({ src, alt }: ZoomImageProps) => {
       {isModalOpen && (
         <div
           className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50"
-          onClick={handleClick}
+          onClick={() => setModalOpen(!isModalOpen)}
         >
           <img
             src={src}

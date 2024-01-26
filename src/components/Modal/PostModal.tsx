@@ -4,7 +4,7 @@ import MiniMap from '../Kakaomap/MinMap';
 import LikeButton from '../MapModal/LikeButton';
 import CopyAddressButton from '../MapModal/CopyAddressButton';
 import Tags from '../Post/Tags';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import ImageUploader from '../ImageUploader/ImageUploader';
 import ReviewList from '../MapModal/ReviewList';
 // 매장 랭킹, 검색 결과의 매장을 클릭했을 때 출력되는 컴포넌트
@@ -16,6 +16,8 @@ interface PostModalProps {
 
 const PostModal = ({ store, closeModal }: PostModalProps) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
+  const [imageUploaderKey, setImageUploaderKey] = useState<number>(0);
+
   const handleClickOutside = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       closeModal();
@@ -57,10 +59,13 @@ const PostModal = ({ store, closeModal }: PostModalProps) => {
         <hr className="my-4 border-gray-200" />
         <div className="text-xl font-semibold mb-2">이용자 후기</div>
         <ReviewList markerInfo={store} />
-
         <hr className="my-4 border-gray-200 mt-6" />
         <div className="text-xl font-semibold mb-2">포토 후기</div>
-        <ImageUploader markerInfo={store} />
+        <ImageUploader
+          key={imageUploaderKey}
+          markerInfo={store}
+          onImageChange={() => setImageUploaderKey((prevKey) => prevKey + 1)}
+        />
         <hr className="my-4 border-gray-200" />
         <div className="flex items-center text-xl font-semibold mb-2">
           <div>위치</div>
