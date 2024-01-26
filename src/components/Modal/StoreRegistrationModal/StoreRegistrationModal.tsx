@@ -123,6 +123,7 @@ const StoreRegistrationModal = ({
 
   return (
     <div
+      className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 "
       ref={modalRef}
       onClick={(event: React.MouseEvent) => {
         if (event.target === modalRef.current) {
@@ -131,8 +132,7 @@ const StoreRegistrationModal = ({
       }}
     >
       <article
-        className="bg-white p-4 rounded shadow-md
-        "
+        className="bg-white p-7 rounded shadow-md w-full max-w-lg sm:h-[600px] lg:h-[900px] overflow-y-auto "
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -143,73 +143,128 @@ const StoreRegistrationModal = ({
         </button>
         <h1 className="font-black text-xl text-center">가게 등록 모달</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label>
-            <h3>가게 이름*</h3>
+          <label className="mt-4 block">
+            <h3 className="text-lg font-semibold mb-2">가게 이름*</h3>
             <input
               type="text"
               {...register('name')}
               placeholder="가게 이름 입력"
-              className={`border-[1px] ${
-                errors.name ? 'border-red-500' : 'border-gray-40'
+              className={`w-full px-3 py-2 border ${
+                errors.name ? 'border-red-500' : 'border-gray-300'
               }`}
             />
             {errors.name && (
-              <p className="text-red-500">{errors.name.message}</p>
+              <p className="text-red-500 mt-2 flex justify-center">
+                {errors.name.message}
+              </p>
             )}
           </label>
 
-          <label>
-            <h3>카테고리*</h3>
+          <label className="mt-4 block">
+            <h3 className="text-lg font-semibold mb-2">카테고리*</h3>
             <Controller
               control={control}
               name="category"
               render={({ field, fieldState }) => (
-                <div>
-                  <input
-                    type="radio"
-                    value={0}
-                    checked={field.value === 0}
-                    onChange={() => handleCategoryChange(0)}
-                  />
-                  <label>식당</label>
-                  <input
-                    type="radio"
-                    value={1}
-                    checked={field.value === 1}
-                    onChange={() => handleCategoryChange(1)}
-                  />
-                  <label>카페</label>
-                  <input
-                    type="radio"
-                    value={2}
-                    checked={field.value === 2}
-                    onChange={() => handleCategoryChange(2)}
-                  />
-                  <label>공원</label>
+                <>
+                  <div className="flex justify-between items-center px-8">
+                    <div className="select">
+                      <input
+                        type="radio"
+                        id="restaurant"
+                        value={0}
+                        checked={field.value === 0}
+                        onChange={() => handleCategoryChange(0)}
+                        className="hidden"
+                      />
+                      <label
+                        htmlFor="restaurant"
+                        className={`inline-block cursor-pointer h-8 w-24 border border-solid 
+              leading-8 text-center font-bold text-base 
+              ${
+                field.value === 0
+                  ? 'bg-yellow-400 text-white'
+                  : 'bg-white text-gray-800'
+              }`}
+                      >
+                        식당
+                      </label>
+                    </div>
+
+                    <div className="select">
+                      <input
+                        type="radio"
+                        id="cafe"
+                        value={1}
+                        checked={field.value === 1}
+                        onChange={() => handleCategoryChange(1)}
+                        className="hidden"
+                      />
+                      <label
+                        htmlFor="cafe"
+                        className={`inline-block cursor-pointer h-8 w-24 border border-solid 
+              leading-8 text-center font-bold text-base 
+              ${
+                field.value === 1
+                  ? 'bg-yellow-400 text-white'
+                  : 'bg-white text-gray-800'
+              }`}
+                      >
+                        카페
+                      </label>
+                    </div>
+
+                    <div className="select">
+                      <input
+                        type="radio"
+                        id="park"
+                        value={2}
+                        checked={field.value === 2}
+                        onChange={() => handleCategoryChange(2)}
+                        className="hidden"
+                      />
+                      <label
+                        htmlFor="park"
+                        className={`inline-block cursor-pointer h-8 w-24 border border-solid 
+              leading-8 text-center font-bold text-base 
+              ${
+                field.value === 2
+                  ? 'bg-yellow-400 text-white'
+                  : 'bg-white text-gray-800'
+              }`}
+                      >
+                        공원
+                      </label>
+                    </div>
+                  </div>
                   {fieldState?.error && (
-                    <p className="text-red-500">{fieldState.error.message}</p>
+                    <p className="text-red-500 mt-2 flex justify-center">
+                      {fieldState.error.message}
+                    </p>
                   )}
-                </div>
+                </>
               )}
             />
           </label>
 
-          <label>
-            <h3>설명</h3>
+          <label className="mt-4 block">
+            <h3 className="text-lg font-semibold mb-2">설명</h3>
             <input
               type="textarea"
               {...register('description')}
               placeholder="설명 입력"
-              className={`border-[1px] ${
-                errors.description ? 'border-red-500' : 'border-gray-40'
+              className={`w-full px-3 py-2 border ${
+                errors.description ? 'border-red-500' : 'border-gray-300'
               }`}
             />
             {errors.description && (
-              <p className="text-red-500">{errors.description.message}</p>
+              <p className="text-red-500 mt-2 flex justify-center">
+                {errors.description.message}
+              </p>
             )}
           </label>
 
-          <label>
+          <label className="mt-4 block">
             <h3>위치</h3>
             <Controller
               control={control}
@@ -230,157 +285,186 @@ const StoreRegistrationModal = ({
             </p>
           </label>
 
-          <label>
-            <h3>대표 이미지*</h3>
-            <div>
-              <Controller
-                control={control}
-                name="representImage"
-                defaultValue=""
-                render={({ field }) => (
-                  <>
-                    <input
-                      type="file"
-                      onChange={(e) => {
-                        field.onChange(e);
-                        handleImageChange(e);
-                      }}
-                      className="hidden"
-                    />
-                    <div
-                      className={`border-[1px] ${
-                        errors.representImage
-                          ? 'border-red-500'
-                          : 'border-gray-40'
-                      }`}
-                      onClick={() => {
-                        const input = document.querySelector<HTMLInputElement>(
-                          'input[name="representImage"]',
-                        );
-                        input?.click();
-                      }}
-                    >
-                      {representImage ? (
-                        <img
-                          src={representImage}
-                          alt="Representative Image"
-                          className="w-full h-auto"
-                        />
-                      ) : (
-                        <p className="text-gray-500">
-                          클릭하여 이미지를 업로드하세요.
-                        </p>
-                      )}
-                    </div>
-                  </>
-                )}
-              />
-            </div>
-            {errors.representImage && (
-              <p className="text-red-500">{errors.representImage.message}</p>
-            )}
-          </label>
-          <Controller
-            name="tags"
-            control={control}
-            defaultValue={[]}
-            rules={{ required: false }}
-            render={({ field }) => (
-              <div>
-                <label>
-                  <h3>태그</h3>
-                </label>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="태그 입력"
-                    ref={tagInputRef}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault();
-                        const tag = e.currentTarget.value.trim();
-                        if (tag) {
-                          field.onChange([...field.value, tag]);
-                          e.currentTarget.value = '';
-                        }
-                      }
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (tagInputRef.current) {
-                        const tag = tagInputRef.current.value.trim();
-                        if (tag) {
-                          field.onChange([...field.value, tag]);
-                          tagInputRef.current.value = '';
-                        }
-                      }
-                    }}
-                  >
-                    추가
-                  </button>
-                </div>
-                {errors.tags && (
-                  <p className="text-red-500">{errors.tags.message}</p>
-                )}
-                <ul>
-                  {field.value.map((tag, index) => (
-                    <li key={index}>
-                      <span>{tag}</span>
-                      <button
-                        type="button"
+          <label className="mt-4 block">
+            <h3 className="text-lg font-semibold mb-2">대표 이미지*</h3>
+            <div className=" flex items-center justify-center">
+              <div className="relative w-[300px] h-[200px]">
+                <Controller
+                  control={control}
+                  name="representImage"
+                  defaultValue=""
+                  render={({ field }) => (
+                    <>
+                      <input
+                        type="file"
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handleImageChange(e);
+                        }}
+                        className="hidden"
+                      />
+                      <div
+                        className={`border-[1px] ${
+                          errors.representImage
+                            ? 'border-red-500'
+                            : 'border-gray-40'
+                        } w-full h-full overflow-hidden relative`}
                         onClick={() => {
-                          field.onChange(
-                            field.value.filter((_, i) => i !== index),
-                          );
+                          const input =
+                            document.querySelector<HTMLInputElement>(
+                              'input[name="representImage"]',
+                            );
+                          input?.click();
                         }}
                       >
-                        삭제
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+                        {representImage ? (
+                          <img
+                            src={representImage}
+                            alt="Representative Image"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <>
+                            <p className="text-gray-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                              클릭하여 이미지를
+                            </p>
+                            <p className="text-gray-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-5">
+                              업로드해주세요.
+                            </p>
+                          </>
+                        )}
+                      </div>
+                    </>
+                  )}
+                />
               </div>
-            )}
-          />
-
-          <label>
-            <h3>운영 시작 시간</h3>
-            <input
-              type="text"
-              {...register('startTime')}
-              placeholder="운영 시작 시간 입력"
-              className={`border-[1px] ${
-                errors.startTime ? 'border-red-500' : 'border-gray-40'
-              }`}
-            />
-            {errors.startTime && (
-              <p className="text-red-500">{errors.startTime.message}</p>
+            </div>
+            {errors.representImage && (
+              <p className="text-red-500 mt-2 flex justify-center">
+                {errors.representImage.message}
+              </p>
             )}
           </label>
 
-          <label>
-            <h3>운영 종료 시간</h3>
-            <input
-              type="text"
-              {...register('endTime')}
-              placeholder="운영 종료 시간 입력"
-              className={`border-[1px] ${
-                errors.endTime ? 'border-red-500' : 'border-gray-40'
-              }`}
+          <label className="mt-4 block">
+            <h3 className="text-lg font-semibold mb-2">태그</h3>
+            <Controller
+              name="tags"
+              control={control}
+              defaultValue={[]}
+              rules={{ required: false }}
+              render={({ field }) => (
+                <div>
+                  <div className="flex items-center justify-center mb-4">
+                    <input
+                      type="text"
+                      placeholder="태그 입력"
+                      ref={tagInputRef}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          const tag = e.currentTarget.value.trim();
+                          if (tag) {
+                            field.onChange([...field.value, tag]);
+                            e.currentTarget.value = '';
+                          }
+                        }
+                      }}
+                      className="border border-gray-400 p-2 mr-2"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (tagInputRef.current) {
+                          const tag = tagInputRef.current.value.trim();
+                          if (tag) {
+                            field.onChange([...field.value, tag]);
+                            tagInputRef.current.value = '';
+                          }
+                        }
+                      }}
+                      className="bg-yellow-400 text-white p-2 ml-2"
+                    >
+                      추가
+                    </button>
+                  </div>
+                  {errors.tags && (
+                    <p className="text-red-500 mt-2 flex justify-center">
+                      {errors.tags.message}
+                    </p>
+                  )}
+                  <ul className="flex flex-wrap mt-2">
+                    {field.value.map((tag, index) => (
+                      <li
+                        key={index}
+                        className="border border-yellow-500 px-2 py-1 rounded-full mr-2 mb-2 flex items-center"
+                      >
+                        <span>{tag}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            field.onChange(
+                              field.value.filter((_, i) => i !== index),
+                            );
+                          }}
+                          className="ml-3 text-red-500"
+                        >
+                          Ｘ
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             />
-            {errors.endTime && (
-              <p className="text-red-500">{errors.endTime.message}</p>
-            )}
           </label>
 
-          <button type="submit" className="border border-black rounded mr-2">
-            등록
-          </button>
-          <button onClick={closeModal} className="border border-black rounded">
-            닫기
-          </button>
+          <h3 className="text-lg font-semibold mb-2 mt-4">운영시간</h3>
+          <div className="flex justify-center">
+            <label className="mr-2">
+              <input
+                type="text"
+                {...register('startTime')}
+                placeholder="시작 시간"
+                className={`border-[1px] w-[170px] ${
+                  errors.startTime ? 'border-red-500' : 'border-gray-40'
+                } px-2 py-1`}
+              />
+              {errors.startTime && (
+                <p className="text-red-500">{errors.startTime.message}</p>
+              )}
+            </label>
+
+            <span className="text-xl font-bold mx-2">~</span>
+
+            <label className="ml-2">
+              <input
+                type="text"
+                {...register('endTime')}
+                placeholder="종료 시간"
+                className={`border-[1px] w-[170px] ${
+                  errors.endTime ? 'border-red-500' : 'border-gray-40'
+                } px-2 py-1`}
+              />
+              {errors.endTime && (
+                <p className="text-red-500">{errors.endTime.message}</p>
+              )}
+            </label>
+          </div>
+          <div className="flex items-center justify-center mt-9">
+            <button
+              type="submit"
+              className="mt-4 px-6 py-2 bg-yellow-400 text-white rounded hover:bg-yellow-500 mr-6"
+            >
+              등록
+            </button>
+            <button
+              onClick={closeModal}
+              className="mt-4 px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-700"
+            >
+              닫기
+            </button>
+          </div>
         </form>
       </article>
     </div>
