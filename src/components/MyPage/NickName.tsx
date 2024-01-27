@@ -61,10 +61,10 @@ const NickName = ({
               type="text"
               value={editedNickname}
               onChange={handleNicknameChange}
-              className="border-b-2"
+              className="border-b-2 w-1/2 text-center"
               placeholder="수정할 닉네임을 입력하세요"
             />
-            <div className="text-l font-semibold">
+            <div className="text-xs md:text-l font-bold">
               <button onClick={handleSave} className="mx-2">
                 저장
               </button>
@@ -73,12 +73,12 @@ const NickName = ({
           </div>
         ) : (
           <div className="flex justify-center items-center">
-            <p className="mr-12 text-xs md:text-base">
+            <p className="mr-12 text-xs md:text-base ml-2">
               {editing ? editedNickname : nickname}
             </p>
             <button
               onClick={handleEdit}
-              className="text-l md:text-xl font-semibold"
+              className="text-xs md:text-l font-black md:font-black"
             >
               수정
             </button>

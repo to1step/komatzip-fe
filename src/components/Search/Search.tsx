@@ -90,7 +90,7 @@ const Search = () => {
     }
   };
   return (
-    <div className="flex-row justify-center items-center mb-10">
+    <div className="flex-row justify-center items-center mb-10 md:flex-row">
       <header>
         <form onSubmit={() => SearchStore}>
           <div className="flex justify-center items-center">

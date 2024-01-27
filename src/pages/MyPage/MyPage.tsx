@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import axiosInstance from '../../api/apiInstance';
 import ProfileImage from '../../components/MyPage/ProfileImage';
 import NickName from '../../components/MyPage/NickName';
@@ -15,8 +15,7 @@ import {
   IoHeartSharp,
 } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
-import StoreRegistrationModal from '../../components/Modal/StoreRegistrationModal/StoreRegistrationModal';
-import ModalComponent from '../../components/Modal/ModalComponent';
+import SelectedStoreList from '../../components/MyPage/SelectedStoreList';
 
 const MyPage = () => {
   const userData = useSelector((state: RootState) => state.user.userData);
@@ -25,8 +24,7 @@ const MyPage = () => {
 
   const [selectedTab, setSelectedTab] = useState('내 정보');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [storeData, setStoreData] = useState(null);
-  // const [isLoading, setIsLoading] = useState(false);
+  const [storeData, setStoreData] = useState(null);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -38,9 +36,13 @@ const MyPage = () => {
 
   const handleTabClick = (tabName: string) => {
     setSelectedTab(tabName);
+
+    if (tabName === '내 가게') {
+      fetchStoreListData();
+    }
   };
 
-  useEffect(() => {
+  const fetchUserData = useCallback(() => {
     if (!userData) {
       axiosInstance
         .get<UserMyInfo>('/v1/users/me')
@@ -56,6 +58,19 @@ const MyPage = () => {
         });
     }
   }, [userData, dispatch, navigate]);
+
+  const fetchStoreListData = useCallback(() => {
+    axiosInstance
+      .get('/v1/stores/me')
+      .then((response) => {
+        setStoreData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching store data:', error);
+        // 에러 처리 로직 추가
+      })
+      .finally(() => {});
+  }, []);
 
   const updateProfile = (img: string) => {
     if (!userData) return;
@@ -79,7 +94,7 @@ const MyPage = () => {
           showHamburgerButton={true}
         />
       </header>
-      <main className="w-3/4 flex-row justify-center items-center h-screen relative">
+      <main className="flex-row justify-center items-center h-screen relative">
         <section className="bg-white rounded-3xl">
           <div className="flex flex-col justify-center items-center mx-4 mb-4 h-[280px]">
             <section>
@@ -148,17 +163,17 @@ const MyPage = () => {
               </button>
             </section>
           </section>
-          <section className="bg-white rounded-b-2xl relative">
+          <section className="bg-white rounded-b-2xl flex flex-col">
             {selectedTab === '내 정보' && (
-              <section className="w-full md:w-2/3 flex flex-col items-start m-auto">
-                <ul className="flex flex-col mx-4 my-6">
+              <section className="flex flex-col items-start">
+                <ul className="flex my-6">
                   <li className="flex items-center justify-center mx-4 mt-8">
-                    <div className="mr-4">
+                    <div className="mx-4">
                       <IoHeartSharp size={26} />
                     </div>
                     {userData ? (
-                      <div className="flex flex-col">
-                        <p className="text-l md:text-xl font-semibold mr-20">
+                      <div className="flex">
+                        <p className="text-xs md:text-xl font-semibold mr-20">
                           닉네임
                         </p>
                         <NickName
@@ -173,32 +188,34 @@ const MyPage = () => {
                     )}
                   </li>
                 </ul>
-                <ul className="flex mx-4 my-6">
-                  <li className="flex items-center justify-center mx-4">
-                    <IoEarthSharp size={26} />
-                  </li>
-                  <li className="text-l md:text-xl font-semibold mr-8">
-                    소셜 정보
-                  </li>
+                <ul className="flex my-6">
+                  <div className="flex items-center justify-center ml-4 w-full">
+                    <li className="mx-4">
+                      <IoEarthSharp size={26} />
+                    </li>
+                    <li className="text-xs md:text-xl font-semibold mr-4">
+                      소셜 정보
+                    </li>
+                  </div>
                 </ul>
-                <ul className="flex mx-4 my-6">
+                <ul className="flex my-6">
                   <div className="flex items-center justify-center ml-4">
-                    <li className="mr-4">
+                    <li className="mx-4">
                       <VscMail size={26} />
                     </li>
-                    <li className="text-l md:text-xl font-semibold mr-8">
+                    <li className="text-xs md:text-xl font-semibold mr-4">
                       이메일 주소
                     </li>
                   </div>
-                  <div>
-                    <li>
+                  <div className="ml-12 mr-4">
+                    <li className="text-xs md:text-l">
                       {userData ? (
                         <Email email={userData.email} />
                       ) : (
                         <p>이메일 준비중</p>
                       )}
                     </li>
-                    <li className="text-[11px] text-slate-400 mt-1">
+                    <li className="text-[6px] md:text-l text-slate-400">
                       회원 인증 또는 시스템에서 이메일을 수신하는 주소입니다.
                     </li>
                   </div>
@@ -216,23 +233,7 @@ const MyPage = () => {
                 <button className="font-semibold">등록하러 가기</button>
               </section>
             )}
-            {selectedTab === '내 가게' && (
-              <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto relative z-3">
-                <div>
-                  <IoAlertCircleOutline size={26} />
-                  <h3>등록된 가게가 없습니다.</h3>
-                  <button onClick={() => openModal()} className="font-semibold">
-                    등록하러 가기
-                  </button>
-                </div>
-
-                {isModalOpen && (
-                  <ModalComponent>
-                    <StoreRegistrationModal closeModal={closeModal} />
-                  </ModalComponent>
-                )}
-              </section>
-            )}
+            {selectedTab === '내 가게' && <SelectedStoreList />}
           </section>
         </section>
       </main>
