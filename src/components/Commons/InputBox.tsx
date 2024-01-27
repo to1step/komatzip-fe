@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { FaSearch } from 'react-icons/fa';
 
 type Props = {
   name: string;
@@ -34,9 +35,9 @@ const InputBox = (props: Props) => {
   console.log(validationError, handleSubmit, handleChange);
 
   return (
-    <div>
+    <div className="flex relative" onSubmit={handleSubmit}>
       <input
-        className=" w-[675px] h-[40px] border-orange-600 text-sm placeholder-left px-5 border-2 rounded-r-full rounded-l-none focus:outline-none"
+        className="w-96 h-10 border-orange-600 text-sm placeholder-left px-5 border-2 border-r-0 rounded-r-none md:rounded-r-2xl rounded-l-none focus:outline-none"
         name={props.name}
         type={props.type || 'text'}
         onClick={props.onClick}
@@ -46,9 +47,14 @@ const InputBox = (props: Props) => {
         onKeyPress={props.onKeyPress}
         placeholder="검색 타입을 선택 후 찾고싶은 태그나 매장 이름을 입력해주세요."
       />
+      <button
+        type="submit"
+        className="w-10 h-10 border-2 bg-white text-orange-800 border-orange-600 flex md:hidden border-l-0 rounded-l-none rounded-r-2xl flex items-center justify-center"
+      >
+        <FaSearch />
+      </button>
     </div>
   );
 };
 
 export default InputBox;
-// 소분화즁
