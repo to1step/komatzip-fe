@@ -34,11 +34,11 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-between relative">
+    <div className="w-full h-screen flex items-center justify-center relative">
       <LoginBackground />
       <MenuBar />
 
-      <div className="invisible md:visible w-full flex justify-start text-white font-bold">
+      <section className="hidden md:flex justify-start text-white font-bold">
         <div className="w-1/5" />
         <div className="w-2/5 text-5xl flex flex-col gap-3">
           <h2 className="text-3xl">여기가 수도권</h2>
@@ -55,14 +55,16 @@ const Login = () => {
             </button>
           </div>
         </div>
-      </div>
-      <div className="w-2/5">
+      </section>
+      <section className="flex flex-col items-center justify-center mt-10">
         {/* 로그인 폼 */}
-        <form onSubmit={handleSubmit(onLogin)}>
+        <form onSubmit={handleSubmit(onLogin)} className="m-10">
           <div className="flex">
             <div className="flex flex-col justify-center items-center">
-              <h2 className="text-3xl visible md:invisible">여기가 수도권</h2>
-              <div className="visible md:invisible">-</div>
+              <h2 className="text-4xl font-bold visible md:invisible">
+                여기가 수도권
+              </h2>
+              <div className="text-4xl visible md:invisible">-</div>
               <h2 className="text-3xl">LOGIN</h2>
               <input
                 type="text"
@@ -92,7 +94,7 @@ const Login = () => {
             SIGN UP
           </button>
         </form>
-      </div>
+      </section>
     </div>
   );
 };
