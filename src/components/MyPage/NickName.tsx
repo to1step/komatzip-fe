@@ -56,7 +56,7 @@ const NickName = ({
     <ul className="flex-row">
       <li className="list-none">
         {editing && updateSuccess ? (
-          <div className="flex  items-center text-left ml-2 md:ml-6">
+          <div className="flex  items-center text-left ml-0 md:ml-2">
             <input
               type="text"
               value={editedNickname}
@@ -72,8 +72,8 @@ const NickName = ({
             </div>
           </div>
         ) : (
-          <div className="flex justify-center items-start">
-            <p className="mr-12 text-xs md:text-base ml-2">
+          <div className="flex justify-center items-center">
+            <p className="mr-8 text-xs md:text-base ml-4">
               {editing ? editedNickname : nickname}
             </p>
             <button

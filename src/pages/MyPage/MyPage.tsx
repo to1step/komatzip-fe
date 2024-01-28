@@ -207,7 +207,7 @@ const MyPage = () => {
                       이메일 주소
                     </li>
                   </div>
-                  <div className="ml-12 mr-4">
+                  <div className="ml-8 mr-4">
                     <li className="text-xs md:text-l">
                       {userData ? (
                         <Email email={userData.email} />
