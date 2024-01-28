@@ -5,6 +5,13 @@ import axiosInstance from '../../../api/apiInstance';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createStoreFormSchema } from '../../../schemas/storeFormSchema';
 import AddressInput from '../../AddressInput';
+import { uploadImage } from './StoreApiUtils';
+import StoreName from './StoreName';
+import StoreCategory from './StoreCategory';
+import StoreDescription from './StoreDescription';
+import StoreRepresentImage from './StoreRepresentImage';
+import StoreTag from './StoreTag';
+import StoreOperationTime from './StoreOperationTime';
 
 interface StoreRegistrationModalProps {
   closeModal: () => void;
@@ -38,32 +45,6 @@ const StoreRegistrationModal = ({
     setCoordinates(coordinates);
     setValue('coordinates', coordinates);
     setValue('location', address);
-  };
-
-  const handleCategoryChange = (value: number) => {
-    setValue('category', value);
-  };
-
-  const uploadImage = async (file: File): Promise<string> => {
-    try {
-      const formData = new FormData();
-      formData.append('images', file);
-
-      const response = await axiosInstance.post('/v1/images', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      const imageUrl = response.data?.imageLocationList?.[0];
-
-      if (imageUrl) {
-        return imageUrl;
-      } else {
-        throw new Error('Image URL not found in response data');
-      }
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      throw error;
-    }
   };
 
   const handleImageChange = async (
@@ -111,10 +92,10 @@ const StoreRegistrationModal = ({
         representImage: representImageUrl,
       };
       const response = await axiosInstance.post('/v1/stores', postData);
-
-      if (response.data === 200) {
+      if (response.data === true) {
         console.log('🚀 등록 성공');
         //TODO: alert 창으로 변경
+        closeModal();
       }
     } catch (error) {
       console.log('🚀 등록 실패', error);
@@ -143,126 +124,9 @@ const StoreRegistrationModal = ({
         </button>
         <h1 className="font-black text-xl text-center">가게 등록 모달</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label className="mt-4 block">
-            <h3 className="text-lg font-semibold mb-2">가게 이름*</h3>
-            <input
-              type="text"
-              {...register('name')}
-              placeholder="가게 이름 입력"
-              className={`w-full px-3 py-2 border ${
-                errors.name ? 'border-red-500' : 'border-gray-300'
-              }`}
-            />
-            {errors.name && (
-              <p className="text-red-500 mt-2 flex justify-center">
-                {errors.name.message}
-              </p>
-            )}
-          </label>
-
-          <label className="mt-4 block">
-            <h3 className="text-lg font-semibold mb-2">카테고리*</h3>
-            <Controller
-              control={control}
-              name="category"
-              render={({ field, fieldState }) => (
-                <>
-                  <div className="flex justify-between items-center px-8">
-                    <div className="select">
-                      <input
-                        type="radio"
-                        id="restaurant"
-                        value={0}
-                        checked={field.value === 0}
-                        onChange={() => handleCategoryChange(0)}
-                        className="hidden"
-                      />
-                      <label
-                        htmlFor="restaurant"
-                        className={`inline-block cursor-pointer h-8 w-24 border border-solid 
-              leading-8 text-center font-bold text-base 
-              ${
-                field.value === 0
-                  ? 'bg-yellow-400 text-white'
-                  : 'bg-white text-gray-800'
-              }`}
-                      >
-                        식당
-                      </label>
-                    </div>
-
-                    <div className="select">
-                      <input
-                        type="radio"
-                        id="cafe"
-                        value={1}
-                        checked={field.value === 1}
-                        onChange={() => handleCategoryChange(1)}
-                        className="hidden"
-                      />
-                      <label
-                        htmlFor="cafe"
-                        className={`inline-block cursor-pointer h-8 w-24 border border-solid 
-              leading-8 text-center font-bold text-base 
-              ${
-                field.value === 1
-                  ? 'bg-yellow-400 text-white'
-                  : 'bg-white text-gray-800'
-              }`}
-                      >
-                        카페
-                      </label>
-                    </div>
-
-                    <div className="select">
-                      <input
-                        type="radio"
-                        id="park"
-                        value={2}
-                        checked={field.value === 2}
-                        onChange={() => handleCategoryChange(2)}
-                        className="hidden"
-                      />
-                      <label
-                        htmlFor="park"
-                        className={`inline-block cursor-pointer h-8 w-24 border border-solid 
-              leading-8 text-center font-bold text-base 
-              ${
-                field.value === 2
-                  ? 'bg-yellow-400 text-white'
-                  : 'bg-white text-gray-800'
-              }`}
-                      >
-                        공원
-                      </label>
-                    </div>
-                  </div>
-                  {fieldState?.error && (
-                    <p className="text-red-500 mt-2 flex justify-center">
-                      {fieldState.error.message}
-                    </p>
-                  )}
-                </>
-              )}
-            />
-          </label>
-
-          <label className="mt-4 block">
-            <h3 className="text-lg font-semibold mb-2">설명</h3>
-            <input
-              type="textarea"
-              {...register('description')}
-              placeholder="설명 입력"
-              className={`w-full px-3 py-2 border ${
-                errors.description ? 'border-red-500' : 'border-gray-300'
-              }`}
-            />
-            {errors.description && (
-              <p className="text-red-500 mt-2 flex justify-center">
-                {errors.description.message}
-              </p>
-            )}
-          </label>
+          <StoreName register={register} errors={errors} />
+          <StoreCategory control={control} />
+          <StoreDescription register={register} errors={errors} />
 
           <label className="mt-4 block">
             <h3>위치</h3>
@@ -285,172 +149,18 @@ const StoreRegistrationModal = ({
             </p>
           </label>
 
-          <label className="mt-4 block">
-            <h3 className="text-lg font-semibold mb-2">대표 이미지*</h3>
-            <div className=" flex items-center justify-center">
-              <div className="relative w-[300px] h-[200px]">
-                <Controller
-                  control={control}
-                  name="representImage"
-                  defaultValue=""
-                  render={({ field }) => (
-                    <>
-                      <input
-                        type="file"
-                        onChange={(e) => {
-                          field.onChange(e);
-                          handleImageChange(e);
-                        }}
-                        className="hidden"
-                      />
-                      <div
-                        className={`border-[1px] ${
-                          errors.representImage
-                            ? 'border-red-500'
-                            : 'border-gray-40'
-                        } w-full h-full overflow-hidden relative`}
-                        onClick={() => {
-                          const input =
-                            document.querySelector<HTMLInputElement>(
-                              'input[name="representImage"]',
-                            );
-                          input?.click();
-                        }}
-                      >
-                        {representImage ? (
-                          <img
-                            src={representImage}
-                            alt="Representative Image"
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <>
-                            <p className="text-gray-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                              클릭하여 이미지를
-                            </p>
-                            <p className="text-gray-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-5">
-                              업로드해주세요.
-                            </p>
-                          </>
-                        )}
-                      </div>
-                    </>
-                  )}
-                />
-              </div>
-            </div>
-            {errors.representImage && (
-              <p className="text-red-500 mt-2 flex justify-center">
-                {errors.representImage.message}
-              </p>
-            )}
-          </label>
+          <StoreRepresentImage
+            control={control}
+            name="representImage"
+            defaultValue=""
+            errors={errors}
+            handleImageChange={handleImageChange}
+          />
 
-          <label className="mt-4 block">
-            <h3 className="text-lg font-semibold mb-2">태그</h3>
-            <Controller
-              name="tags"
-              control={control}
-              defaultValue={[]}
-              rules={{ required: false }}
-              render={({ field }) => (
-                <div>
-                  <div className="flex items-center justify-center mb-4">
-                    <input
-                      type="text"
-                      placeholder="태그 입력"
-                      ref={tagInputRef}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          e.preventDefault();
-                          const tag = e.currentTarget.value.trim();
-                          if (tag) {
-                            field.onChange([...field.value, tag]);
-                            e.currentTarget.value = '';
-                          }
-                        }
-                      }}
-                      className="border border-gray-400 p-2 mr-2"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (tagInputRef.current) {
-                          const tag = tagInputRef.current.value.trim();
-                          if (tag) {
-                            field.onChange([...field.value, tag]);
-                            tagInputRef.current.value = '';
-                          }
-                        }
-                      }}
-                      className="bg-yellow-400 text-white p-2 ml-2"
-                    >
-                      추가
-                    </button>
-                  </div>
-                  {errors.tags && (
-                    <p className="text-red-500 mt-2 flex justify-center">
-                      {errors.tags.message}
-                    </p>
-                  )}
-                  <ul className="flex flex-wrap mt-2">
-                    {field.value.map((tag, index) => (
-                      <li
-                        key={index}
-                        className="border border-yellow-500 px-2 py-1 rounded-full mr-2 mb-2 flex items-center"
-                      >
-                        <span>{tag}</span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            field.onChange(
-                              field.value.filter((_, i) => i !== index),
-                            );
-                          }}
-                          className="ml-3 text-red-500"
-                        >
-                          Ｘ
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            />
-          </label>
+          <StoreTag tagInputRef={tagInputRef} control={control} />
 
-          <h3 className="text-lg font-semibold mb-2 mt-4">운영시간</h3>
-          <div className="flex justify-center">
-            <label className="mr-2">
-              <input
-                type="text"
-                {...register('startTime')}
-                placeholder="시작 시간"
-                className={`border-[1px] w-[170px] ${
-                  errors.startTime ? 'border-red-500' : 'border-gray-40'
-                } px-2 py-1`}
-              />
-              {errors.startTime && (
-                <p className="text-red-500">{errors.startTime.message}</p>
-              )}
-            </label>
+          <StoreOperationTime register={register} errors={errors} />
 
-            <span className="text-xl font-bold mx-2">~</span>
-
-            <label className="ml-2">
-              <input
-                type="text"
-                {...register('endTime')}
-                placeholder="종료 시간"
-                className={`border-[1px] w-[170px] ${
-                  errors.endTime ? 'border-red-500' : 'border-gray-40'
-                } px-2 py-1`}
-              />
-              {errors.endTime && (
-                <p className="text-red-500">{errors.endTime.message}</p>
-              )}
-            </label>
-          </div>
           <div className="flex items-center justify-center mt-9">
             <button
               type="submit"
