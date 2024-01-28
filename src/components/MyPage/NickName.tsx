@@ -73,7 +73,7 @@ const NickName = ({
           </div>
         ) : (
           <div className="flex justify-center items-center">
-            <p className="mr-8 text-xs md:text-base ml-4">
+            <p className="mr-8 text-xs md:text-base ml-0 md:ml-4">
               {editing ? editedNickname : nickname}
             </p>
             <button
