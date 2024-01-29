@@ -1,9 +1,13 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ModalComponent from '../Modal/ModalComponent';
 import StoreRegistrationModal from '../Modal/StoreRegistrationModal/StoreRegistrationModal';
 import { IoAlertCircleOutline } from 'react-icons/io5';
+import { Store, StoreEntireInfo } from '@to1step/propose-backend';
 
-const SelectedStoreList = () => {
+interface SelectedStoreListProps {
+  storeData: Store | StoreEntireInfo | null;
+}
+const SelectedStoreList = ({ storeData }: SelectedStoreListProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -14,7 +18,13 @@ const SelectedStoreList = () => {
     setIsModalOpen(false);
   }, []);
 
-  return data.length === 0 ? (
+  useEffect(() => {}, [storeData]);
+
+  if (!storeData) {
+    return <div className="loading-state">정보를 가져오는 중...</div>;
+  }
+
+  return (
     <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto relative z-3">
       <div>
         <IoAlertCircleOutline size={26} />
@@ -30,8 +40,6 @@ const SelectedStoreList = () => {
         </ModalComponent>
       )}
     </section>
-  ) : (
-    ''
   );
 };
 

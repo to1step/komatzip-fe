@@ -4,7 +4,7 @@ import ProfileImage from '../../components/MyPage/ProfileImage';
 import NickName from '../../components/MyPage/NickName';
 import Email from '../../components/MyPage/Email';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserMyInfo, loginAction } from '../../redux/module/user';
+import { loginAction } from '../../redux/module/user';
 import { RootState } from '../../redux/module';
 import AccountDeletion from '../../components/MyPage/AccountDeletion';
 import Header from '../../components/Commons/Header';
@@ -14,25 +14,15 @@ import {
   IoEarthSharp,
   IoHeartSharp,
 } from 'react-icons/io5';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SelectedStoreList from '../../components/MyPage/SelectedStoreList';
 
 const MyPage = () => {
   const userData = useSelector((state: RootState) => state.user.userData);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [selectedTab, setSelectedTab] = useState('내 정보');
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [storeData, setStoreData] = useState(null);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = useCallback(() => {
-    setIsModalOpen(false);
-  }, []);
 
   const handleTabClick = (tabName: string) => {
     setSelectedTab(tabName);
@@ -42,22 +32,11 @@ const MyPage = () => {
     }
   };
 
-  const fetchUserData = useCallback(() => {
-    if (!userData) {
-      axiosInstance
-        .get<UserMyInfo>('/v1/users/me')
-        .then((response) => {
-          if (response && response.data) {
-            dispatch(loginAction(response.data));
-          } else {
-            navigate('/');
-          }
-        })
-        .catch(() => {
-          navigate('/');
-        });
-    }
-  }, [userData, dispatch, navigate]);
+  // const fetchUserData = useCallback(() => {
+  //   if (!userData) {
+  //     navigate('/');
+  //   }
+  // }, [userData, navigate]);
 
   const fetchStoreListData = useCallback(() => {
     axiosInstance
@@ -67,7 +46,6 @@ const MyPage = () => {
       })
       .catch((error) => {
         console.error('Error fetching store data:', error);
-        // 에러 처리 로직 추가
       })
       .finally(() => {});
   }, []);
@@ -233,7 +211,9 @@ const MyPage = () => {
                 <button className="font-semibold">등록하러 가기</button>
               </section>
             )}
-            {selectedTab === '내 가게' && <SelectedStoreList />}
+            {selectedTab === '내 가게' && (
+              <SelectedStoreList storeData={storeData} />
+            )}
           </section>
         </section>
       </main>
