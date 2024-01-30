@@ -12,6 +12,7 @@ import StoreDescription from './StoreDescription';
 import StoreRepresentImage from './StoreRepresentImage';
 import StoreTag from './StoreTag';
 import StoreOperationTime from './StoreOperationTime';
+import { success } from '../../../util/toastify';
 
 interface StoreRegistrationModalProps {
   closeModal: () => void;
@@ -94,7 +95,7 @@ const StoreRegistrationModal = ({
       const response = await axiosInstance.post('/v1/stores', postData);
       if (response.data === true) {
         console.log('🚀 등록 성공');
-        //TODO: alert 창으로 변경
+        success('가게가 등록 되었습니다.');
         closeModal();
       }
     } catch (error) {

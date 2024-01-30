@@ -5,11 +5,7 @@ interface StoreOperationTimeProps {
   register: UseFormRegister<CreateStoreForm>;
   errors: Record<string, FieldValues>;
 }
-
-const StoreOperationTime: React.FC<StoreOperationTimeProps> = ({
-  register,
-  errors,
-}) => {
+const StoreOperationTime = ({ register, errors }: StoreOperationTimeProps) => {
   return (
     <label className="mt-4 block">
       <h3 className="text-lg font-semibold mb-2 mt-4">운영시간</h3>

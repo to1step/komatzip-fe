@@ -5,7 +5,13 @@ interface StoreCategoryProps {
   control: Control<CreateStoreForm>;
 }
 
-const StoreCategory: React.FC<StoreCategoryProps> = ({ control }) => (
+const categoryOptions = [
+  { id: 'restaurant', label: '식당', value: 0 },
+  { id: 'cafe', label: '카페', value: 1 },
+  { id: 'park', label: '공원', value: 2 },
+];
+
+const StoreCategory = ({ control }: StoreCategoryProps) => (
   <label className="mt-4 block">
     <h3 className="text-lg font-semibold mb-2">카테고리*</h3>
     <Controller
@@ -14,74 +20,30 @@ const StoreCategory: React.FC<StoreCategoryProps> = ({ control }) => (
       render={({ field, fieldState }) => (
         <>
           <div className="flex justify-between items-center px-8">
-            <div className="select">
-              <input
-                type="radio"
-                id="restaurant"
-                value={0}
-                checked={field.value === 0}
-                onChange={() => field.onChange(0)}
-                className="hidden"
-              />
-              <label
-                htmlFor="restaurant"
-                className={`inline-block cursor-pointer h-8 w-24 border border-solid 
-              leading-8 text-center font-bold text-base 
-              ${
-                field.value === 0
-                  ? 'bg-yellow-400 text-white'
-                  : 'bg-white text-gray-800'
-              }`}
-              >
-                식당
-              </label>
-            </div>
-
-            <div className="select">
-              <input
-                type="radio"
-                id="cafe"
-                value={1}
-                checked={field.value === 1}
-                onChange={() => field.onChange(1)}
-                className="hidden"
-              />
-              <label
-                htmlFor="cafe"
-                className={`inline-block cursor-pointer h-8 w-24 border border-solid 
-              leading-8 text-center font-bold text-base 
-              ${
-                field.value === 1
-                  ? 'bg-yellow-400 text-white'
-                  : 'bg-white text-gray-800'
-              }`}
-              >
-                카페
-              </label>
-            </div>
-
-            <div className="select">
-              <input
-                type="radio"
-                id="park"
-                value={2}
-                checked={field.value === 2}
-                onChange={() => field.onChange(2)}
-                className="hidden"
-              />
-              <label
-                htmlFor="park"
-                className={`inline-block cursor-pointer h-8 w-24 border border-solid 
-              leading-8 text-center font-bold text-base 
-              ${
-                field.value === 2
-                  ? 'bg-yellow-400 text-white'
-                  : 'bg-white text-gray-800'
-              }`}
-              >
-                공원
-              </label>
-            </div>
+            {categoryOptions.map((option) => (
+              <div className="select" key={option.id}>
+                <input
+                  type="radio"
+                  id={option.id}
+                  value={option.value}
+                  checked={field.value === option.value}
+                  onChange={() => field.onChange(option.value)}
+                  className="hidden"
+                />
+                <label
+                  htmlFor={option.id}
+                  className={`inline-block cursor-pointer h-8 w-24 border border-solid 
+                  leading-8 text-center font-bold text-base 
+                  ${
+                    field.value === option.value
+                      ? 'bg-yellow-400 text-white'
+                      : 'bg-white text-gray-800'
+                  }`}
+                >
+                  {option.label}
+                </label>
+              </div>
+            ))}
           </div>
           {fieldState?.error && (
             <p className="text-red-500 mt-2 flex justify-center">
