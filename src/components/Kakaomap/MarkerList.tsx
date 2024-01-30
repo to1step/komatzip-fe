@@ -14,7 +14,11 @@ const MarkerList = ({
   onMarkerMouseOver,
 }: MarkerListProps) => {
   return (
-    <div className="absolute top-2 right-[2vw] p-4 bg-white w-[350px] shadow-md z-10 rounded-lg overflow-auto">
+    <div className="absolute bg-white top-[60%] mx-auto right-0 left-0 p-0 w-[370px] shadow-md z-10 rounded-lg overflow-auto md:w-[330px] md:mr-8 md:top-2">
+      <div className="text-lg text-center font-extrabold text-blue-500">
+        내 주변 가게
+      </div>
+
       <style>
         {`
           ::-webkit-scrollbar {
@@ -37,14 +41,14 @@ const MarkerList = ({
       <div className="max-h-[750px]">
         {markers.map((marker) => (
           <div
-            key={marker.uuid} // 고유 키로 uuid 사용
+            key={marker.uuid}
             className={`p-2 border-t border-blue-400 mt-2 ${
               marker.name === activeMarkerTitle ? 'bg-blue-100' : ''
             }`}
             onClick={() => onMarkerClick(marker)}
             onMouseOver={() => onMarkerMouseOver(marker)}
           >
-            <p className="font-bold text-lg text-blue-500">{marker.name}</p>
+            <p className="font-bold text-lg text-blue-400">{marker.name}</p>
             <p>{`주소: ${marker.location}`}</p>
             <p>{`태그: ${marker.tags}`}</p>
           </div>

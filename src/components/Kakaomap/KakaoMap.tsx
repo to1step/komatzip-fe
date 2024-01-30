@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axiosInstance from '../../api/apiInstance';
 import MarkerList from './MarkerList';
 import { StoreEntireInfo } from '@to1step/propose-backend';
@@ -13,9 +13,7 @@ declare global {
   }
 }
 
-interface KakaoMapProps {}
-
-const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
+const KakaoMap = () => {
   const [activeMarkerTitle, setActiveMarkerTitle] = useState<string | null>(
     null,
   );
@@ -38,7 +36,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
           `/v1/stores/location?region=${encodeURIComponent(address)}`,
         );
 
-        let markersData: StoreEntireInfo[] = Array.isArray(data) ? data : [];
+        const markersData: StoreEntireInfo[] = Array.isArray(data) ? data : [];
 
         const script = document.createElement('script');
         script.async = true;
@@ -114,7 +112,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
     };
 
     fetchData();
-  }, []);
+  }, [address]);
 
   const handleMarkerClick = (markerInfo: StoreEntireInfo) => {
     const recommendedCourses = calculateDistance(
@@ -193,7 +191,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({}) => {
     <div className="relative">
       <div id="kakao-map" style={{ width: '100vw', height: '90vh' }}>
         <button
-          className="my-position-button bg-blue-400 text-white text-xl font-bold py-3 px-6 rounded absolute bottom-[40px] left-12 z-10"
+          className="my-position-button bg-blue-400 text-white text-xl font-bold py-3 px-6 rounded absolute bottom-[42%] left-6 md:bottom-10 md:left-12 z-10"
           onClick={moveToMyPosition}
         >
           현재 위치

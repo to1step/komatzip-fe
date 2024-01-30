@@ -19,7 +19,7 @@ const StoreCategory = ({ control }: StoreCategoryProps) => (
       name="category"
       render={({ field, fieldState }) => (
         <>
-          <div className="flex justify-between items-center px-8">
+          <div className="flex justify-between items-center px-6">
             {categoryOptions.map((option) => (
               <div className="select" key={option.id}>
                 <input
