@@ -26,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.2",
     "react-icons": "^4.10.1",
+    "react-js-pagination": "^3.0.3",
     "react-kakao-maps-sdk": "^1.1.24",
     "react-multi-carousel": "^2.8.4",
     "react-redux": "^8.1.2",
