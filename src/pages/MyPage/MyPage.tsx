@@ -72,7 +72,7 @@ const MyPage = () => {
           showHamburgerButton={true}
         />
       </header>
-      <main className="flex-row justify-center items-center h-screen relative">
+      <main className="flex-row justify-center items-center h-screen relative w-2/3">
         <section className="bg-white rounded-3xl">
           <div className="flex flex-col justify-center items-center mx-4 mb-4 h-[280px]">
             <section>
@@ -104,7 +104,7 @@ const MyPage = () => {
             </section>
           </div>
         </section>
-        <section className="h-3/4 relative">
+        <section className="h-3/4 relative flex-row justify-center">
           <section className="mt-8">
             <section className="flex ">
               <button
@@ -141,79 +141,81 @@ const MyPage = () => {
               </button>
             </section>
           </section>
-          <section className="bg-white rounded-b-2xl flex flex-col">
-            {selectedTab === '내 정보' && (
-              <section className="flex flex-col items-start">
-                <ul className="flex my-6">
-                  <li className="flex items-center justify-center mx-4 mt-8">
-                    <div className="mx-4">
-                      <IoHeartSharp size={26} />
-                    </div>
-                    {userData ? (
-                      <div className="flex">
-                        <p className="text-xs md:text-xl font-semibold mr-20">
-                          닉네임
-                        </p>
-                        <NickName
-                          nickname={userData.nickname}
-                          commentAlarm={userData.commentAlarm}
-                          updateAlarm={userData.updateAlarm}
-                          profileImage={userData.profileImage}
-                        />
+          <section className="bg-white rounded-b-2xl flex flex-col items-center">
+            <div className="w-2/3 flex justify-start items-center">
+              {selectedTab === '내 정보' && (
+                <section className="flex flex-col items-start">
+                  <ul className="flex my-6">
+                    <li className="flex items-center justify-center mx-4 mt-8">
+                      <div className="mx-4">
+                        <IoHeartSharp size={26} />
                       </div>
-                    ) : (
-                      <Link to="/login">로그인하러 가기</Link>
-                    )}
-                  </li>
-                </ul>
-                <ul className="flex my-6">
-                  <div className="flex items-center justify-center ml-4 w-full">
-                    <li className="mx-4">
-                      <IoEarthSharp size={26} />
-                    </li>
-                    <li className="text-xs md:text-xl font-semibold mr-4">
-                      소셜 정보
-                    </li>
-                  </div>
-                </ul>
-                <ul className="flex my-6">
-                  <div className="flex items-center justify-center ml-4">
-                    <li className="mx-4">
-                      <VscMail size={26} />
-                    </li>
-                    <li className="text-xs md:text-xl font-semibold mr-4">
-                      이메일 주소
-                    </li>
-                  </div>
-                  <div className="ml-8 mr-4">
-                    <li className="text-xs md:text-l">
                       {userData ? (
-                        <Email email={userData.email} />
+                        <div className="flex">
+                          <p className="text-xs md:text-xl font-semibold mr-2 md:mr-20">
+                            닉네임
+                          </p>
+                          <NickName
+                            nickname={userData.nickname}
+                            commentAlarm={userData.commentAlarm}
+                            updateAlarm={userData.updateAlarm}
+                            profileImage={userData.profileImage}
+                          />
+                        </div>
                       ) : (
-                        <p>이메일 준비중</p>
+                        <Link to="/login">로그인하러 가기</Link>
                       )}
                     </li>
-                    <li className="text-[6px] md:text-l text-slate-400">
-                      회원 인증 또는 시스템에서 이메일을 수신하는 주소입니다.
-                    </li>
+                  </ul>
+                  <ul className="flex my-6">
+                    <div className="flex items-center justify-center ml-4 w-full">
+                      <li className="mx-4">
+                        <IoEarthSharp size={26} />
+                      </li>
+                      <li className="text-xs md:text-xl font-semibold mr-4">
+                        소셜 정보
+                      </li>
+                    </div>
+                  </ul>
+                  <ul className="flex my-6">
+                    <div className="flex items-center justify-center ml-4">
+                      <li className="mx-4">
+                        <VscMail size={26} />
+                      </li>
+                      <li className="text-xs md:text-xl font-semibold mr-4">
+                        이메일 주소
+                      </li>
+                    </div>
+                    <div className="ml-8 mr-4">
+                      <li className="text-xs md:text-l">
+                        {userData ? (
+                          <Email email={userData.email} />
+                        ) : (
+                          <p>이메일 준비중</p>
+                        )}
+                      </li>
+                      <li className="text-[6px] md:text-l text-slate-400">
+                        회원 인증 또는 시스템에서 이메일을 수신하는 주소입니다.
+                      </li>
+                    </div>
+                  </ul>
+                  <ul></ul>
+                  <AccountDeletion />
+                </section>
+              )}
+              {selectedTab === '내 코스' && (
+                <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto">
+                  <div>
+                    <IoAlertCircleOutline size={26} />
                   </div>
-                </ul>
-                <ul></ul>
-                <AccountDeletion />
-              </section>
-            )}
-            {selectedTab === '내 코스' && (
-              <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto">
-                <div>
-                  <IoAlertCircleOutline size={26} />
-                </div>
-                <h3>등록된 코스가 없습니다.</h3>
-                <button className="font-semibold">등록하러 가기</button>
-              </section>
-            )}
-            {selectedTab === '내 가게' && (
-              <SelectedStoreList storeData={storeData} />
-            )}
+                  <h3>등록된 코스가 없습니다.</h3>
+                  <button className="font-semibold">등록하러 가기</button>
+                </section>
+              )}
+              {selectedTab === '내 가게' && (
+                <SelectedStoreList storeData={storeData} />
+              )}
+            </div>
           </section>
         </section>
       </main>
