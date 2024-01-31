@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import InputBox from '../Commons/InputBox';
-// import SearchButton from '../Commons/SearchButton';
 import axiosInstance from '../../api/apiInstance';
 import {
   setSearchResultsCourse,
@@ -90,7 +89,7 @@ const Search = () => {
     }
   };
   return (
-    <div className="flex-row justify-center items-center mb-10">
+    <div className="flex-row justify-center items-center mb-10 md:flex-row">
       <header>
         <form onSubmit={() => SearchStore}>
           <div className="flex justify-center items-center">
@@ -99,7 +98,7 @@ const Search = () => {
                 id="searchType"
                 value={searchType}
                 onChange={(e) => setSearchType(e.target.value)}
-                className="h-[40px] border-orange-600 border-2 border-r-0 text-sm placeholder-left px-5 rounded-l-full rounded-r-none focus:outline-none"
+                className="h-10 border-orange-600 border-2 border-r-0 text-sm placeholder-left px-5 rounded-l-2xl rounded-r-none focus:outline-none"
               >
                 <option value="tags">태그 검색</option>
                 <option value="keyword">매장 검색</option>
@@ -115,18 +114,16 @@ const Search = () => {
                 name="tagQuery"
               />
             </div>
-            <div className="p-[15px]">
-              <button
-                type="submit"
-                className="h-[40px] w-[80px] text-sm bg-orange-200 border-none rounded-full text-orange-800 focus:outline-none "
-              >
-                Search
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="text-center mx-3 h-10 w-20 text-sm bg-orange-200 border-none rounded-2xl text-orange-800 focus:outline-none hidden md:flex flex items-center justify-center"
+            >
+              Search
+            </button>
           </div>
         </form>
-        <div className="flex justify-center">
-          <div className="text-center text-orange-200 mx-5">
+        <div className="flex flex-col md:flex-row justify-center items-center mt-3">
+          <div className="text-center text-orange-200 md:mb-0 text-xs md:text-lg">
             {address ? (
               <p>현재 내 위치는 "{address}"</p>
             ) : (
@@ -134,10 +131,10 @@ const Search = () => {
             )}
           </div>
           <div>
-            <nav className="text-center font-semibold">
+            <nav className="text-center font-semibold my-0 md:my-3 md:mx-2">
               <Link
                 to="/map"
-                className="text-sl text-orange-200 hover:underline"
+                className="text-xs md:text-lg text-orange-200 hover:underline"
               >
                 내 주위 추천 장소 보러 가기
               </Link>

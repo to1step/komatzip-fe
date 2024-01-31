@@ -34,31 +34,37 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-between relative">
+    <div className="w-full h-screen flex items-center justify-center relative">
       <LoginBackground />
       <MenuBar />
 
-      <div className="w-full flex justify-start text-white font-bold">
+      <section className="hidden md:flex justify-start text-white font-bold">
         <div className="w-1/5" />
         <div className="w-2/5 text-5xl flex flex-col gap-3">
           <h2 className="text-3xl">여기가 수도권</h2>
           <div>-</div>
           <div>Welcome</div>
           <div>Don't have an account?</div>
-          <button
-            type="button"
-            className="inline-flex text-orange-400 justify-center items-center px-8 py-3 mt-4 text-base bg-gray-100 border-0 rounded-3xl w-80"
-            onClick={() => navigate('/signup')}
-          >
-            SIGN UP
-          </button>
+          <div>
+            <button
+              type="button"
+              className="invisible md:visible inline-flex text-orange-400 justify-center items-center px-8 py-3 mt-4 text-base bg-gray-100 border-0 rounded-3xl w-80"
+              onClick={() => navigate('/signup')}
+            >
+              SIGN UP
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="w-2/5">
+      </section>
+      <section className="flex flex-col items-center justify-center mt-10">
         {/* 로그인 폼 */}
-        <form onSubmit={handleSubmit(onLogin)}>
+        <form onSubmit={handleSubmit(onLogin)} className="m-10">
           <div className="flex">
             <div className="flex flex-col justify-center items-center">
+              <h2 className="text-4xl font-bold visible md:invisible">
+                여기가 수도권
+              </h2>
+              <div className="text-4xl visible md:invisible">-</div>
               <h2 className="text-3xl">LOGIN</h2>
               <input
                 type="text"
@@ -80,8 +86,15 @@ const Login = () => {
               </button>
             </div>
           </div>
+          <button
+            type="button"
+            className="visible md:invisible inline-flex text-orange-400 justify-center items-center px-8 py-3 mt-4 text-base bg-gray-100 border-0 rounded-3xl w-80"
+            onClick={() => navigate('/signup')}
+          >
+            SIGN UP
+          </button>
         </form>
-      </div>
+      </section>
     </div>
   );
 };
