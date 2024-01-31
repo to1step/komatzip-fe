@@ -38,9 +38,9 @@ const MapModal = ({
     <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-75 z-20">
       <div
         ref={modalRef}
-        className="bg-white p-4 rounded-lg shadow-md max-w-[1100px] w-full h-[650px] grid grid-cols-5"
+        className="bg-white p-4 rounded-lg shadow-md max-w-[1100px] md:w-full w-[90%] h-[650px] grid grid-cols-1 md:grid-cols-5 overflow-auto"
       >
-        <div className="col-span-2 py-4 pr-4 border-r">
+        <div className="md:col-span-2 md:py-4 md:pr-4 md:border-spacing-0 md:border-r">
           <div className="flex items-center mb-4">
             <div className="text-3xl font-bold text-blue-500 mr-4 mb-2">
               {markerInfo.name}
@@ -58,18 +58,8 @@ const MapModal = ({
             markerInfo={markerInfo}
           />
         </div>
-        <div className="col-span-3 p-4 mt-[80px]">
+        <div className="col-span-1 md:col-span-3 p-4 md:mt-[80px]">
           <div className="flex justify-between">
-            <img
-              src={markerInfo?.representImage || '기본 이미지 URL'}
-              alt="후기 사진"
-              className="w-[180px] h-30 rounded"
-            />
-            <img
-              src={markerInfo?.representImage || '기본 이미지 URL'}
-              alt="후기 사진"
-              className="w-[180px] h-30 rounded"
-            />
             <img
               src={markerInfo?.representImage || '기본 이미지 URL'}
               alt="후기 사진"

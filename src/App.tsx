@@ -7,7 +7,7 @@ import axios from 'axios';
 import axiosInstance from './api/apiInstance';
 import LandingPage from './pages/LandingPage';
 import SearchPage from './pages/Search/SearchPage';
-import MapPage from './pages/MapPage';
+import MapPage from './pages/Map/MapPage';
 import { User } from '@to1step/propose-backend';
 import Login from './pages/Login/Login';
 import SignUp from './pages/Signup/Signup';

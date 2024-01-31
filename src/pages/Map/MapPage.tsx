@@ -1,5 +1,5 @@
-import KakaoMap from '../components/Kakaomap/KakaoMap';
-import Header from '../components/Commons/Header';
+import KakaoMap from '../../components/Kakaomap/KakaoMap';
+import Header from '../../components/Commons/Header';
 
 const MapPage = () => {
   return (
