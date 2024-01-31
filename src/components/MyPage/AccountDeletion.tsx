@@ -27,29 +27,31 @@ const AccountDeletion = () => {
   };
 
   return (
-    <section className="flex m-4 mb-10">
-      <p className="mx-4">
-        <IoCloseCircleOutline size={26} />
-      </p>
-      <button
-        className="text-l flex justify-center items-center"
-        onClick={openModal}
-      >
-        <h2 className="text-xl font-semibold mr-4">회원탈퇴</h2>
-        <IoChevronForwardSharp size={20} />
-      </button>
-      {isModalOpen && (
-        <AccountDeletionModal
-          closeModal={closeModal}
-          onAccountDeleted={openSuccessModal}
-        />
-      )}
-      {isSuccessModalOpen && (
-        <AccountDeletionSuccessModal
-          onClose={closeSuccessModal}
-          history={history}
-        />
-      )}
+    <section className="flex my-4 mb-6">
+      <div className="flex items-center justify-center ml-4">
+        <p className="mx-4">
+          <IoCloseCircleOutline size={26} />
+        </p>
+        <button
+          className="text-l flex justify-center items-center"
+          onClick={openModal}
+        >
+          <h2 className="text-xs md:text-xl font-semibold mr-4">회원탈퇴</h2>
+          <IoChevronForwardSharp size={20} />
+        </button>
+        {isModalOpen && (
+          <AccountDeletionModal
+            closeModal={closeModal}
+            onAccountDeleted={openSuccessModal}
+          />
+        )}
+        {isSuccessModalOpen && (
+          <AccountDeletionSuccessModal
+            onClose={closeSuccessModal}
+            history={history}
+          />
+        )}
+      </div>
     </section>
   );
 };

@@ -67,7 +67,7 @@ const Header = ({
 
   return (
     <header>
-      <nav className="flex flex-row justify-between items-center mx-20">
+      <nav className="flex justify-between items-right">
         {showBackButtonIcon ? (
           <IoIosArrowBack
             onClick={handleBackClick}
@@ -76,18 +76,18 @@ const Header = ({
         ) : (
           <div style={{ width: 'auto' }}></div>
         )}
-        <div className="flex">
+        <section className="flex">
           {showMainHeaderButton &&
             (myInfo?.isLoggedIn ? (
               <>
                 <Link
                   to="/mypage"
-                  className="text-xl my-[30px] mr-[50px] text-orange-200 font-semibold hover:text-orange-900"
+                  className="text-xl my-[30px] mr-[50px] text-orange-200 font-semibold hover:text-orange-900 invisible md:visible"
                 >
                   My Page
                 </Link>
                 <span
-                  className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900 cursor-pointer"
+                  className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900 cursor-pointer invisible md:visible"
                   onClick={() => handleLogout()}
                 >
                   Logout
@@ -107,18 +107,18 @@ const Header = ({
           {showHamburgerButton && (
             <div className="flex items-center">
               <GiHamburgerMenu
-                className="text-4xl cursor-pointer mr-5 text-orange-200 hover:text-orange-900"
+                className="text-4xl cursor-pointer mr-5 text-orange-200 "
                 onClick={toggleSideBar}
               />
             </div>
           )}
-        </div>
+        </section>
       </nav>
       {showTitle && (
         <h1 className="text-center mb-10">
           <Link
             to="/"
-            className="text-7xl font-bold text-orange-200 font-custom-snow-crab"
+            className="text-4xl md:text-7xl font-bold text-orange-200 font-custom-snow-crab"
           >
             여기가 수도권
           </Link>

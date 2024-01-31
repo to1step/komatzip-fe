@@ -56,15 +56,15 @@ const NickName = ({
     <ul className="flex-row">
       <li className="list-none">
         {editing && updateSuccess ? (
-          <div className="flex justify-center items-center">
+          <div className="flex  items-center text-left ml-0 md:ml-2">
             <input
               type="text"
               value={editedNickname}
               onChange={handleNicknameChange}
-              className="border-b-2"
+              className="border-b-2 w-1/2 text-center"
               placeholder="수정할 닉네임을 입력하세요"
             />
-            <div className="text-l font-semibold">
+            <div className="text-xs md:text-l font-bold">
               <button onClick={handleSave} className="mx-2">
                 저장
               </button>
@@ -73,8 +73,13 @@ const NickName = ({
           </div>
         ) : (
           <div className="flex justify-center items-center">
-            <p className="mr-12">{editing ? editedNickname : nickname}</p>
-            <button onClick={handleEdit} className="text-l font-semibold">
+            <p className="mr-8 text-xs md:text-base ml-0 md:ml-4">
+              {editing ? editedNickname : nickname}
+            </p>
+            <button
+              onClick={handleEdit}
+              className="text-xs md:text-l font-black md:font-black"
+            >
               수정
             </button>
           </div>
