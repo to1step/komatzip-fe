@@ -35,7 +35,7 @@ const InputBox = (props: Props) => {
   console.log(validationError, handleSubmit, handleChange);
 
   return (
-    <div className="flex relative" onSubmit={handleSubmit}>
+    <form className="flex relative" onSubmit={handleSubmit}>
       <input
         className="w-96 h-10 border-orange-600 text-sm placeholder-left px-5 border-2 border-r-0 rounded-r-none md:rounded-r-2xl rounded-l-none focus:outline-none"
         name={props.name}
@@ -49,11 +49,11 @@ const InputBox = (props: Props) => {
       />
       <button
         type="submit"
-        className="w-10 h-10 border-2 bg-white text-orange-800 border-orange-600 flex md:hidden border-l-0 rounded-l-none rounded-r-2xl flex items-center justify-center"
+        className="w-10 h-10 border-2 bg-white text-orange-800 border-orange-600 md:hidden border-l-0 rounded-l-none rounded-r-2xl flex items-center justify-center"
       >
         <FaSearch />
       </button>
-    </div>
+    </form>
   );
 };
 
