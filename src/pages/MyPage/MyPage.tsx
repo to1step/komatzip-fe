@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axiosInstance from '../../api/apiInstance';
 import ProfileImage from '../../components/MyPage/ProfileImage';
 import NickName from '../../components/MyPage/NickName';
@@ -14,8 +14,10 @@ import {
   IoEarthSharp,
   IoHeartSharp,
 } from 'react-icons/io5';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import SelectedStoreList from '../../components/MyPage/SelectedStoreList';
+import ModalComponent from '../../components/Modal/ModalComponent';
+import StoreSearchForm from '../../components/MyPage/StoreSearchForm';
 
 const MyPage = () => {
   const userData = useSelector((state: RootState) => state.user.userData);
@@ -23,6 +25,7 @@ const MyPage = () => {
 
   const [selectedTab, setSelectedTab] = useState('내 정보');
   const [storeData, setStoreData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleTabClick = (tabName: string) => {
     setSelectedTab(tabName);
@@ -49,6 +52,32 @@ const MyPage = () => {
       })
       .finally(() => {});
   }, []);
+
+  useEffect(() => {
+    getKakaoMapData();
+  }, []);
+
+  const getKakaoMapData = async () => {
+    try {
+      const response = await axios.get(
+        `https://dapi.kakao.com/v2/local/search/address.json`,
+        {
+          params: {
+            query: '구로',
+            page: 1,
+            size: 10,
+          },
+          headers: {
+            Authorization: `KakaoAK ${'b290d43245eb4212952883b4e7d1a798'}`,
+          },
+        },
+      );
+      console.log(`response ${JSON.stringify(response.data.meta)}`);
+      console.log(`response ${JSON.stringify(response.data.documents)}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const updateProfile = (img: string) => {
     if (!userData) return;
@@ -203,6 +232,14 @@ const MyPage = () => {
                   <AccountDeletion />
                 </section>
               )}
+              {/* {selectedTab === '내 코스' && (
+                <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto">
+                  <div>
+                    <IoAlertCircleOutline size={26} />
+                  </div>
+                  <AccountDeletion />
+                </section>
+              )} */}
               {selectedTab === '내 코스' && (
                 <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto">
                   <div>
@@ -213,7 +250,24 @@ const MyPage = () => {
                 </section>
               )}
               {selectedTab === '내 가게' && (
-                <SelectedStoreList storeData={storeData} />
+                <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto relative z-3">
+                  <div>
+                    <IoAlertCircleOutline size={26} />
+                  </div>
+                  <h3>등록된 가게가 없습니다.</h3>
+                  <button
+                    className="font-semibold"
+                    onClick={() => setIsModalOpen(true)}
+                  >
+                    등록하러 가기
+                  </button>
+
+                  {isModalOpen && (
+                    <ModalComponent>
+                      <StoreSearchForm onClose={() => setIsModalOpen(false)} />
+                    </ModalComponent>
+                  )}
+                </section>
               )}
             </div>
           </section>
