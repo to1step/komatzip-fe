@@ -116,8 +116,8 @@ const KakaoMap = () => {
 
   const handleMarkerClick = (markerInfo: StoreEntireInfo) => {
     const recommendedCourses = calculateDistance(
-      markerInfo.coordinates[0], // 클릭한 마커의 경도
-      markerInfo.coordinates[1], // 클릭한 마커의 위도
+      markerInfo.coordinates[0],
+      markerInfo.coordinates[1],
     );
 
     setSelectedMarker(markerInfo);

@@ -18,8 +18,7 @@ function App() {
   const dispatch = useDispatch();
   const address = useSelector((state: RootState) => state.location);
   const myInfo = useSelector((state: RootState) => state.user);
-  const [data, setData] = useState<User[]>([]);
-  console.log(data);
+  const [, setData] = useState<User[]>([]);
 
   const apiKey = import.meta.env.VITE_REST_API_KEY || '';
 

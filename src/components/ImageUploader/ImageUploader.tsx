@@ -64,8 +64,6 @@ const ImageUploader = ({ markerInfo, onImageChange }: ImageUploadProps) => {
             },
           );
 
-          console.log('서버 응답:', imageResponse.data);
-
           if (imageResponse?.data?.image) {
             const newImage: StoreImage = {
               uuid: imageResponse.data.image.uuid,
@@ -94,11 +92,10 @@ const ImageUploader = ({ markerInfo, onImageChange }: ImageUploadProps) => {
       );
 
       if (response?.data?.data) {
-        // 서버에서 삭제 성공한 경우에만 상태 갱신
         setImages((prevImages) =>
           prevImages.filter((img) => img.uuid !== imageUUID),
         );
-        onImageChange(); // 이미지 변경 알림
+        onImageChange();
       }
     } catch (error) {
       console.error('이미지 삭제 중 오류가 발생했습니다:', error);

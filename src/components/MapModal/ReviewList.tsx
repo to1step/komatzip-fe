@@ -30,7 +30,6 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
             `/v1/stores/${markerInfo.uuid}`,
           );
           const storeInfo = response.data;
-          console.log('서버 응답:', response);
           const storeReviews = storeInfo.storeReviews || [];
           setReviews(storeReviews);
         } catch (error) {
@@ -54,13 +53,9 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
           myReview: false,
         };
 
-        const response = await axiosInstance.post(
-          `/v1/stores/${markerInfo.uuid}/review`,
-          {
-            review: reviewText,
-          },
-        );
-        console.log('서버 응답:', response.data);
+        await axiosInstance.post(`/v1/stores/${markerInfo.uuid}/review`, {
+          review: reviewText,
+        });
         setReviews((prevReviews) => [...prevReviews, newReview]);
         setReviewText('');
       }
@@ -85,8 +80,6 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
             );
             success('리뷰가 삭제되었습니다.');
           }
-        } else {
-          console.log('리뷰를 찾을 수 없습니다.');
         }
       }
     } catch (error) {

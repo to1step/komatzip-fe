@@ -33,7 +33,6 @@ const Header = ({
 
   const handleLogout = async () => {
     try {
-      // 로그아웃 정상적으로 처리 되었다면 상태 변경 후 메인으로 페이지 이동
       await axiosInstance.post('/v1/auth/sign-out');
       dispatch(logoutAction());
       removeCookie();
@@ -58,7 +57,6 @@ const Header = ({
     navigate(-1);
   };
 
-  // 백드롭 상태 변경 시 사이드바 닫기
   useEffect(() => {
     if (!isBackdropVisible) {
       setIsSideBarOpen(false);
@@ -126,9 +124,9 @@ const Header = ({
       )}
       {showSearch && <Search />}
       {isBackdropVisible && (
-        <div // 백드롭
+        <div
           className="fixed inset-0 bg-gray-900 bg-opacity-60 z-20"
-          onClick={handleBackdropClick} // 백드롭 클릭 시 닫기
+          onClick={handleBackdropClick}
         />
       )}
       {isSideBarOpen && <SideBar onClose={toggleSideBar} />}

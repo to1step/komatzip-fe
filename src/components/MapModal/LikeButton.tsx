@@ -17,19 +17,13 @@ const LikeButton = ({ markerInfo }: LikeButtonProps) => {
   useEffect(() => {
     if (isClickLike) {
       const saveUserLike = async () => {
-        try {
-          if (markerLike && markerInfo) {
-            await axiosInstance.post(`/v1/stores/${markerInfo.uuid}/like`);
-          } else if (!markerLike && markerInfo) {
-            await axiosInstance.delete(`/v1/stores/${markerInfo.uuid}/like`);
-          }
-          localStorage.setItem(
-            `like-${markerInfo.uuid}`,
-            markerLike.toString(),
-          );
-        } catch (e) {
-          console.error('An error occurred while updating likes:', e);
+        if (markerLike && markerInfo) {
+          await axiosInstance.post(`/v1/stores/${markerInfo.uuid}/like`);
+        } else if (!markerLike && markerInfo) {
+          await axiosInstance.delete(`/v1/stores/${markerInfo.uuid}/like`);
         }
+        localStorage.setItem(`like-${markerInfo.uuid}`, markerLike.toString());
+
         setIsClickLike(false);
       };
 

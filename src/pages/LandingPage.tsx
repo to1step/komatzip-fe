@@ -14,8 +14,7 @@ const LandingPage = () => {
   const address = useSelector((state: RootState) => state.location);
   const [data, setData] = React.useState<Store[]>();
   const [courseData, setCourseData] = React.useState<Course[]>();
-  const [courseUuid, setCourseUuid] = useState<string[]>([]);
-  console.log(courseUuid);
+  const [, setCourseUuid] = useState<string[]>([]);
 
   useEffect(() => {
     if (address) {

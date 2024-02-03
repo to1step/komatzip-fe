@@ -12,11 +12,10 @@ import {
 import axios from 'axios';
 import { RootState } from '../../redux/module';
 import { Store } from '@to1step/propose-backend';
-// 검색창 기능
+
 const Search = () => {
   const address = useSelector((state: RootState) => state.location);
-  const [data, setData] = React.useState<Store[]>([]);
-  console.log(data);
+  const [, setData] = React.useState<Store[]>([]);
 
   useEffect(() => {
     if (address) {
@@ -78,11 +77,8 @@ const Search = () => {
         }),
       ]);
       dispatch(setSearchResultsStore(storeResponse.data));
-      console.log('매장 검색 결과 데이터:', storeResponse.data);
       dispatch(setSearchResultsCourse(courseResponse.data));
-      console.log('코스 검색 결과 데이터:', courseResponse.data);
       dispatch(setSearchQuery(tagQuery));
-      console.log('태그 쿼리:', tagQuery);
       navigate('/search'); // 검색 결과를 redux 상태에 저장한 후 페이지 라우팅
     } catch (error) {
       console.error('매장 검색 결과 fetching 중 에러 발생: ', error);
@@ -116,7 +112,7 @@ const Search = () => {
             </div>
             <button
               type="submit"
-              className="text-center mx-3 h-10 w-20 text-sm bg-orange-200 border-none rounded-2xl text-orange-800 focus:outline-none hidden md:flex flex items-center justify-center"
+              className="text-center mx-3 h-10 w-20 text-sm bg-orange-200 border-none rounded-2xl text-orange-800 focus:outline-none hidden md:flex items-center justify-center"
             >
               Search
             </button>

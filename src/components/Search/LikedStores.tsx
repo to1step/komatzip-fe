@@ -30,10 +30,9 @@ const LikedStores = () => {
           (store: StoreEntireInfo) => store.iLike === true,
         );
         setILikedStores(iLikedStoresData);
-        console.log('좋아요 누른 매장 데이터 정보: ', setILikedStores);
       })
       .catch((error) => {
-        console.log('내 매장 가져오는 중 에러 발생 :', error);
+        console.error('내 매장 가져오는 중 에러 발생 :', error);
       });
   }, [searchResultsStore]);
 

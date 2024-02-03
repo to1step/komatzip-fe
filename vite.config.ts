@@ -5,7 +5,6 @@ export default defineConfig({
   plugins: [react()],
   css: {
     preprocessorOptions: {
-      // 다른 설정은 생략하고 normalize.css만 추가
       additionalData: `@import "normalize.css";`,
     },
   },
