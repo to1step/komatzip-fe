@@ -1,5 +1,4 @@
 import { Store, StoreEntireInfo } from '@to1step/propose-backend';
-// import PostModalMap from './PostModalMap';
 import MiniMap from '../Kakaomap/MinMap';
 import LikeButton from '../MapModal/LikeButton';
 import CopyAddressButton from '../MapModal/CopyAddressButton';

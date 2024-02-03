@@ -68,10 +68,6 @@ const MapModal = ({
           </div>
           <div className="text-2xl font-semibold mt-16">리뷰⭐</div>
           <ReviewList markerInfo={markerInfo} />
-          {/* <MiniMap
-            lat={markerInfo.coordinates[1]}
-            lng={markerInfo.coordinates[0]}
-          /> */}
         </div>
       </div>
     </div>

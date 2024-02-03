@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { UserMyInfo, loginAction } from '../../redux/module/user';
 import { useDispatch } from 'react-redux';
+import { errors } from '../../util/toastify';
 
 type LoginForm = {
   email: string;
@@ -27,9 +28,9 @@ const Login = () => {
         '/v1/users/me',
       );
       dispatch(loginAction(myInfo));
-      navigate('/'); // 로그인 성공시 메인으로 이동
+      navigate('/');
     } catch (error) {
-      console.log(error);
+      errors('아이디 또는 비밀번호를 잘못 입력하셨습니다.');
     }
   };
 

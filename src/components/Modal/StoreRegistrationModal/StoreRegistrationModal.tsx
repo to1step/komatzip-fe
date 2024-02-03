@@ -81,20 +81,17 @@ const StoreRegistrationModal = ({
     try {
       data.category = Number(data.category);
       createStoreFormSchema.parse(data);
-      console.log('보내는 요청은', data);
 
-      // 이미지가 없을 경우 빈 문자열
       const representImageUrl = representImage || '';
 
       const postData = {
-        ...data, // TODO: 한 번 더 가공해서 보내기
+        ...data,
         category: data.category,
         coordinates: coordinates ? coordinates.map(Number) : [0, 0],
         representImage: representImageUrl,
       };
       const response = await axiosInstance.post('/v1/stores', postData);
       if (response.data === true) {
-        console.log('🚀 등록 성공');
         success('가게가 등록 되었습니다.');
         closeModal();
       }

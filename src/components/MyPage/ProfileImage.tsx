@@ -1,6 +1,7 @@
 import { IoCamera } from 'react-icons/io5';
 import axiosInstance from '../../api/apiInstance';
 import { UserMyInfo } from '../../redux/module/user';
+import { success } from '../../util/toastify';
 
 export interface IProps {
   userData: UserMyInfo;
@@ -35,7 +36,7 @@ const ProfileImage = ({ userData, updateProfile }: IProps) => {
           updateAlarm: userData.updateAlarm,
         });
 
-        console.log('이미지 업로드 완료!', response.data.imageLocationList[0]);
+        success('프로필 업로드 완료!');
         updateProfile(response.data.imageLocationList[0]);
       }
     } catch (error) {

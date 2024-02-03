@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { FaSearch } from 'react-icons/fa';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 
 const InputBox = (props: Props) => {
   const [inputValue, setInputValue] = useState('');
-  const [validationError, setValidationError] = useState('');
+  const [, setValidationError] = useState('');
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,16 +23,9 @@ const InputBox = (props: Props) => {
       return;
     }
 
-    console.log('입력된 검색어:', inputValue);
     setInputValue('');
     setValidationError('');
   };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
-
-  console.log(validationError, handleSubmit, handleChange);
 
   return (
     <form className="flex relative" onSubmit={handleSubmit}>

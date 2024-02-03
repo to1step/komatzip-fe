@@ -7,8 +7,7 @@ const locationSlice = createSlice({
   name: 'location',
   initialState: initialState,
   reducers: {
-    updateLocation: (state, action) => {
-      console.log(state);
+    updateLocation: (_state, action) => {
       return action.payload;
     },
   },
