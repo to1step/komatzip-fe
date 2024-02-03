@@ -1,41 +1,56 @@
-# React + TypeScript + Vite
+# 🍽️ 맛집 추천 서비스 Komatzip
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![komatzip_mockup1](komatzip-main.png)
 
-Currently, two official plugins are available:
+- 배포 URL : https://komatzip.wo.tc
+- Test ID : wkddntjd3429@naver.com
+- Test PW : dntjd3429000
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<br>
 
-## Expanding the ESLint configuration
+## 프로젝트 소개
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Komatzip은 맛집을 좋아하는 사람들이 맛집 정보를 공유하고 소통할 수 있는 웹 플렛폼 입니다.
+- 개인의 프로필 페이지에 좋아하는 맛집을 즐겨찾기 하거나, 직접 맛집을 등록 할 수 있습니다.
+- 검색을 통해 쉽게 취향의 맛집 및 코스 조회 할 수 있습니다.
+- 다양한 맛집 및 코스들을 즐겨찾기 하며, 마음에 드는 게시글에 좋아요를 누르거나 댓글을 작성할 수 있습니다.
+- 지도 서비스를 해당 지역의 다양한 맛집 정보를 편리하게 조회 할 수 있습니다.
 
-- Configure the top-level `parserOptions` property like this:
+<br>
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+## 1. 개발 환경
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Front : React, Typescript, Tailwind, Redux, react-hook-form
+- Back-end : Express.js, MongoDB, Filebeat, Redis, Nginx, Docker
+- 버전 및 이슈관리 : Github, Github Issues, trello
+- 협업 툴 : Discord, Notion, Github,
+- 서비스 배포 환경 : vercel,
+- 디자인 : [Figma](https://www.figma.com/file/DLWhqJMVQk56i2K5jQy0US/%EC%A7%84%EC%A7%9C-%EC%84%9C%EC%9A%B8%EC%9D%B4-%EC%95%84%EB%8B%88%EB%9D%BC-%ED%95%9C%EA%B5%AD?type=design&node-id=305-509&mode=design&t=e6zp32EFkCtxVtdS-0)
+- [커밋 컨벤션](https://github.com/to1step/komatzip-fe/wiki/1.-Commit-Convention)
+- [코드 컨벤션](https://github.com/to1step/komatzip-fe/wiki/7.-Code-Convention)
 
-## to1step npm 이용 방법
+<br>
 
-#### Personal access tokens (classic) 토큰 발급
+## 2. 브랜치 전략
+
+- GitHub-Flow 전략을 기반으로 main, develop 브랜치와 feature 보조 브랜치를 운용했습니다.
+- main, develop, Feat 브랜치로 나누어 개발을 하였습니다.
+  - **main** 브랜치는 배포 단계에서만 사용하는 브랜치입니다.
+  - **develop** 브랜치는 개발 단계에서 GitHub-flow의 master 역할을 하는 브랜치입니다.
+  - **Feat** 브랜치는 기능 단위로 독립적인 개발 환경을 위하여 사용하고 merge 후 각 브랜치를 삭제해주었습니다.
+
+<br>
+
+## 3. BackEnd Type제공 및 사용 (to1step npm 이용 방법)
+
+### 3-1 Personal access tokens (classic) 토큰 발급
 
 1. Github 로그인
 2. `Settings` -> `Developer Settings` 접속하여 `Personal access tokens (classic)` 클릭
 3. Generate new token (classic) 을 클릭하여 토큰 생성 페이지 이동
 4. read:packages 옵션 활성화
 
-#### 로그인 하기
+### 3-2 로그인 하기
 
 프로젝트 레포로 이동하여 아래 명령어 실행
 
@@ -47,3 +62,25 @@ email: 본인 이메일
 ```
 
 - `npm 9v`을 사용하는 경우 npm login --registry=https://npm.pkg.github.com 뒤에 `--auth-type=legacy` 부분을 추가해야함
+
+<br>
+
+### 4. 환경 변수 설정
+
+```env
+    ## 카카오 API 발급
+    VITE_REST_API_KEY=
+    VITE_JAVASCRIPT_KEY=
+    VITE_ADMIN_KEY=
+    ## API 주소
+    VITE_PUBLIC_API=
+```
+
+<br>
+
+### 5. 개발 시작
+
+```bash
+    npm install
+    npm run dev
+```
