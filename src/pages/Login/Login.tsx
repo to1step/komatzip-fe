@@ -42,7 +42,7 @@ const Login = () => {
       <section className="hidden md:flex justify-start text-white font-bold">
         <div className="w-1/5" />
         <div className="w-2/5 text-5xl flex flex-col gap-3">
-          <h2 className="text-3xl">여기가 수도권</h2>
+          <h2 className="text-4xl">여기가 수도권</h2>
           <div>-</div>
           <div>Welcome</div>
           <div>Don't have an account?</div>

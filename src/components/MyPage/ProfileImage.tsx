@@ -61,7 +61,7 @@ const ProfileImage = ({ userData, updateProfile }: IProps) => {
           />
         )}
       </div>
-      <div className="flex absolute top-12 left-10 m-2">
+      <div className="flex absolute top-12 left-12 m-2">
         <input
           type="file"
           accept="image/*"

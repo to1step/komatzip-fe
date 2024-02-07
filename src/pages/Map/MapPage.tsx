@@ -5,7 +5,11 @@ const MapPage = () => {
   return (
     <div>
       <header>
-        <Header showTitle={false} showBackButtonIcon={true} />
+        <Header
+          showTitle={false}
+          showBackButtonIcon={true}
+          showHamburgerButton={true}
+        />
       </header>
       <KakaoMap />
     </div>

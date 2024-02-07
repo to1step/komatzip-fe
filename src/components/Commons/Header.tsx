@@ -69,11 +69,12 @@ const Header = ({
         {showBackButtonIcon ? (
           <IoIosArrowBack
             onClick={handleBackClick}
-            className="text-[50px] text-orange-200 hover:text-orange-900 ml-20 cursor-pointer"
+            className="text-[0px] md:text-[50px] text-orange-200 hover:text-orange-900 mt-5 ml-20 cursor-pointer"
           />
         ) : (
           <div style={{ width: 'auto' }}></div>
         )}
+
         <section className="flex">
           {showMainHeaderButton &&
             (myInfo?.isLoggedIn ? (

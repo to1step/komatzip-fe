@@ -38,7 +38,12 @@ const SearchPage = () => {
   // };
   return (
     <main>
-      <Header showTitle={true} showBackButtonIcon={true} showSearch={true} />
+      <Header
+        showTitle={true}
+        showBackButtonIcon={true}
+        showSearch={true}
+        showHamburgerButton={true}
+      />
       <section className="text-center">
         <p className="inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
           👩🏻‍💻 '{searchQuery}'의 검색결과입니다.
