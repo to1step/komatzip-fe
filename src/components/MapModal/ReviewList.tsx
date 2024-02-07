@@ -7,7 +7,7 @@ import {
 } from '@to1step/propose-backend';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/module';
-import { success } from '../../util/toastify';
+import { success, errors } from '../../util/toastify';
 
 interface ReviewListProps {
   markerInfo: StoreEntireInfo | Store | null;
@@ -58,6 +58,7 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
         });
         setReviews((prevReviews) => [...prevReviews, newReview]);
         setReviewText('');
+        success('리뷰가 작성되었습니다.');
       }
     } catch (error) {
       console.error('Error submitting review:', error);
@@ -78,7 +79,7 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
             setReviews((prevReviews) =>
               prevReviews.filter((review) => review.uuid !== reviewUUID),
             );
-            success('리뷰가 삭제되었습니다.');
+            errors('리뷰가 삭제되었습니다.');
           }
         }
       }
