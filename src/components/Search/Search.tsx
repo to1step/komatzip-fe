@@ -15,7 +15,7 @@ import { Store } from '@to1step/propose-backend';
 
 const Search = () => {
   const address = useSelector((state: RootState) => state.location);
-  const [, setData] = React.useState<Store[]>([]);
+  const [, setData] = useState<Store[]>([]);
 
   useEffect(() => {
     if (address) {
@@ -37,16 +37,14 @@ const Search = () => {
   const navigate = useNavigate();
   const [tagQuery, setTagQuery] = useState('');
   const [searchType, setSearchType] = useState('tags');
-  const handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      await SearchStore(e);
+      SearchStore();
     }
   };
 
-  const SearchStore = async (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-
+  const SearchStore = async () => {
     try {
       let endpoint;
       let paramKey: string = ''; // 객체 속성 이름을 동적으로 설정할 때는 해당 속성 이름의 타입을 설정해줘야 함, 초기값 빈 문자열로 설정
@@ -87,7 +85,12 @@ const Search = () => {
   return (
     <div className="flex-row justify-center items-center mb-10 md:flex-row">
       <header>
-        <form onSubmit={() => SearchStore}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            SearchStore();
+          }}
+        >
           <div className="flex justify-center items-center">
             <div>
               <select
