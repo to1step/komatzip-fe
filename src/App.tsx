@@ -72,7 +72,8 @@ function App() {
       );
     }
 
-    if (myInfo?.isLoggedIn) {
+    // 로그인 상태가 false일 경우 or 로그인 상태를 알수 없을 경우 요청
+    if (!myInfo?.isLoggedIn) {
       getMyInfo();
     }
   }, [dispatch, address, apiKey, myInfo?.isLoggedIn]);
