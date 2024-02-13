@@ -85,7 +85,7 @@ const Search = () => {
   return (
     <div className="flex-row justify-center items-center mb-10 md:flex-row">
       <header>
-        <form
+        <div
           onSubmit={(e) => {
             e.preventDefault();
             SearchStore();
@@ -120,7 +120,7 @@ const Search = () => {
               Search
             </button>
           </div>
-        </form>
+        </div>
         <div className="flex flex-col md:flex-row justify-center items-center mt-3">
           <div className="text-center text-orange-200 md:mb-0 text-xs md:text-lg">
             {address ? (
