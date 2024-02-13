@@ -115,6 +115,7 @@ const Search = () => {
             </div>
             <button
               type="submit"
+              onClick={() => SearchStore()}
               className="text-center mx-3 h-10 w-20 text-sm bg-orange-200 border-none rounded-2xl text-orange-800 focus:outline-none hidden md:flex items-center justify-center"
             >
               Search
