@@ -30,10 +30,10 @@ const SearchTopstore = ({ item }: { item: Store }) => {
         className="bg-white my-3 mx-2 cursor-pointer transition-all duration-300 ease-in-out transform shadow-lg hover:shadow-none"
         onClick={() => openModal(item)}
       >
-        <section className="flex-row justify-center items-center w-full md:w-[296px] h-[290px] md:h-[350px]">
+        <section className="flex-row justify-center items-center w-full h-[290px] md:h-[350px]">
           <section>
             {item.representImage ? (
-              <div className="w-full md:w-[292px] h-[160px] md:h-[210px] px-2 flex justify-center items-center text-sm">
+              <div className="w-full h-[160px] md:h-[210px] px-2 flex justify-center items-center text-sm">
                 <Image
                   key={`search-top-store-image-${item.uuid}`}
                   representImage={item.representImage}

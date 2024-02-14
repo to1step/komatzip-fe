@@ -55,7 +55,10 @@ const SearchPage = () => {
         </h1>
         <article className="flex flex-wrap">
           {searchResultsStore.map((item) => (
-            <div key={item.uuid} className="w-1/2 md:w-1/5 flex justify-center">
+            <div
+              key={item.uuid}
+              className="w-1/2 md:w-1/3 lg:w-1/5 flex justify-center"
+            >
               <SearchTopstore item={item as Store} />
             </div>
           ))}
