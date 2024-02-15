@@ -20,7 +20,8 @@ function App() {
   const myInfo = useSelector((state: RootState) => state.user);
   const [, setData] = useState<User[]>([]);
 
-  const apiKey = import.meta.env.VITE_REST_API_KEY || '';
+  // const apiKey = import.meta.env.VITE_REST_API_KEY || '';
+  const apiKey = 'a055e717c1cb42e8ee196835ba48dfcf' || '';
 
   useEffect(() => {
     const getMyInfo = async () => {
