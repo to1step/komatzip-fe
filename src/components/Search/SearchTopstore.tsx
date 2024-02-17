@@ -27,20 +27,20 @@ const SearchTopstore = ({ item }: { item: Store }) => {
     <div>
       <main
         key={`search-top-store-${item.uuid}`}
-        className="bg-white m-3 cursor-pointer transition-all duration-300 ease-in-out transform shadow-lg hover:shadow-none"
+        className="bg-white my-3 cursor-pointer transition-all duration-300 ease-in-out transform shadow-lg hover:shadow-none"
         onClick={() => openModal(item)}
       >
-        <section className="flex-row justify-center items-center w-[296px] h-[350px]">
+        <section className="flex-row justify-center items-center w-48 sm:w-72 h-72 md:h-[350px]">
           <section>
             {item.representImage ? (
-              <div className="w-[292px] h-[210px] flex justify-center items-center text-sm">
+              <div className=" w-48 sm:w-72 h-40 md:h-52 px-2 flex justify-center items-center text-sm">
                 <Image
                   key={`search-top-store-image-${item.uuid}`}
                   representImage={item.representImage}
                 />
               </div>
             ) : (
-              <p className="w-[292px] h-[210px] flex justify-center items-center text-sm">
+              <p className="w-full sm:w-72 h-40 md:h-52 px-2 flex justify-center items-center text-sm text-gray-400">
                 이미지가 아직 준비되지 않았어요!
               </p>
             )}

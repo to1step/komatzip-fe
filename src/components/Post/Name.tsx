@@ -8,9 +8,11 @@ const Name = ({ name, storeNames }: NameProps) => {
     <div>
       <article>
         {storeNames && storeNames[name] ? (
-          <span className="text-[25px] font-bold">{storeNames[name]}</span>
+          <span className="text-xl md:text-2xl font-bold">
+            {storeNames[name]}
+          </span>
         ) : (
-          <span className="text-[25px] font-bold">{name}</span>
+          <span className="text-xl md:text-2xl font-bold">{name}</span>
         )}
       </article>
     </div>

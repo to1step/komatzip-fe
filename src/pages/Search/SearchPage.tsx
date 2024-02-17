@@ -38,7 +38,12 @@ const SearchPage = () => {
   // };
   return (
     <main>
-      <Header showTitle={true} showBackButtonIcon={true} showSearch={true} />
+      <Header
+        showTitle={true}
+        showBackButtonIcon={true}
+        showSearch={true}
+        showHamburgerButton={true}
+      />
       <section className="text-center">
         <p className="inline-block bg-gradient-to-t from-[#FFF743] via-transparent to-transparent">
           👩🏻‍💻 '{searchQuery}'의 검색결과입니다.
@@ -50,7 +55,10 @@ const SearchPage = () => {
         </h1>
         <article className="flex flex-wrap">
           {searchResultsStore.map((item) => (
-            <div key={item.uuid} className="w-1/5 flex justify-center">
+            <div
+              key={item.uuid}
+              className="w-1/2 md:w-1/3 lg:w-1/5 flex justify-center"
+            >
               <SearchTopstore item={item as Store} />
             </div>
           ))}

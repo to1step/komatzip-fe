@@ -30,7 +30,7 @@ const InputBox = (props: Props) => {
   return (
     <form className="flex relative" onSubmit={handleSubmit}>
       <input
-        className="w-96 h-10 border-orange-600 text-sm placeholder-left px-5 border-2 border-r-0 rounded-r-none md:rounded-r-2xl rounded-l-none focus:outline-none"
+        className="w-60 md:w-80 lg:w-96 h-10 border-orange-600 text-sm placeholder-left px-5 border-2 border-r-0 rounded-r-none md:rounded-r-2xl rounded-l-none focus:outline-none"
         name={props.name}
         type={props.type || 'text'}
         onClick={props.onClick}

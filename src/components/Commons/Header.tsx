@@ -69,23 +69,24 @@ const Header = ({
         {showBackButtonIcon ? (
           <IoIosArrowBack
             onClick={handleBackClick}
-            className="text-[50px] text-orange-200 hover:text-orange-900 ml-20 cursor-pointer"
+            className="text-[0px] md:text-5xl text-orange-200 hover:text-orange-900 mt-5 ml-20 cursor-pointer"
           />
         ) : (
           <div style={{ width: 'auto' }}></div>
         )}
+
         <section className="flex">
           {showMainHeaderButton &&
             (myInfo?.isLoggedIn ? (
               <>
                 <Link
                   to="/mypage"
-                  className="text-xl my-[30px] mr-[50px] text-orange-200 font-semibold hover:text-orange-900 invisible md:visible"
+                  className="text-xl my-8  mr-5 text-orange-200 font-semibold hover:text-orange-900 invisible md:visible"
                 >
                   My Page
                 </Link>
                 <span
-                  className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900 cursor-pointer invisible md:visible"
+                  className="text-xl my-8 mx-20 text-orange-200 font-semibold hover:text-orange-900 cursor-pointer invisible md:visible"
                   onClick={() => handleLogout()}
                 >
                   Logout
@@ -95,7 +96,7 @@ const Header = ({
               <>
                 <Link
                   to="/login"
-                  className="text-xl my-[30px] mx-[70px] text-orange-200 font-semibold hover:text-orange-900"
+                  className="text-xl my-8  mx-20 text-orange-200 font-semibold hover:text-orange-900"
                 >
                   Login
                 </Link>
@@ -105,7 +106,7 @@ const Header = ({
           {showHamburgerButton && (
             <div className="flex items-center">
               <GiHamburgerMenu
-                className="text-4xl cursor-pointer mr-5 text-orange-200 "
+                className="text-4xl cursor-pointer mr-8 text-orange-200 "
                 onClick={toggleSideBar}
               />
             </div>

@@ -84,8 +84,8 @@ const LandingPage = () => {
               <div className="w-10/12">
                 {!data ? (
                   <div className="flex justify-center gap-5">
-                    {['1', '2', '3', '4'].map(() => (
-                      <StoreSkeleton />
+                    {['1', '2', '3', '4'].map((index) => (
+                      <StoreSkeleton key={index} />
                     ))}
                   </div>
                 ) : (
@@ -114,8 +114,8 @@ const LandingPage = () => {
               <div className="w-10/12 mb-20">
                 {!courseData ? (
                   <div className="flex justify-center gap-5">
-                    {['1', '2'].map(() => (
-                      <CourseSkeleton />
+                    {['1', '2'].map((index) => (
+                      <CourseSkeleton key={index} />
                     ))}
                   </div>
                 ) : (

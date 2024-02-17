@@ -30,7 +30,7 @@ const ZoomImage = ({ src, alt, onDelete }: ZoomImageProps) => {
         <img
           src={src}
           alt={alt}
-          className="w-[174px] h-32 object-cover rounded-2xl cursor-pointer"
+          className="w-44 h-32 object-cover rounded-2xl cursor-pointer"
           onClick={() => setModalOpen(!isModalOpen)}
         />
         {isHovered && (

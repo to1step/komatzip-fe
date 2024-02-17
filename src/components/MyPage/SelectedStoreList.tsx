@@ -25,7 +25,7 @@ const SelectedStoreList = ({ storeData }: SelectedStoreListProps) => {
   }
 
   return (
-    <section className="h-[300px] w-2/3 flex flex-col items-center justify-center m-auto relative z-3 text-center">
+    <section className="h-72 w-2/3 flex flex-col items-center justify-center m-auto relative z-3 text-center">
       <div className="flex flex-col items-center justify-center">
         <IoAlertCircleOutline size={26} />
         <h3>등록된 가게가 없습니다.</h3>

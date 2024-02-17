@@ -74,7 +74,7 @@ const MyPage = () => {
       </header>
       <main className="flex-row justify-center items-center h-screen relative w-2/3">
         <section className="bg-white rounded-3xl">
-          <div className="flex flex-col justify-center items-center mx-4 mb-4 h-[280px]">
+          <div className="flex flex-col justify-center items-center mx-4 mb-4 h-72">
             <section>
               {userData ? (
                 <div>
@@ -84,7 +84,7 @@ const MyPage = () => {
                   />
                 </div>
               ) : (
-                <p className="rounded-full border-2 w-[150px] h-[150px] flex justify-center items-center">
+                <p className="rounded-full border-2 w-36 h-36 flex justify-center items-center">
                   No image
                 </p>
               )}

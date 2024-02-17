@@ -107,15 +107,15 @@ const SignUp = () => {
 
   return (
     <div
-      className="w-full flex items-center justify-between relative h-screen"
+      className="w-full flex justify-center items-center md:justify-between relative h-screen"
       id="full"
     >
       <LoginBackground />
       <MenuBar />
-      <div className="w-3/5"></div>
+      <div className="hidden md:block w-3/5"></div>
       {mode === 'signup' && (
-        <div className="w-2/5">
-          <div className="flex flex-col justify-center items-center">
+        <div className="md:bg-black md:bg-opacity-50 md:w-2/5 h-full flex justify-center items-center">
+          <div className="flex flex-col justify-center items-center w-full max-w-md px-4">
             <input
               type="text"
               className="items-center px-8 py-3 mt-4 text-base text-black outline-orange-300 bg-gray-100 border-0 rounded-3xl w-80 focus-visible:outline-none"
@@ -178,8 +178,8 @@ const SignUp = () => {
         </div>
       )}
       {mode === 'email-verification' && (
-        <div className="w-2/5">
-          <div className="flex flex-col justify-center items-center">
+        <div className="md:bg-black md:bg-opacity-50 md:w-2/5 h-full flex justify-center items-center">
+          <div className="flex flex-col justify-center items-center w-full max-w-md px-4">
             <h2 className="text-3xl">Email Verification</h2>
             <input
               type="text"

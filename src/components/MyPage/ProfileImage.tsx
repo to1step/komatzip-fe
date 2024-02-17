@@ -46,7 +46,7 @@ const ProfileImage = ({ userData, updateProfile }: IProps) => {
 
   return (
     <section className="relative">
-      <div className="w-[150px] h-[150px] relative">
+      <div className="w-36 h-36 relative">
         {userData.profileImage ? (
           <img
             src={userData.profileImage}
@@ -61,7 +61,7 @@ const ProfileImage = ({ userData, updateProfile }: IProps) => {
           />
         )}
       </div>
-      <div className="flex absolute top-12 left-10 m-2">
+      <div className="flex absolute top-12 left-12 m-2">
         <input
           type="file"
           accept="image/*"

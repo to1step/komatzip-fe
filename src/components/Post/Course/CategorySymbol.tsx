@@ -20,7 +20,7 @@ const CategorySymbol = ({ category }: CategorySymbolProps) => {
       break;
   }
 
-  return <span className="absolute text-[23px]">{categoryString}</span>;
+  return <span className="absolute text-2xl">{categoryString}</span>;
 };
 
 export default CategorySymbol;

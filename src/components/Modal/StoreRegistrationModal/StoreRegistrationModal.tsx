@@ -111,7 +111,7 @@ const StoreRegistrationModal = ({
       }}
     >
       <article
-        className="bg-white p-7 rounded shadow-md md:w-full w-96 max-w-lg h-[600px] md:h-[900px] overflow-y-auto "
+        className="bg-white p-7 rounded shadow-md md:w-full w-96 max-w-lg h-2/3 md:h-5/6 overflow-y-auto "
         onClick={(e) => e.stopPropagation()}
       >
         <button
