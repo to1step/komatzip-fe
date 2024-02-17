@@ -20,7 +20,7 @@ const CourseList = ({ recommendedCourses, markerInfo }: CourseListProps) => {
             <img
               src={course.representImage || '기본 이미지'}
               alt="추천 코스 이미지"
-              className="w-28 h-[75px] mr-4 roaunded"
+              className="w-28 h-20 mr-4 roaunded"
             />
             <div>
               <p className="text-lg font-semibold">{course?.name}</p>

@@ -15,7 +15,7 @@ const StoreOperationTime = ({ register, errors }: StoreOperationTimeProps) => {
             type="text"
             {...register('startTime')}
             placeholder="시작 시간"
-            className={`border-[1px] w-[170px] ${
+            className={`border w-40 text-center ${
               errors.startTime ? 'border-red-500' : 'border-gray-40'
             } px-2 py-1`}
           />
@@ -31,7 +31,7 @@ const StoreOperationTime = ({ register, errors }: StoreOperationTimeProps) => {
             type="text"
             {...register('endTime')}
             placeholder="종료 시간"
-            className={`border-[1px] w-[170px] ${
+            className={`border w-40 text-center ${
               errors.endTime ? 'border-red-500' : 'border-gray-40'
             } px-2 py-1`}
           />

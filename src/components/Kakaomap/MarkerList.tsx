@@ -14,7 +14,7 @@ const MarkerList = ({
   onMarkerMouseOver,
 }: MarkerListProps) => {
   return (
-    <div className="absolute bg-white top-[60%] mx-auto right-0 left-0 p-0 w-[370px] shadow-md z-10 rounded-lg overflow-auto md:w-[330px] md:mr-8 md:top-2">
+    <div className="absolute bg-white top-[60%] top mx-auto right-0 left-0 p-0 w-96 shadow-md z-10 rounded-lg overflow-auto md:w-80 md:mr-8 md:top-2">
       <div className="text-lg text-center font-extrabold pt-2 text-blue-500">
         내 주변 가게
       </div>
@@ -38,7 +38,7 @@ const MarkerList = ({
           }
         `}
       </style>
-      <div className="max-h-[295px] md:max-h-[750px]">
+      <div className="max-h-72 md:max-h-[750px]">
         {markers.map((marker) => (
           <div
             key={marker.uuid}

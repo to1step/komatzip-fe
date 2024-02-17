@@ -38,9 +38,9 @@ const PostModal = ({ store, closeModal }: PostModalProps) => {
           closeModal();
         }
       }}
-      className="z-[1050] fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-500 bg-opacity-80"
+      className="z-[1000] fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-500 bg-opacity-80"
     >
-      <div className="bg-white w-[1000px] h-5/6 relative p-4 m-6 overflow-y-auto rounded-2xl">
+      <div className="bg-white w-full md:w-5/6 xl:w-3/5 h-5/6 relative p-4 m-6 overflow-y-auto rounded-2xl">
         <button
           className="absolute top-4 right-5 text-gray-500 hover:text-gray-800"
           onClick={closeModal}

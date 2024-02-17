@@ -6,7 +6,7 @@ const ILike = ({ iLike }: ILikeProps) => {
   return (
     <div>
       <article>
-        <p className="text-[25px] font-bold">{iLike}</p>
+        <p className="text-2xl font-bold">{iLike}</p>
       </article>
     </div>
   );

@@ -5,7 +5,7 @@ interface LikeCountProps {
 const LikeCount = ({ likeCount }: LikeCountProps) => {
   return (
     <section>
-      <h3 className="text-[25px] font-bold">{likeCount}</h3>
+      <h3 className="text-2xl font-bold">{likeCount}</h3>
     </section>
   );
 };

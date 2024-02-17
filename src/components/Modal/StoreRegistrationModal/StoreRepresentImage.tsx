@@ -18,7 +18,7 @@ const StoreRepresentImage = ({
     <label className="mt-4 block">
       <h3 className="text-lg font-semibold mb-2">대표 이미지*</h3>
       <div className="flex items-center justify-center">
-        <div className="relative w-[300px] h-[200px]">
+        <div className="relative w-72 h-48 ">
           <Controller
             control={control}
             name="representImage"
@@ -37,7 +37,7 @@ const StoreRepresentImage = ({
                   className="hidden"
                 />
                 <div
-                  className={`border-[1px] ${
+                  className={`border ${
                     errors.representImage ? 'border-red-500' : 'border-gray-40'
                   } w-full h-full overflow-hidden relative`}
                   onClick={() => {

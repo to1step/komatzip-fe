@@ -6,7 +6,7 @@ const User = ({ user }: UserProps) => {
   return (
     <div>
       <article>
-        <p className="text-[13px] font-semibold">{user}의 추천 코스</p>
+        <p className="text-sm font-semibold">{user}의 추천 코스</p>
       </article>
     </div>
   );

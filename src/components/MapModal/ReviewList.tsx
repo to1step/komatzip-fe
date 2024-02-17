@@ -95,27 +95,27 @@ const ReviewList = ({ markerInfo }: ReviewListProps) => {
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
           placeholder="후기를 작성해 주세요."
-          className="w-10/12 h-[60px] p-2 border rounded"
+          className="w-10/12 h-14 p-2 border rounded"
         />
         <button
           onClick={handleReviewSubmit}
-          className="px-4 mt-1 ml-3 h-[45px] bg-blue-500 text-white rounded hover:bg-blue-600 "
+          className=" w-16 mt-1 ml-3 h-11 text-sm md:text-base bg-blue-500 text-white rounded hover:bg-blue-600 "
         >
           작성
         </button>
       </div>
 
-      <div className="mt-4 w-full overflow-auto h-[198px] border-2  border-blue-200 rounded-lg p-0">
+      <div className="mt-4 w-full overflow-auto h-48 border-2  border-blue-200 rounded-lg p-0">
         {reviews.map((review) => (
           <div
             key={review.uuid}
             className="border mt-1 ml-1 p-4 mb-2 rounded flex justify-between items-center"
           >
-            <p className="w-[400px]">{review.review}</p>
+            <p className="w-96">{review.review}</p>
             {userData?.nickname === review.nickname && (
               <button
                 onClick={() => handleReviewDelete(review.uuid)}
-                className="w-[55px] px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+                className=" w-14 md:px-2 px-0 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
               >
                 삭제
               </button>

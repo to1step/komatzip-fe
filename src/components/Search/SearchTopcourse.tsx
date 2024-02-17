@@ -24,7 +24,7 @@ const SearchTopcourse = ({ item, uuid }: { item: Course; uuid: string }) => {
             </div>
             <ShortComment shortComment={item.shortComment} />
           </section>
-          <section className="w-4/5 h-[250px] m-8 bg-white bg-opacity-60 rounded-[25px] flex flex-col justify-center items-center">
+          <section className="w-4/5 h-64 m-8 bg-white bg-opacity-60 rounded-3xl flex flex-col justify-center items-center">
             <section className="w-3/4">
               <StoreNames stores={item.stores} uuid={uuid} />
             </section>

@@ -46,7 +46,7 @@ const ProfileImage = ({ userData, updateProfile }: IProps) => {
 
   return (
     <section className="relative">
-      <div className="w-[150px] h-[150px] relative">
+      <div className="w-36 h-36 relative">
         {userData.profileImage ? (
           <img
             src={userData.profileImage}
