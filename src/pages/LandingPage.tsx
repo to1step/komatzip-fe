@@ -77,9 +77,9 @@ const LandingPage = () => {
               <h2>최고의 식사를 찾아 떠나는 주간 맛집 여행 ✈️</h2>
             </div>
             <article className="flex justify-center">
-              <div className="w-10/12">
+              <div className="w-full px-0 md:px-12">
                 {!data ? (
-                  <div className="flex justify-center gap-5">
+                  <div>
                     {['1', '2', '3', '4'].map((index) => (
                       <StoreSkeleton key={index} />
                     ))}
@@ -87,12 +87,7 @@ const LandingPage = () => {
                 ) : (
                   <MultiCarousel type={'store'}>
                     {data.map((item) => (
-                      <div
-                        key={item.uuid}
-                        className="w-1/5 flex justify-center"
-                      >
-                        <SearchTopstore item={item as Store} />
-                      </div>
+                      <SearchTopstore item={item as Store} />
                     ))}
                   </MultiCarousel>
                 )}
@@ -107,7 +102,7 @@ const LandingPage = () => {
               <h2>주간 최고 맛집 리스트를 만나보세요!</h2>
             </div>
             <article className="flex justify-center">
-              <div className="w-10/12 mb-20">
+              <div className="w-full px-0 md:px-12">
                 {!courseData ? (
                   <div className="flex justify-center gap-5">
                     {['1', '2'].map((index) => (
