@@ -81,7 +81,7 @@ function App() {
 
   return (
     <div>
-      <main>
+      <main className="min-w-[370px]">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/search" element={<SearchPage />} />

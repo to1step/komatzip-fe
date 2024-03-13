@@ -12,7 +12,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api/v1': {
-        target: 'https://api.to1step.shop',
+        target: 'http://komatzip.kkyungvelyy.com',
         changeOrigin: true,
       },
     },
