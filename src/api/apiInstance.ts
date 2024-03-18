@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { getToken } from '../util/cookie.util';
 
+console.log('import.meta.env.VITE_PUBLIC_API', import.meta.env.VITE_PUBLIC_API);
+console.log('process.env.VITE_PUBLIC_API', process.env.VITE_PUBLIC_API);
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_PUBLIC_API ?? 'http://localhost:3000/api',
+  baseURL: 'https://komatzip.wo.tc/api' ?? 'http://localhost:3000/api',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -11,6 +13,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
+    console.log('config', config);
     return config;
   },
   (error) => {
@@ -29,7 +32,7 @@ axiosInstance.interceptors.response.use(
       try {
         const refresh_token = getToken();
         const refreshResponse = await axiosInstance.post(
-          '/api/v1/auth/refresh-token',
+          '/v1/auth/refresh-token',
           {
             grant_type: 'refresh_token',
             refresh_token: refresh_token,
