@@ -77,10 +77,10 @@ const LandingPage = () => {
               <h2>최고의 식사를 찾아 떠나는 주간 맛집 여행 ✈️</h2>
             </div>
             <article className="flex justify-center">
-              <div className="w-full px-0 md:px-12">
+              <div className="w-full px-0 md:px-12 max-w-screen-2xl">
                 {!data ? (
-                  <div>
-                    {['1', '2', '3', '4'].map((index) => (
+                  <div className="flex gap-4">
+                    {['1', '2', '3'].map((index) => (
                       <StoreSkeleton key={index} />
                     ))}
                   </div>
@@ -102,7 +102,7 @@ const LandingPage = () => {
               <h2>주간 최고 맛집 리스트를 만나보세요!</h2>
             </div>
             <article className="flex justify-center">
-              <div className="w-full px-0 md:px-12">
+              <div className="w-full px-0 md:px-12 max-w-screen-2xl">
                 {!courseData ? (
                   <div className="flex justify-center gap-5">
                     {['1', '2'].map((index) => (
@@ -114,7 +114,7 @@ const LandingPage = () => {
                     {courseData.map((item) => (
                       <div
                         key={item.uuid}
-                        className="bg-[url('/images/topcourse-bg03.jpg')] bg-cover bg-center w-[600px]"
+                        className="bg-[url('/images/topcourse-bg03.jpg')] w-full max-w-[600px] min-h-[500px]"
                       >
                         <SearchTopcourse
                           item={item as Course}

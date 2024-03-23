@@ -8,7 +8,7 @@ const Image = ({ representImage }: ImageProps) => {
       <img
         src={representImage}
         alt="Image"
-        className="w-[280px] h-[150px] md:h-[200px] "
+        className="w-full h-1/5 max-h-[250px]"
       />
     </div>
   );

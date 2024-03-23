@@ -53,12 +53,9 @@ const SearchPage = () => {
         <h1 className="text-center mb-12  mt-10 h-[30px] text-4xl font-bold">
           매장 검색 결과
         </h1>
-        <article className="flex flex-wrap">
+        <article className="flex flex-wrap justify-around max-w-screen-2xl  w-full mx-auto gap-4">
           {searchResultsStore.map((item) => (
-            <div
-              key={item.uuid}
-              className="w-1/2 md:w-1/3 lg:w-1/5 flex justify-center"
-            >
+            <div key={item.uuid} className="w-2/5  md:w-1/4 lg:w-1/6">
               <SearchTopstore item={item as Store} />
             </div>
           ))}

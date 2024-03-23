@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
       try {
         const refresh_token = getToken();
         const refreshResponse = await axiosInstance.post(
-          '/api/v1/auth/refresh-token',
+          '/v1/auth/refresh-token',
           {
             grant_type: 'refresh_token',
             refresh_token: refresh_token,
