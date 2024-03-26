@@ -7,11 +7,11 @@ const responsiveStore = {
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
+    items: 4,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    items: 3,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
@@ -30,7 +30,7 @@ const responsiveCourse = {
   },
   tablet: {
     breakpoint: { max: 1424, min: 464 },
-    items: 1,
+    items: 2,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
@@ -49,7 +49,7 @@ export default function MultiCarousel({ children, autoPlay, type }: Props) {
       infinite
       autoPlay={autoPlay}
       responsive={type === 'course' ? responsiveCourse : responsiveStore}
-      itemClass="m-4"
+      itemClass="m-2"
     >
       {children}
     </Carousel>
